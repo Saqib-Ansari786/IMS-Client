@@ -73,7 +73,7 @@ export default function SignIn() {
                 />
               </FormControl>
               <FormControl>
-                <Checkbox colorScheme="blue">Remember me</Checkbox>
+                <Checkbox colorScheme="blue">Remember me I am murtaza</Checkbox>
               </FormControl>
               <Button
                 type="submit"
