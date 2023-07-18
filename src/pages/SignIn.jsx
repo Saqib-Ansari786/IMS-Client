@@ -6,7 +6,6 @@ import {
   Checkbox,
   Flex,
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Grid,
   GridItem,
@@ -29,7 +28,7 @@ export default function SignIn() {
   };
 
   return (
-    <Grid templateColumns={{ base: "1fr", md: "3fr 2fr" }} height="100vh">
+    <Grid templateColumns={{ base: "1fr", md: "3fr 2fr" }}>
       <GridItem display={{ base: "none", md: "block" }}>
         <Image
           src="https://source.unsplash.com/random?wallpapers"
@@ -76,7 +75,13 @@ export default function SignIn() {
               <FormControl>
                 <Checkbox colorScheme="blue">Remember me</Checkbox>
               </FormControl>
-              <Button type="submit" colorScheme="blue" size="lg" mt={4}>
+              <Button
+                type="submit"
+                bg={"primary.base"}
+                color={"white.base"}
+                size="lg"
+                mt={4}
+              >
                 Sign In
               </Button>
               <Stack direction="row" justifyContent="space-between">
