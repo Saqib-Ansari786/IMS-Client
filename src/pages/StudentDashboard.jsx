@@ -1,8 +1,3 @@
-import React from 'react'
-
 export default function StudentDashboard() {
-  return (
-    <div>StudentDashboard</div>
-  )
+  return <div>StudentDashboard</div>;
 }
-

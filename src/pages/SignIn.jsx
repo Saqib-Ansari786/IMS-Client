@@ -1,6 +1,4 @@
-import React from "react";
 import {
-  Avatar,
   Box,
   Button,
   Checkbox,
@@ -31,8 +29,13 @@ export default function SignIn() {
   return (
     <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} minH="100vh">
       <GridItem bg="#F3EFEF">
-        <Flex direction="column" alignItems="center" justifyContent="center" h="100%" >
-          <Image src={logo} alt="Logo" objectFit="contain" w="50%" mb={4}/>
+        <Flex
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          h="100%"
+        >
+          <Image src={logo} alt="Logo" objectFit="contain" w="50%" mb={4} />
           <Text
             as="h1"
             color="primary.base"
@@ -43,8 +46,12 @@ export default function SignIn() {
             Police Training Institute
           </Text>
           <Stack direction="row" spacing={3} mt={5}>
-            <Button bg="primary.base" color="white">Student</Button>
-            <Button bg="primary.base" color="white">Teacher</Button>
+            <Button bg="primary.base" color="white">
+              Student
+            </Button>
+            <Button bg="primary.base" color="white">
+              Teacher
+            </Button>
           </Stack>
         </Flex>
       </GridItem>
@@ -88,8 +95,8 @@ export default function SignIn() {
                 />
               </FormControl>
               <FormControl>
-              <Stack direction="row" justifyContent="space-between">
-                <Checkbox colorScheme="blue">Remember me</Checkbox>
+                <Stack direction="row" justifyContent="space-between">
+                  <Checkbox colorScheme="blue">Remember me</Checkbox>
                 </Stack>
               </FormControl>
               <Button
