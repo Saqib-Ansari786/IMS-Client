@@ -8,7 +8,12 @@ import {
 import { InfoIcon } from "@chakra-ui/icons";
 import NavItem from "./NavItem";
 
-export default function SidebarContent({ onClose, linkItems, routeItems }) {
+export default function SidebarContent({
+  onClose,
+  linkItems,
+  routeItems,
+  ...rest
+}) {
   return (
     <Box
       transition="3s ease"
@@ -19,6 +24,7 @@ export default function SidebarContent({ onClose, linkItems, routeItems }) {
       pos="fixed"
       h="full"
       color={"white"}
+      {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
