@@ -4,33 +4,11 @@ import {
   Flex,
   useColorModeValue,
   Text,
-  VStack,
-  HStack,
-  Spacer,
 } from "@chakra-ui/react";
-import {
-  InfoIcon,
-  ArrowUpIcon,
-  SearchIcon,
-  StarIcon,
-  SettingsIcon,
-} from "@chakra-ui/icons";
+import { InfoIcon } from "@chakra-ui/icons";
 import NavItem from "./NavItem";
 
-const LinkItems = [
-  { name: "Home", icon: InfoIcon },
-  { name: "Explore", icon: SearchIcon },
-  { name: "Favourites", icon: StarIcon },
-  { name: "Settings", icon: SettingsIcon },
-];
-
-const routeItems = [
-  { name: "Library Management", icon: InfoIcon },
-  { name: "Student Management", icon: ArrowUpIcon },
-  { name: "Teacher Management", icon: SearchIcon },
-];
-
-export default function SidebarContent({ onClose, ...rest }) {
+export default function SidebarContent({ onClose, linkItems, routeItems }) {
   return (
     <Box
       transition="3s ease"
@@ -41,7 +19,6 @@ export default function SidebarContent({ onClose, ...rest }) {
       pos="fixed"
       h="full"
       color={"white"}
-      {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
@@ -50,18 +27,20 @@ export default function SidebarContent({ onClose, ...rest }) {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
 
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
-
-      <Box my={5}>
-        {routeItems.map((link) => (
-          <NavItem key={link.name} icon={link.icon}>
+      {linkItems &&
+        linkItems.map((link) => (
+          <NavItem p={3} key={link.name} icon={link.icon}>
             {link.name}
           </NavItem>
         ))}
+
+      <Box mt={10} ml={1}>
+        {routeItems &&
+          routeItems.map((link) => (
+            <NavItem p={3} key={link.name} icon={link.icon}>
+              {link.name}
+            </NavItem>
+          ))}
       </Box>
 
       <NavItem icon={InfoIcon} pos="absolute" bottom="4">

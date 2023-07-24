@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 
-export default function StudentDashboardDetail({text}) {
+export default function StudentDashboardDetail({ text }) {
   return (
     <Box
       w="100%"
@@ -16,7 +16,7 @@ export default function StudentDashboardDetail({text}) {
       fontWeight="bold"
       mt={30}
     >
-        {text}
+      {text}
     </Box>
   );
 }

@@ -7,32 +7,21 @@ import {
   VStack,
   useColorModeValue,
   Text,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
 } from "@chakra-ui/react";
-import {
-  HamburgerIcon,
-  BellIcon,
-  ChevronDownIcon,
-  AddIcon,
-  DownloadIcon,
-} from "@chakra-ui/icons";
+import { HamburgerIcon, BellIcon } from "@chakra-ui/icons";
+import logo from "../../../assets/logo.png";
 
 export default function MobileNav({ onOpen, ...rest }) {
   return (
     <Box
-      display={"flex"}
-      ml={{ base: 0, md: "auto" }}
-      px={{ base: 4, md: 4 }}
-      height="20"
+      display="flex"
       alignItems="center"
+      justifyContent="space-between"
+      px={{ base: 4, md: 6 }}
+      py={2}
       bg={useColorModeValue("white", "gray.900")}
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
-      justifyContent={{ base: "space-between", md: "flex-end" }}
       {...rest}
     >
       <IconButton
@@ -43,82 +32,47 @@ export default function MobileNav({ onOpen, ...rest }) {
         icon={<HamburgerIcon />}
       />
 
-      <Text
-        display={{ base: "flex", md: "none" }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-      >
-        Dashboard
-      </Text>
-
-      <HStack spacing={{ base: 1, md: 3 }} alignItems="center">
-        <IconButton
-          aria-label="New"
-          icon={<AddIcon />}
-          bg="secondary.hover"
-          color="white"
-          size="sm"
-          display={{ base: "none", md: "flex" }}
+      <Flex alignItems="center" margin="auto">
+        <Box
+          as="img"
+          src={logo}
+          w={{ base: "35", md: "37" }}
+          h={{ base: "16", md: "16" }}
+          alt="Police Logo"
+          mr={2}
         />
-        <IconButton
-          aria-label="Upload"
-          icon={<DownloadIcon />}
-          bg="secondary.hover"
-          color="white"
-          size="sm"
-          display={{ base: "none", md: "flex" }}
-        />
-      </HStack>
+        <Text
+          color="#180E8A"
+          fontSize={{ base: "lg", md: "3xl" }}
+          fontWeight="medium"
+          textAlign="center"
+        >
+          Police Training Institute
+        </Text>
+      </Flex>
 
-      <HStack spacing={{ base: "0", md: "6" }}>
+      <HStack spacing={{ base: "2", md: "4" }}>
         <IconButton
-          size="lg"
+          size={{ base: "md", md: "lg" }}
           variant="ghost"
           aria-label="open menu"
           icon={<BellIcon />}
         />
-        <Flex alignItems={"center"}>
-          <Menu>
-            <MenuButton
-              py={2}
-              transition="all 0.3s"
-              _focus={{ boxShadow: "none" }}
+        <Flex alignItems="center">
+          <HStack>
+            <Avatar
+              size={{ base: "sm", md: "md" }}
+              src="https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
+            />
+            <VStack
+              display={{ base: "none", md: "flex" }}
+              alignItems="flex-start"
+              spacing="1px"
+              ml="2"
             >
-              <HStack>
-                <Avatar
-                  size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
-                <VStack
-                  display={{ base: "none", md: "flex" }}
-                  alignItems="flex-start"
-                  spacing="1px"
-                  ml="2"
-                >
-                  <Text fontSize="sm">Rena Tahir</Text>
-                  <Text fontSize="xs" color="gray.600">
-                    Admin
-                  </Text>
-                </VStack>
-                <Box display={{ base: "none", md: "flex" }}>
-                  <ChevronDownIcon />
-                </Box>
-              </HStack>
-            </MenuButton>
-            <MenuList
-              bg={useColorModeValue("white", "gray.900")}
-              borderColor={useColorModeValue("gray.200", "gray.700")}
-            >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Privacy</MenuItem>
-              <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
-            </MenuList>
-          </Menu>
+              <Text fontSize={{ base: "sm", md: "md" }}>Hey, Murtaza</Text>
+            </VStack>
+          </HStack>
         </Flex>
       </HStack>
     </Box>

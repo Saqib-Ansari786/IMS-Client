@@ -1,16 +1,12 @@
-import {Stack} from "@chakra-ui/react";
-import StudentSidebarwithHeader from "../../components/common/Sidebar/StudentSidebarwithHeader";
-import StudentDashboardDetail from "../../components/common/Sidebar/StudentDashboardDetail";
-import StudentDashboardTable from "../../components/common/Sidebar/StudentDashboardTable";
-
+import { Stack } from "@chakra-ui/react";
+import StudentDashboardDetail from "../../components/pages/Student/StudentDashboardDetail";
+import StudentDashboardTable from "../../components/pages/Student/StudentDashboardTable";
 
 export default function Assignment() {
   return (
     <Stack minW="100%">
-      <StudentSidebarwithHeader>
-        <StudentDashboardDetail text={"Class Assignments"}/>
-        <StudentDashboardTable />
-            </StudentSidebarwithHeader>
+      <StudentDashboardDetail text={"Class Assignments"} />
+      <StudentDashboardTable />
     </Stack>
   );
 }

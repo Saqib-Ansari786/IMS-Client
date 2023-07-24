@@ -19,7 +19,6 @@ export default function NavItem({ icon, children, ...rest }) {
         }}
         {...rest}
         textAlign={"left"}
-        justifySelf={"flex-end"}
       >
         {icon && (
           <Icon

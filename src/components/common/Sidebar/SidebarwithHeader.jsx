@@ -1,39 +1,15 @@
-/* eslint-disable */
 import {
-  IconButton,
-  Avatar,
   Box,
-  CloseButton,
-  Flex,
-  HStack,
-  VStack,
-  Icon,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
-  Text,
   useDisclosure,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
 } from "@chakra-ui/react";
-import {
-  InfoIcon,
-  ArrowUpIcon,
-  SearchIcon,
-  StarIcon,
-  SettingsIcon,
-  HamburgerIcon,
-  BellIcon,
-  ChevronDownIcon,
-} from "@chakra-ui/icons";
+
 import SidebarContent from "./SidebarContent";
 import MobileNav from "./MobileNav";
 
-export default function SidebarWithHeader({ children }) {
+export default function SidebarwithHeader({ children, linkItems, routeItems }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box
@@ -44,6 +20,8 @@ export default function SidebarWithHeader({ children }) {
       <SidebarContent
         onClose={onClose}
         display={{ base: "none", md: "block" }}
+        linkItems={linkItems}
+        routeItems={routeItems}
       />
       <Drawer
         autoFocus={false}
@@ -55,7 +33,11 @@ export default function SidebarWithHeader({ children }) {
         size="full"
       >
         <DrawerContent>
-          <SidebarContent onClose={onClose} />
+          <SidebarContent
+            onClose={onClose}
+            linkItems={linkItems}
+            routeItems={routeItems}
+          />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}

@@ -9,11 +9,10 @@ import SignIn from "./pages/SignIn";
 import RootLayout from "./pages/RootLayout";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Admin/Dashboard";
-import StudentSidebarContent from "./components/common/Sidebar/StudentSidebarContent";
-import SidebarWithHeader from "./components/common/Sidebar/Sidebar";
-import StudentNav from "./components/common/Sidebar/StudentNav";
+
 import Home from "./pages/Student/Home";
 import Assignment from "./pages/Student/Assignment";
+import StudentRootLayout from "./pages/Student/StudentRootLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,11 +20,11 @@ const router = createBrowserRouter(
       <Route index element={<SignIn />} />
       <Route path="*" element={<NotFound />} />
       <Route path="dashboard" element={<Dashboard />} />
-      <Route path="home" element={<Home/>} />
-      <Route path="assignment" element={<Assignment/>} />
-      <Route path="sidebar" element={<StudentSidebarContent/>} />
-      <Route path="sidebarh" element={<SidebarWithHeader/>} />
-      <Route path="s" element={<StudentNav/>} />
+
+      <Route path="student/" element={<StudentRootLayout />}>
+        <Route index element={<Home />} />
+        <Route path="assignments" element={<Assignment />} />
+      </Route>
     </Route>
   )
 );
