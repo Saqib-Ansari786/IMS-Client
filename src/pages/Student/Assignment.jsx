@@ -4,7 +4,8 @@ import StudentAssignmentTable from "../../components/pages/Student/StudentAssign
 
 const tableHeader = ["TITLE", "START DATE", "END DATE", "DOWNLOAD", "UPLOAD", "STATUS"];
 const tableData = [
-  ["Assignment 01", "1/01/2023 1:00 PM", "10/01/2023 1:00 AM", "file01.pdf", null, null]
+  ["Assignment 01", "1/01/2023 1:00 PM", "10/01/2023 1:00 AM", "file01.pdf", null, null],
+  ["Assignment 01", "1/01/2023 1:00 PM", "10/01/2023 1:00 AM", "file01.pdf", null, null],
 ]
 
 export default function Assignment() {

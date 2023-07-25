@@ -2,11 +2,7 @@ import { useState } from "react";
 import { Box, Table, Thead, Tbody, Tr, Th, Td, TableContainer, IconButton, Input, Button } from "@chakra-ui/react";
 import { DownloadIcon, AttachmentIcon, CheckIcon } from "@chakra-ui/icons";
 
-const tableHeaders = ["TITLE", "START DATE", "END DATE", "DOWNLOAD", "UPLOAD", "STATUS"];
-const tableData = [
-  ["Assignment 01", "1/01/2023 1:00 PM", "10/01/2023 1:00 AM", "file01.pdf", null, null]
-]
-export default function StudentAssignmentTable() {
+export default function StudentAssignmentTable({header, data}) {
   const [uploadedFileName, setUploadedFileName] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isUploadHovered, setIsUploadHovered] = useState(false);
@@ -27,7 +23,7 @@ export default function StudentAssignmentTable() {
       <Table variant="simple" backgroundColor="white" mt={5} borderRadius={8}>
         <Thead>
           <Tr>
-            {tableHeaders.map((header, index) => (
+            {header.map((header, index) => (
               <Th key={index} textAlign="center">
                 {header}
               </Th>
@@ -35,7 +31,7 @@ export default function StudentAssignmentTable() {
           </Tr>
         </Thead>
         <Tbody>
-          {tableData.map((row, rowIndex) => (
+          {data.map((row, rowIndex) => (
             <Tr key={rowIndex}>
               {row.map((cell, cellIndex) => (
                 <Td key={cellIndex} textAlign="center">

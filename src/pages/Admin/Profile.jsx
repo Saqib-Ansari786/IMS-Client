@@ -1,6 +1,5 @@
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 import ProfileColumn from "../../components/pages/Profile/ProfileColumn";
-import AnnouncementsColumn from "../../components/pages/Profile/AnnouncementColumn";
 import AnnouncementCard from "../../components/pages/Dashboard/AnnouncementCard";
 
 const Profile = () => {
