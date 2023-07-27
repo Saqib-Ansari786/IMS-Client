@@ -40,7 +40,7 @@ export default function SidebarContent({
           </NavItem>
         ))}
 
-      <Box mt={10} ml={1}>
+      <Box my={10} ml={1}>
         {routeItems &&
           routeItems.map((link) => (
             <NavItem p={3} key={link.name} icon={link.icon}>
@@ -49,7 +49,7 @@ export default function SidebarContent({
           ))}
       </Box>
 
-      <NavItem icon={InfoIcon} pos="absolute" bottom="4">
+      <NavItem p={3} icon={InfoIcon}>
         Logout
       </NavItem>
     </Box>
