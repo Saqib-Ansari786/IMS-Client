@@ -17,6 +17,7 @@ import AdminRootLayout from "./pages/Admin/AdminRootLayout";
 import Profile from "./pages/Admin/Profile";
 import { AttendanceDetail } from "./pages/Student/AttendanceDetail";
 import { MarksSummary } from "./pages/Student/MarksSummary";
+import CourseResources from "./pages/Student/CourseResources";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
         <Route path="assignments" element={<Assignment />} />
         <Route path="attendance" element={<AttendanceDetail/>} />
         <Route path="marks" element={<MarksSummary/>} />
+        <Route path="resources" element={<CourseResources/>} />
       </Route>
     </Route>
   )
