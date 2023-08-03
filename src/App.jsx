@@ -15,6 +15,7 @@ import Assignment from "./pages/Student/Assignment";
 import StudentRootLayout from "./pages/Student/StudentRootLayout";
 import AdminRootLayout from "./pages/Admin/AdminRootLayout";
 import Profile from "./pages/Admin/Profile";
+import { AttendanceDetail } from "./pages/Student/AttendanceDetail";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route path="student/" element={<StudentRootLayout />}>
         <Route index element={<Home />} />
         <Route path="assignments" element={<Assignment />} />
+        <Route path="attendance" element={<AttendanceDetail/>} />
       </Route>
     </Route>
   )
