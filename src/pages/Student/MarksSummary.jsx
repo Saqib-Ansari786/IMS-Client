@@ -1,27 +1,91 @@
 import { Stack } from "@chakra-ui/react";
-import StudentDashboardDetail from '../../components/pages/Student/StudentDashboardDetail'
+import StudentDashboardDetail from "../../components/pages/Student/StudentDashboardDetail";
 import StudentMarksSummaryTable from "../../components/pages/Student/StudentMarksSummaryTable";
-const tableHeader = ["TITLE", "TOTAL MARKS", "OBTAINED MARKS", "DATE TIME", "TEACHER COMMENT"];
-const QuiztableData = [
-  ["Quiz 1", "10", "9", "10/01/2023 Wednesday", "Good Job"],
-  ["Quiz 2", "10", "10", "10/01/2023 Monday", "Excellent Job"],
-  ["Quiz 3", "10", "5", "10/01/2023 Friday", "Need Improvement"],
-]
-const AssignmenttableData = [
-  ["Assignment 1", "10", "9", "10/01/2023 Wednesday", "Good Job"],
-  ["Assignment 2", "10", "10", "10/01/2023 Monday", "Excellent Job"],
-  ["Assignment 3", "10", "5", "10/01/2023 Friday", "Need Improvement"],
-]
-const FinaltableData = [
-  ["Finals", "100", "83", "10/01/2023 Wednesday", "Good Job"],
-]
+const jsonData = {
+  headers: [
+    "TITLE",
+    "TOTAL MARKS",
+    "OBTAINED MARKS",
+    "DATE TIME",
+    "TEACHER COMMENT",
+  ],
+  data: {
+    QuiztableData: [
+      {
+        title: "Quiz 1",
+        totalMarks: "10",
+        obtainedMarks: "9",
+        dateTime: "10/01/2023 Wednesday",
+        teacherComment: "Good Job",
+      },
+      {
+        title: "Quiz 2",
+        totalMarks: "10",
+        obtainedMarks: "10",
+        dateTime: "10/01/2023 Monday",
+        teacherComment: "Excellent Job",
+      },
+      {
+        title: "Quiz 1",
+        totalMarks: "10",
+        obtainedMarks: "5",
+        dateTime: "10/01/2023 Friday",
+        teacherComment: "Need Improvement",
+      },
+    ],
+    AssignmenttableData: [
+      {
+        title: "Assignment 1",
+        totalMarks: "10",
+        obtainedMarks: "9",
+        dateTime: "10/01/2023 Wednesday",
+        teacherComment: "Good Job",
+      },
+      {
+        title: "Assignment 2",
+        totalMarks: "10",
+        obtainedMarks: "10",
+        dateTime: "10/01/2023 Monday",
+        teacherComment: "Excellent Job",
+      },
+      {
+        title: "Assignment 3",
+        totalMarks: "10",
+        obtainedMarks: "5",
+        dateTime: "10/01/2023 Friday",
+        teacherComment: "Need Improvement",
+      },
+    ],
+    FinaltableData: [
+      {
+        title: "Finals",
+        totalMarks: "100",
+        obtainedMarks: "83",
+        dateTime: "10/01/2023 wednesday",
+        teacherComment: "Good Job",
+      },
+    ],
+  },
+};
+
 export const MarksSummary = () => {
+  const headers = jsonData.headers;
+  const data = jsonData.data;
   return (
-  <Stack gap={0}>
-    <StudentDashboardDetail text={"Marks Summary"} />
-    <StudentMarksSummaryTable text={"Quizes"} headers={tableHeader} data={QuiztableData} boxStyle={{marginTop: "10"}} />
-    <StudentMarksSummaryTable text={"Assignments"} headers={tableHeader} data={AssignmenttableData} />
-    <StudentMarksSummaryTable text={"Finals"} headers={tableHeader} data={FinaltableData} />
-  </Stack>
-  )
-}
+    <Stack gap={0}>
+      <StudentDashboardDetail text={"Marks Summary"} />
+      <StudentMarksSummaryTable
+        text={"Quizes"}
+        headers={headers}
+        data={data.QuiztableData}
+        boxStyle={{ marginTop: "10" }}
+      />
+      <StudentMarksSummaryTable
+        text={"Assignments"}
+        headers={headers}
+        data={data.AssignmenttableData}
+      />
+      <StudentMarksSummaryTable text={"Finals"} headers={headers} data={data.FinaltableData} />
+    </Stack>
+  );
+};

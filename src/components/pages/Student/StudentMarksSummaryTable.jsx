@@ -28,14 +28,25 @@ export default function StudentMarksSummaryTable({text, headers, data, boxStyle}
           </Tr>
         </Thead>
         <Tbody>
-          {data && data.map((row, rowIndex) => (
+          {data
+           && data.map((row, rowIndex) => (
             <Tr key={rowIndex}>
-              {row.map((cell, cellIndex) => (
-                <Td key={cellIndex} textAlign="center">
-                    {cell}
+                <Td key={rowIndex} textAlign="center">
+                  {row.title}
                 </Td>
-              ))}
-            </Tr>
+                <Td key={rowIndex} textAlign="center">
+                  {row.totalMarks}
+                </Td>
+                <Td key={rowIndex} textAlign="center">
+                  {row.obtainedMarks}
+                </Td>
+                <Td key={rowIndex} textAlign="center">
+                  {row.dateTime}
+                </Td>
+                <Td key={rowIndex} textAlign="center">
+                  {row.teacherComment}
+                </Td>
+                </Tr>
           ))}
         </Tbody>
       </Table>

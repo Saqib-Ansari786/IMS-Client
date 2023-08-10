@@ -26,6 +26,9 @@ const customTheme = extendTheme({
       base: "#80461B",
       hover: "#603a15",
     },
+    downloadIcon: {
+      base: "#180E8A"
+    }
     // Add more custom colors if needed
     // ...
   },
