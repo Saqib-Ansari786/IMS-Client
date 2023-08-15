@@ -3,17 +3,35 @@ import StudentDashboardDetail from "../../components/pages/Student/StudentDashbo
 import CourseResourcesTable from "../../components/pages/Student/CourseResourcesTable";
 
 
-const tableHeader = ["TITLE", "START DATE", "END DATE", "DOWNLOAD", "UPLOAD", "STATUS"];
-const tableData = [
-  ["Assignment 01", "1/01/2023 1:00 PM", "10/01/2023 1:00 AM", "file01.pdf", null, null],
-  ["Assignment 01", "1/01/2023 1:00 PM", "10/01/2023 1:00 AM", "file01.pdf", null, null],
-]
+const jsonData = {
+  headers: ["TITLE", "FILE TITLE", "UPLOAD TIME", "FILE SIZE", "FILE TYPE", "DOWNLOAD"],
+  data: [
+    {
+      title: "Course Hand Book",
+      fileTitle: "PSI_202_book",
+      uploadTime: "10/01/2023 1:00 AM",
+      fileSize: "3KB",
+      fileType: "pdf",
+      download: null,
+    },
+    {
+      title: "Course Notes",
+      fileTitle: "PSI_203_notes",
+      uploadTime: "10/01/2023 1:00 AM",
+      fileSize: "3KB",
+      fileType: "powerpoint",
+      download: null,
+    }
+  ],
+};
 
 export default function CourseResources() {
+  const headers = jsonData.headers;
+  const data = jsonData.data;
   return (
     <Stack minW="100%">
-      <StudentDashboardDetail text={"Class Assignments"} />
-      <CourseResourcesTable headers={tableHeader} data={tableData} />
+      <StudentDashboardDetail text={"Class Resources"} />
+      <CourseResourcesTable headers={headers} data={data} />
     </Stack>
   );
 }
