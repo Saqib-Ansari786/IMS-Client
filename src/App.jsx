@@ -18,6 +18,8 @@ import Profile from "./pages/Admin/Profile";
 import { AttendanceDetail } from "./pages/Student/AttendanceDetail";
 import { MarksSummary } from "./pages/Student/MarksSummary";
 import CourseResources from "./pages/Student/CourseResources";
+import { ViewLibrary } from "./pages/Student/ViewLibrary";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +36,7 @@ const router = createBrowserRouter(
         <Route path="attendance" element={<AttendanceDetail/>} />
         <Route path="marks" element={<MarksSummary/>} />
         <Route path="resources" element={<CourseResources/>} />
+        <Route path="viewlibrary" element={<ViewLibrary/>} />
       </Route>
     </Route>
   )
