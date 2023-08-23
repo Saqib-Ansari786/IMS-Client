@@ -20,6 +20,7 @@ import { MarksSummary } from "./pages/Student/MarksSummary";
 import CourseResources from "./pages/Student/CourseResources";
 import { ViewLibrary } from "./pages/Student/ViewLibrary";
 import TeacherRootLayout from "./pages/Teacher/TeacherRootLayout";
+import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,7 +40,7 @@ const router = createBrowserRouter(
         <Route path="viewlibrary" element={<ViewLibrary />} />
       </Route>
       <Route path="teacher/" element={<TeacherRootLayout />}>
-        <Route index element={<Home />} />
+        <Route index element={<TeacherDashboard />} />
       </Route>
     </Route>
   )
