@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { InfoIcon } from "@chakra-ui/icons";
 import NavItem from "./NavItem";
+import { Link } from "react-router-dom";
 
 export default function SidebarContent({
   onClose,
@@ -36,7 +37,7 @@ export default function SidebarContent({
       {linkItems &&
         linkItems.map((link) => (
           <NavItem p={3} key={link.name} icon={link.icon}>
-            {link.name}
+            <Link to={link.route}>{link.name}</Link>
           </NavItem>
         ))}
 
@@ -44,13 +45,12 @@ export default function SidebarContent({
         {routeItems &&
           routeItems.map((link) => (
             <NavItem p={3} key={link.name} icon={link.icon}>
-              {link.name}
+              <Link to={link.route}>{link.name}</Link>
             </NavItem>
           ))}
       </Box>
-
       <NavItem p={3} icon={InfoIcon}>
-        Logout
+        <Link to={"/"}>Logout</Link>
       </NavItem>
     </Box>
   );

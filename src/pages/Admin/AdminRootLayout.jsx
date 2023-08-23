@@ -9,16 +9,16 @@ import {
 } from "@chakra-ui/icons";
 
 const LinkItems = [
-  { name: "Home", icon: InfoIcon },
-  { name: "Explore", icon: SearchIcon },
-  { name: "Favourites", icon: StarIcon },
-  { name: "Settings", icon: SettingsIcon },
+  { name: "Home", icon: InfoIcon, route: "/admin" },
+  { name: "Explore", icon: SearchIcon, route: "/admin" },
+  { name: "Favourites", icon: StarIcon, route: "/admin" },
+  { name: "Settings", icon: SettingsIcon, route: "/admin" },
 ];
 
 const routeItems = [
-  { name: "Library Management", icon: InfoIcon },
-  { name: "Student Management", icon: ArrowUpIcon },
-  { name: "Teacher Management", icon: SearchIcon },
+  { name: "Library Management", icon: InfoIcon, route: "/admin/library" },
+  { name: "Student Management", icon: ArrowUpIcon, route: "/admin/student" },
+  { name: "Teacher Management", icon: SearchIcon, route: "/admin/teacher" },
 ];
 
 export default function AdminRootLayout() {

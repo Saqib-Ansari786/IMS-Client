@@ -19,7 +19,7 @@ import { AttendanceDetail } from "./pages/Student/AttendanceDetail";
 import { MarksSummary } from "./pages/Student/MarksSummary";
 import CourseResources from "./pages/Student/CourseResources";
 import { ViewLibrary } from "./pages/Student/ViewLibrary";
-
+import TeacherRootLayout from "./pages/Teacher/TeacherRootLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,10 +33,13 @@ const router = createBrowserRouter(
       <Route path="student/" element={<StudentRootLayout />}>
         <Route index element={<Home />} />
         <Route path="assignments" element={<Assignment />} />
-        <Route path="attendance" element={<AttendanceDetail/>} />
-        <Route path="marks" element={<MarksSummary/>} />
-        <Route path="resources" element={<CourseResources/>} />
-        <Route path="viewlibrary" element={<ViewLibrary/>} />
+        <Route path="attendance" element={<AttendanceDetail />} />
+        <Route path="marks" element={<MarksSummary />} />
+        <Route path="resources" element={<CourseResources />} />
+        <Route path="viewlibrary" element={<ViewLibrary />} />
+      </Route>
+      <Route path="teacher/" element={<TeacherRootLayout />}>
+        <Route index element={<Home />} />
       </Route>
     </Route>
   )

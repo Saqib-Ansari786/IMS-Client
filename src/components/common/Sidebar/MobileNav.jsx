@@ -15,8 +15,9 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import logo from "../../../assets/logo.png";
+import { Link } from "react-router-dom";
 
-export default function MobileNav({ onOpen, ...rest }) {
+export default function MobileNav({ onOpen, link, ...rest }) {
   return (
     <Box
       display="flex"
@@ -97,11 +98,19 @@ export default function MobileNav({ onOpen, ...rest }) {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Privacy</MenuItem>
+              <MenuItem>
+                <Link to={""}>Profile</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to={""}>Settings</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to={""}>Privacy</Link>
+              </MenuItem>
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem>
+                <Link to={""}>Sign out</Link>
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>

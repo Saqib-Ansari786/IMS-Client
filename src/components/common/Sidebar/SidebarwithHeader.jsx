@@ -9,7 +9,12 @@ import {
 import SidebarContent from "./SidebarContent";
 import MobileNav from "./MobileNav";
 
-export default function SidebarwithHeader({ children, linkItems, routeItems }) {
+export default function SidebarwithHeader({
+  children,
+  linkItems,
+  routeItems,
+  headerRoutes,
+}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box
@@ -42,7 +47,7 @@ export default function SidebarwithHeader({ children, linkItems, routeItems }) {
       </Drawer>
       {/* mobilenav */}
       <Box>
-        <MobileNav onOpen={onOpen} />
+        <MobileNav onOpen={onOpen} link={headerRoutes} />
       </Box>
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
