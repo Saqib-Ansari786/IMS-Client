@@ -9,12 +9,12 @@ import {
   GridItem,
   Image,
   Input,
-  Link,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { LockIcon } from "@chakra-ui/icons";
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 export default function SignIn() {
   const handleSubmit = (event) => {
@@ -47,10 +47,10 @@ export default function SignIn() {
           </Text>
           <Stack direction="row" spacing={3} mt={5}>
             <Button bg="primary.base" color="white">
-              Student
+              <Link to="/student">Student</Link>
             </Button>
             <Button bg="primary.base" color="white">
-              Teacher
+              <Link to="/teacher">Teacher</Link>
             </Button>
           </Stack>
         </Flex>
