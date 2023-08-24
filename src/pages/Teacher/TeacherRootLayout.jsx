@@ -1,19 +1,13 @@
 import { Outlet } from "react-router";
 import SidebarwithHeader from "../../components/common/Sidebar/SidebarwithHeader";
-import {
-  ArrowUpIcon,
-  InfoIcon,
-  SearchIcon,
-  SettingsIcon,
-  StarIcon,
-} from "@chakra-ui/icons";
+import { InfoIcon, SearchIcon, SettingsIcon, StarIcon } from "@chakra-ui/icons";
 
 const LinkItems = [
-  { name: "Home", icon: InfoIcon },
-  { name: "Attendance", icon: SearchIcon },
-  { name: "Assignments", icon: StarIcon },
-  { name: "Marks Summary", icon: SettingsIcon },
-  { name: "Course Resources", icon: SettingsIcon },
+  { name: "Home", icon: InfoIcon, route: "/teacher" },
+  { name: "Attendance", icon: SearchIcon, route: "/teacher/manageattendance" },
+  { name: "Assignments", icon: StarIcon, route: "/teacher/assignments" },
+  { name: "Marks Summary", icon: SettingsIcon, route: "/teacher/marks" },
+  { name: "Course Resources", icon: SettingsIcon, route: "/teacher/resources" },
 ];
 
 export default function TeacherRootLayout() {
