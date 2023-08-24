@@ -14,19 +14,12 @@ const LinkItems = [
   { name: "Assignments", icon: StarIcon },
   { name: "Marks Summary", icon: SettingsIcon },
   { name: "Course Resources", icon: SettingsIcon },
-  { name: "View Library", icon: SettingsIcon },
-];
-
-const routeItems = [
-  { name: "Profile", icon: InfoIcon },
-  { name: "Messages", icon: ArrowUpIcon },
-  { name: "Support", icon: SearchIcon },
 ];
 
 export default function TeacherRootLayout() {
   return (
     <div>
-      <SidebarwithHeader linkItems={LinkItems} routeItems={routeItems}>
+      <SidebarwithHeader linkItems={LinkItems}>
         <Outlet />
       </SidebarwithHeader>
     </div>

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -47,5 +46,5 @@ const data = {
 };
 
 export default function LineChart() {
-  return <Line options={options} data={data} />;
+  return <Line options={options} data={data} flex={1} />;
 }

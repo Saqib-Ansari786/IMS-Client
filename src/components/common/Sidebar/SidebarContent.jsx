@@ -27,31 +27,48 @@ export default function SidebarContent({
       color={"white"}
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Dashboard
-        </Text>
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
-      </Flex>
+      <Flex flexDirection="column" h="full">
+        <Box>
+          <Flex
+            h="20"
+            alignItems="center"
+            mx="8"
+            justifyContent="space-between"
+          >
+            <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+              Dashboard
+            </Text>
+            <CloseButton
+              display={{ base: "flex", md: "none" }}
+              onClick={onClose}
+            />
+          </Flex>
 
-      {linkItems &&
-        linkItems.map((link) => (
-          <NavItem p={3} key={link.name} icon={link.icon}>
-            <Link to={link.route}>{link.name}</Link>
+          {linkItems &&
+            linkItems.map((link) => (
+              <NavItem p={3} key={link.name} icon={link.icon}>
+                <Link to={link.route}>{link.name}</Link>
+              </NavItem>
+            ))}
+
+          <Box my={10} ml={1}>
+            {routeItems &&
+              routeItems.map((link) => (
+                <NavItem p={3} key={link.name} icon={link.icon}>
+                  <Link to={link.route}>{link.name}</Link>
+                </NavItem>
+              ))}
+          </Box>
+        </Box>
+
+        <Box mt="auto" ml={1}>
+          {" "}
+          {/* This pushes the Logout link to the bottom */}
+          <NavItem p={3} icon={InfoIcon}>
+            <Link to={"/"}>Logout</Link>
           </NavItem>
-        ))}
-
-      <Box my={10} ml={1}>
-        {routeItems &&
-          routeItems.map((link) => (
-            <NavItem p={3} key={link.name} icon={link.icon}>
-              <Link to={link.route}>{link.name}</Link>
-            </NavItem>
-          ))}
-      </Box>
-      <NavItem p={3} icon={InfoIcon}>
-        <Link to={"/"}>Logout</Link>
-      </NavItem>
+        </Box>
+      </Flex>
     </Box>
   );
 }

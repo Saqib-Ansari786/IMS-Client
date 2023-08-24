@@ -5,11 +5,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-const CircularProgressBar = ({ percentage }) => {
+export const CircularProgressBar = ({ percentage }) => {
   return (
     <CircularProgress
       value={percentage}
       color={percentage >= 50 ? "green.400" : "red.400"}
+      size={"100px"}
     >
       <CircularProgressLabel>{percentage}%</CircularProgressLabel>
     </CircularProgress>

@@ -2,10 +2,11 @@ import {
   Avatar,
   Box,
   Flex,
+  Grid,
+  GridItem,
   Heading,
   Spacer,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 import StackedColumnChart from "../../components/pages/Teacher/StackedColumnChart";
 import LineChart from "../../components/pages/Teacher/LineChart";
@@ -14,18 +15,18 @@ import { FaFile } from "react-icons/fa"; // Import the desired document icon
 
 const Layout = ({ children, heading }) => {
   return (
-    <Box flex={1} p={4} backgroundColor="white.base" borderRadius={10}>
-      <Heading mb={2} size="md" textAlign={"left"}>
+    <GridItem p={4} backgroundColor="white.base" borderRadius={10}>
+      <Heading mb={2} size="md" textAlign="left">
         {heading}
       </Heading>
       {children}
-    </Box>
+    </GridItem>
   );
 };
 
 const ActivityBox = ({ date, activity, place, time, status }) => {
   return (
-    <Flex direction="row" alignItems="center">
+    <Flex direction="row" alignItems="center" my={5}>
       <Box
         backgroundColor="primary.base"
         color="white"
@@ -54,7 +55,7 @@ const ActivityBox = ({ date, activity, place, time, status }) => {
 
 const MessageBox = ({ sender, message, time }) => {
   return (
-    <Flex direction="row" alignItems="center">
+    <Flex direction="row" alignItems="center" my={5}>
       <Avatar size="sm" name={sender} src="url_to_avatar_image" mr={3} />
       <Flex direction="column" textAlign={"left"}>
         <Text fontWeight="bold">{sender}</Text>
@@ -67,7 +68,7 @@ const MessageBox = ({ sender, message, time }) => {
 };
 const DocumentBox = ({ name, time }) => {
   return (
-    <Flex direction="row" alignItems="center">
+    <Flex direction="row" alignItems="center" my={5}>
       <Box as={FaFile} fontSize="xl" color="primary.base" mr={3} />
       <Flex direction="column" textAlign={"left"}>
         <Text fontWeight="bold">{name}</Text>
@@ -80,9 +81,8 @@ const DocumentBox = ({ name, time }) => {
 const TeacherDashboard = () => {
   return (
     <Box>
-      <Flex
-        direction={{ base: "column", md: "row" }}
-        flexWrap={"wrap"}
+      <Grid
+        templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
         gap={{ base: 5, md: 10 }}
       >
         {/* First Column */}
@@ -98,7 +98,7 @@ const TeacherDashboard = () => {
         <Layout heading="Progress">
           <BoxwithCircularProgressBar percentage={75} strength={75} />
           {/* Add more class boxes here */}
-          <BoxwithCircularProgressBar percentage={75} strength={75} />
+          <BoxwithCircularProgressBar percentage={40} strength={75} />
           <BoxwithCircularProgressBar percentage={75} strength={75} />
         </Layout>
         {/* Fourth Column */}
@@ -144,7 +144,7 @@ const TeacherDashboard = () => {
           <DocumentBox name="Presentation.pptx" time="Aug 26, 10:00 AM" />
           {/* Add more DocumentBoxes here */}
         </Layout>
-      </Flex>
+      </Grid>
     </Box>
   );
 };

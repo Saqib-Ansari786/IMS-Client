@@ -21,6 +21,7 @@ import CourseResources from "./pages/Student/CourseResources";
 import { ViewLibrary } from "./pages/Student/ViewLibrary";
 import TeacherRootLayout from "./pages/Teacher/TeacherRootLayout";
 import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
+import ManageAttendancePage from "./pages/Teacher/ManageAttendence";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="teacher/" element={<TeacherRootLayout />}>
         <Route index element={<TeacherDashboard />} />
+        <Route path="manageattendance" element={<ManageAttendancePage />} />
       </Route>
     </Route>
   )
