@@ -1,17 +1,10 @@
-import {
-  Avatar,
-  Box,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  Spacer,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Grid, GridItem, Heading } from "@chakra-ui/react";
 import StackedColumnChart from "../../components/pages/Teacher/StackedColumnChart";
 import LineChart from "../../components/pages/Teacher/LineChart";
 import BoxwithCircularProgressBar from "../../components/pages/Teacher/CircularProgressBar";
-import { FaFile } from "react-icons/fa"; // Import the desired document icon
+import ActivityBox from "../../components/pages/Teacher/ActivityBox";
+import MessageBox from "../../components/pages/Teacher/MessageBox";
+import DocumentBox from "../../components/pages/Teacher/DocumentBox";
 
 const Layout = ({ children, heading }) => {
   return (
@@ -21,60 +14,6 @@ const Layout = ({ children, heading }) => {
       </Heading>
       {children}
     </GridItem>
-  );
-};
-
-const ActivityBox = ({ date, activity, place, time, status }) => {
-  return (
-    <Flex direction="row" alignItems="center" my={5}>
-      <Box
-        backgroundColor="primary.base"
-        color="white"
-        p={2}
-        borderRadius={5}
-        mr={3}
-      >
-        {date}
-      </Box>
-      <Flex direction="column">
-        <Text color={"primary.base"} fontWeight={"bold"}>
-          {activity}
-        </Text>
-        <Text color={"gray.600"}>{place}</Text>
-      </Flex>
-      <Spacer />
-      <Flex direction="column">
-        <Text>{time}</Text>
-        <Text color={status === "Upcoming" ? "secondary.base" : "primary.base"}>
-          {status}
-        </Text>
-      </Flex>
-    </Flex>
-  );
-};
-
-const MessageBox = ({ sender, message, time }) => {
-  return (
-    <Flex direction="row" alignItems="center" my={5}>
-      <Avatar size="sm" name={sender} src="url_to_avatar_image" mr={3} />
-      <Flex direction="column" textAlign={"left"}>
-        <Text fontWeight="bold">{sender}</Text>
-        <Text>{message}</Text>
-      </Flex>
-      <Spacer />
-      <Text color="gray.500">{time}</Text>
-    </Flex>
-  );
-};
-const DocumentBox = ({ name, time }) => {
-  return (
-    <Flex direction="row" alignItems="center" my={5}>
-      <Box as={FaFile} fontSize="xl" color="primary.base" mr={3} />
-      <Flex direction="column" textAlign={"left"}>
-        <Text fontWeight="bold">{name}</Text>
-        <Text color="gray.500">{time}</Text>
-      </Flex>
-    </Flex>
   );
 };
 
