@@ -13,7 +13,6 @@ import {
   Thead,
   Tr,
   HStack,
-  TableContainer,
   // Import ScrollView
 } from "@chakra-ui/react";
 import { FaEdit, FaPlus, FaSortAlphaDown, FaSortAlphaUp } from "react-icons/fa"; // Import sort icons
@@ -23,19 +22,22 @@ const sampleData = [
     id: 1,
     courseId: "Course123",
     department: "Department A",
-    previousAttendance: "75%",
+    previousAttendance: "75",
+    date: "2021-10-10",
   },
   {
     id: 2,
     courseId: "Course456",
     department: "Department B",
-    previousAttendance: "82%",
+    previousAttendance: "82",
+    date: "2021-10-10",
   },
   {
     id: 3,
     courseId: "Course789",
     department: "Department C",
-    previousAttendance: "67%",
+    previousAttendance: "67",
+    date: "2021-10-10",
   },
   // Add more data as needed
 ];
@@ -64,14 +66,15 @@ const AddAttendancePage = () => {
       (data) =>
         data.courseId.toLowerCase().includes(query) ||
         data.department.toLowerCase().includes(query) ||
-        data.previousAttendance.toLowerCase().includes(query)
+        data.previousAttendance.toLowerCase().includes(query) ||
+        data.date.toLowerCase().includes(query)
     );
     setSortedData(filteredData);
     setSearchQuery(query);
   };
 
   return (
-    <Box p={4} minW={"100%"}>
+    <Box p={{ base: 0, md: 4 }} minW={"100%"}>
       <Heading size="lg" mb={4}>
         Add Attendance
       </Heading>
@@ -141,6 +144,17 @@ const AddAttendancePage = () => {
             >
               Attendance
             </Button>
+            <Button
+              leftIcon={
+                sortBy === "date" ? <FaSortAlphaDown /> : <FaSortAlphaUp />
+              }
+              variant="outline"
+              colorScheme="blue"
+              size="sm"
+              onClick={() => handleSort("date")}
+            >
+              Date
+            </Button>
           </HStack>
         </Grid>
 
@@ -170,7 +184,8 @@ const AddAttendancePage = () => {
               <Th>No.</Th>
               <Th>Course ID</Th>
               <Th>Department Name</Th>
-              <Th>Previous Attendance</Th>
+              <Th>Attendance</Th>
+              <Th>Date</Th>
               <Th>Actions</Th>
             </Tr>
           </Thead>
@@ -181,6 +196,7 @@ const AddAttendancePage = () => {
                 <Td>{data.courseId}</Td>
                 <Td>{data.department}</Td>
                 <Td>{data.previousAttendance}</Td>
+                <Td>{data.date}</Td>
                 <Td>
                   <Button colorScheme="blue" size="sm" mr={2}>
                     <FaPlus />
