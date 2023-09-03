@@ -46,12 +46,16 @@ export default function SignIn() {
             Police Training Institute
           </Text>
           <Stack direction="row" spacing={3} mt={5}>
-            <Button bg="primary.base" color="white">
-              <Link to="/student">Student</Link>
-            </Button>
-            <Button bg="primary.base" color="white">
-              <Link to="/teacher">Teacher</Link>
-            </Button>
+            <Link to="/student">
+              <Button bg="primary.base" color="white">
+                student
+              </Button>
+            </Link>
+            <Link to="/teacher">
+              <Button bg="primary.base" color="white">
+                Teacher
+              </Button>
+            </Link>
           </Stack>
         </Flex>
       </GridItem>

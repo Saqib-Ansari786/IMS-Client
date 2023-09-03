@@ -46,27 +46,32 @@ export default function SidebarContent({
 
           {linkItems &&
             linkItems.map((link) => (
-              <NavItem p={3} key={link.name} icon={link.icon}>
-                <Link to={link.route}>{link.name}</Link>
-              </NavItem>
+              <Link to={link.route} key={link.name}>
+                <NavItem p={3} icon={link.icon}>
+                  {link.name}
+                </NavItem>
+              </Link>
             ))}
 
           <Box my={10} ml={1}>
             {routeItems &&
               routeItems.map((link) => (
-                <NavItem p={3} key={link.name} icon={link.icon}>
-                  <Link to={link.route}>{link.name}</Link>
-                </NavItem>
+                <Link to={link.route} key={link.name}>
+                  <NavItem p={3} icon={link.icon}>
+                    {link.name}
+                  </NavItem>
+                </Link>
               ))}
           </Box>
         </Box>
 
         <Box mt="auto" ml={1}>
-          {" "}
           {/* This pushes the Logout link to the bottom */}
-          <NavItem p={3} icon={InfoIcon}>
-            <Link to={"/"}>Logout</Link>
-          </NavItem>
+          <Link to={"/"}>
+            <NavItem p={3} icon={InfoIcon}>
+              Logout
+            </NavItem>
+          </Link>
         </Box>
       </Flex>
     </Box>
