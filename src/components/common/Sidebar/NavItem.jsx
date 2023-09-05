@@ -23,7 +23,7 @@ export default function NavItem({ icon, children, ...rest }) {
         {icon && (
           <Icon
             mr="4"
-            fontSize="16"
+            fontSize={{ base: "20", md: "16" }}
             _groupHover={{
               color: "white",
             }}

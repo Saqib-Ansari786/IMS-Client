@@ -92,7 +92,7 @@ const AddAttendancePage = () => {
         <Grid
           templateColumns={{
             base: "repeat(2, 1fr)",
-            md: "repeat(3, 1fr)",
+            md: "repeat(4, 1fr)",
           }}
           gap={4}
         >
@@ -108,6 +108,7 @@ const AddAttendancePage = () => {
               variant="outline"
               colorScheme="blue"
               size="sm"
+              w={28}
               onClick={() => handleSort("department")}
             >
               Department
@@ -122,6 +123,7 @@ const AddAttendancePage = () => {
               variant="outline"
               colorScheme="blue"
               size="sm"
+              w={28}
               onClick={() => handleSort("courseId")}
             >
               Course ID
@@ -140,10 +142,13 @@ const AddAttendancePage = () => {
               variant="outline"
               colorScheme="blue"
               size="sm"
+              w={28}
               onClick={() => handleSort("previousAttendance")}
             >
               Attendance
             </Button>
+          </HStack>
+          <HStack spacing={2}>
             <Button
               leftIcon={
                 sortBy === "date" ? <FaSortAlphaDown /> : <FaSortAlphaUp />
@@ -151,6 +156,7 @@ const AddAttendancePage = () => {
               variant="outline"
               colorScheme="blue"
               size="sm"
+              w={28}
               onClick={() => handleSort("date")}
             >
               Date
@@ -163,8 +169,8 @@ const AddAttendancePage = () => {
           placeholder="Search"
           onChange={handleSearch}
           value={searchQuery}
-          w={{ base: "100%", md: "50%" }}
-          mt={{ base: 2, md: 0 }}
+          w={{ base: "100%", md: "40%" }}
+          mt={{ base: 5, md: 0 }}
         />
       </Flex>
 

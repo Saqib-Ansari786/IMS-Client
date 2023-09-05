@@ -46,9 +46,9 @@ export default function SidebarContent({
 
           {linkItems &&
             linkItems.map((link) => (
-              <Link to={link.route} key={link.name}>
+              <Link to={link.route} key={link.name} onClick={onClose}>
                 <NavItem p={3} icon={link.icon}>
-                  {link.name}
+                  <Text fontSize={{ base: "xl", md: "md" }}> {link.name}</Text>
                 </NavItem>
               </Link>
             ))}
@@ -65,11 +65,11 @@ export default function SidebarContent({
           </Box>
         </Box>
 
-        <Box mt="auto" ml={1}>
+        <Box mt={{ base: "70%", md: "auto" }} ml={1}>
           {/* This pushes the Logout link to the bottom */}
           <Link to={"/"}>
             <NavItem p={3} icon={InfoIcon}>
-              Logout
+              <Text fontSize={{ base: "xl", md: "md" }}> Logout</Text>
             </NavItem>
           </Link>
         </Box>

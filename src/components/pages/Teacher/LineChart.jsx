@@ -46,5 +46,5 @@ const data = {
 };
 
 export default function LineChart() {
-  return <Line options={options} data={data} flex={1} />;
+  return <Line options={options} data={data} />;
 }
