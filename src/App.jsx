@@ -22,6 +22,7 @@ import { ViewLibrary } from "./pages/Student/ViewLibrary";
 import TeacherRootLayout from "./pages/Teacher/TeacherRootLayout";
 import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 import ManageAttendancePage from "./pages/Teacher/ManageAttendence";
+import AddStudentAttendancePage from "./pages/Teacher/AddAttendence";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,7 +43,8 @@ const router = createBrowserRouter(
       </Route>
       <Route path="teacher/" element={<TeacherRootLayout />}>
         <Route index element={<TeacherDashboard />} />
-        <Route path="manageattendance" element={<ManageAttendancePage />} />
+        <Route path="manage-attendance" element={<ManageAttendancePage />} />
+        <Route path="add-attendance" element={<AddStudentAttendancePage />} />
       </Route>
     </Route>
   )

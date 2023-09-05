@@ -65,7 +65,7 @@ export default function SidebarContent({
           </Box>
         </Box>
 
-        <Box mt={{ base: "70%", md: "auto" }} ml={1}>
+        <Box bottom={{ base: "14", md: "6" }} ml={1} position={"fixed"}>
           {/* This pushes the Logout link to the bottom */}
           <Link to={"/"}>
             <NavItem p={3} icon={InfoIcon}>

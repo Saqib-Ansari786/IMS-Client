@@ -17,15 +17,10 @@ const LinkItems = [
   { name: "View Library", icon: SettingsIcon, route: "/student/viewlibrary" },
 ];
 
-const routeItems = [
-  { name: "Messages", icon: ArrowUpIcon, route: "/student/messages" },
-  { name: "Support", icon: SearchIcon, route: "/student/support" },
-];
-
 export default function StudentRootLayout() {
   return (
     <div>
-      <SidebarwithHeader linkItems={LinkItems} routeItems={routeItems}>
+      <SidebarwithHeader linkItems={LinkItems}>
         <Outlet />
       </SidebarwithHeader>
     </div>
