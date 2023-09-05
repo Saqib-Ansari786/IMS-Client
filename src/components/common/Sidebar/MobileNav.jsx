@@ -105,7 +105,7 @@ export default function MobileNav({ onOpen, link, ...rest }) {
                 <Link to={""}>Settings</Link>
               </MenuItem>
               <MenuItem>
-                <Link to={""}>Privacy</Link>
+                <Link to={""}>Messages</Link>
               </MenuItem>
               <MenuDivider />
               <MenuItem>

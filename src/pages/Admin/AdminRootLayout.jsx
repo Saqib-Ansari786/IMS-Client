@@ -10,21 +10,18 @@ import {
 
 const LinkItems = [
   { name: "Home", icon: InfoIcon, route: "/admin" },
-  { name: "Explore", icon: SearchIcon, route: "/admin" },
-  { name: "Favourites", icon: StarIcon, route: "/admin" },
-  { name: "Settings", icon: SettingsIcon, route: "/admin" },
-];
-
-const routeItems = [
-  { name: "Library Management", icon: InfoIcon, route: "/admin/library" },
-  { name: "Student Management", icon: ArrowUpIcon, route: "/admin/student" },
-  { name: "Teacher Management", icon: SearchIcon, route: "/admin/teacher" },
+  { name: "Students", icon: SearchIcon, route: "/admin" },
+  { name: "Teachers", icon: StarIcon, route: "/admin" },
+  { name: "Library", icon: SettingsIcon, route: "/admin" },
+  { name: "Inventory", icon: SettingsIcon, route: "/admin" },
+  { name: "Courses", icon: SettingsIcon, route: "/admin" },
+  { name: "Result", icon: SettingsIcon, route: "/admin" },
 ];
 
 export default function AdminRootLayout() {
   return (
     <div>
-      <SidebarwithHeader linkItems={LinkItems} routeItems={routeItems}>
+      <SidebarwithHeader linkItems={LinkItems}>
         <Outlet />
       </SidebarwithHeader>
     </div>
