@@ -24,6 +24,8 @@ import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 import ManageAttendancePage from "./pages/Teacher/ManageAttendence";
 import AddStudentAttendancePage from "./pages/Teacher/AddAttendence";
 import AddStudent from "./components/pages/Admin/AddStudent";
+import StudentSearch from "./components/pages/Admin/StudentSearch";
+import StudentView from "./components/pages/Admin/StudentView";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +36,8 @@ const router = createBrowserRouter(
         <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
         <Route path="addstudent" element={<AddStudent />} />
+        <Route path="studentsearch" element={<StudentSearch />} />
+        <Route path="studentview" element={<StudentView />} />
       </Route>
       <Route path="student/" element={<StudentRootLayout />}>
         <Route index element={<Home />} />
