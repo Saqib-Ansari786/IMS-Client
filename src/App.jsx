@@ -23,6 +23,7 @@ import TeacherRootLayout from "./pages/Teacher/TeacherRootLayout";
 import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 import ManageAttendancePage from "./pages/Teacher/ManageAttendence";
 import AddStudentAttendancePage from "./pages/Teacher/AddAttendence";
+import AddStudent from "./components/pages/Admin/AddStudent";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
         <Route index element={<TeacherDashboard />} />
         <Route path="manage-attendance" element={<ManageAttendancePage />} />
         <Route path="add-attendance" element={<AddStudentAttendancePage />} />
+        <Route path="check" element={<AddStudent />} />
       </Route>
     </Route>
   )
