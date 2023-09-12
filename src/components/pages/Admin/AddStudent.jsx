@@ -30,7 +30,7 @@ export default function AddStudent() {
         </FormControl>
         <FormControl isRequired mt={4}>
           <FormLabel>Belt No</FormLabel>
-          <Input type="text" placeholder="Enter Roll No" />
+          <Input type="text" placeholder="Enter Belt No" />
         </FormControl>
         <FormControl mt={4}>
           <FormLabel>Email</FormLabel>
@@ -62,7 +62,7 @@ export default function AddStudent() {
         </FormControl>
         <FormControl isRequired mt={4}>
           <FormLabel>Home Phone No.</FormLabel>
-          <Input type="tel" placeholder="Enter Parents Mobile No." />
+          <Input type="tel" placeholder="Enter Home Phone No." />
         </FormControl>
         <FormControl isRequired mt={4}>
           <FormLabel>Date Of Birth</FormLabel>
