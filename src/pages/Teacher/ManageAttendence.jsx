@@ -16,6 +16,7 @@ import {
   // Import ScrollView
 } from "@chakra-ui/react";
 import { FaEdit, FaPlus, FaSortAlphaDown, FaSortAlphaUp } from "react-icons/fa"; // Import sort icons
+import { Link } from "react-router-dom";
 
 const sampleData = [
   {
@@ -204,9 +205,11 @@ const AddAttendancePage = () => {
                 <Td>{data.previousAttendance}</Td>
                 <Td>{data.date}</Td>
                 <Td>
-                  <Button colorScheme="blue" size="sm" mr={2}>
-                    <FaPlus />
-                  </Button>
+                  <Link to={`/teacher/add-attendance/${data.courseId}`}>
+                    <Button colorScheme="blue" size="sm" mr={2}>
+                      <FaPlus />
+                    </Button>
+                  </Link>
                   <Button colorScheme="teal" size="sm">
                     <FaEdit />
                   </Button>

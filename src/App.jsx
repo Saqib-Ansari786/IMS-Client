@@ -50,7 +50,10 @@ const router = createBrowserRouter(
       <Route path="teacher/" element={<TeacherRootLayout />}>
         <Route index element={<TeacherDashboard />} />
         <Route path="manage-attendance" element={<ManageAttendancePage />} />
-        <Route path="add-attendance" element={<AddStudentAttendancePage />} />
+        <Route
+          path="add-attendance/:courseId"
+          element={<AddStudentAttendancePage />}
+        />
       </Route>
     </Route>
   )
