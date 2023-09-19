@@ -11,10 +11,10 @@ import {
 const LinkItems = [
   { name: "Home", icon: InfoIcon, route: "/admin" },
   { name: "Students", icon: SearchIcon, route: "/admin/studentview" },
-  { name: "Teachers", icon: StarIcon, route: "/admin" },
+  { name: "Teachers", icon: StarIcon, route: "/admin/teacherview" },
   { name: "Library", icon: SettingsIcon, route: "/admin" },
   { name: "Inventory", icon: SettingsIcon, route: "/admin" },
-  { name: "Courses", icon: SettingsIcon, route: "/admin" },
+  { name: "Courses", icon: SettingsIcon, route: "/admin/courses" },
   { name: "Result", icon: SettingsIcon, route: "/admin" },
 ];
 
