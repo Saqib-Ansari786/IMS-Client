@@ -26,6 +26,8 @@ import AddStudentAttendancePage from "./pages/Teacher/AddAttendence";
 import AddStudent from "./components/pages/Admin/AddStudent";
 import StudentSearch from "./components/pages/Admin/StudentSearch";
 import ViewStudents from "./pages/Admin/ViewStudents";
+import AssignmentPage from "./pages/Teacher/Assignment";
+import AssignmentDetailsPage from "./pages/Teacher/AssignmentDetails";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,7 +39,7 @@ const router = createBrowserRouter(
         <Route path="profile" element={<Profile />} />
         <Route path="addstudent" element={<AddStudent />} />
         <Route path="studentsearch" element={<StudentSearch />} />
-        <Route path="studentview" element={<ViewStudents/>} />
+        <Route path="studentview" element={<ViewStudents />} />
       </Route>
       <Route path="student/" element={<StudentRootLayout />}>
         <Route index element={<Home />} />
@@ -53,6 +55,11 @@ const router = createBrowserRouter(
         <Route
           path="add-attendance/:courseId"
           element={<AddStudentAttendancePage />}
+        />
+        <Route path="assignments" element={<AssignmentPage />} />
+        <Route
+          path="details/:assignmentId"
+          element={<AssignmentDetailsPage />}
         />
       </Route>
     </Route>
