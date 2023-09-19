@@ -14,27 +14,28 @@ export default function StudentSearch() {
       backgroundColor="white"
       borderWidth="1px"
       borderRadius="lg"
-      p={4}
+      padding={3}
+      width="100%"
       
     >
       <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-        <GridItem colSpan={3}>
+        <GridItem colSpan={{ base: 12, md: 2 }}>
           <InputGroup>
             <Input type="text" placeholder="Belt No." />
           </InputGroup>
         </GridItem>
-        <GridItem colSpan={3}>
+        <GridItem colSpan={{ base: 12, md: 4 }}>
           <InputGroup>
             <Input type="text" placeholder="Name" />
           </InputGroup>
         </GridItem>
-        <GridItem colSpan={4}>
+        <GridItem colSpan={{ base: 12, md: 4 }}>
           <InputGroup>
             <Input type="text" placeholder="Course name" />
           </InputGroup>
         </GridItem>
-        <GridItem colSpan={2}>
-          <Button colorScheme="blue" size="md">
+        <GridItem colSpan={{ base: 12, md: 2 }}>
+          <Button width="100%" colorScheme="blue" size="md">
             Search
           </Button>
         </GridItem>
@@ -42,3 +43,4 @@ export default function StudentSearch() {
     </Box>
   );
 }
+

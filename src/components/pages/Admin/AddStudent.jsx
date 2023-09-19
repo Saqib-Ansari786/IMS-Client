@@ -11,6 +11,7 @@ import {
 export default function AddStudent() {
   return (
     <Box
+      mt={4}
       borderWidth="1px"
       borderRadius="lg"
       p={4}
