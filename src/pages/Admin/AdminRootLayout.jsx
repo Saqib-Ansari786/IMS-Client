@@ -10,7 +10,7 @@ import {
 
 const LinkItems = [
   { name: "Home", icon: InfoIcon, route: "/admin" },
-  { name: "Students", icon: SearchIcon, route: "/admin" },
+  { name: "Students", icon: SearchIcon, route: "/admin/studentview" },
   { name: "Teachers", icon: StarIcon, route: "/admin" },
   { name: "Library", icon: SettingsIcon, route: "/admin" },
   { name: "Inventory", icon: SettingsIcon, route: "/admin" },

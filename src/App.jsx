@@ -28,6 +28,7 @@ import StudentSearch from "./components/pages/Admin/StudentSearch";
 import ViewStudents from "./pages/Admin/ViewStudents";
 import AssignmentPage from "./pages/Teacher/Assignment";
 import AssignmentDetailsPage from "./pages/Teacher/AssignmentDetails";
+import CoursePage from "./pages/Admin/CoursePage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,9 +38,8 @@ const router = createBrowserRouter(
       <Route path="admin/" element={<AdminRootLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="addstudent" element={<AddStudent />} />
-        <Route path="studentsearch" element={<StudentSearch />} />
         <Route path="studentview" element={<ViewStudents />} />
+        <Route path="course" element={<CoursePage/>} />
       </Route>
       <Route path="student/" element={<StudentRootLayout />}>
         <Route index element={<Home />} />
