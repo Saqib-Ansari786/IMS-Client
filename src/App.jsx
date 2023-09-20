@@ -9,7 +9,6 @@ import SignIn from "./pages/SignIn";
 import RootLayout from "./pages/RootLayout";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Admin/Dashboard";
-
 import Home from "./pages/Student/Home";
 import Assignment from "./pages/Student/Assignment";
 import StudentRootLayout from "./pages/Student/StudentRootLayout";
@@ -23,13 +22,12 @@ import TeacherRootLayout from "./pages/Teacher/TeacherRootLayout";
 import TeacherDashboard from "./pages/Teacher/TeacherDashboard";
 import ManageAttendancePage from "./pages/Teacher/ManageAttendence";
 import AddStudentAttendancePage from "./pages/Teacher/AddAttendence";
-import AddStudent from "./components/pages/Admin/AddStudent";
-import StudentSearch from "./components/pages/Admin/StudentSearch";
 import ViewStudents from "./pages/Admin/ViewStudents";
 import AssignmentPage from "./pages/Teacher/Assignment";
 import AssignmentDetailsPage from "./pages/Teacher/AssignmentDetails";
 import CoursePage from "./pages/Admin/CoursePage";
 import ViewTeachers from "./pages/Admin/ViewTeachers";
+import TeacherProfileView from "./pages/Admin/TeacherProfileView";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +40,7 @@ const router = createBrowserRouter(
         <Route path="studentview" element={<ViewStudents />} />
         <Route path="teacherview" element={<ViewTeachers/>} />
         <Route path="courses" element={<CoursePage/>} />
+        <Route path="check" element={<TeacherProfileView/>} />
       </Route>
       <Route path="student/" element={<StudentRootLayout />}>
         <Route index element={<Home />} />

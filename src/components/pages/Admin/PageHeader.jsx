@@ -1,37 +1,7 @@
-// import React from 'react';
-// import {
-//   Flex,
-//   HStack,
-//   Text,
-//   Link,
-// } from '@chakra-ui/react';
-
-// export default function PageHeader({ handleListViewClick, handleAddClick }) {
-//   return (
-//     <Flex
-//       justify="end"
-//       align="center"
-//       backgroundColor="white"
-//       padding={4}
-//       borderRadius={8}
-//       boxShadow="md"
-//     >
-//       <HStack marginRight={4} spacing={4}>
-//         <Link as={Text} color="gray.600" _hover={{ textDecoration: 'underline', color: "blue" }} onClick={handleListViewClick}>
-//           List View
-//         </Link>
-//         <Link as={Text} color="gray.600" _hover={{ textDecoration: 'underline' }} onClick={handleAddClick}>
-//           Add
-//         </Link>
-//       </HStack>
-//     </Flex>
-//   );
-// }
-
 import React, { useState } from 'react';
 import { Flex, HStack, Text, Link } from '@chakra-ui/react';
 
-export default function PageHeader({ handleListViewClick, handleAddClick }) {
+export default function PageHeader({ handleListViewClick, handleAddClick, handleGridClick }) {
   const [selectedLink, setSelectedLink] = useState('ListView');
 
   const handleLinkClick = (link) => {
@@ -60,6 +30,19 @@ export default function PageHeader({ handleListViewClick, handleAddClick }) {
         }
         >
           List View
+        </Link>
+        <Link
+          as={Text}
+          color={selectedLink === 'TeacherProfileView' ? 'blue.600' : 'gray.600'}
+          textDecoration={selectedLink === 'TeacherProfileView' ? 'underline' : 'none'}
+          _hover={{ textDecoration: 'underline' }}
+          onClick={()=>{
+            handleGridClick();
+            handleLinkClick('TeacherProfileView')
+        }
+        }
+        >
+          Grid View
         </Link>
         <Link
           as={Text}
