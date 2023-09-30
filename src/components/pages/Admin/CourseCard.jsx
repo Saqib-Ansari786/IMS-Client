@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Image,
@@ -9,34 +9,41 @@ import {
   Td,
   Stack,
   Heading,
-  Link,
-} from '@chakra-ui/react';
-import { FaCalendar, FaMoneyBillAlt, FaUsers } from 'react-icons/fa';
+} from "@chakra-ui/react";
+import { FaCalendar, FaUser, FaUsers } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function CourseCard({
   imageUrl,
   title,
   description,
   duration,
-  fees,
-  students,
+  author,
+  category,
+  courseId,
 }) {
-
   return (
     <Box
       maxW="sm"
       borderWidth="1px"
-      borderRadius="md"
+      borderRadius="xl"
       overflow="hidden"
-      boxShadow="md"
+      boxShadow="xl"
       backgroundColor="white"
+      key={courseId}
     >
-      <Link href="/courseDetails">
-        <Image src={imageUrl} alt={`Image for ${title}`} objectFit="cover" height="200px" width="100%" />
+      <Link to={`/teacher/course-details/${courseId}`}>
+        <Image
+          src={imageUrl}
+          alt={`Image for ${title}`}
+          objectFit="cover"
+          height="200px"
+          width="100%"
+        />
       </Link>
       <Box p="4">
-        <Heading as="h5" size="md">
-          <Link href="/courseDetails">{title}</Link>
+        <Heading as="h4" size="md">
+          <Link to={`/teacher/course-details/${courseId}`}>{title}</Link>
         </Heading>
         <Text color="gray.600" mt="2">
           {description}
@@ -47,9 +54,7 @@ export default function CourseCard({
               <Td>
                 <Stack spacing={1} direction="row" alignItems="center">
                   <FaCalendar color={"blue"} />
-                  <Text fontWeight="semibold">
-                    Duration
-                  </Text>
+                  <Text fontWeight="semibold">Duration</Text>
                 </Stack>
               </Td>
               <Td textAlign="right">{duration}</Td>
@@ -57,24 +62,20 @@ export default function CourseCard({
             <Tr>
               <Td>
                 <Stack spacing={1} direction="row" alignItems="center">
-                  <FaMoneyBillAlt color={"red"} />
-                  <Text fontWeight="semibold" >
-                    Fees
-                  </Text>
+                  <FaUser color={"red"} />
+                  <Text fontWeight="semibold">Author</Text>
                 </Stack>
               </Td>
-              <Td textAlign="right">{fees}</Td>
+              <Td textAlign="right">{author}</Td>
             </Tr>
             <Tr>
               <Td>
                 <Stack spacing={1} direction="row" alignItems="center">
                   <FaUsers color={"green"} />
-                  <Text fontWeight="semibold">
-                    Students
-                  </Text>
+                  <Text fontWeight="semibold">Category</Text>
                 </Stack>
               </Td>
-              <Td textAlign="right">{students}</Td>
+              <Td textAlign="right">{category}</Td>
             </Tr>
           </Tbody>
         </Table>

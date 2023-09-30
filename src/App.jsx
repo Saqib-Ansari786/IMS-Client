@@ -28,6 +28,8 @@ import AssignmentDetailsPage from "./pages/Teacher/AssignmentDetails";
 import CoursePage from "./pages/Admin/CoursePage";
 import ViewTeachers from "./pages/Admin/ViewTeachers";
 import TeacherProfileView from "./pages/Admin/TeacherProfileView";
+import ManageCourses from "./pages/Teacher/ManageCourses";
+import CourseDetail from "./pages/Teacher/CourseDetails";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,9 +40,9 @@ const router = createBrowserRouter(
         <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
         <Route path="studentview" element={<ViewStudents />} />
-        <Route path="teacherview" element={<ViewTeachers/>} />
-        <Route path="courses" element={<CoursePage/>} />
-        <Route path="check" element={<TeacherProfileView/>} />
+        <Route path="teacherview" element={<ViewTeachers />} />
+        <Route path="courses" element={<CoursePage />} />
+        <Route path="check" element={<TeacherProfileView />} />
       </Route>
       <Route path="student/" element={<StudentRootLayout />}>
         <Route index element={<Home />} />
@@ -62,6 +64,8 @@ const router = createBrowserRouter(
           path="details/:assignmentId"
           element={<AssignmentDetailsPage />}
         />
+        <Route path="manage-courses" element={<ManageCourses />} />
+        <Route path="manage-courses/:courseId" element={<CourseDetail />} />
       </Route>
     </Route>
   )

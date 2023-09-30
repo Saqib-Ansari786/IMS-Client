@@ -9,7 +9,7 @@ import {
   Thead,
   Tr,
   Link,
-  TableContainer,
+  CircularProgress,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
@@ -125,51 +125,67 @@ const AssignmentDetailsPage = () => {
     return <div>Assignment not found</div>;
   }
 
+  const totalStudents = selectedAssignment.studentsSubmitted;
+  const progressValue = (totalStudents / 50) * 100;
+
   return (
     <Box p={4} minW={"100%"}>
-      <Heading size="lg" mb={4}>
-        Assignment Details
+      <Heading size="lg" mb={4} fontWeight="bold">
+        {selectedAssignment.title}
       </Heading>
 
-      <Text>Title: {selectedAssignment.title}</Text>
-      <Text>Description: {selectedAssignment.description}</Text>
-      <Text>
-        Total Students Submitted: {selectedAssignment.studentsSubmitted}
+      <Text fontSize="lg" fontWeight="bold" mb={2}>
+        Description:
       </Text>
-      <TableContainer>
-        <Table variant="striped" bgColor={"white"} mt={4}>
-          <Thead>
-            <Tr>
-              <Th>Student</Th>
-              <Th>Date Submitted</Th>
-              <Th>Documents</Th>
-              <Th>Submission Description</Th>
+      <Text>{selectedAssignment.description}</Text>
+
+      <Text fontSize="lg" fontWeight="bold" mt={4}>
+        Total Students Submitted:
+      </Text>
+      <CircularProgress
+        value={progressValue}
+        color="green.400"
+        thickness="8px"
+        size="60px"
+        mt={2}
+        mb={4}
+      />
+      <Text fontWeight="bold" fontSize="lg">
+        {totalStudents}/{50}
+      </Text>
+
+      <Table variant="striped" bgColor={"white"} mt={4}>
+        <Thead>
+          <Tr>
+            <Th>Student</Th>
+            <Th>Date Submitted</Th>
+            <Th>Documents</Th>
+            <Th>Submission Description</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {selectedAssignment.submissions.map((submission, index) => (
+            <Tr key={index}>
+              <Td>{submission.studentName}</Td>
+              <Td>{submission.dateSubmitted.toLocaleString()}</Td>
+              <Td>
+                {submission.documents.map((document, docIndex) => (
+                  <div key={docIndex}>
+                    <Link
+                      href={document.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Document {docIndex + 1}
+                    </Link>
+                  </div>
+                ))}
+              </Td>
+              <Td>{submission.description}</Td>
             </Tr>
-          </Thead>
-          <Tbody>
-            {selectedAssignment.submissions.map((submission, index) => (
-              <Tr key={index}>
-                <Td>{submission.studentName}</Td>
-                <Td>{submission.dateSubmitted.toLocaleString()}</Td>
-                <Td>
-                  {submission.documents.map((document, docIndex) => (
-                    <div key={docIndex}>
-                      <Link
-                        href={document.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Document {docIndex + 1}
-                      </Link>
-                    </div>
-                  ))}
-                </Td>
-                <Td>{submission.description}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+          ))}
+        </Tbody>
+      </Table>
     </Box>
   );
 };

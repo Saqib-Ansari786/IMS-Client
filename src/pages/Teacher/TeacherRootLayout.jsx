@@ -7,7 +7,11 @@ const LinkItems = [
   { name: "Attendance", icon: SearchIcon, route: "/teacher/manage-attendance" },
   { name: "Assignments", icon: StarIcon, route: "/teacher/assignments" },
   { name: "Marks Summary", icon: SettingsIcon, route: "/teacher/marks" },
-  { name: "Course Resources", icon: SettingsIcon, route: "/teacher/resources" },
+  {
+    name: "Course Resources",
+    icon: SettingsIcon,
+    route: "/teacher/manage-courses",
+  },
 ];
 
 export default function TeacherRootLayout() {

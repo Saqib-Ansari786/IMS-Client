@@ -3,7 +3,7 @@ import CourseCard from "../../components/pages/Admin/CourseCard";
 
 const courseData = [
   {
-    id: 1,
+    courseId: 1,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     title: "PHP Development Course",
@@ -13,7 +13,7 @@ const courseData = [
     category: "Web Development",
   },
   {
-    id: 1,
+    courseId: 2,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     title: "PHP Development Course",
@@ -23,7 +23,7 @@ const courseData = [
     category: "Web Development",
   },
   {
-    id: 1,
+    courseId: 3,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     title: "PHP Development Course",
@@ -33,7 +33,7 @@ const courseData = [
     category: "Web Development",
   },
   {
-    id: 1,
+    courseId: 4,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     title: "PHP Development Course",
@@ -43,7 +43,7 @@ const courseData = [
     category: "Web Development",
   },
   {
-    id: 1,
+    courseId: 5,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     title: "PHP Development Course",
@@ -53,22 +53,22 @@ const courseData = [
     category: "Web Development",
   },
   {
-    id: 1,
+    courseId: 6,
     imageUrl:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     title: "PHP Development Course",
     description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
     duration: "6 Months",
     author: "John Doe",
-    students: "125+",
+    category: "Web Development",
   },
 ];
 
-export default function CoursePage() {
+export default function ManageCourses() {
   return (
     <Container maxW="container.xl" mt="4">
       <Heading as="h1" size="xl" mb="4">
-        Courses
+        Courses Materials
       </Heading>
       <Grid
         templateColumns={{
