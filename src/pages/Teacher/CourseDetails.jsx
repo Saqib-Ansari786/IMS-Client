@@ -18,6 +18,9 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   Select,
+  Flex,
+  CircularProgress,
+  CircularProgressLabel,
 } from "@chakra-ui/react";
 import { FaCalendar, FaUser, FaUsers } from "react-icons/fa";
 import { useParams } from "react-router-dom";
@@ -29,7 +32,9 @@ const courseData = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     title: "PHP Development Course",
     description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
+    duration: "6",
+    category: "Web Development",
+    author: "John Doe",
   },
   {
     id: 2,
@@ -37,7 +42,9 @@ const courseData = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     title: "PHP Development Course",
     description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
+    duration: "6",
+    category: "Web Development",
+    author: "John Doe",
   },
   {
     id: 3,
@@ -45,7 +52,9 @@ const courseData = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     title: "PHP Development Course",
     description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
+    duration: "6",
+    category: "Web Development",
+    author: "John Doe",
   },
   {
     id: 4,
@@ -53,7 +62,9 @@ const courseData = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     title: "PHP Development Course",
     description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
+    duration: "6",
+    category: "Web Development",
+    author: "John Doe",
   },
   {
     id: 5,
@@ -61,7 +72,9 @@ const courseData = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     title: "PHP Development Course",
     description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
+    duration: "6",
+    category: "Web Development",
+    author: "John Doe",
   },
   {
     id: 6,
@@ -69,7 +82,7 @@ const courseData = [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     title: "PHP Development Course",
     description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
+    duration: "6",
   },
   {
     id: 7,
@@ -105,6 +118,7 @@ export default function CourseDetail() {
   };
 
   const handleConfirmOpen = () => {
+    setIsOpen(false);
     setIsConfirmOpen(true);
   };
 
@@ -127,26 +141,19 @@ export default function CourseDetail() {
   };
 
   return (
-    <Box
-      maxW="sm"
-      borderWidth="1px"
-      borderRadius="xl"
-      overflow="hidden"
-      boxShadow="xl"
-      backgroundColor="white"
-    >
+    <Box backgroundColor="white" p={0} m={0}>
       <Image
         src={selectedCourse.imageUrl}
         alt={`Image for ${selectedCourse.title}`}
         objectFit="cover"
-        height="200px"
+        height="300px" // Set the height of the image as needed
         width="100%"
       />
-      <Box p="4">
-        <Heading as="h4" size="md">
+      <Box p="4" maxW="800px" mx="auto">
+        <Heading as="h4" size="lg">
           {selectedCourse.title}
         </Heading>
-        <Text color="gray.600" mt="2">
+        <Text color="gray.600" mt="2" fontSize={"lg"}>
           {selectedCourse.description}
         </Text>
         <Table size="sm" mt="3">
@@ -154,47 +161,69 @@ export default function CourseDetail() {
             <Tr>
               <Td>
                 <Stack spacing={1} direction="row" alignItems="center">
-                  <FaCalendar color={"blue"} />
-                  <Text fontWeight="semibold">Duration</Text>
+                  <FaCalendar color={"blue"} size={20} />
+                  <Text fontWeight="semibold" fontSize={"xl"}>
+                    Duration
+                  </Text>
                 </Stack>
               </Td>
-              <Td textAlign="right">{selectedCourse.duration}</Td>
+              <Td textAlign="right">
+                <CircularProgress
+                  value={(selectedCourse.duration * 100) / 12}
+                  size={"100px"}
+                  // progress should be calculated as (duration / 6) * 100
+                >
+                  <CircularProgressLabel>
+                    {selectedCourse.duration}M
+                  </CircularProgressLabel>
+                </CircularProgress>
+              </Td>
             </Tr>
             <Tr>
               <Td>
                 <Stack spacing={1} direction="row" alignItems="center">
-                  <FaUser color={"red"} />
-                  <Text fontWeight="semibold">Author</Text>
+                  <FaUser color={"red"} size={20} />
+                  <Text fontWeight="semibold" fontSize={"xl"}>
+                    Author
+                  </Text>
                 </Stack>
               </Td>
-              <Td textAlign="right">{selectedCourse.author}</Td>
+              <Td textAlign="right">
+                <Text fontSize={"xl"}>{selectedCourse.author}</Text>
+              </Td>
             </Tr>
             <Tr>
               <Td>
                 <Stack spacing={1} direction="row" alignItems="center">
-                  <FaUsers color={"green"} />
-                  <Text fontWeight="semibold">Category</Text>
+                  <FaUsers color={"green"} size={20} />
+                  <Text fontWeight="semibold" fontSize={"xl"}>
+                    Category
+                  </Text>
                 </Stack>
               </Td>
-              <Td textAlign="right">{selectedCourse.category}</Td>
+              <Td textAlign="right">
+                <Text fontSize={"xl"}>{selectedCourse.category}</Text>
+              </Td>
             </Tr>
           </Tbody>
         </Table>
-        <Button colorScheme="blue" mt="3" onClick={handleAddToClass}>
-          Add to Class
-        </Button>
-        <Button colorScheme="teal" mt="2" onClick={handleEdit}>
-          Edit
-        </Button>
-        <Button colorScheme="red" mt="2" onClick={handleDelete}>
-          Delete
-        </Button>
+        <Flex justifyContent="space-between" alignItems="center" mt="10">
+          <Button colorScheme="blue" mt="3" onClick={handleAddToClass}>
+            Add to Class
+          </Button>
+          <Button colorScheme="teal" mt="2" onClick={handleEdit}>
+            Edit
+          </Button>
+          <Button colorScheme="red" mt="2" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Flex>
       </Box>
 
       {/* Add to Class Dialog */}
       <AlertDialog isOpen={isOpen} onClose={handleClose}>
         <AlertDialogOverlay>
-          <AlertDialogContent>
+          <AlertDialogContent bgColor={"white"}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
               Add to Class
             </AlertDialogHeader>
@@ -233,7 +262,7 @@ export default function CourseDetail() {
       {/* Confirm Add Dialog */}
       <AlertDialog isOpen={isConfirmOpen} onClose={handleConfirmClose}>
         <AlertDialogOverlay>
-          <AlertDialogContent>
+          <AlertDialogContent bgColor={"white"}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
               Confirm Add
             </AlertDialogHeader>
