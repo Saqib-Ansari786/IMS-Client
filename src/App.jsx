@@ -33,6 +33,7 @@ import CourseDetail from "./pages/Teacher/CourseDetails";
 import ClassesPage from "./pages/Teacher/Marks_firstpage";
 import AssessmentsPage from "./pages/Teacher/Marks_secpage";
 import MarksSummaryPage from "./pages/Teacher/Marks_thirdpage";
+import AddNewCourse from "./pages/Teacher/AddNewCourse";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -68,6 +69,10 @@ const router = createBrowserRouter(
           element={<AssignmentDetailsPage />}
         />
         <Route path="manage-courses" element={<ManageCourses />} />
+        <Route
+          path="manage-courses/add-new-course"
+          element={<AddNewCourse />}
+        />
         <Route path="course-details/:courseId" element={<CourseDetail />} />
         <Route path="classes" element={<ClassesPage />} />
         <Route path="classes/:classId" element={<AssessmentsPage />} />
