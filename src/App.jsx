@@ -30,6 +30,9 @@ import ViewTeachers from "./pages/Admin/ViewTeachers";
 import TeacherProfileView from "./pages/Admin/TeacherProfileView";
 import ManageCourses from "./pages/Teacher/ManageCourses";
 import CourseDetail from "./pages/Teacher/CourseDetails";
+import ClassesPage from "./pages/Teacher/Marks_firstpage";
+import AssessmentsPage from "./pages/Teacher/Marks_secpage";
+import MarksSummaryPage from "./pages/Teacher/Marks_thirdpage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -66,6 +69,12 @@ const router = createBrowserRouter(
         />
         <Route path="manage-courses" element={<ManageCourses />} />
         <Route path="course-details/:courseId" element={<CourseDetail />} />
+        <Route path="classes" element={<ClassesPage />} />
+        <Route path="classes/:classId" element={<AssessmentsPage />} />
+        <Route
+          path="classes/:classId/assessment/:assessmentId"
+          element={<MarksSummaryPage />}
+        />
       </Route>
     </Route>
   )
