@@ -19,11 +19,13 @@ export default function ClassesPage() {
           <Link to={`${cls.id}`} key={cls.id}>
             <Box
               borderWidth="1px"
-              borderRadius="md"
+              borderRadius="lg"
               p={4}
               textAlign="center"
               cursor="pointer"
-              _hover={{ bgColor: "gray.100" }}
+              bgColor={"primary.base"}
+              color={"white"}
+              _hover={{ bgColor: "secondary.base" }}
             >
               <Heading as="h2" size="lg">
                 Class {cls.id}
