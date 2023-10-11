@@ -12,7 +12,7 @@ const LinkItems = [
   { name: "Home", icon: InfoIcon, route: "/admin" },
   { name: "Students", icon: SearchIcon, route: "/admin/studentview" },
   { name: "Teachers", icon: StarIcon, route: "/admin/teacherview" },
-  { name: "Library", icon: SettingsIcon, route: "/admin" },
+  { name: "Library", icon: SettingsIcon, route: "/admin/library" },
   { name: "Inventory", icon: SettingsIcon, route: "/admin" },
   { name: "Courses", icon: SettingsIcon, route: "/admin/courses" },
   { name: "Result", icon: SettingsIcon, route: "/admin" },

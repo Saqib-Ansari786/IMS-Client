@@ -34,6 +34,7 @@ import ClassesPage from "./pages/Teacher/Marks_firstpage";
 import AssessmentsPage from "./pages/Teacher/Marks_secpage";
 import MarksSummaryPage from "./pages/Teacher/Marks_thirdpage";
 import AddNewCourse from "./pages/Teacher/AddNewCourse";
+import LibraryView from "./pages/Admin/LibraryView";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,6 +47,7 @@ const router = createBrowserRouter(
         <Route path="studentview" element={<ViewStudents />} />
         <Route path="teacherview" element={<ViewTeachers />} />
         <Route path="courses" element={<CoursePage />} />
+        <Route path="library" element={<LibraryView/>} />
         <Route path="check" element={<TeacherProfileView />} />
       </Route>
       <Route path="student/" element={<StudentRootLayout />}>
