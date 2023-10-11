@@ -495,7 +495,7 @@ export default function LibraryView() {
   const data = jsonData.data;
   return (
     <>
-      <LibraryManagementHeader>
+      <LibraryManagementHeader data={data} headers={headers}>
       <SearchBook/>
        <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
        <BookList headers={headers} data={data} entries={entries} />
@@ -503,3 +503,4 @@ export default function LibraryView() {
     </>
   );
 }
+
