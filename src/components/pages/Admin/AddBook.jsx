@@ -14,96 +14,85 @@ const AddBook = () => {
                     Book Information
                   </Text>
                 </Box>
-                <Box className="col-12 col-sm-4">
+                <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>
-                      Book ID <Text as="span" className="login-danger">*</Text>
+                      Book ISBN <Text as="span" className="login-danger">*</Text>
                     </FormLabel>
-                    <Input type="text" className="form-control" />
+                    <Input type="text" className="form-control" placeholder="Enter ISBN" />
                   </FormControl>
                 </Box>
-                <Box className="col-12 col-sm-4">
+                <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>
-                      Book Name <Text as="span" className="login-danger">*</Text>
+                      Book Title <Text as="span" className="login-danger">*</Text>
                     </FormLabel>
-                    <Input type="text" className="form-control" />
+                    <Input type="text" className="form-control" placeholder="Enter Title" />
                   </FormControl>
                 </Box>
-                <Box className="col-12 col-sm-4">
+                <Box mt={3} className="col-12 col-sm-4">
+                  <FormControl className="form-group local-forms">
+                    <FormLabel>
+                      Author Name <Text as="span" className="login-danger">*</Text>
+                    </FormLabel>
+                    <Input type="text" className="form-control" placeholder="Enter Author Name" />
+                  </FormControl>
+                </Box>
+                <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>
                       Language <Text as="span" className="login-danger">*</Text>
                     </FormLabel>
-                    <Select className="form-control select select2-hidden-accessible">
-                      <option data-select2-id="3">Select Language</option>
+                    <Select className="form-control select select2-hidden-accessible" placeholder="Select Language">
                       <option data-select2-id="15">English</option>
-                      <option data-select2-id="16">Turkish</option>
-                      <option data-select2-id="17">Chinese</option>
-                      <option data-select2-id="18">Spanish</option>
-                      <option data-select2-id="19">Arabic</option>
+                      <option data-select2-id="16">Urdu</option>
+                      <option data-select2-id="17">Punjabi</option>
                     </Select>
                   </FormControl>
                 </Box>
-                <Box className="col-12 col-sm-4">
+                <Box mt={3} className="col-12 col-sm-4">
+                  <FormControl className="form-group local-forms">
+                    <FormLabel>
+                      Quantity <Text as="span" className="login-danger">*</Text>
+                    </FormLabel>
+                    <Input type="text" className="form-control" placeholder="Enter book Quantity" />
+                  </FormControl>
+                </Box>
+                <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>
                       Department <Text as="span" className="login-danger">*</Text>
                     </FormLabel>
-                    <Input type="text" className="form-control" />
+                    <Input type="text" className="form-control" placeholder="Enter Department" />
                   </FormControl>
                 </Box>
-                <Box className="col-12 col-sm-4">
+                <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
-                    <FormLabel>Class</FormLabel>
-                    <Select className="form-control select select2-hidden-accessible">
-                      <option data-select2-id="6">Select Class *</option>
-                      <option data-select2-id="21">LKG</option>
-                      <option data-select2-id="22">UKG</option>
-                      <option data-select2-id="23">1</option>
-                      <option data-select2-id="24">2</option>
-                      <option data-select2-id="25">3</option>
-                      <option data-select2-id="26">4</option>
-                      <option data-select2-id="27">5</option>
-                      <option data-select2-id="28">6</option>
-                      <option data-select2-id="29">7</option>
-                      <option data-select2-id="30">8</option>
-                      <option data-select2-id="31">9</option>
-                      <option data-select2-id="32">10</option>
-                      <option data-select2-id="33">11</option>
-                      <option data-select2-id="34">12</option>
+                    <FormLabel>Course</FormLabel>
+                    <Select className="form-control select select2-hidden-accessible" placeholder="Select Course *">
+                      <option data-select2-id="21">Computer Science</option>
+                      <option data-select2-id="22"> English Literature</option>
+                      <option data-select2-id="23">Urdu Literature</option>
+                      <option data-select2-id="24">Mathematics</option>
+                      <option data-select2-id="25">Physiology</option>
                     </Select>
                   </FormControl>
                 </Box>
-                <Box className="col-12 col-sm-4">
-                  <FormControl className="form-group local-forms">
-                    <FormLabel>
-                      Type <Text as="span" className="login-danger">*</Text>
-                    </FormLabel>
-                    <Select className="form-control select select2-hidden-accessible">
-                      <option data-select2-id="9">Select Type</option>
-                      <option>Book</option>
-                      <option>DVD</option>
-                      <option>CD</option>
-                      <option>Newspaper</option>
-                    </Select>
-                  </FormControl>
-                </Box>
-                <Box className="col-12 col-sm-4">
+                <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>
                       Status <Text as="span" className="login-danger">*</Text>
                     </FormLabel>
-                    <Select className="form-control select select2-hidden-accessible">
+                    <Select className="form-control select select2-hidden-accessible" placeholder="Select Status">
                       <option data-select2-id="12">Select Status</option>
                       <option data-select2-id="36">In Stock</option>
                       <option data-select2-id="37">Out of Stock</option>
                     </Select>
                   </FormControl>
                 </Box>
-                <Box className="col-12">
+                <Box mt={6} className="col-12">
                   <Box className="student-submit">
-                    <Button type="submit" colorScheme="blue">
+                    <Button type="submit" colorScheme="blue" _hover={{ bg: "blue.300", color: "white" }}>
                       Submit
                     </Button>
                   </Box>
