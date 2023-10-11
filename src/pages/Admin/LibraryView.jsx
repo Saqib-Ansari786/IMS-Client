@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BookList from "../../components/pages/Admin/BookList";
 import LibraryManagementHeader from "../../components/pages/Admin/LibraryManagementHeader";
 import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
+import SearchBook from "../../components/pages/Admin/SearchBook";
 const jsonData = {
   headers: ["TITLE", "AUTHOR", "ISBN", "CATEGORY", "AVAILABILTY", "ACTION"],
   data: [
@@ -495,6 +496,7 @@ export default function LibraryView() {
   return (
     <>
       <LibraryManagementHeader>
+      <SearchBook/>
        <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
        <BookList headers={headers} data={data} entries={entries} />
       </LibraryManagementHeader>
