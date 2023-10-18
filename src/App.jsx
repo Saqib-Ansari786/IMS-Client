@@ -67,7 +67,7 @@ const router = createBrowserRouter(
         />
         <Route path="assignments" element={<AssignmentPage />} />
         <Route
-          path="details/:assignmentId"
+          path="assignments/details/:assignmentId"
           element={<AssignmentDetailsPage />}
         />
         <Route path="manage-courses" element={<CourseMaterialPage />} />

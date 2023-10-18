@@ -22,9 +22,15 @@ import {
   ModalBody,
   ModalCloseButton,
   TableContainer,
+  HStack,
+  Icon,
+  VStack,
+  Grid,
 } from "@chakra-ui/react";
-import { FaAd, FaEdit, FaTrash } from "react-icons/fa";
+import { FaAd, FaEdit, FaTrash, FaFileAlt, FaUserAlt } from "react-icons/fa";
+
 import { Link } from "react-router-dom";
+import { AttachmentIcon, TimeIcon } from "@chakra-ui/icons";
 
 const initialAssignments = [
   {
@@ -47,6 +53,47 @@ const initialAssignments = [
   },
   // Add more assignments as needed
 ];
+
+const AssignmentComponent = ({ assignment }) => {
+  return (
+    <Box
+      borderWidth="1px"
+      borderRadius="lg"
+      p={4}
+      mb={4}
+      display="flex"
+      alignItems="center"
+      justifyContent="space-between"
+      bg={"primary.base"}
+      color={"white"}
+      _hover={{ bg: "secondary.base" }}
+      as={Link}
+      to={`details/${assignment.id}`}
+    >
+      <HStack spacing={5} align="center">
+        <Icon as={FaFileAlt} boxSize={"20"} color="gray.500" />
+        <VStack align="start">
+          <Text fontSize={"xx-large"} fontWeight="bold">
+            {assignment.title}
+          </Text>
+          <Text>{assignment.description}</Text>
+          <HStack spacing={4}>
+            <Icon as={FaUserAlt} boxSize={4} />
+            <Text>{`${assignment.studentsSubmitted} students submitted`}</Text>
+          </HStack>
+          <HStack spacing={4}>
+            <TimeIcon boxSize={4} />
+            <Text>{`Start: ${assignment.startTimestamp.toDateString()}`}</Text>
+          </HStack>
+          <HStack spacing={4}>
+            <TimeIcon boxSize={4} />
+            <Text>{`Due: ${assignment.deadlineTimestamp.toDateString()}`}</Text>
+          </HStack>
+        </VStack>
+      </HStack>
+    </Box>
+  );
+};
 
 const AssignmentPage = () => {
   const [assignments, setAssignments] = useState(initialAssignments);
@@ -100,76 +147,13 @@ const AssignmentPage = () => {
         Add Assignment
       </Button>
 
-      {/* Assignment Table */}
-      <TableContainer>
-        <Table variant="striped" bgColor={"white"}>
-          <Thead>
-            <Tr>
-              <Th>Title</Th>
-              <Th>Description</Th>
-              <Th>Uploaded Documents</Th>
-              <Th>Students Submitted</Th>
-              <Th>Start Time</Th>
-              <Th>Deadline</Th>
-              <Th>Actions</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {initialAssignments.map((assignment) => (
-              <Tr key={assignment.id}>
-                <Td>{assignment.title}</Td>
-                <Td>{assignment.description}</Td>
-                <Td>
-                  {assignment.documents.map((document, index) => (
-                    <div key={index}>
-                      <a
-                        href={document.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Document {index + 1}
-                      </a>
-                    </div>
-                  ))}
-                </Td>
-                <Td>{assignment.studentsSubmitted}</Td>
-                <Td>{assignment.startTimestamp.toLocaleString()}</Td>
-                <Td>{assignment.deadlineTimestamp.toLocaleString()}</Td>
-                <Td>
-                  <IconButton
-                    icon={<FaAd />}
-                    colorScheme="blue"
-                    size="sm"
-                    mr={2}
-                    as={Link}
-                    to={`/teacher/details/${assignment.id}`}
-                  />
+      {/* Assignment List */}
 
-                  <IconButton
-                    icon={<FaEdit />}
-                    colorScheme="blue"
-                    size="sm"
-                    onClick={() => {
-                      setSelectedAssignment(assignment);
-                      onOpen();
-                    }}
-                    mr={2}
-                  />
-                  <IconButton
-                    icon={<FaTrash />}
-                    colorScheme="red"
-                    size="sm"
-                    onClick={() => {
-                      setSelectedAssignment(assignment);
-                      onOpen();
-                    }}
-                  />
-                </Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+      <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={4}>
+        {initialAssignments.map((assignment, index) => (
+          <AssignmentComponent key={index} assignment={assignment} />
+        ))}
+      </Grid>
 
       {/* Add/Edit Assignment Modal */}
       <Modal isOpen={isOpen} onClose={onClose}>
