@@ -11,11 +11,9 @@ import {
 export default function StudentSearch() {
   return (
     <Box
-      backgroundColor="white"
-      borderWidth="1px"
-      borderRadius="lg"
-      padding={3}
-      width="100%"
+    backgroundColor="white"
+    padding={{ base: 3, md: 4 }}
+    mt={5}
       
     >
       <Grid templateColumns="repeat(12, 1fr)" gap={4}>

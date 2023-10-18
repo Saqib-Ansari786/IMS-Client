@@ -12,7 +12,7 @@ import {
   } from '@chakra-ui/react';
   import { EditIcon, DeleteIcon, ViewIcon } from '@chakra-ui/icons';
   
-  export default function TeacherView({ headers, data }) {
+  export default function TeacherView({ headers, data, entries }) {
     return (
       <TableContainer mt={3} borderWidth="1px" borderRadius="lg" p={4} backgroundColor="white" >
         <Table variant="striped" colorScheme="blackAlpha">
@@ -27,8 +27,8 @@ import {
             </Tr>
           </Thead>
           <Tbody>
-            {data &&
-              data.map((row, rowIndex) => (
+          {data &&
+              data.slice(0, entries).map((row, rowIndex) => (
                 <Tr key={rowIndex}>
                   <Td key={rowIndex} textAlign="center">
                     {row.beltNo}
