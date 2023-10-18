@@ -1,73 +1,81 @@
 import { useState } from "react";
-import {
-  Grid,
-  GridItem,
-  Heading,
-  Container,
-  Box,
-  Button,
-  Text,
-} from "@chakra-ui/react";
-import CourseCard from "../../components/pages/Admin/CourseCard";
+import { Box, Text, Button, Grid } from "@chakra-ui/react";
+import { AddIcon, AttachmentIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
-const courseData = [
+const initialCourseMaterials = [
   {
-    courseId: 1,
-    imageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
-    title: "PHP Development Course",
-    description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
-    author: "John Doe",
-    category: "Web Development",
+    title: "Course Material 1",
+    document: "document1.pdf",
+    description: "Description for Material 1",
   },
-  // Add more course data here
+  {
+    title: "Course Material 2",
+    document: "document2.pdf",
+    description: "Description for Material 2",
+  },
+  {
+    title: "Course Material 3",
+    document: "document3.pdf",
+    description: "Description for Material 3",
+  },
+  {
+    title: "Course Material 4",
+    document: "document4.pdf",
+    description: "Description for Material 3",
+  },
+  {
+    title: "Course Material 5",
+    document: "document4.pdf",
+    description: "Description for Material 3",
+  },
+  // Add more course materials as needed
 ];
 
-export default function ManageCourses() {
-  const [isNoCourseMaterial, setIsNoCourseMaterial] = useState(false);
+const CourseMaterialPage = () => {
+  const [courseMaterials, setCourseMaterials] = useState(
+    initialCourseMaterials
+  );
+
+  const addCourseMaterial = () => {
+    // Implement logic to add a new course material here
+  };
 
   return (
-    <Container maxW="container.xl" mt="4">
-      <Heading as="h1" size="xl" mb="4">
-        Course Materials
-      </Heading>
-
-      {courseData.length === 0 ? (
-        // Show this message when no course materials are available
-        <Box>
-          <Text fontSize="lg">No course materials have been added.</Text>
-          <Link to="add-new-course">
-            <Button colorScheme="blue" mt="4">
-              Add New Course
-            </Button>
-          </Link>
-        </Box>
-      ) : (
-        // Display course cards when course materials are available
-        <Box>
-          <Grid
-            templateColumns={{
-              base: "repeat(1, 1fr)",
-              md: "repeat(2, 1fr)",
-              lg: "repeat(3, 1fr)",
-            }}
-            gap={4}
+    <Box p={4}>
+      <Button
+        leftIcon={<AddIcon />}
+        colorScheme="teal"
+        onClick={addCourseMaterial}
+        mb={4}
+        as={Link}
+        to="add-new-course"
+      >
+        Add New Course Material
+      </Button>
+      <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))" gap={4}>
+        {courseMaterials.map((material, index) => (
+          <Box
+            key={index}
+            bg={"primary.base"}
+            p={4}
+            borderWidth="1px"
+            borderRadius="lg"
+            boxShadow="md"
+            _hover={{ bg: "secondary.base" }}
+            color={"white"}
           >
-            {courseData.map((course) => (
-              <GridItem key={course.id}>
-                <CourseCard {...course} />
-              </GridItem>
-            ))}
-          </Grid>
-          <Link to="add-new-course">
-            <Button colorScheme="blue" mt="4">
-              Add New Course
-            </Button>
-          </Link>
-        </Box>
-      )}
-    </Container>
+            <AttachmentIcon boxSize={8} />
+            <Box ml={2}>
+              <Text fontWeight="bold">{material.title}</Text>
+              <Text>{material.description}</Text>
+              <Text fontSize="sm">{material.document}</Text>
+            </Box>
+          </Box>
+        ))}
+      </Grid>
+    </Box>
   );
-}
+};
+
+export default CourseMaterialPage;

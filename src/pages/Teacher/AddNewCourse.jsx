@@ -15,10 +15,9 @@ import {
 export default function AddNewCourse() {
   const [courseData, setCourseData] = useState({
     courseName: "",
-    category: "",
     documentType: "link", // Default to uploading from computer
     documentLink: "",
-    author: "",
+    description: "",
   });
 
   const handleChange = (e) => {
@@ -42,7 +41,13 @@ export default function AddNewCourse() {
   };
 
   return (
-    <Container maxW="container.lg" mt="4" bgColor={"white"}>
+    <Container
+      maxW="container.lg"
+      mt="4"
+      bgColor={"white"}
+      p={10}
+      borderRadius={10}
+    >
       <Heading as="h1" size="xl" mb="4">
         Add New Course
       </Heading>
@@ -58,23 +63,15 @@ export default function AddNewCourse() {
             />
           </FormControl>
           <FormControl mb="4">
-            <FormLabel>Category</FormLabel>
+            <FormLabel>Description</FormLabel>
             <Input
               type="text"
-              name="category"
-              value={courseData.category}
+              name="description"
+              value={courseData.description}
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl mb="4">
-            <FormLabel>Author</FormLabel>
-            <Input
-              type="text"
-              name="author"
-              value={courseData.author}
-              onChange={handleChange}
-            />
-          </FormControl>
+
           <FormControl mb="4">
             <FormLabel>Document Type</FormLabel>
             <RadioGroup

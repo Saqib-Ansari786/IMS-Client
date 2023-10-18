@@ -28,13 +28,13 @@ import AssignmentDetailsPage from "./pages/Teacher/AssignmentDetails";
 import CoursePage from "./pages/Admin/CoursePage";
 import ViewTeachers from "./pages/Admin/ViewTeachers";
 import TeacherProfileView from "./pages/Admin/TeacherProfileView";
-import ManageCourses from "./pages/Teacher/ManageCourses";
 import CourseDetail from "./pages/Teacher/CourseDetails";
 import ClassesPage from "./pages/Teacher/Marks_firstpage";
 import AssessmentsPage from "./pages/Teacher/Marks_secpage";
 import MarksSummaryPage from "./pages/Teacher/Marks_thirdpage";
 import AddNewCourse from "./pages/Teacher/AddNewCourse";
 import LibraryView from "./pages/Admin/LibraryView";
+import CourseMaterialPage from "./pages/Teacher/ManageCourses";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,7 +47,7 @@ const router = createBrowserRouter(
         <Route path="studentview" element={<ViewStudents />} />
         <Route path="teacherview" element={<ViewTeachers />} />
         <Route path="courses" element={<CoursePage />} />
-        <Route path="library" element={<LibraryView/>} />
+        <Route path="library" element={<LibraryView />} />
         <Route path="check" element={<TeacherProfileView />} />
       </Route>
       <Route path="student/" element={<StudentRootLayout />}>
@@ -70,7 +70,7 @@ const router = createBrowserRouter(
           path="details/:assignmentId"
           element={<AssignmentDetailsPage />}
         />
-        <Route path="manage-courses" element={<ManageCourses />} />
+        <Route path="manage-courses" element={<CourseMaterialPage />} />
         <Route
           path="manage-courses/add-new-course"
           element={<AddNewCourse />}
