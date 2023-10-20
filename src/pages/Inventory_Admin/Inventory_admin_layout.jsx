@@ -20,7 +20,7 @@ const LinkItems = [
   {
     name: "Sales Report",
     icon: SettingsIcon,
-    route: "/inventory_admin/sale-report",
+    route: "/inventory_admin/sales-report",
   },
 ];
 
