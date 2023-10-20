@@ -35,6 +35,8 @@ import MarksSummaryPage from "./pages/Teacher/Marks_thirdpage";
 import AddNewCourse from "./pages/Teacher/AddNewCourse";
 import LibraryView from "./pages/Admin/LibraryView";
 import CourseMaterialPage from "./pages/Teacher/ManageCourses";
+import InventoryAdminLayout from "./pages/Inventory_Admin/Inventory_admin_layout";
+import InventoryDashboard from "./pages/Inventory_Admin/InventoryDashboard";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -82,6 +84,9 @@ const router = createBrowserRouter(
           path="classes/:classId/assessment/:assessmentId"
           element={<MarksSummaryPage />}
         />
+      </Route>
+      <Route path="inventory_admin/" element={<InventoryAdminLayout />}>
+        <Route index element={<InventoryDashboard />} />
       </Route>
     </Route>
   )
