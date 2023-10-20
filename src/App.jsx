@@ -40,6 +40,7 @@ import InventoryDashboard from "./pages/Inventory_Admin/InventoryDashboard";
 import ProductPage from "./pages/Inventory_Admin/ProductPage";
 import CreateProductPage from "./pages/Inventory_Admin/CreateProductPage";
 import SalesPage from "./pages/Inventory_Admin/SalesPage";
+import CreateSalePage from "./pages/Inventory_Admin/CreateSalePage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -93,6 +94,7 @@ const router = createBrowserRouter(
         <Route path="products" element={<ProductPage />} />
         <Route path="create-product" element={<CreateProductPage />} />
         <Route path="sales" element={<SalesPage />} />
+        <Route path="create-sale" element={<CreateSalePage />} />
       </Route>
     </Route>
   )
