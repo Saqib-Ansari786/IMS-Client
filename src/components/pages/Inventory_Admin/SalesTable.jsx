@@ -10,7 +10,7 @@ const SalesTable = ({ sales, onEdit, onDelete }) => {
         <Tr>
           <Th>ID</Th>
           <Th>Date</Th>
-          <Th>Amount</Th>
+          <Th>Quantity</Th>
           <Th>Product Name</Th>
           <Th>Customer Name</Th>
           <Th>Customer Type</Th>
@@ -22,7 +22,7 @@ const SalesTable = ({ sales, onEdit, onDelete }) => {
           <Tr key={sale.id}>
             <Td>{sale.id}</Td>
             <Td>{sale.date}</Td>
-            <Td>${sale.amount}</Td>
+            <Td>{sale.amount}</Td>
             <Td>{sale.product_name}</Td>
             <Td>{sale.customer_name}</Td>
             <Td>{sale.customer_type}</Td>
