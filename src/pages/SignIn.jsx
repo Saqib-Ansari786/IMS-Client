@@ -56,6 +56,16 @@ export default function SignIn() {
                 Teacher
               </Button>
             </Link>
+            <Link to="/admin">
+              <Button bg="primary.base" color="white">
+                Admin
+              </Button>
+            </Link>
+            <Link to="/inventory_admin">
+              <Button bg="primary.base" color="white">
+                Inventory Admin
+              </Button>
+            </Link>
           </Stack>
         </Flex>
       </GridItem>
