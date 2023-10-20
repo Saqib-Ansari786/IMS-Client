@@ -37,6 +37,7 @@ import LibraryView from "./pages/Admin/LibraryView";
 import CourseMaterialPage from "./pages/Teacher/ManageCourses";
 import InventoryAdminLayout from "./pages/Inventory_Admin/Inventory_admin_layout";
 import InventoryDashboard from "./pages/Inventory_Admin/InventoryDashboard";
+import ProductPage from "./pages/Inventory_Admin/ProductPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -87,6 +88,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="inventory_admin/" element={<InventoryAdminLayout />}>
         <Route index element={<InventoryDashboard />} />
+        <Route path="products" element={<ProductPage />} />
       </Route>
     </Route>
   )
