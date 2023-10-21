@@ -54,7 +54,7 @@ const StudentGenderRatioChart = ({ data }) => {
     }
   }, [data]);
 
-  return <canvas ref={chartRef} style={{ background: "white" }} width={400} height={200} />;
+  return <canvas ref={chartRef} style={{ background: "white", marginBottom: "10px" }} width={400} height={200}  />;
 };
 
 export default StudentGenderRatioChart;

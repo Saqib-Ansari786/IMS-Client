@@ -77,7 +77,7 @@ const chartData = {
 export default function Dashboard() {
   return (
     <Stack minW="100%">
-      <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={4} m={5}>
+      <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={4} mb={2}>
         {dashboardData.map((item, index) => (
           <DashboardWidget
             key={index}
@@ -89,7 +89,7 @@ export default function Dashboard() {
         ))}
       </SimpleGrid>
       <StudentYearChart data={chartData} />
-      <Flex direction={{ base: "column", md: "row" }} gap={3} m={5}>
+      <Flex direction={{ base: "column", md: "row" }} gap={3}>
         <Flex direction="column" flex="0.7" minW="0">
         <TopStudentsCard data={topStudentsData} />
         </Flex>
