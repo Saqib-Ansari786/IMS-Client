@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   FormControl,
@@ -6,7 +6,7 @@ import {
   Input,
   Select,
   Button,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 export default function AddStudent() {
   return (
@@ -17,8 +17,8 @@ export default function AddStudent() {
       p={4}
       backgroundColor="white"
       boxShadow="lg"
-    //   maxWidth="500px"
-    //   mx="auto"
+      //   maxWidth="500px"
+      //   mx="auto"
     >
       <form>
         <FormControl isRequired>
@@ -80,14 +80,7 @@ export default function AddStudent() {
             Upload a profile picture.
           </small>
         </FormControl>
-        <Button
-          type="submit"
-          mt={6}
-          colorScheme="blue"
-       
-          py={4}
-          fontSize="1rem"
-        >
+        <Button type="submit" mt={6} colorScheme="blue" py={4} fontSize="1rem">
           Add Student
         </Button>
       </form>

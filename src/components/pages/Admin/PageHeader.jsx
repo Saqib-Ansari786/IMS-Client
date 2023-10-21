@@ -11,6 +11,7 @@ export default function PageHeader({
   handleListViewClick,
   handleAddClick,
   handleGridClick,
+  role
 }) {
   const [selectedView, setSelectedView] = useState("ListView");
 
@@ -92,7 +93,7 @@ export default function PageHeader({
               handleViewChange("Add");
             }}
           >
-            Add Student
+           {role}
           </Button>
         </Flex>
       </Flex>

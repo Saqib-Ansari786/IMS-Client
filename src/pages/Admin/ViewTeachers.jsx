@@ -173,6 +173,7 @@ export default function ViewStudents() {
       handleListViewClick={handleListViewClick}
       handleAddClick={handleAddClick}
       handleGridClick={handleGridClick}
+      role={"Teacher"}
     >
       {selectedComponent === "ListView" && (
         <>

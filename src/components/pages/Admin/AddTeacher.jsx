@@ -45,7 +45,7 @@ export default function AddTeacher() {
           <FormLabel>Designation</FormLabel>
           <Input type="text" placeholder='Enter the designation' />
         </FormControl>
-        {/* <FormControl isRequired mt={4}>
+        <FormControl isRequired mt={4}>
           <FormLabel>Course</FormLabel>
           <Select placeholder="Select Class">
             <option value="Computer">Computer</option>
@@ -53,7 +53,7 @@ export default function AddTeacher() {
             <option value="Mathematics">Mathematics</option>
             <option value="Commerce">Commerce</option>
           </Select>
-        </FormControl> */}
+        </FormControl>
         <FormControl isRequired mt={4}>
           <FormLabel>Gender</FormLabel>
           <Select placeholder="Select Gender">

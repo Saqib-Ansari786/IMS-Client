@@ -112,6 +112,7 @@ const jsonData = {
         handleListViewClick={handleListViewClick}
         handleAddClick={handleAddClick}
         handleGridClick={handleGridClick}
+        role={"Student"}
       >
         {selectedComponent === 'ListView' && (
           <>
