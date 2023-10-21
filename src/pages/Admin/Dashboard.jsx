@@ -1,7 +1,9 @@
-import { Flex, SimpleGrid, Stack } from "@chakra-ui/react";
+import { Flex, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import CustomCard from "../../components/pages/Dashboard/CustomCard";
 import AnnouncementCard from "../../components/pages/Dashboard/AnnouncementCard";
 import DashboardWidget from "../../components/pages/Admin/DashboardWidget";
+import TopStudentsCard from "../../components/pages/Admin/TopStudentCard";
+import StudentYearChart from "../../components/pages/Admin/StudentYearChart";
 
 const dashboardData = [
   {
@@ -30,7 +32,47 @@ const dashboardData = [
   },
 ];
 
-const cardcontent = [1, 2, 3, 4, 5];
+const topStudentsData = [
+  
+  {
+    id: 1,
+    name: "John Smith",
+    marks: 1185,
+    percentage: "98%",
+    year: 2019,
+    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
+  },
+  {
+    id: 2,
+    name: "John Smith",
+    marks: 1185,
+    percentage: "98%",
+    year: 2019,
+    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
+  },
+  {
+    id: 3,
+    name: "John Smith",
+    marks: 1185,
+    percentage: "98%",
+    year: 2019,
+    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
+  },
+  {
+    id: 4,
+    name: "John Smith",
+    marks: 1185,
+    percentage: "98%",
+    year: 2019,
+    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
+  },
+  
+];
+const chartData = {
+  years: ["2016", "2017", "2018", "2019", "2020", "2021", "2022"],
+  maleStudents: [20, 25, 30, 35, 40, 45, 50], // Replace with your male student data
+  femaleStudents: [30, 35, 45, 55, 70, 80, 90], // Replace with your female student data
+};
 
 export default function Dashboard() {
   return (
@@ -46,30 +88,15 @@ export default function Dashboard() {
           />
         ))}
       </SimpleGrid>
+      <StudentYearChart data={chartData} />
       <Flex direction={{ base: "column", md: "row" }} gap={3} m={5}>
-        {/* Left Column (70%) */}
         <Flex direction="column" flex="0.7" minW="0">
-          
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 5, md: 10 }}>
-            {cardcontent.map((item, index) => (
-              <CustomCard
-                key={index}
-                title={"Card"}
-                text={
-                  "lorem asda aksd ajsdnasd asjdahsda sdjasdhasd asjdahsdjasd asdjasdhasd asjdashdjas djasdas djasdhasd asjdasjd"
-                }
-              />
-            ))}
-          </SimpleGrid>
+        <TopStudentsCard data={topStudentsData} />
         </Flex>
-
-        {/* Right Column (30%) */}
         <Flex direction="column" flex="0.3" minW="0">
           <AnnouncementCard />
         </Flex>
       </Flex>
-
-      
     </Stack>
   );
 }

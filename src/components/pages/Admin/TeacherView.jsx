@@ -14,7 +14,7 @@ import {
   
   export default function TeacherView({ headers, data, entries }) {
     return (
-      <TableContainer mt={3} borderWidth="1px" borderRadius="lg" p={4} backgroundColor="white" >
+      <TableContainer mt={3} borderWidth="1px" borderRadius="lg" p={4} mx={3} backgroundColor="white" >
         <Table variant="striped" colorScheme="blackAlpha">
           <Thead>
             <Tr>
