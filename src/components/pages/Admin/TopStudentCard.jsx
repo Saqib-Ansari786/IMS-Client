@@ -16,7 +16,7 @@ import React from "react";
 const TopStudentsCard = ({ data }) => {
   return (
    
-      <TableContainer borderWidth="1px" borderRadius="lg" p={4}  backgroundColor="white">
+      <TableContainer borderWidth="1px" p={4}  backgroundColor="white">
        <Heading mb={"5"} as="h3" size="md" color="#120E87" >
         Top Students
       </Heading>

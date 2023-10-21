@@ -2,8 +2,9 @@ import { Flex, SimpleGrid, Stack, Text, Heading } from "@chakra-ui/react";
 import CustomCard from "../../components/pages/Dashboard/CustomCard";
 import AnnouncementCard from "../../components/pages/Dashboard/AnnouncementCard";
 import DashboardWidget from "../../components/pages/Admin/DashboardWidget";
-import TopStudentsCard from "../../components/pages/Admin/TopStudentCard";
+import TopStudentsTable from "../../components/pages/Admin/TopStudentCard";
 import StudentYearChart from "../../components/pages/Admin/StudentYearChart";
+import EventCalendar from "../../components/pages/Admin/EventCalendar";
 
 const dashboardData = [
   {
@@ -97,13 +98,15 @@ export default function Dashboard() {
       </SimpleGrid>
       <StudentYearChart data={chartData} />
       <Flex direction={{ base: "column", md: "row" }} gap={3}>
-        <Flex direction="column" flex="0.7" minW="0">
-        <TopStudentsCard data={topStudentsData} />
-        </Flex>
-        <Flex direction="column" flex="0.3" minW="0">
-          <AnnouncementCard />
-        </Flex>
-      </Flex>
+  <Flex direction="column" flex={{ base: "1", md: "0.7" }} minW="0">
+    <EventCalendar />
+    <TopStudentsTable data={topStudentsData} />
+  </Flex>
+  <Flex direction="column" flex={{ base: "1", md: "0.3" }} minW="0">
+    <AnnouncementCard />
+  </Flex>
+</Flex>
+
     </>
   );
 }

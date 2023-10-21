@@ -33,6 +33,27 @@ export default function AnnouncementCard() {
         lorem asda aksd ajsdnasd asjdahsda sdjasdhasd asjdahsdjasd asdjasdhasd
         asjdashdjas djasdas djasdhasd asjdasjd
       </Text>
+      <Heading as="h2" size="sm" my={3}>
+        Card
+      </Heading>
+      <Text fontSize="sm">
+        lorem asda aksd ajsdnasd asjdahsda sdjasdhasd asjdahsdjasd asdjasdhasd
+        asjdashdjas djasdas djasdhasd asjdasjd
+      </Text>
+      <Heading as="h2" size="sm" my={3}>
+        Card
+      </Heading>
+      <Text fontSize="sm">
+        lorem asda aksd ajsdnasd asjdahsda sdjasdhasd asjdahsdjasd asdjasdhasd
+        asjdashdjas djasdas djasdhasd asjdasjd
+      </Text>
+      <Heading as="h2" size="sm" my={3}>
+        Card
+      </Heading>
+      <Text fontSize="sm">
+        lorem asda aksd ajsdnasd asjdahsda sdjasdhasd asjdahsdjasd asdjasdhasd
+        asjdashdjas djasdas djasdhasd asjdasjd
+      </Text>
     </Box>
   );
 }

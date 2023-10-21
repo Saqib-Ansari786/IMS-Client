@@ -17,6 +17,7 @@ export default function AddStudent() {
       p={4}
       backgroundColor="white"
       boxShadow="lg"
+      mx={3}
       //   maxWidth="500px"
       //   mx="auto"
     >
