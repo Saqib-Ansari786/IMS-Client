@@ -1,4 +1,4 @@
-import { Flex, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Flex, SimpleGrid, Stack, Text, Heading } from "@chakra-ui/react";
 import CustomCard from "../../components/pages/Dashboard/CustomCard";
 import AnnouncementCard from "../../components/pages/Dashboard/AnnouncementCard";
 import DashboardWidget from "../../components/pages/Admin/DashboardWidget";
@@ -37,33 +37,37 @@ const topStudentsData = [
   {
     id: 1,
     name: "John Smith",
+    course: "Web Developmemt",
     marks: 1185,
     percentage: "98%",
-    year: 2019,
+    year: 2015,
     imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
   },
   {
     id: 2,
     name: "John Smith",
+    course: "Web Developmemt",
     marks: 1185,
     percentage: "98%",
-    year: 2019,
+    year: 2016,
     imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
   },
   {
     id: 3,
     name: "John Smith",
+    course: "Web Developmemt",
     marks: 1185,
     percentage: "98%",
-    year: 2019,
+    year: 2017,
     imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
   },
   {
     id: 4,
     name: "John Smith",
+    course: "Web Developmemt",
     marks: 1185,
     percentage: "98%",
-    year: 2019,
+    year: 2018,
     imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
   },
   
@@ -76,7 +80,10 @@ const chartData = {
 
 export default function Dashboard() {
   return (
-    <Stack minW="100%">
+    <>
+    <Heading mb={"5"} as="h3" size="md" color="#120E87" >
+       Welcome Admin!
+      </Heading>
       <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={4} mb={2}>
         {dashboardData.map((item, index) => (
           <DashboardWidget
@@ -97,6 +104,6 @@ export default function Dashboard() {
           <AnnouncementCard />
         </Flex>
       </Flex>
-    </Stack>
+    </>
   );
 }

@@ -17,6 +17,7 @@ const LinkItems = [
   { name: "Inventory", icon: SettingsIcon, route: "/admin" },
   { name: "Courses", icon: SettingsIcon, route: "/admin/courses" },
   { name: "Result", icon: SettingsIcon, route: "/admin" },
+  { name: "Time Table", icon: SettingsIcon, route: "/admin" },
 ];
 
 export default function AdminRootLayout() {
