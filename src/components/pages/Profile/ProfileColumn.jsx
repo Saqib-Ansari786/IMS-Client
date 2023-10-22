@@ -1,6 +1,17 @@
 import { EditIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading, IconButton, Text } from "@chakra-ui/react";
 
+const Inputformat = ({ input, inputvalue }) => {
+  return (
+    <Flex gap={20}>
+      <Text>{input}:</Text>
+      <Text color={"black"}>
+        <b>{inputvalue}</b>
+      </Text>
+    </Flex>
+  );
+};
+
 const ProfileColumn = ({ name, phone, email, destination, description }) => {
   return (
     <Box
@@ -30,14 +41,3 @@ const ProfileColumn = ({ name, phone, email, destination, description }) => {
 };
 
 export default ProfileColumn;
-
-const Inputformat = ({ input, inputvalue }) => {
-  return (
-    <Flex gap={20}>
-      <Text>{input}:</Text>
-      <Text color={"black"}>
-        <b>{inputvalue}</b>
-      </Text>
-    </Flex>
-  );
-};

@@ -10,7 +10,8 @@ const dashboardData = [
   {
     title: "Total Students",
     value: "50055",
-    iconSrc: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
+    iconSrc:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
     altText: "Students Icon",
   },
   {
@@ -34,7 +35,6 @@ const dashboardData = [
 ];
 
 const topStudentsData = [
-  
   {
     id: 1,
     name: "John Smith",
@@ -42,7 +42,8 @@ const topStudentsData = [
     marks: 1185,
     percentage: "98%",
     year: 2015,
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
   },
   {
     id: 2,
@@ -51,7 +52,8 @@ const topStudentsData = [
     marks: 1185,
     percentage: "98%",
     year: 2016,
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
   },
   {
     id: 3,
@@ -60,7 +62,8 @@ const topStudentsData = [
     marks: 1185,
     percentage: "98%",
     year: 2017,
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
   },
   {
     id: 4,
@@ -69,9 +72,9 @@ const topStudentsData = [
     marks: 1185,
     percentage: "98%",
     year: 2018,
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
   },
-  
 ];
 const chartData = {
   years: ["2016", "2017", "2018", "2019", "2020", "2021", "2022"],
@@ -79,11 +82,17 @@ const chartData = {
   femaleStudents: [30, 35, 45, 55, 70, 80, 90], // Replace with your female student data
 };
 
+const announcements = [
+  { id: 1, title: "Announcement 1", content: "Content 1" },
+  { id: 2, title: "Announcement 2", content: "Content 2" },
+  { id: 3, title: "Announcement 3", content: "Content 3" },
+];
+
 export default function Dashboard() {
   return (
     <>
-    <Heading mb={"5"} as="h3" size="md" color="#120E87" >
-       Welcome Admin!
+      <Heading mb={"5"} as="h3" size="md" color="#120E87">
+        Welcome Admin!
       </Heading>
       <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={4} mb={2}>
         {dashboardData.map((item, index) => (
@@ -98,15 +107,14 @@ export default function Dashboard() {
       </SimpleGrid>
       <StudentYearChart data={chartData} />
       <Flex direction={{ base: "column", md: "row" }} gap={3}>
-  <Flex direction="column" flex={{ base: "1", md: "0.7" }} minW="0">
-    <EventCalendar />
-    <TopStudentsTable data={topStudentsData} />
-  </Flex>
-  <Flex direction="column" flex={{ base: "1", md: "0.3" }} minW="0">
-    <AnnouncementCard />
-  </Flex>
-</Flex>
-
+        <Flex direction="column" flex={{ base: "1", md: "0.7" }} minW="0">
+          <EventCalendar />
+          <TopStudentsTable data={topStudentsData} />
+        </Flex>
+        <Flex direction="column" flex={{ base: "1", md: "0.3" }} minW="0">
+          <AnnouncementCard data={announcements} />
+        </Flex>
+      </Flex>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 
-export default function AnnouncementCard() {
+export default function AnnouncementCard({ data }) {
   return (
     <Box
       bg="white"
@@ -12,48 +12,15 @@ export default function AnnouncementCard() {
     >
       <Heading size="md">Announcements</Heading>
 
-      <Heading as="h2" size="sm" my={3}>
-        Card
-      </Heading>
-      <Text fontSize="sm">
-        lorem asda aksd ajsdnasd asjdahsda sdjasdhasd asjdahsdjasd asdjasdhasd
-        asjdashdjas djasdas djasdhasd asjdasjd
-      </Text>
-      <Heading as="h2" size="sm" my={3}>
-        Card
-      </Heading>
-      <Text fontSize="sm">
-        lorem asda aksd ajsdnasd asjdahsda sdjasdhasd asjdahsdjasd asdjasdhasd
-        asjdashdjas djasdas djasdhasd asjdasjd
-      </Text>
-      <Heading as="h2" size="sm" my={3}>
-        Card
-      </Heading>
-      <Text fontSize="sm">
-        lorem asda aksd ajsdnasd asjdahsda sdjasdhasd asjdahsdjasd asdjasdhasd
-        asjdashdjas djasdas djasdhasd asjdasjd
-      </Text>
-      <Heading as="h2" size="sm" my={3}>
-        Card
-      </Heading>
-      <Text fontSize="sm">
-        lorem asda aksd ajsdnasd asjdahsda sdjasdhasd asjdahsdjasd asdjasdhasd
-        asjdashdjas djasdas djasdhasd asjdasjd
-      </Text>
-      <Heading as="h2" size="sm" my={3}>
-        Card
-      </Heading>
-      <Text fontSize="sm">
-        lorem asda aksd ajsdnasd asjdahsda sdjasdhasd asjdahsdjasd asdjasdhasd
-        asjdashdjas djasdas djasdhasd asjdasjd
-      </Text>
-      <Heading as="h2" size="sm" my={3}>
-        Card
-      </Heading>
-      <Text fontSize="sm">
-        lorem asda aksd ajsdnasd asjdahsda sdjasdhasd asjdahsdjasd asdjasdhasd
-        asjdashdjas djasdas djasdhasd asjdasjd
-      </Text>
+      {data &&
+        data.map((announcement, index) => (
+          <Box key={index} my={3}>
+            <Heading as="h2" size="sm" my={3}>
+              {announcement.title}
+            </Heading>
+            <Text fontSize="sm">{announcement.content}</Text>
+          </Box>
+        ))}
     </Box>
   );
 }
