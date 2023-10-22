@@ -8,7 +8,15 @@ import AddTeacher from "../../components/pages/Admin/AddTeacher";
 import TeacherView from "../../components/pages/Admin/TeacherView";
 
 const jsonData = {
-  headers: ["BELT NO", "NAME", "DESIGNATION", "EMAIL", "PHONE NO", "JOINING DTAE", "ACTION"],
+  headers: [
+    "BELT NO",
+    "NAME",
+    "DESIGNATION",
+    "EMAIL",
+    "PHONE NO",
+    "JOINING DTAE",
+    "ACTION",
+  ],
   data: [
     {
       beltNo: "A123",
@@ -17,7 +25,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -26,7 +33,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -35,7 +41,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -44,7 +49,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -53,7 +57,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -62,7 +65,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -71,7 +73,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -80,7 +81,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -89,7 +89,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -98,7 +97,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -107,7 +105,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -116,7 +113,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -125,7 +121,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -134,7 +129,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
     {
       beltNo: "A123",
@@ -143,7 +137,6 @@ const jsonData = {
       email: "check@gmail.com",
       phoneNo: "0321-1234567",
       joiningDate: "04 Jan, 2019",
-
     },
   ],
 };

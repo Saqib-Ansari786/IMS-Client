@@ -42,12 +42,15 @@ import CreateProductPage from "./pages/Inventory_Admin/CreateProductPage";
 import SalesPage from "./pages/Inventory_Admin/SalesPage";
 import CreateSalePage from "./pages/Inventory_Admin/CreateSalePage";
 import SalesReportPage from "./pages/Inventory_Admin/SalesReportPage";
+import ResultPage from "./pages/Admin/ResultPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<SignIn />} />
       <Route path="*" element={<NotFound />} />
+
+      {/* Admin */}
       <Route path="admin/" element={<AdminRootLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
@@ -56,7 +59,10 @@ const router = createBrowserRouter(
         <Route path="courses" element={<CoursePage />} />
         <Route path="library" element={<LibraryView />} />
         <Route path="check" element={<TeacherProfileView />} />
+        <Route path="result" element={<ResultPage />} />
       </Route>
+
+      {/* Student */}
       <Route path="student/" element={<StudentRootLayout />}>
         <Route index element={<Home />} />
         <Route path="assignments" element={<Assignment />} />
@@ -65,6 +71,8 @@ const router = createBrowserRouter(
         <Route path="resources" element={<CourseResources />} />
         <Route path="viewlibrary" element={<ViewLibrary />} />
       </Route>
+
+      {/* Teacher */}
       <Route path="teacher/" element={<TeacherRootLayout />}>
         <Route index element={<TeacherDashboard />} />
         <Route path="manage-attendance" element={<ManageAttendancePage />} />
@@ -90,6 +98,9 @@ const router = createBrowserRouter(
           element={<MarksSummaryPage />}
         />
       </Route>
+
+      {/* Inventory Admin */}
+
       <Route path="inventory_admin/" element={<InventoryAdminLayout />}>
         <Route index element={<InventoryDashboard />} />
         <Route path="products" element={<ProductPage />} />
