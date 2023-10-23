@@ -14,10 +14,10 @@ const LinkItems = [
   { name: "Students", icon: SearchIcon, route: "/admin/studentview" },
   { name: "Teachers", icon: StarIcon, route: "/admin/teacherview" },
   { name: "Library", icon: SettingsIcon, route: "/admin/library" },
-  { name: "Inventory", icon: SettingsIcon, route: "/admin" },
+  { name: "Inventory", icon: SettingsIcon, route: "/inventory" },
   { name: "Courses", icon: SettingsIcon, route: "/admin/courses" },
-  { name: "Result", icon: SettingsIcon, route: "/admin" },
-  { name: "Time Table", icon: SettingsIcon, route: "/admin" },
+  { name: "Result", icon: SettingsIcon, route: "/admin/result" },
+  { name: "Time Table", icon: SettingsIcon, route: "/admin/timetable" },
 ];
 
 export default function AdminRootLayout() {
