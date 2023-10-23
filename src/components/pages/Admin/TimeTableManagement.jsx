@@ -397,7 +397,7 @@
 
 // ScheduleManagement.js
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Box,
@@ -407,25 +407,25 @@ import {
   Input,
   Text,
   Select,
-} from '@chakra-ui/react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+} from "@chakra-ui/react";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
-export default function TimeTableManagement (){
+export default function TimeTableManagement() {
   const localizer = momentLocalizer(moment);
 
   // Sample schedule data
   const dummySchedules = [
     {
       id: 1,
-      title: 'Meeting 1',
+      title: "Meeting 1",
       start: new Date(2023, 8, 2, 10, 0),
       end: new Date(2023, 8, 2, 11, 0),
     },
     {
       id: 2,
-      title: 'Class 1',
+      title: "Class 1",
       start: new Date(2023, 8, 3, 14, 0),
       end: new Date(2023, 8, 3, 16, 0),
     },
@@ -434,15 +434,15 @@ export default function TimeTableManagement (){
   const [schedules, setSchedules] = useState(dummySchedules);
 
   const [formData, setFormData] = useState({
-    title: '',
-    start: '',
-    end: '',
-    room: '',
-    teacher: '',
+    title: "",
+    start: "",
+    end: "",
+    room: "",
+    teacher: "",
   });
 
-  const rooms = ['Room A', 'Room B', 'Room C'];
-  const teachers = ['Teacher 1', 'Teacher 2', 'Teacher 3'];
+  const rooms = ["Room A", "Room B", "Room C"];
+  const teachers = ["Teacher 1", "Teacher 2", "Teacher 3"];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -454,7 +454,13 @@ export default function TimeTableManagement (){
 
   const handleSaveSchedule = () => {
     // Validate and save the schedule data here
-    if (formData.title && formData.start && formData.end && formData.room && formData.teacher) {
+    if (
+      formData.title &&
+      formData.start &&
+      formData.end &&
+      formData.room &&
+      formData.teacher
+    ) {
       // Create a new schedule event
       const newEvent = {
         id: schedules.length + 1,
@@ -469,11 +475,11 @@ export default function TimeTableManagement (){
 
       // Clear the form
       setFormData({
-        title: '',
-        start: '',
-        end: '',
-        room: '',
-        teacher: '',
+        title: "",
+        start: "",
+        end: "",
+        room: "",
+        teacher: "",
       });
     }
   };
@@ -545,7 +551,12 @@ export default function TimeTableManagement (){
         endAccessor="end"
         style={{ height: 500, backgroundColor: "white", padding: "20px" }}
         eventPropGetter={(event, start, end, isSelected) => {
-          const backgroundColor = event.room === 'Room A' ? 'blue' : event.room === 'Room B' ? 'green' : 'red';
+          const backgroundColor =
+            event.room === "Room A"
+              ? "blue"
+              : event.room === "Room B"
+              ? "green"
+              : "red";
           return { style: { backgroundColor } };
         }}
         tooltipAccessor={(event) => {
@@ -554,4 +565,4 @@ export default function TimeTableManagement (){
       />
     </Container>
   );
-};
+}
