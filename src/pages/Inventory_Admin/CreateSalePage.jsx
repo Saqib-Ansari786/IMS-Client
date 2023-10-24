@@ -9,15 +9,31 @@ import {
   Select,
   Button,
 } from "@chakra-ui/react";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
 
 const CreateSalePage = () => {
+  const postsale = async (saleData) => {
+    try {
+      const response = await apiMiddleware("admin/sales/sales", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(saleData),
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [saleData, setSaleData] = useState({
     id: 0,
     date: "",
-    amount: 0,
-    product_name: "",
-    customer_name: "",
-    customer_type: "",
+    quantity: 0,
+    productName: "",
+    customerName: "",
+    customerType: "",
   });
 
   const handleChange = (e) => {
@@ -28,6 +44,7 @@ const CreateSalePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Implement logic to create the sale using saleData
+    postsale(saleData);
     console.log("Sale data submitted:", saleData);
   };
 
@@ -48,10 +65,10 @@ const CreateSalePage = () => {
           />
         </FormControl>
         <FormControl mt={4}>
-          <FormLabel>Amount</FormLabel>
+          <FormLabel>Quantity</FormLabel>
           <Input
             type="number"
-            name="amount"
+            name="quantity"
             value={saleData.amount}
             onChange={handleChange}
             required
@@ -61,7 +78,7 @@ const CreateSalePage = () => {
           <FormLabel>Product Name</FormLabel>
           <Input
             type="text"
-            name="product_name"
+            name="productName"
             value={saleData.product_name}
             onChange={handleChange}
             required
@@ -71,7 +88,7 @@ const CreateSalePage = () => {
           <FormLabel>Customer Name</FormLabel>
           <Input
             type="text"
-            name="customer_name"
+            name="customerName"
             value={saleData.customer_name}
             onChange={handleChange}
             required
@@ -80,7 +97,7 @@ const CreateSalePage = () => {
         <FormControl mt={4}>
           <FormLabel>Customer Type</FormLabel>
           <Select
-            name="customer_type"
+            name="customerType"
             value={saleData.customer_type}
             onChange={handleChange}
             required

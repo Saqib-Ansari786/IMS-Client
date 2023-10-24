@@ -19,14 +19,14 @@ const SalesTable = ({ sales, onEdit, onDelete }) => {
       </Thead>
       <Tbody>
         {sales ? (
-          sales.map((sale) => (
-            <Tr key={sale.id}>
-              <Td>{sale.id}</Td>
+          sales.map((sale, index) => (
+            <Tr key={index}>
+              <Td>{index + 1}</Td>
               <Td>{sale.date}</Td>
-              <Td>{sale.amount}</Td>
-              <Td>{sale.product_name}</Td>
-              <Td>{sale.customer_name}</Td>
-              <Td>{sale.customer_type}</Td>
+              <Td>{sale.quantity}</Td>
+              <Td>{sale.productName}</Td>
+              <Td>{sale.customerName}</Td>
+              <Td>{sale.customerType}</Td>
               <Td>
                 <IconButton
                   icon={<EditIcon />}
