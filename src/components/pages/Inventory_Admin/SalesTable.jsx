@@ -18,29 +18,35 @@ const SalesTable = ({ sales, onEdit, onDelete }) => {
         </Tr>
       </Thead>
       <Tbody>
-        {sales.map((sale) => (
-          <Tr key={sale.id}>
-            <Td>{sale.id}</Td>
-            <Td>{sale.date}</Td>
-            <Td>{sale.amount}</Td>
-            <Td>{sale.product_name}</Td>
-            <Td>{sale.customer_name}</Td>
-            <Td>{sale.customer_type}</Td>
-            <Td>
-              <IconButton
-                icon={<EditIcon />}
-                colorScheme="blue"
-                onClick={() => onEdit(sale.id)}
-                mr={2}
-              />
-              <IconButton
-                icon={<DeleteIcon />}
-                colorScheme="red"
-                onClick={() => onDelete(sale.id)}
-              />
-            </Td>
+        {sales ? (
+          sales.map((sale) => (
+            <Tr key={sale.id}>
+              <Td>{sale.id}</Td>
+              <Td>{sale.date}</Td>
+              <Td>{sale.amount}</Td>
+              <Td>{sale.product_name}</Td>
+              <Td>{sale.customer_name}</Td>
+              <Td>{sale.customer_type}</Td>
+              <Td>
+                <IconButton
+                  icon={<EditIcon />}
+                  colorScheme="blue"
+                  onClick={() => onEdit(sale.id)}
+                  mr={2}
+                />
+                <IconButton
+                  icon={<DeleteIcon />}
+                  colorScheme="red"
+                  onClick={() => onDelete(sale.id)}
+                />
+              </Td>
+            </Tr>
+          ))
+        ) : (
+          <Tr>
+            <Td colSpan={7}>No sales found</Td>
           </Tr>
-        ))}
+        )}
       </Tbody>
     </Table>
   );

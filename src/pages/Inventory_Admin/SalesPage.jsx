@@ -1,9 +1,23 @@
 // src/pages/SalesPage.js
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 import SalesTable from "../../components/pages/Inventory_Admin/SalesTable";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
 
 const SalesPage = () => {
+  useEffect(() => {
+    const fetchSales = async () => {
+      try {
+        const sales = await apiMiddleware("admin/sales/sales");
+        setSales(sales.data);
+        console.log(sales.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchSales();
+  }, []);
+
   const [sales, setSales] = useState([
     {
       id: 1,
@@ -46,7 +60,11 @@ const SalesPage = () => {
       <Heading as="h1" mb={4}>
         Sales Page
       </Heading>
-      <SalesTable sales={sales} onEdit={handleEdit} onDelete={handleDelete} />
+      {sales.length > 0 ? (
+        <SalesTable sales={sales} onEdit={handleEdit} onDelete={handleDelete} />
+      ) : (
+        <p>No sales found</p>
+      )}
     </Box>
   );
 };
