@@ -14,27 +14,28 @@ const ProductPageTable = ({ products, onEdit, onDelete }) => {
         </Tr>
       </Thead>
       <Tbody>
-        {products.map((product) => (
-          <Tr key={product.id}>
-            <Td>{product.id}</Td>
-            <Td>{product.name}</Td>
-            <Td>{product.category}</Td>
-            <Td>{product.price}</Td>
-            <Td>
-              <IconButton
-                icon={<EditIcon />}
-                colorScheme="blue"
-                onClick={() => onEdit(product.id)}
-                mr={2}
-              />
-              <IconButton
-                icon={<DeleteIcon />}
-                colorScheme="red"
-                onClick={() => onDelete(product.id)}
-              />
-            </Td>
-          </Tr>
-        ))}
+        {products &&
+          products.map((product) => (
+            <Tr key={product.id}>
+              <Td>{product.id}</Td>
+              <Td>{product.name}</Td>
+              <Td>{product.category}</Td>
+              <Td>{product.quantity}</Td>
+              <Td>
+                <IconButton
+                  icon={<EditIcon />}
+                  colorScheme="blue"
+                  onClick={() => onEdit(product.id)}
+                  mr={2}
+                />
+                <IconButton
+                  icon={<DeleteIcon />}
+                  colorScheme="red"
+                  onClick={() => onDelete(product.id)}
+                />
+              </Td>
+            </Tr>
+          ))}
       </Tbody>
     </Table>
   );

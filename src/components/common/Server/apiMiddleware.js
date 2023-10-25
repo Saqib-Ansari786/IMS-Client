@@ -11,7 +11,7 @@ const apiMiddleware = async (path, options = {}) => {
     }
 
     const data = await response.json();
-    return data;
+    return data.data;
   } catch (error) {
     throw new Error(`Error fetching data: ${error.message}`);
   }

@@ -2,14 +2,15 @@
 import { useState } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 import ProductPageTable from "../../components/pages/Inventory_Admin/ProductPageTable";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
+import { useQuery } from "react-query";
 
 const ProductPage = () => {
-  // Sample product data
-  const [products, setProducts] = useState([
-    { id: 1, name: "Product 1", category: "Category A", price: 10 },
-    { id: 2, name: "Product 2", category: "Category B", price: 20 },
-    { id: 3, name: "Product 3", category: "Category A", price: 15 },
-  ]);
+  const {
+    data: products,
+    isLoading,
+    isError,
+  } = useQuery("products", () => apiMiddleware("admin/products/products"));
 
   const handleEdit = (productId) => {
     // Implement edit logic here
@@ -26,11 +27,19 @@ const ProductPage = () => {
       <Heading as="h1" mb={4}>
         Product Page
       </Heading>
-      <ProductPageTable
-        products={products}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : isError ? (
+        <p>Error</p>
+      ) : products.length > 0 ? (
+        <ProductPageTable
+          products={products}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      ) : (
+        <p>No products found</p>
+      )}
     </Box>
   );
 };

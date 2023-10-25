@@ -9,8 +9,24 @@ import {
   FormControl,
   FormLabel,
 } from "@chakra-ui/react";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
 
 const CreateProductPage = () => {
+  const postProduct = async (productData) => {
+    try {
+      const response = await apiMiddleware("admin/products/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [productData, setProductData] = useState({
     name: "",
     category: "",
@@ -25,6 +41,7 @@ const CreateProductPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Implement logic to create the product using productData
+    postProduct(productData);
     console.log("Product data submitted:", productData);
   };
 
