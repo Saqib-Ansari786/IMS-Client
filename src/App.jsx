@@ -44,6 +44,7 @@ import CreateSalePage from "./pages/Inventory_Admin/CreateSalePage";
 import SalesReportPage from "./pages/Inventory_Admin/SalesReportPage";
 import ResultPage from "./pages/Admin/ResultPage";
 import TimeTableManagement from "./components/pages/Admin/TimeTableManagement";
+import TimetablePage from "./pages/Admin/TimetablePage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -62,6 +63,7 @@ const router = createBrowserRouter(
         <Route path="check" element={<TeacherProfileView />} />
         <Route path="result" element={<ResultPage />} />
         <Route path="timetable" element={<TimeTableManagement />} />
+        <Route path="mytimetable" element={<TimetablePage />} />
       </Route>
 
       {/* Student */}

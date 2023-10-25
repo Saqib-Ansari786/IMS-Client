@@ -31,13 +31,13 @@ const SalesTable = ({ sales, onEdit, onDelete }) => {
                 <IconButton
                   icon={<EditIcon />}
                   colorScheme="blue"
-                  onClick={() => onEdit(sale.id)}
+                  onClick={() => onEdit(index)}
                   mr={2}
                 />
                 <IconButton
                   icon={<DeleteIcon />}
                   colorScheme="red"
-                  onClick={() => onDelete(sale.id)}
+                  onClick={() => onDelete(index)}
                 />
               </Td>
             </Tr>
