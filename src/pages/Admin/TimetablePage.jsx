@@ -34,7 +34,11 @@ const TimetablePage = () => {
 
   // Define available courses, teachers, and rooms
   const availableCourses = ["Course A", "Course B", "Course C"];
-  const availableTeachers = ["Teacher X", "Teacher Y", "Teacher Z"];
+  const availableTeachers = {
+    "Course A": ["Teacher X", "Teacher Y"],
+    "Course B": ["Teacher Y", "Teacher Z"],
+    "Course C": ["Teacher X", "Teacher Z"],
+  };
   const availableRooms = ["Room 101", "Room 102", "Room 103"];
 
   const handleBoxClick = (day, time) => {
@@ -44,6 +48,12 @@ const TimetablePage = () => {
 
   const handleModalClose = () => {
     setIsModalOpen(false);
+  };
+
+  const handleCourseChange = (course) => {
+    setSelectedCourse(course);
+    setSelectedTeacher("");
+    setSelectedRoom("");
   };
 
   const handleModalSubmit = () => {
@@ -59,17 +69,31 @@ const TimetablePage = () => {
     if (isConflict) {
       alert("This class already exists on this day.");
     } else {
-      // Add the selected course, teacher, and room to the timetable
-      const updatedTimetable = [...timetable];
-      updatedTimetable.push({
-        day: selectedTimeSlot.day,
-        time: selectedTimeSlot.time,
-        course: selectedCourse,
-        teacher: selectedTeacher,
-        room: selectedRoom,
-      });
-      setTimetable(updatedTimetable);
-      setIsModalOpen(false);
+      // Check if an entry with the same course, teacher, and room already exists on a different day at the selected time
+      const isConflictOnDifferentDay = timetable.some(
+        (entry) =>
+          entry.day !== selectedTimeSlot.day &&
+          entry.time === selectedTimeSlot.time &&
+          entry.course === selectedCourse &&
+          entry.teacher === selectedTeacher &&
+          entry.room === selectedRoom
+      );
+
+      if (isConflictOnDifferentDay) {
+        alert("This class already exists on a different day at the same time.");
+      } else {
+        // Add the selected course, teacher, and room to the timetable
+        const updatedTimetable = [...timetable];
+        updatedTimetable.push({
+          day: selectedTimeSlot.day,
+          time: selectedTimeSlot.time,
+          course: selectedCourse,
+          teacher: selectedTeacher,
+          room: selectedRoom,
+        });
+        setTimetable(updatedTimetable);
+        setIsModalOpen(false);
+      }
     }
   };
 
@@ -132,10 +156,11 @@ const TimetablePage = () => {
         <ModalContent>
           <ModalHeader>Select Details</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody bg={"white"}>
             <Select
               placeholder="Select a course"
-              onChange={(e) => setSelectedCourse(e.target.value)}
+              onChange={(e) => handleCourseChange(e.target.value)}
+              value={selectedCourse}
             >
               {availableCourses.map((course) => (
                 <option key={course} value={course}>
@@ -143,28 +168,44 @@ const TimetablePage = () => {
                 </option>
               ))}
             </Select>
-            <Select
-              mt={4}
-              placeholder="Select a teacher"
-              onChange={(e) => setSelectedTeacher(e.target.value)}
-            >
-              {availableTeachers.map((teacher) => (
-                <option key={teacher} value={teacher}>
-                  {teacher}
-                </option>
-              ))}
-            </Select>
-            <Select
-              mt={4}
-              placeholder="Select a room"
-              onChange={(e) => setSelectedRoom(e.target.value)}
-            >
-              {availableRooms.map((room) => (
-                <option key={room} value={room}>
-                  {room}
-                </option>
-              ))}
-            </Select>
+            {selectedCourse && (
+              <Select
+                mt={4}
+                placeholder="Select a teacher"
+                onChange={(e) => setSelectedTeacher(e.target.value)}
+                value={selectedTeacher}
+              >
+                {availableTeachers[selectedCourse].map((teacher) => (
+                  <option key={teacher} value={teacher}>
+                    {teacher}
+                  </option>
+                ))}
+              </Select>
+            )}
+            {selectedCourse && selectedTeacher && (
+              <Select
+                mt={4}
+                placeholder="Select a room"
+                onChange={(e) => setSelectedRoom(e.target.value)}
+                value={selectedRoom}
+              >
+                {availableRooms
+                  .filter(
+                    (room) =>
+                      !timetable.some(
+                        (entry) =>
+                          entry.day === selectedTimeSlot.day &&
+                          entry.time === selectedTimeSlot.time &&
+                          entry.room === room
+                      )
+                  )
+                  .map((room) => (
+                    <option key={room} value={room}>
+                      {room}
+                    </option>
+                  ))}
+              </Select>
+            )}
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="teal" onClick={handleModalSubmit}>
