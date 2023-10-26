@@ -60,6 +60,7 @@ import ProductPageTable from '../../components/pages/Inventory_Admin/ProductPage
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
 import CreateProductPage from './CreateProductPage';
+import ProductSearch from '../../components/pages/Inventory_Admin/ProductSearch';
 
   export default function ProductPage() {
     const [entries, setEntries] = useState(5);
@@ -103,6 +104,7 @@ import CreateProductPage from './CreateProductPage';
                   <p>Error</p>
                 ) : products.length > 0 ? (
                   <>
+                  <ProductSearch/>
                   <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
                   <ProductPageTable
                     products={products}
