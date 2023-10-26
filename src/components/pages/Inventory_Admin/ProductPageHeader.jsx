@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import { DownloadIcon, AddIcon, RepeatIcon } from "@chakra-ui/icons";
 import * as XLSX from "xlsx";
 
-export default function ProductpageHeader({ children, handleListViewClick, handleAddClick,}) {
+export default function ProductpageHeader({ children, handleListViewClick, handleAddClick, products}) {
 
   const [selectedView, setSelectedView] = useState("ListView");
 
@@ -11,6 +11,20 @@ export default function ProductpageHeader({ children, handleListViewClick, handl
     setSelectedView(view);
   };
 
+  const downloadExcel = () => {
+    const exportData = products.map((product) => [
+      product.id,
+      product.name,
+      product.category,
+      product.quantity,
+    ]);
+
+    const ws = XLSX.utils.aoa_to_sheet([products, ...exportData]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Products Data");
+
+    XLSX.writeFile(wb, "Products_data.xlsx");
+  };
 
   return (
     <Box py={4} bg="white" rounded="lg" boxShadow="md">
@@ -23,6 +37,7 @@ export default function ProductpageHeader({ children, handleListViewClick, handl
             leftIcon={<DownloadIcon />}
             colorScheme="green"
             variant="outline"
+            onClick={downloadExcel}
             _hover={{
               bg: "green.500",
               color: "white",

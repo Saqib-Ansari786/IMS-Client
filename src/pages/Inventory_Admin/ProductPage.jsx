@@ -93,6 +93,7 @@ import CreateProductPage from './CreateProductPage';
       <ProductpageHeader
       handleListViewClick={handleListViewClick}
       handleAddClick={handleAddClick}
+      products={products}
       >
         {selectedComponent === 'ListView' && (
           <>
