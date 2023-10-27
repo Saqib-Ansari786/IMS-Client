@@ -20,8 +20,8 @@ const InventoryDashboard = () => {
 
   return (
     <Box p={4}>
-      <Heading as="h1" mb={4}>
-        Inventory Dashboard
+      <Heading mb={"5"} as="h3" size="md" color="#120E87">
+       Welcome Inventory Admin!
       </Heading>
       <Flex justify="space-between" flexWrap="wrap">
         <Box flex="1" p={4} m={2} bg="white" borderRadius="md" boxShadow="md">
