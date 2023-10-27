@@ -9,8 +9,8 @@ const SalesPage = () => {
     const fetchSales = async () => {
       try {
         const sales = await apiMiddleware("admin/sales/sales");
-        setSales(sales.data);
-        console.log(sales.data);
+        console.log(sales);
+        setSales(sales);
       } catch (error) {
         console.log(error);
       }
