@@ -1,55 +1,86 @@
-// src/components/SalesTable.js
 import React from "react";
-import { Table, Thead, Tbody, Tr, Th, Td, IconButton } from "@chakra-ui/react";
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  IconButton,
+  Icon,
+  TableContainer,
+} from "@chakra-ui/react";
+import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 
-const SalesTable = ({ sales, onEdit, onDelete }) => {
-  return (
-    <Table size="sm">
-      <Thead>
-        <Tr>
-          <Th>ID</Th>
-          <Th>Date</Th>
-          <Th>Quantity</Th>
-          <Th>Product Name</Th>
-          <Th>Customer Name</Th>
-          <Th>Customer Type</Th>
-          <Th>Actions</Th>
-        </Tr>
+export default function SalesTable({ sales, onEdit, onDelete, entries }) {
+    return (
+      <TableContainer mt={3} borderWidth="1px" borderRadius="lg" p={4} mx={3} backgroundColor="white">
+        <Table  variant="striped" colorScheme="blackAlpha">
+        <Thead>
+         <Tr>
+         <Th textAlign="center">ID</Th>
+          <Th textAlign="center">Date</Th>
+          <Th textAlign="center">Quantity</Th>
+          <Th textAlign="center">Product Name</Th>
+          <Th textAlign="center">Customer Name</Th>
+          <Th textAlign="center">Customer Type</Th>
+          <Th textAlign="center">Actions</Th>
+         </Tr>
       </Thead>
-      <Tbody>
-        {sales ? (
-          sales.map((sale, index) => (
-            <Tr key={index}>
-              <Td>{index + 1}</Td>
-              <Td>{sale.date}</Td>
-              <Td>{sale.quantity}</Td>
-              <Td>{sale.productName}</Td>
-              <Td>{sale.customerName}</Td>
-              <Td>{sale.customerType}</Td>
-              <Td>
-                <IconButton
-                  icon={<EditIcon />}
-                  colorScheme="blue"
-                  onClick={() => onEdit(index)}
-                  mr={2}
-                />
-                <IconButton
-                  icon={<DeleteIcon />}
-                  colorScheme="red"
-                  onClick={() => onDelete(index)}
-                />
-              </Td>
-            </Tr>
-          ))
-        ) : (
-          <Tr>
-            <Td colSpan={7}>No sales found</Td>
-          </Tr>
-        )}
-      </Tbody>
-    </Table>
-  );
-};
-
-export default SalesTable;
+          <Tbody>
+            {sales ? (
+              sales.slice(0, entries).map((sale, index) => (
+                <Tr key={index}>
+                 <Td textAlign="center">
+                   {index + 1}
+                 </Td>
+                 <Td textAlign="center">
+                 {sale.date}
+                 </Td>
+                 <Td textAlign="center">
+                 {sale.quantity}
+                 </Td>
+                 <Td textAlign="center">
+                 {sale.productName}
+                 </Td>
+                 <Td textAlign="center">
+                 {sale.customerName}
+                 </Td>
+                 <Td textAlign="center">
+                 {sale.customerType}
+                 </Td>
+                 <Td textAlign="center">
+                   <IconButton
+                    size="sm"
+                    colorScheme="blue"
+                    title="View"
+                    icon={<Icon as={ViewIcon} />}
+                    mr={2} 
+                  />
+                  <IconButton
+                    size="sm"
+                    colorScheme="blue"
+                    title="Edit"
+                    icon={<Icon as={EditIcon} />}
+                    mr={2} 
+                  />
+                  <IconButton
+                    size="sm"
+                    colorScheme="red"
+                    title="Delete"
+                    icon={<Icon as={DeleteIcon} />}
+                  />
+                </Td>
+              </Tr>
+              ))
+              ) : (
+                <Tr>
+                  <Td colSpan={7}>No sales found</Td>
+                </Tr>
+              )}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    );
+  }
+  
