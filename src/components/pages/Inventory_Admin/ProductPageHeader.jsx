@@ -12,7 +12,8 @@ export default function ProductpageHeader({ children, handleListViewClick, handl
   };
 
   const downloadExcel = () => {
-    const exportData = products.map((product) => [
+    const exportData = products.map((product, index) => [
+      index + 1,
       product.id,
       product.name,
       product.category,

@@ -27,10 +27,10 @@ export default function ProductPageTable({ products, onEdit, onDelete, entries }
       </Thead>
           <Tbody>
             {products &&
-              products.slice(0, entries).map((product) => (
+              products.slice(0, entries).map((product, index) => (
                 <Tr key={product.id}>
                  <Td textAlign="center">
-                   {product.id}
+                   {index + 1}
                  </Td>
                  <Td textAlign="center">
                    {product.name}

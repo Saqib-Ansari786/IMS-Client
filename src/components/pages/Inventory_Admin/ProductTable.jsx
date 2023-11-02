@@ -1,8 +1,6 @@
-// src/components/ProductTable.js
-import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import { TableContainer, Table, Thead, Tbody, Tr, Th, Td, Heading } from "@chakra-ui/react";
 
 const ProductTable = () => {
-  // Sample product data
   const products = [
     { id: 1, name: "Product 1", category: "Category 1", price: 10 },
     { id: 2, name: "Product 2", category: "Category 2", price: 20 },
@@ -12,27 +10,35 @@ const ProductTable = () => {
   ];
 
   return (
-    <Table size="md">
-      <Thead>
-        <Tr>
-          <Th>ID</Th>
-          <Th>Name</Th>
-          <Th>Category</Th>
-          <Th>Price</Th>
-        </Tr>
-      </Thead>
-      <Tbody>
-        {products.map((product) => (
-          <Tr key={product.id}>
-            <Td>{product.id}</Td>
-            <Td>{product.name}</Td>
-            <Td>{product.category}</Td>
-            <Td>${product.price}</Td>
-          </Tr>
-        ))}
-      </Tbody>
-    </Table>
+    <TableContainer borderWidth="1px" borderRadius="lg" borderColor={"white"} p={4}  backgroundColor="white">
+    <Heading mb={"5"} as="h3" size="md" color="#120E87" >
+     Recent Products
+   </Heading>
+  <Table borderRadius={"4px"} border={"1px"} borderColor={"#F0F0F0"} variant="striped" colorScheme="blackAlpha">
+     <Thead>
+       <Tr>
+         <Th textAlign="center">ID</Th>
+         <Th textAlign="center" >Name</Th>
+         <Th textAlign="center">Category</Th>
+         <Th textAlign="center">Price</Th>
+       </Tr>
+     </Thead>
+     <Tbody>
+       {products.map((product) => (
+         <Tr key={product.id}>
+           <Td textAlign={"center"}>{product.id}</Td>
+           <Td textAlign="center">{product.name}</Td>
+           <Td textAlign="center">{product.category}</Td>
+           <Td textAlign="center">{product.price}$</Td>
+         </Tr>
+       ))}
+     </Tbody>
+   </Table>
+   </TableContainer>
   );
 };
 
 export default ProductTable;
+
+   
+ 

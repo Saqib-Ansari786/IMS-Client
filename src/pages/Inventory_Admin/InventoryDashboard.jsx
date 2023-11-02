@@ -1,7 +1,8 @@
-// src/components/InventoryDashboard.js
+import { useEffect, useState } from "react";
 import { Box, Flex, Text, Center, Heading } from "@chakra-ui/react";
 import { Bar } from "react-chartjs-2";
 import ProductTable from "../../components/pages/Inventory_Admin/ProductTable";
+import CountingAnimation from "../../components/pages/Inventory_Admin/CountingAnimation";
 
 const InventoryDashboard = () => {
   // Sample data for the chart
@@ -33,22 +34,13 @@ const InventoryDashboard = () => {
           </Center>
         </Box>
         <Box flex="1" p={4} m={2} bg="white" borderRadius="md" boxShadow="md">
-          <Text fontSize="lg" fontWeight="bold">
-            Total Products
-          </Text>
-          <Text fontSize="2xl">1000</Text>
-        </Box>
+        <CountingAnimation label="Total Products" total={100} />
+       </Box>
         <Box flex="1" p={4} m={2} bg="white" borderRadius="md" boxShadow="md">
-          <Text fontSize="lg" fontWeight="bold">
-            Total Categories
-          </Text>
-          <Text fontSize="2xl">50</Text>
+        <CountingAnimation label="Total Categories" total={150} />
         </Box>
       </Flex>
       <Box p={4} m={2} bg="white" borderRadius="md" boxShadow="md">
-        <Text fontSize="lg" fontWeight="bold">
-          Latest Products Added
-        </Text>
         <ProductTable />
       </Box>
     </Box>

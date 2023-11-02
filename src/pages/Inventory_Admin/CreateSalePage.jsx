@@ -49,7 +49,7 @@ const CreateSalePage = () => {
   };
 
   return (
-    <Box p={4}>
+    <Box backgroundColor={"white"} p={4}>
       <Heading as="h1" mb={4}>
         Create Sale
       </Heading>
