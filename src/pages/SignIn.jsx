@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -106,12 +105,8 @@ export default function SignIn() {
                   id="password"
                   name="password"
                   autoComplete="current-password"
+                  minLength={8}
                 />
-              </FormControl>
-              <FormControl>
-                <Stack direction="row" justifyContent="space-between">
-                  <Checkbox colorScheme="blue">Remember me</Checkbox>
-                </Stack>
               </FormControl>
               <Button
                 type="submit"
@@ -122,11 +117,6 @@ export default function SignIn() {
               >
                 Sign In
               </Button>
-              <Stack direction="row" justifyContent="space-between">
-                <Link href="#" fontSize="sm">
-                  Forgot password?
-                </Link>
-              </Stack>
             </Stack>
           </Box>
         </Flex>
