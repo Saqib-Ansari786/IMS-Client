@@ -1,5 +1,4 @@
-// src/pages/CreateProductPage.js
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Heading,
@@ -8,8 +7,19 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  Alert,
+  AlertIcon,
+  Flex,
 } from "@chakra-ui/react";
+import { CheckIcon } from "@chakra-ui/icons";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
+import SuccessModal from "../../components/pages/Inventory_Admin/SucessModal";
 
 const CreateProductPage = () => {
   const postProduct = async (productData) => {
@@ -22,6 +32,12 @@ const CreateProductPage = () => {
         body: JSON.stringify(productData),
       });
       console.log(response);
+      setSuccessMessage("Product successfully added!");
+      setProductData({
+        name: "",
+        category: "",
+        quantity: 0,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -30,8 +46,11 @@ const CreateProductPage = () => {
   const [productData, setProductData] = useState({
     name: "",
     category: "",
-    quantity: 0,
+    quantity: 1,
   });
+
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,13 +61,24 @@ const CreateProductPage = () => {
     e.preventDefault();
     // Implement logic to create the product using productData
     postProduct(productData);
-    console.log("Product data submitted:", productData);
+  };
+
+  useEffect(() => {
+    // Show the modal if there is a success message
+    if (successMessage) {
+      setIsModalOpen(true);
+    }
+  }, [successMessage]);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSuccessMessage(null);
   };
 
   return (
     <Box backgroundColor={"white"} p={4}>
-      <Heading as="h1" mb={4}>
-        Create Product
+      <Heading as="h1" mb={4} color={"#120E87"}>
+        Add Product
       </Heading>
       <form onSubmit={handleSubmit}>
         <FormControl>
@@ -91,6 +121,12 @@ const CreateProductPage = () => {
           Create Product
         </Button>
       </form>
+      <SuccessModal
+        successMessage={successMessage}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+      />
+
     </Box>
   );
 };

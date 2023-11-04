@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
 import ProductpageHeader from "../../components/pages/Inventory_Admin/ProductPageHeader";
 import ProductPageTable from "../../components/pages/Inventory_Admin/ProductPageTable";
@@ -6,6 +6,7 @@ import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
 import CreateProductPage from "./CreateProductPage";
 import ProductSearch from "../../components/pages/Inventory_Admin/ProductSearch";
+import { Spinner, Box } from "@chakra-ui/react";
 
 export default function ProductPage() {
   const [entries, setEntries] = useState(5);
@@ -25,6 +26,7 @@ export default function ProductPage() {
     // Implement delete logic here
     console.log(`Delete product with ID ${productId}`);
   };
+
   const handleListViewClick = () => {
     setSelectedComponent("ListView");
   };
@@ -42,7 +44,17 @@ export default function ProductPage() {
       {selectedComponent === "ListView" && (
         <>
           {isLoading ? (
-            <p>Loading...</p>
+            <>
+              <Spinner
+                marginTop={10}
+                size="xl"
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.300"
+              />
+              <p>Loading...</p>
+            </>
           ) : isError ? (
             <p>Error</p>
           ) : products.length > 0 ? (
