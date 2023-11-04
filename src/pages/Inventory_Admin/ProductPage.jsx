@@ -1,70 +1,67 @@
-import React, { useState } from 'react';
-import ShowEntriesDropdown from '../../components/pages/Admin/ShowEntriesDropdown';
-import ProductpageHeader from '../../components/pages/Inventory_Admin/ProductPageHeader';
-import ProductPageTable from '../../components/pages/Inventory_Admin/ProductPageTable';
+import { useState } from "react";
+import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
+import ProductpageHeader from "../../components/pages/Inventory_Admin/ProductPageHeader";
+import ProductPageTable from "../../components/pages/Inventory_Admin/ProductPageTable";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
-import CreateProductPage from './CreateProductPage';
-import ProductSearch from '../../components/pages/Inventory_Admin/ProductSearch';
+import CreateProductPage from "./CreateProductPage";
+import ProductSearch from "../../components/pages/Inventory_Admin/ProductSearch";
 
-  export default function ProductPage() {
-    const [entries, setEntries] = useState(5);
-    const [selectedComponent, setSelectedComponent] = useState('ListView');
-      const {
-        data: products,
-        isLoading,
-        isError,
-      } = useQuery("products", () => apiMiddleware("admin/products/products"));
-    
-      const handleEdit = (productId) => {
-        // Implement edit logic here
-        console.log(`Edit product with ID ${productId}`);
-      };
-    
-      const handleDelete = (productId) => {
-        // Implement delete logic here
-        console.log(`Delete product with ID ${productId}`);
-      };
+export default function ProductPage() {
+  const [entries, setEntries] = useState(5);
+  const [selectedComponent, setSelectedComponent] = useState("ListView");
+  const {
+    data: products,
+    isLoading,
+    isError,
+  } = useQuery("products", () => apiMiddleware("admin/products/products"));
 
-  
-      const handleListViewClick = () => {
-        setSelectedComponent('ListView');
-      };
-    
-      const handleAddClick = () => {
-        setSelectedComponent('Add');
-      };
-    
-    return (
-      <ProductpageHeader
+  const handleEdit = (productId) => {
+    // Implement edit logic here
+    console.log(`Edit product with ID ${productId}`);
+  };
+
+  const handleDelete = (productId) => {
+    // Implement delete logic here
+    console.log(`Delete product with ID ${productId}`);
+  };
+  const handleListViewClick = () => {
+    setSelectedComponent("ListView");
+  };
+
+  const handleAddClick = () => {
+    setSelectedComponent("Add");
+  };
+
+  return (
+    <ProductpageHeader
       handleListViewClick={handleListViewClick}
       handleAddClick={handleAddClick}
       products={products}
-      >
-        {selectedComponent === 'ListView' && (
-          <>
-         {isLoading ? (
-                  <p>Loading...</p>
-                ) : isError ? (
-                  <p>Error</p>
-                ) : products.length > 0 ? (
-                  <>
-                  <ProductSearch/>
-                  <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
-                  <ProductPageTable
-                    products={products}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                    entries={entries}
-                  />
-                  </>
-                ) : (
-                  <p>No products found</p>
-                )}
-                </>
-        )}
-        {selectedComponent === 'Add' && <CreateProductPage/>}
-      </ProductpageHeader>
-    );
-  }
-  
+    >
+      {selectedComponent === "ListView" && (
+        <>
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : isError ? (
+            <p>Error</p>
+          ) : products.length > 0 ? (
+            <>
+              <ProductSearch />
+              <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
+              <ProductPageTable
+                products={products}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                entries={entries}
+              />
+            </>
+          ) : (
+            <p>No products found</p>
+          )}
+        </>
+      )}
+      {selectedComponent === "Add" && <CreateProductPage />}
+    </ProductpageHeader>
+  );
+}

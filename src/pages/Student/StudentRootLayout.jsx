@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import SidebarwithHeader from "../../components/common/Sidebar/SidebarwithHeader";
 import { InfoIcon, SearchIcon, SettingsIcon, StarIcon } from "@chakra-ui/icons";
 import Breadcrumbs from "../../components/common/Breadcrumb/Breadcrumb";
+import { Navigate } from "react-router-dom";
 
 const LinkItems = [
   { name: "Home", icon: InfoIcon, route: "/student" },
@@ -12,13 +13,17 @@ const LinkItems = [
   { name: "View Library", icon: SettingsIcon, route: "/student/viewlibrary" },
 ];
 
-export default function StudentRootLayout() {
-  return (
-    <div>
-      <SidebarwithHeader linkItems={LinkItems}>
-        <Breadcrumbs />
-        <Outlet />
-      </SidebarwithHeader>
-    </div>
-  );
+export default function StudentRootLayout({ isStudentAuthenticated }) {
+  if (!isStudentAuthenticated) {
+    return <Navigate to="/" />;
+  } else {
+    return (
+      <div>
+        <SidebarwithHeader linkItems={LinkItems}>
+          <Breadcrumbs />
+          <Outlet />
+        </SidebarwithHeader>
+      </div>
+    );
+  }
 }

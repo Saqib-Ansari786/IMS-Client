@@ -52,7 +52,10 @@ const router = createBrowserRouter(
       <Route path="*" element={<NotFound />} />
 
       {/* Admin */}
-      <Route path="admin/" element={<AdminRootLayout />}>
+      <Route
+        path="admin/"
+        element={<AdminRootLayout isAdminAuthenticated={true} />}
+      >
         <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
         <Route path="studentview" element={<ViewStudents />} />
@@ -65,7 +68,10 @@ const router = createBrowserRouter(
       </Route>
 
       {/* Student */}
-      <Route path="student/" element={<StudentRootLayout />}>
+      <Route
+        path="student/"
+        element={<StudentRootLayout isStudentAuthenticated={true} />}
+      >
         <Route index element={<Home />} />
         <Route path="assignments" element={<Assignment />} />
         <Route path="attendance" element={<AttendanceDetail />} />
@@ -75,7 +81,10 @@ const router = createBrowserRouter(
       </Route>
 
       {/* Teacher */}
-      <Route path="teacher/" element={<TeacherRootLayout />}>
+      <Route
+        path="teacher/"
+        element={<TeacherRootLayout isTeacherAuthenticated={true} />}
+      >
         <Route index element={<TeacherDashboard />} />
         <Route path="manage-attendance" element={<ManageAttendancePage />} />
         <Route
@@ -103,7 +112,10 @@ const router = createBrowserRouter(
 
       {/* Inventory Admin */}
 
-      <Route path="inventory_admin/" element={<InventoryAdminLayout />}>
+      <Route
+        path="inventory_admin/"
+        element={<InventoryAdminLayout isInventoryAdminAuthenticated={true} />}
+      >
         <Route index element={<InventoryDashboard />} />
         <Route path="products" element={<ProductPage />} />
         <Route path="create-product" element={<CreateProductPage />} />

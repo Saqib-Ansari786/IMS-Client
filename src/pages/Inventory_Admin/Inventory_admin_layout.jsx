@@ -2,35 +2,42 @@ import { Outlet } from "react-router";
 import SidebarwithHeader from "../../components/common/Sidebar/SidebarwithHeader";
 import { InfoIcon, SearchIcon, SettingsIcon, StarIcon } from "@chakra-ui/icons";
 import Breadcrumbs from "../../components/common/Breadcrumb/Breadcrumb";
+import { Navigate } from "react-router-dom";
 
 const LinkItems = [
-  { name: "Home", icon: InfoIcon, route: "/inventory_admin" },
-  { name: "Products", icon: SearchIcon, route: "/inventory_admin/products" },
+  { name: "Home", icon: InfoIcon, route: "" },
+  { name: "Products", icon: SearchIcon, route: "products" },
   {
     name: "Create Products",
     icon: StarIcon,
-    route: "/inventory_admin/create-product",
+    route: "create-product",
   },
-  { name: "Sales", icon: SettingsIcon, route: "/inventory_admin/sales" },
+  { name: "Sales", icon: SettingsIcon, route: "sales" },
   {
     name: "Create Sales",
     icon: SettingsIcon,
-    route: "/inventory_admin/create-sale",
+    route: "create-sale",
   },
   {
     name: "Sales Report",
     icon: SettingsIcon,
-    route: "/inventory_admin/sales-report",
+    route: "sales-report",
   },
 ];
 
-export default function InventoryAdminLayout() {
-  return (
-    <div>
-      <SidebarwithHeader linkItems={LinkItems}>
-        <Breadcrumbs />
-        <Outlet />
-      </SidebarwithHeader>
-    </div>
-  );
+export default function InventoryAdminLayout({
+  isInventoryAdminAuthenticated,
+}) {
+  if (!isInventoryAdminAuthenticated) {
+    return <Navigate to="/" />;
+  } else {
+    return (
+      <div>
+        <SidebarwithHeader linkItems={LinkItems}>
+          <Breadcrumbs />
+          <Outlet />
+        </SidebarwithHeader>
+      </div>
+    );
+  }
 }
