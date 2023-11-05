@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Box, Flex, Text, Center, Heading } from "@chakra-ui/react";
 import { Bar } from "react-chartjs-2";
 import ProductTable from "../../components/pages/Inventory_Admin/ProductTable";
@@ -22,7 +21,7 @@ const InventoryDashboard = () => {
   return (
     <Box p={4}>
       <Heading mb={"5"} as="h3" size="md" color="#120E87">
-       Welcome Inventory Admin!
+        Welcome Inventory Admin!
       </Heading>
       <Flex justify="space-between" flexWrap="wrap">
         <Box flex="1" p={4} m={2} bg="white" borderRadius="md" boxShadow="md">
@@ -34,10 +33,10 @@ const InventoryDashboard = () => {
           </Center>
         </Box>
         <Box flex="1" p={4} m={2} bg="white" borderRadius="md" boxShadow="md">
-        <CountingAnimation label="Total Products" total={100} />
-       </Box>
+          <CountingAnimation label="Total Products" total={100} />
+        </Box>
         <Box flex="1" p={4} m={2} bg="white" borderRadius="md" boxShadow="md">
-        <CountingAnimation label="Total Categories" total={150} />
+          <CountingAnimation label="Total Sales" total={150} />
         </Box>
       </Flex>
       <Box p={4} m={2} bg="white" borderRadius="md" boxShadow="md">
