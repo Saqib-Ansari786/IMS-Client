@@ -41,12 +41,12 @@ export default function ViewStudents() {
     data: students,
     isLoading,
     isError,
-  } = useQuery("products", () => apiMiddleware("admin/students/students"));
+  } = useQuery("students", () => apiMiddleware("admin/students/students"));
 
   return (
     <PageHeader
       headers={headers}
-      data={data}
+      data={students}
       name={"Student"}
       handleListViewClick={handleListViewClick}
       handleAddClick={handleAddClick}

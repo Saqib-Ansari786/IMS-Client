@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Stack } from "@chakra-ui/react";
+import { Spinner, Stack } from "@chakra-ui/react";
 import StudentSearch from "../../components/pages/Admin/StudentSearch";
 import PageHeader from "../../components/pages/Admin/PageHeader";
 import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
 import TeacherProfileView from "./TeacherProfileView";
 import AddTeacher from "../../components/pages/Admin/AddTeacher";
 import TeacherView from "../../components/pages/Admin/TeacherView";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
+import { useQuery } from "react-query";
 
 const jsonData = {
   headers: [
@@ -17,133 +19,10 @@ const jsonData = {
     "JOINING DTAE",
     "ACTION",
   ],
-  data: [
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-    {
-      beltNo: "A123",
-      name: "Ghulam Murtaza",
-      designation: "professor",
-      email: "check@gmail.com",
-      phoneNo: "0321-1234567",
-      joiningDate: "04 Jan, 2019",
-    },
-  ],
 };
 export default function ViewStudents() {
   const [entries, setEntries] = useState(5);
   const headers = jsonData.headers;
-  const data = jsonData.data;
   const [selectedComponent, setSelectedComponent] = useState("ListView");
 
   const handleListViewClick = () => {
@@ -158,10 +37,16 @@ export default function ViewStudents() {
     setSelectedComponent("TeacherProfileView");
   };
 
+  const {
+    data: teachers,
+    isLoading,
+    isError,
+  } = useQuery("teachers", () => apiMiddleware("admin/teachers/teachers"));
+
   return (
     <PageHeader
       headers={headers}
-      data={data}
+      data={teachers}
       name={"Teacher"}
       handleListViewClick={handleListViewClick}
       handleAddClick={handleAddClick}
@@ -170,9 +55,33 @@ export default function ViewStudents() {
     >
       {selectedComponent === "ListView" && (
         <>
-          <StudentSearch />
-          <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
-          <TeacherView headers={headers} data={data} entries={entries} />
+          {isLoading ? (
+            <>
+              <Spinner
+                marginTop={10}
+                size="xl"
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.300"
+              />
+              <p>Loading...</p>
+            </>
+          ) : isError ? (
+            <p>Error</p>
+          ) : teachers.length > 0 ? (
+            <>
+              <StudentSearch />
+              <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
+              <TeacherView
+                headers={headers}
+                data={teachers}
+                entries={entries}
+              />
+            </>
+          ) : (
+            <p>No Data Found</p>
+          )}
         </>
       )}
       {selectedComponent === "Add" && <AddTeacher />}
