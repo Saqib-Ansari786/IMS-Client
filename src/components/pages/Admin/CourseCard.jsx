@@ -15,12 +15,12 @@ import { Link } from "react-router-dom";
 
 export default function CourseCard({
   imageUrl,
-  title,
+  name,
   description,
   duration,
   author,
   category,
-  courseId,
+  courseCode,
 }) {
   return (
     <Box
@@ -30,12 +30,12 @@ export default function CourseCard({
       overflow="hidden"
       boxShadow="xl"
       backgroundColor="white"
-      key={courseId}
+      key={courseCode}
     >
-      <Link to={`/teacher/course-details/${courseId}`}>
+      <Link to={`/teacher/course-details/${courseCode}`}>
         <Image
           src={imageUrl}
-          alt={`Image for ${title}`}
+          alt={`Image for ${name}`}
           objectFit="cover"
           height="200px"
           width="100%"
@@ -43,7 +43,7 @@ export default function CourseCard({
       </Link>
       <Box p="4">
         <Heading as="h4" size="md">
-          <Link to={`/teacher/course-details/${courseId}`}>{title}</Link>
+          <Link to={`/teacher/course-details/${courseCode}`}>{name}</Link>
         </Heading>
         <Text color="gray.600" mt="2">
           {description}

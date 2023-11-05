@@ -1,5 +1,7 @@
 import { Grid, GridItem, Heading, Container } from "@chakra-ui/react";
 import CourseCard from "../../components/pages/Admin/CourseCard";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
+import { useQuery } from "react-query";
 
 const courseData = [
   {
@@ -65,6 +67,11 @@ const courseData = [
 ];
 
 export default function CoursePage() {
+  const {
+    data: courses,
+    isLoading,
+    isError,
+  } = useQuery("courses", () => apiMiddleware("admin/courses/courses"));
   return (
     <Container maxW="container.xl" mt="4">
       <Heading as="h1" size="xl" mb="4">
@@ -78,11 +85,12 @@ export default function CoursePage() {
         }}
         gap={4}
       >
-        {courseData.map((course) => (
-          <GridItem key={course.id}>
-            <CourseCard {...course} />
-          </GridItem>
-        ))}
+        {courses &&
+          courses.map((course, index) => (
+            <GridItem key={index}>
+              <CourseCard {...course} />
+            </GridItem>
+          ))}
       </Grid>
     </Container>
   );
