@@ -14,46 +14,53 @@ import {
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 
 export default function BookList({ headers, data, entries }) {
-    return (
-      <TableContainer mt={3} borderWidth="1px" borderRadius="lg" p={4} mx={3} backgroundColor="white">
-        <Table variant="striped" colorScheme="blackAlpha">
-          <Thead>
-            <Tr>
-              {headers &&
-                headers.map((header, index) => (
-                  <Th key={index} textAlign="center">
-                    {header}
-                  </Th>
-                ))}
-            </Tr>
-          </Thead>
-          <Tbody>
-            {data &&
-              data.slice(0, entries).map((row, rowIndex) => (
-                <Tr key={rowIndex}>
-                  <Td key={rowIndex} textAlign="center">
-                    {row.title}
-                  </Td>
-                  <Td key={rowIndex} textAlign="center">
-                    {row.author}
-                  </Td>
-                  <Td key={rowIndex} textAlign="center">
-                    {row.isbn}
-                  </Td>
-                  <Td key={rowIndex} textAlign="center">
-                    {row.category}
-                  </Td>
-                  <Td key={rowIndex} textAlign="center" color={"white"}>
-                    <Badge
-                      borderRadius={5}
-                      fontSize={"2xs"}
-                      colorScheme={row.available ? "green" : "red"}
-                      variant="solid"
-                    >
-                      {row.available ? "In Stock" : "Out of Stock"}
-                    </Badge>
-                  </Td>
-                  <Td key={rowIndex} textAlign="center">
+  return (
+    <TableContainer
+      mt={3}
+      borderWidth="1px"
+      borderRadius="lg"
+      p={4}
+      mx={3}
+      backgroundColor="white"
+    >
+      <Table variant="striped" colorScheme="blackAlpha">
+        <Thead>
+          <Tr>
+            {headers &&
+              headers.map((header, index) => (
+                <Th key={index} textAlign="center">
+                  {header}
+                </Th>
+              ))}
+          </Tr>
+        </Thead>
+        <Tbody>
+          {data &&
+            data.slice(0, entries).map((row, rowIndex) => (
+              <Tr key={rowIndex}>
+                <Td key={rowIndex} textAlign="center">
+                  {row.title}
+                </Td>
+                <Td key={rowIndex} textAlign="center">
+                  {row.authorName}
+                </Td>
+                <Td key={rowIndex} textAlign="center">
+                  {row.isbn}
+                </Td>
+                <Td key={rowIndex} textAlign="center">
+                  {row.category}
+                </Td>
+                <Td key={rowIndex} textAlign="center" color={"white"}>
+                  <Badge
+                    borderRadius={5}
+                    fontSize={"2xs"}
+                    colorScheme={row.availability ? "green" : "red"}
+                    variant="solid"
+                  >
+                    {row.availability ? "In Stock" : "Out of Stock"}
+                  </Badge>
+                </Td>
+                <Td key={rowIndex} textAlign="center">
                   <IconButton
                     size="sm"
                     colorScheme="blue"
@@ -76,10 +83,9 @@ export default function BookList({ headers, data, entries }) {
                   />
                 </Td>
               </Tr>
-              ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    );
-  }
-  
+            ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
+  );
+}
