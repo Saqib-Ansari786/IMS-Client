@@ -1,5 +1,5 @@
 // src/pages/CreateSalePage.js
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Heading,
@@ -10,7 +10,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
-
+import SuccessModal from "../../components/pages/Inventory_Admin/SucessModal";
 const CreateSalePage = () => {
   const postsale = async (saleData) => {
     try {
@@ -22,13 +22,22 @@ const CreateSalePage = () => {
         body: JSON.stringify(saleData),
       });
       console.log(response);
+      setSuccessMessage("Product successfully added!");
+      setSaleData({
+        date: "",
+        quantity: 0,
+        productName: "",
+        customerName: "",
+        customerType: "",
+      });
+      setIsModalOpen(true);
     } catch (error) {
       console.log(error);
     }
   };
-
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [saleData, setSaleData] = useState({
-    id: 0,
     date: "",
     quantity: 0,
     productName: "",
@@ -47,7 +56,17 @@ const CreateSalePage = () => {
     postsale(saleData);
     console.log("Sale data submitted:", saleData);
   };
+  useEffect(() => {
+    // Show the modal if there is a success message
+    if (successMessage) {
+      setIsModalOpen(true);
+    }
+  }, [successMessage]);
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSuccessMessage(null);
+  };
   return (
     <Box backgroundColor={"white"} p={4}>
       <Heading as="h1" mb={4}>
@@ -111,6 +130,11 @@ const CreateSalePage = () => {
           Create Sale
         </Button>
       </form>
+      <SuccessModal
+        successMessage={successMessage}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+      />
     </Box>
   );
 };

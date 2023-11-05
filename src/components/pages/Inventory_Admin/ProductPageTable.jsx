@@ -141,13 +141,6 @@ export default function ProductPageTable({ products, onEdit, onDelete, entries }
                     <IconButton
                       size="sm"
                       colorScheme="blue"
-                      title="View"
-                      icon={<Icon as={ViewIcon} />}
-                      mr={2}
-                    />
-                    <IconButton
-                      size="sm"
-                      colorScheme="blue"
                       title="Edit"
                       icon={<Icon as={EditIcon} />}
                       mr={2}

@@ -7,17 +7,7 @@ import {
   Button,
   FormControl,
   FormLabel,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  Alert,
-  AlertIcon,
-  Flex,
 } from "@chakra-ui/react";
-import { CheckIcon } from "@chakra-ui/icons";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import SuccessModal from "../../components/pages/Inventory_Admin/SucessModal";
 
@@ -46,7 +36,7 @@ const CreateProductPage = () => {
   const [productData, setProductData] = useState({
     name: "",
     category: "",
-    quantity: 1,
+    quantity: 0,
   });
 
   const [successMessage, setSuccessMessage] = useState(null);

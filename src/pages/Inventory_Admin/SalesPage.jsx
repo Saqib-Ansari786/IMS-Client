@@ -5,6 +5,7 @@ import ProductSearch from '../../components/pages/Inventory_Admin/ProductSearch'
 import CreateSalePage from './CreateSalePage';
 import SalesTable from "../../components/pages/Inventory_Admin/SalesTable";
 import SalesPageHeader from '../../components/pages/Inventory_Admin/SalesPageHeader';
+import { Spinner } from '@chakra-ui/react';
 
   export default function SalesPage() {
     useEffect(() => {
@@ -63,7 +64,17 @@ import SalesPageHeader from '../../components/pages/Inventory_Admin/SalesPageHea
                   />
                   </>
                 ) : (
-                  <p>No products found</p>
+                  <>
+              <Spinner
+                marginTop={10}
+                size="xl"
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.300"
+              />
+              <p>Loading...</p>
+            </>
                 )}
                 </>
         )}

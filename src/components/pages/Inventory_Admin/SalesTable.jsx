@@ -50,13 +50,6 @@ export default function SalesTable({ sales, onEdit, onDelete, entries }) {
                  {sale.customerType}
                  </Td>
                  <Td textAlign="center">
-                   <IconButton
-                    size="sm"
-                    colorScheme="blue"
-                    title="View"
-                    icon={<Icon as={ViewIcon} />}
-                    mr={2} 
-                  />
                   <IconButton
                     size="sm"
                     colorScheme="blue"
