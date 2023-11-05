@@ -1,4 +1,4 @@
-import { Grid, GridItem, Heading, Container } from "@chakra-ui/react";
+import { Grid, GridItem, Heading, Container, Spinner } from "@chakra-ui/react";
 import CourseCard from "../../components/pages/Admin/CourseCard";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
@@ -85,12 +85,29 @@ export default function CoursePage() {
         }}
         gap={4}
       >
-        {courses &&
+        {isLoading ? (
+          <>
+            <Spinner
+              marginTop={10}
+              size="xl"
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.300"
+            />
+            <p>Loading...</p>
+          </>
+        ) : isError ? (
+          <p>Error</p>
+        ) : courses.length > 0 ? (
           courses.map((course, index) => (
             <GridItem key={index}>
               <CourseCard {...course} />
             </GridItem>
-          ))}
+          ))
+        ) : (
+          <p>No data</p>
+        )}
       </Grid>
     </Container>
   );
