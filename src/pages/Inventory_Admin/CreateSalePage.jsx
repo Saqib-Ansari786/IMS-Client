@@ -42,7 +42,7 @@ const CreateSalePage = () => {
     quantity: 0,
     productName: "",
     customerName: "",
-    customerType: "",
+    customerType: "Customer Type 1",
   });
 
   const handleChange = (e) => {
@@ -88,7 +88,7 @@ const CreateSalePage = () => {
           <Input
             type="number"
             name="quantity"
-            value={saleData.amount}
+            value={saleData.quantity}
             onChange={handleChange}
             required
           />
@@ -98,7 +98,7 @@ const CreateSalePage = () => {
           <Input
             type="text"
             name="productName"
-            value={saleData.product_name}
+            value={saleData.productName}
             onChange={handleChange}
             required
           />
@@ -108,7 +108,7 @@ const CreateSalePage = () => {
           <Input
             type="text"
             name="customerName"
-            value={saleData.customer_name}
+            value={saleData.customerName}
             onChange={handleChange}
             required
           />
@@ -117,7 +117,7 @@ const CreateSalePage = () => {
           <FormLabel>Customer Type</FormLabel>
           <Select
             name="customerType"
-            value={saleData.customer_type}
+            value={saleData.customerType}
             onChange={handleChange}
             required
           >
