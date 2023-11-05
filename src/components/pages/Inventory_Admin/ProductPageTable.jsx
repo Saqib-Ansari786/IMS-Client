@@ -47,14 +47,14 @@
 //                     colorScheme="blue"
 //                     title="View"
 //                     icon={<Icon as={ViewIcon} />}
-//                     mr={2} 
+//                     mr={2}
 //                   />
 //                   <IconButton
 //                     size="sm"
 //                     colorScheme="blue"
 //                     title="Edit"
 //                     icon={<Icon as={EditIcon} />}
-//                     mr={2} 
+//                     mr={2}
 //                   />
 //                   <IconButton
 //                     size="sm"
@@ -70,8 +70,8 @@
 //       </TableContainer>
 //     );
 //   }
-  
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import {
   Table,
   Thead,
@@ -92,11 +92,15 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 import EditProductModal from "./EditProductModal"; // Import the EditProductModal component
+import apiMiddleware from "../../common/Server/apiMiddleware";
+import { useQueryClient } from "react-query";
 
-export default function ProductPageTable({ products, onEdit, onDelete, entries }) {
+export default function ProductPageTable({ products, entries }) {
   const [editProduct, setEditProduct] = useState(null);
   const [deleteProduct, setDeleteProduct] = useState(null);
-  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
+    useState(false);
+  const queryClient = useQueryClient();
 
   const openEditModal = (product) => {
     setEditProduct(product);
@@ -116,9 +120,41 @@ export default function ProductPageTable({ products, onEdit, onDelete, entries }
     setIsDeleteConfirmationOpen(false);
   };
 
+  const onEdit = async (editedProduct) => {
+    const response = await apiMiddleware(
+      `admin/products/edit/${editedProduct._id}`,
+      {
+        method: "POST",
+        body: JSON.stringify(editedProduct),
+      }
+    );
+    console.log(response);
+    if (response.success) {
+      queryClient.invalidateQueries("products");
+    }
+  };
+
+  const onDelete = async (id) => {
+    const response = await apiMiddleware(`admin/products/products/${id}`, {
+      method: "DELETE",
+    });
+    console.log(response);
+
+    if (response.success) {
+      queryClient.invalidateQueries("products");
+    }
+  };
+
   return (
     <>
-      <TableContainer mt={3} borderWidth="1px" borderRadius="lg" p={4} mx={3} backgroundColor="white">
+      <TableContainer
+        mt={3}
+        borderWidth="1px"
+        borderRadius="lg"
+        p={4}
+        mx={3}
+        backgroundColor="white"
+      >
         <Table variant="striped" colorScheme="blackAlpha">
           <Thead>
             <Tr>
@@ -180,13 +216,15 @@ export default function ProductPageTable({ products, onEdit, onDelete, entries }
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
               Are you sure you want to delete this product?
             </AlertDialogHeader>
-            <AlertDialogBody>Deleting a product cannot be undone.</AlertDialogBody>
+            <AlertDialogBody>
+              Deleting a product cannot be undone.
+            </AlertDialogBody>
             <AlertDialogFooter>
               <Button onClick={closeDeleteConfirmation}>No</Button>
               <Button
                 colorScheme="red"
                 onClick={() => {
-                  onDelete(deleteProduct.id);
+                  onDelete(deleteProduct._id);
                   closeDeleteConfirmation();
                 }}
                 ml={3}
@@ -197,8 +235,6 @@ export default function ProductPageTable({ products, onEdit, onDelete, entries }
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
-
-      
     </>
   );
 }

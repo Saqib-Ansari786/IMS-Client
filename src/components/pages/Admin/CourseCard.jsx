@@ -32,15 +32,6 @@ export default function CourseCard({
       backgroundColor="white"
       key={courseCode}
     >
-      <Link to={`/teacher/course-details/${courseCode}`}>
-        <Image
-          src={imageUrl}
-          alt={`Image for ${name}`}
-          objectFit="cover"
-          height="200px"
-          width="100%"
-        />
-      </Link>
       <Box p="4">
         <Heading as="h4" size="md">
           <Link to={`/teacher/course-details/${courseCode}`}>{name}</Link>

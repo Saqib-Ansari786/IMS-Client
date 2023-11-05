@@ -3,69 +3,6 @@ import CourseCard from "../../components/pages/Admin/CourseCard";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
 
-const courseData = [
-  {
-    id: 1,
-    imageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
-    title: "PHP Development Course",
-    description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
-    author: "John Doe",
-    category: "Web Development",
-  },
-  {
-    id: 1,
-    imageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
-    title: "PHP Development Course",
-    description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
-    author: "John Doe",
-    category: "Web Development",
-  },
-  {
-    id: 1,
-    imageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
-    title: "PHP Development Course",
-    description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
-    author: "John Doe",
-    category: "Web Development",
-  },
-  {
-    id: 1,
-    imageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
-    title: "PHP Development Course",
-    description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
-    author: "John Doe",
-    category: "Web Development",
-  },
-  {
-    id: 1,
-    imageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
-    title: "PHP Development Course",
-    description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
-    author: "John Doe",
-    category: "Web Development",
-  },
-  {
-    id: 1,
-    imageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
-    title: "PHP Development Course",
-    description: "Look, my liege! The Knights Who Say Ni demand a sacrifice!",
-    duration: "6 Months",
-    author: "John Doe",
-    students: "125+",
-  },
-];
-
 export default function CoursePage() {
   const {
     data: courses,

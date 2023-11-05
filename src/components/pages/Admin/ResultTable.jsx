@@ -52,7 +52,7 @@ export default function ResultTable({ headers, data, entries }) {
                     color={"white"}
                     variant="solid"
                   >
-                    {row.durationComplete ? "Yes" : "No"}
+                    {row.durationComplete ? "Completed" : "Not Completed"}
                   </Badge>
                 </Td>
                 <Td key={rowIndex} textAlign="center">

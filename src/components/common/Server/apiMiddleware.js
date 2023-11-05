@@ -11,6 +11,15 @@ const apiMiddleware = async (path, options = {}) => {
     }
 
     const data = await response.json();
+
+    if (
+      options.method === "DELETE" ||
+      options.method === "PUT" ||
+      options.method === "POST"
+    ) {
+      return data;
+    }
+
     return data.data;
   } catch (error) {
     throw new Error(`Error fetching data: ${error.message}`);
