@@ -1,70 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import ShowEntriesDropdown from '../../components/pages/Admin/ShowEntriesDropdown';
+import React, { useState, useEffect } from "react";
+import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
-import ProductSearch from '../../components/pages/Inventory_Admin/ProductSearch';
-import CreateSalePage from './CreateSalePage';
+import ProductSearch from "../../components/pages/Inventory_Admin/ProductSearch";
+import CreateSalePage from "./CreateSalePage";
 import SalesTable from "../../components/pages/Inventory_Admin/SalesTable";
-import SalesPageHeader from '../../components/pages/Inventory_Admin/SalesPageHeader';
-import { Spinner } from '@chakra-ui/react';
+import SalesPageHeader from "../../components/pages/Inventory_Admin/SalesPageHeader";
+import { Spinner } from "@chakra-ui/react";
+import { useQuery } from "react-query";
 
-  export default function SalesPage() {
-    useEffect(() => {
-          const fetchSales = async () => {
-            try {
-              const sales = await apiMiddleware("admin/sales/sales");
-              console.log(sales);
-              setSales(sales);
-            } catch (error) {
-              console.log(error);
-            }
-          };
-          fetchSales();
-        }, []);
-        
-    const [entries, setEntries] = useState(5);
-    const [selectedComponent, setSelectedComponent] = useState('ListView');
-    const [sales, setSales] = useState([]);
+export default function SalesPage() {
+  const {
+    data: sales,
+    isLoading,
+    isError,
+  } = useQuery("sales", () => apiMiddleware("admin/sales/sales"));
+  const [entries, setEntries] = useState(5);
+  const [selectedComponent, setSelectedComponent] = useState("ListView");
 
-      const handleEdit = (saleId) => {
-        // Implement edit logic here
-        console.log(`Edit sale with ID ${saleId}`);
-      };
-    
-      const handleDelete = (saleId) => {
-        // Implement delete logic here
-        console.log(`Delete product with ID ${saleId}`);
-      };
+  const handleListViewClick = () => {
+    setSelectedComponent("ListView");
+  };
 
-  
-      const handleListViewClick = () => {
-        setSelectedComponent('ListView');
-      };
-    
-      const handleAddClick = () => {
-        setSelectedComponent('Add');
-      };
-    
-    return (
-      <SalesPageHeader
+  const handleAddClick = () => {
+    setSelectedComponent("Add");
+  };
+
+  return (
+    <SalesPageHeader
       handleListViewClick={handleListViewClick}
       handleAddClick={handleAddClick}
       sales={sales}
-      >
-        {selectedComponent === 'ListView' && (
-          <>
-         { sales.length > 0 ? (
-                  <>
-                  <ProductSearch/>
-                  <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
-                  <SalesTable
-                    sales={sales}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                    entries={entries}
-                  />
-                  </>
-                ) : (
-                  <>
+    >
+      {selectedComponent === "ListView" && (
+        <>
+          {isLoading ? (
+            <>
               <Spinner
                 marginTop={10}
                 size="xl"
@@ -75,11 +45,20 @@ import { Spinner } from '@chakra-ui/react';
               />
               <p>Loading...</p>
             </>
-                )}
-                </>
-        )}
-        {selectedComponent === 'Add' && <CreateSalePage/> }
-      </SalesPageHeader>
-    );
-  }
-  
+          ) : isError ? (
+            <p>Error</p>
+          ) : sales.length > 0 ? (
+            <>
+              <ProductSearch />
+              <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
+              <SalesTable sales={sales} entries={entries} />
+            </>
+          ) : (
+            <p>No Sales found</p>
+          )}
+        </>
+      )}
+      {selectedComponent === "Add" && <CreateSalePage />}
+    </SalesPageHeader>
+  );
+}

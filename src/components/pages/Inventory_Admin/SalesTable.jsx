@@ -19,14 +19,18 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import EditSaleModal from "./EditSaleModal"; // Make sure you have an EditSaleModal component
+import apiMiddleware from "../../common/Server/apiMiddleware";
+import { useQueryClient } from "react-query";
 
-export default function SalesTable({ sales, onEdit, onDelete, entries }) {
+export default function SalesTable({ sales, entries }) {
   const [editSale, setEditSale] = useState(null);
   const [deleteSale, setDeleteSale] = useState(null);
-  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
+    useState(false);
+  const queryClient = useQueryClient();
 
   const openEditModal = (sale) => {
-    setEditSale(sale);
+    setEditSale({ ...sale, date: sale.date.split("T")[0] });
   };
 
   const closeEditModal = () => {
@@ -43,9 +47,38 @@ export default function SalesTable({ sales, onEdit, onDelete, entries }) {
     setIsDeleteConfirmationOpen(false);
   };
 
+  const onEdit = async (editedSale) => {
+    const response = await apiMiddleware(`admin/sales/edit/${editedSale._id}`, {
+      method: "POST",
+      body: JSON.stringify(editedSale),
+    });
+    console.log(response);
+    if (response.success) {
+      queryClient.invalidateQueries("sales");
+    }
+  };
+
+  const onDelete = async (id) => {
+    const response = await apiMiddleware(`admin/sales/sales/${id}`, {
+      method: "DELETE",
+    });
+    console.log(response);
+
+    if (response.success) {
+      queryClient.invalidateQueries("sales");
+    }
+  };
+
   return (
     <>
-      <TableContainer mt={3} borderWidth="1px" borderRadius="lg" p={4} mx={3} backgroundColor="white">
+      <TableContainer
+        mt={3}
+        borderWidth="1px"
+        borderRadius="lg"
+        p={4}
+        mx={3}
+        backgroundColor="white"
+      >
         <Table variant="striped" colorScheme="blackAlpha">
           <Thead>
             <Tr>
@@ -63,7 +96,7 @@ export default function SalesTable({ sales, onEdit, onDelete, entries }) {
               sales.slice(0, entries).map((sale, index) => (
                 <Tr key={index}>
                   <Td textAlign="center">{index + 1}</Td>
-                  <Td textAlign="center">{sale.date}</Td>
+                  <Td textAlign="center">{sale.date.split("T")[0]}</Td>
                   <Td textAlign="center">{sale.quantity}</Td>
                   <Td textAlign="center">{sale.productName}</Td>
                   <Td textAlign="center">{sale.customerName}</Td>
@@ -75,7 +108,7 @@ export default function SalesTable({ sales, onEdit, onDelete, entries }) {
                       title="Edit"
                       icon={<Icon as={EditIcon} />}
                       mr={2}
-                      onClick={() => openEditModal(sale)} 
+                      onClick={() => openEditModal(sale)}
                     />
                     <IconButton
                       size="sm"
@@ -121,7 +154,7 @@ export default function SalesTable({ sales, onEdit, onDelete, entries }) {
               <Button
                 colorScheme="red"
                 onClick={() => {
-                  onDelete(deleteSale.id);
+                  onDelete(deleteSale._id);
                   closeDeleteConfirmation();
                 }}
                 ml={3}
