@@ -6,6 +6,7 @@ import SearchBook from "../../components/pages/Admin/SearchBook";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
 import { Spinner } from "@chakra-ui/react";
+import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 const jsonData = {
   headers: ["TITLE", "AUTHOR", "ISBN", "CATEGORY", "AVAILABILTY", "ACTION"],
 };
@@ -42,7 +43,7 @@ export default function LibraryView() {
             <BookList headers={headers} data={books} entries={entries} />
           </>
         ) : (
-          <p>No books found</p>
+          <NotDataFoundMessage/>
         )}
       </LibraryManagementHeader>
     </>

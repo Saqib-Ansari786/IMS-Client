@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import CreateProductPage from "./CreateProductPage";
 import ProductSearch from "../../components/pages/Inventory_Admin/ProductSearch";
 import { Spinner } from "@chakra-ui/react";
+import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 
 export default function ProductPage() {
   const [entries, setEntries] = useState(5);
@@ -69,7 +70,7 @@ export default function ProductPage() {
               />
             </>
           ) : (
-            <p>No products found</p>
+            <NotDataFoundMessage/>
           )}
         </>
       )}

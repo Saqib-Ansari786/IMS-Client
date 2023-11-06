@@ -8,6 +8,8 @@ import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdow
 import TeacherProfileView from "./TeacherProfileView";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
+import StudentProfileView from "./StudentProfileView";
+import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 
 const jsonData = {
   headers: [
@@ -34,7 +36,7 @@ export default function ViewStudents() {
   };
 
   const handleGridClick = () => {
-    setSelectedComponent("TeacherProfileView");
+    setSelectedComponent("StudentProfileView");
   };
 
   const {
@@ -47,6 +49,7 @@ export default function ViewStudents() {
     <PageHeader
       headers={headers}
       data={students}
+      entityName={"Student"}
       name={"Student"}
       handleListViewClick={handleListViewClick}
       handleAddClick={handleAddClick}
@@ -80,12 +83,12 @@ export default function ViewStudents() {
               />
             </>
           ) : (
-            <p>No Students Found</p>
+            <NotDataFoundMessage/>
           )}
         </>
       )}
       {selectedComponent === "Add" && <AddStudent />}
-      {selectedComponent === "TeacherProfileView" && <TeacherProfileView />}
+      {selectedComponent === "StudentProfileView" && <StudentProfileView students={students} />}
     </PageHeader>
   );
 }

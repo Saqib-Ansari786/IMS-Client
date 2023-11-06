@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import { DownloadIcon, AddIcon, RepeatIcon } from "@chakra-ui/icons";
 import * as XLSX from "xlsx";
 
 export default function PageHeader({
   children,
-  name,
+  entityName,
   data,
   headers,
   handleListViewClick,
   handleAddClick,
   handleGridClick,
 }) {
-  const [selectedView, setSelectedView] = useState("ListView");
+  const [selectedView, setSelectedView] = React.useState("ListView");
 
   const handleViewChange = (view) => {
     setSelectedView(view);
@@ -21,25 +21,25 @@ export default function PageHeader({
   const downloadExcel = () => {
     const exportData = data.map((row) => [
       row.beltNo,
-      row.name,
-      row.courseName,
+      row.firstname + row.lastname,
+      row.courseCode,
       row.email,
-      row.phoneNo,
-      row.admissionDate,
+      row.contactNo,
+      row.registrationDate,
     ]);
 
     const ws = XLSX.utils.aoa_to_sheet([headers, ...exportData]);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Student Data");
+    XLSX.utils.book_append_sheet(wb, ws);
 
-    XLSX.writeFile(wb, "student_data.xlsx");
+    XLSX.writeFile(wb, `${entityName}_data.xlsx`);
   };
 
   return (
     <Box py={4} bg="white" rounded="lg" boxShadow="md">
       <Flex justify="space-between" align="center" mx={4}>
         <Heading as="h3" size="lg" color={"#120E87"}>
-          {name}
+          {entityName}
         </Heading>
         <Flex align="center">
           <Button
@@ -72,11 +72,11 @@ export default function PageHeader({
           <Button
             leftIcon={<RepeatIcon />}
             colorScheme="blue"
-            variant={selectedView === "TeacherProfileView" ? "solid" : "outline"}
-            _hover={{ bg: selectedView === "TeacherProfileView" ? "blue.300" : "blue.200", color: "white" }}
+            variant={selectedView === "Grid View" ? "solid" : "outline"}
+            _hover={{ bg: selectedView === "Grid View" ? "blue.300" : "blue.200", color: "white" }}
             onClick={() => {
               handleGridClick();
-              handleViewChange("TeacherProfileView");
+              handleViewChange("Grid View");
             }}
             mr={2}
           >
@@ -92,7 +92,7 @@ export default function PageHeader({
               handleViewChange("Add");
             }}
           >
-            Add Student
+            Add {entityName}
           </Button>
         </Flex>
       </Flex>

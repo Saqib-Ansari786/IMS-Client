@@ -7,6 +7,7 @@ import SalesTable from "../../components/pages/Inventory_Admin/SalesTable";
 import SalesPageHeader from "../../components/pages/Inventory_Admin/SalesPageHeader";
 import { Spinner } from "@chakra-ui/react";
 import { useQuery } from "react-query";
+import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 
 export default function SalesPage() {
   const {
@@ -54,7 +55,7 @@ export default function SalesPage() {
               <SalesTable sales={sales} entries={entries} />
             </>
           ) : (
-            <p>No Sales found</p>
+            <NotDataFoundMessage/>
           )}
         </>
       )}

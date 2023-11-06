@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, Button, Avatar } from '@chakra-ui/react';
 
-export default function ProfileCard({ imgUrl, name, designation, phoneNumber, address }) {
+export default function ProfileCard({ imgUrl, name, designation, phoneNumber, address, beltNo, onReadMoreClick }) {
   return (
     <Box
       maxW="2xs"
@@ -18,22 +18,26 @@ export default function ProfileCard({ imgUrl, name, designation, phoneNumber, ad
           size="xl"
           mb="2"
         />
-        <Text fontSize="xl" fontWeight="semibold" mt="2" mb="0">
+        <Text color={"#1D238F"} fontSize="xl" fontWeight="semibold" mt="2" mb="0">
           {name}
         </Text>
-        <Text fontSize="md" color="gray.500">
+        <Text fontSize="md">
           {designation}
         </Text>
         <Text fontSize="sm" color="gray.500" mt="1">
-          {phoneNumber}
+          Phone No:  {phoneNumber}
+        </Text>
+        <Text fontSize="sm" color="gray.500" mt="1">
+          Belt No:  {beltNo}
         </Text>
         <Text fontSize="md" mt="3" mb="4">
-          {address}
+        <b>Address:</b>  {address}
         </Text>
         <Button
           colorScheme="blue"
           size="sm"
           borderRadius="sm"
+          onClick={onReadMoreClick}
         >
           Read More
         </Button>

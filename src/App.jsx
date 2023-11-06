@@ -44,6 +44,7 @@ import CreateSalePage from "./pages/Inventory_Admin/CreateSalePage";
 import SalesReportPage from "./pages/Inventory_Admin/SalesReportPage";
 import ResultPage from "./pages/Admin/ResultPage";
 import TimetablePage from "./pages/Admin/TimetablePage";
+import StudentDetail from "./pages/Admin/StudentDetail";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -62,7 +63,7 @@ const router = createBrowserRouter(
         <Route path="teacherview" element={<ViewTeachers />} />
         <Route path="courses" element={<CoursePage />} />
         <Route path="library" element={<LibraryView />} />
-        <Route path="check" element={<TeacherProfileView />} />
+        <Route path="check" element={<StudentDetail />} />
         <Route path="result" element={<ResultPage />} />
         <Route path="timetable" element={<TimetablePage />} />
       </Route>

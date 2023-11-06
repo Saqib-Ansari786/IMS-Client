@@ -8,6 +8,7 @@ import AddTeacher from "../../components/pages/Admin/AddTeacher";
 import TeacherView from "../../components/pages/Admin/TeacherView";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
+import NoDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 
 const jsonData = {
   headers: [
@@ -47,6 +48,7 @@ export default function ViewStudents() {
     <PageHeader
       headers={headers}
       data={teachers}
+      entityName={"Teacher"}
       name={"Teacher"}
       handleListViewClick={handleListViewClick}
       handleAddClick={handleAddClick}
@@ -80,7 +82,7 @@ export default function ViewStudents() {
               />
             </>
           ) : (
-            <p>No Data Found</p>
+           <NoDataFoundMessage/>
           )}
         </>
       )}
