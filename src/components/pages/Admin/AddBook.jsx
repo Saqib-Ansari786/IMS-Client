@@ -1,13 +1,74 @@
-import React from 'react';
-import { Box, Text, FormControl, FormLabel, Input, Select, Button } from '@chakra-ui/react';
+import React, { useState } from "react";
+import {
+  Box,
+  Text,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Button,
+} from "@chakra-ui/react";
+import apiMiddleware from "../../common/Server/apiMiddleware";
 
 const AddBook = () => {
+  const [formData, setFormData] = useState({
+    title: "",
+    authorName: "",
+    publisherName: "",
+    isbn: "",
+    category: "",
+    availability: "",
+    language: "",
+    quantity: "",
+    department: "",
+    courseCode: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // You can access the form data as an object with the specified properties.
+    console.log("Form Data:", formData);
+
+    const response = apiMiddleware("admin/libraries/library-items", {
+      method: "POST",
+      body: JSON.stringify({
+        ...formData,
+        availability: formData.availability === "In Stock" ? true : false,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response);
+
+    // Reset the form
+    setFormData({
+      title: "",
+      authorName: "",
+      publisherName: "",
+      isbn: "",
+      category: "",
+      availability: "",
+      language: "",
+      quantity: "",
+      department: "",
+      courseCode: "",
+    });
+  };
   return (
     <Box className="row">
       <Box className="col-sm-12">
         <Box className="card">
           <Box className="card-body">
-            <form data-select2-id="14">
+            <form onSubmit={handleSubmit}>
               <Box className="row">
                 <Box className="col-12">
                   <Text as="h5" className="form-title">
@@ -17,82 +78,200 @@ const AddBook = () => {
                 <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>
-                      Book ISBN <Text as="span" className="login-danger">*</Text>
+                      Book ISBN{" "}
+                      <Text as="span" className="login-danger">
+                        *
+                      </Text>
                     </FormLabel>
-                    <Input type="text" className="form-control" placeholder="Enter ISBN" />
+                    <Input
+                      type="text"
+                      name="isbn"
+                      className="form-control"
+                      placeholder="Enter ISBN"
+                      value={formData.isbn}
+                      onChange={handleChange}
+                    />
                   </FormControl>
                 </Box>
                 <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>
-                      Book Title <Text as="span" className="login-danger">*</Text>
+                      Book Title{" "}
+                      <Text as="span" className="login-danger">
+                        *
+                      </Text>
                     </FormLabel>
-                    <Input type="text" className="form-control" placeholder="Enter Title" />
+                    <Input
+                      type="text"
+                      name="title"
+                      className="form-control"
+                      placeholder="Enter Title"
+                      value={formData.title}
+                      onChange={handleChange}
+                    />
                   </FormControl>
                 </Box>
                 <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>
-                      Author Name <Text as="span" className="login-danger">*</Text>
+                      Author Name{" "}
+                      <Text as="span" className="login-danger">
+                        *
+                      </Text>
                     </FormLabel>
-                    <Input type="text" className="form-control" placeholder="Enter Author Name" />
+                    <Input
+                      type="text"
+                      name="authorName"
+                      className="form-control"
+                      placeholder="Enter Author Name"
+                      value={formData.authorName}
+                      onChange={handleChange}
+                    />
                   </FormControl>
                 </Box>
                 <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>
-                      Language <Text as="span" className="login-danger">*</Text>
+                      Language{" "}
+                      <Text as="span" className="login-danger">
+                        *
+                      </Text>
                     </FormLabel>
-                    <Select className="form-control select select2-hidden-accessible" placeholder="Select Language">
-                      <option data-select2-id="15">English</option>
-                      <option data-select2-id="16">Urdu</option>
-                      <option data-select2-id="17">Punjabi</option>
+                    <Select
+                      className="form-control select select2-hidden-accessible"
+                      placeholder="Select Language"
+                      name="language"
+                      value={formData.language}
+                      onChange={handleChange}
+                    >
+                      <option>English</option>
+                      <option>Urdu</option>
+                      <option>Punjabi</option>
                     </Select>
                   </FormControl>
                 </Box>
                 <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>
-                      Quantity <Text as="span" className="login-danger">*</Text>
+                      Quantity{" "}
+                      <Text as="span" className="login-danger">
+                        *
+                      </Text>
                     </FormLabel>
-                    <Input type="text" className="form-control" placeholder="Enter book Quantity" />
+                    <Input
+                      type="text"
+                      name="quantity"
+                      className="form-control"
+                      placeholder="Enter book Quantity"
+                      value={formData.quantity}
+                      onChange={handleChange}
+                    />
                   </FormControl>
                 </Box>
                 <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>
-                      Department <Text as="span" className="login-danger">*</Text>
+                      Department{" "}
+                      <Text as="span" className="login-danger">
+                        *
+                      </Text>
                     </FormLabel>
-                    <Input type="text" className="form-control" placeholder="Enter Department" />
+                    <Input
+                      type="text"
+                      name="department"
+                      className="form-control"
+                      placeholder="Enter Department"
+                      value={formData.department}
+                      onChange={handleChange}
+                    />
+                  </FormControl>
+                </Box>
+                <Box mt={3} className="col-12 col-sm-4">
+                  <FormControl className="form-group local-forms">
+                    <FormLabel>
+                      Publisher Name{" "}
+                      <Text as="span" className="login-danger">
+                        *
+                      </Text>
+                    </FormLabel>
+                    <Input
+                      type="text"
+                      name="publisherName"
+                      className="form-control"
+                      placeholder="Enter Publisher Name"
+                      value={formData.publisherName}
+                      onChange={handleChange}
+                    />
+                  </FormControl>
+                </Box>
+                <Box mt={3} className="col-12 col-sm-4">
+                  <FormControl className="form-group local-forms">
+                    <FormLabel>
+                      Category{" "}
+                      <Text as="span" className="login-danger">
+                        *
+                      </Text>
+                    </FormLabel>
+                    <Select
+                      className="form-control select select2-hidden-accessible"
+                      placeholder="Select Category"
+                      name="category"
+                      value={formData.category}
+                      onChange={handleChange}
+                    >
+                      <option>Computer Science</option>
+                      <option>English Literature</option>
+                      <option>Urdu Literature</option>
+                      <option>Mathematics</option>
+                      <option>Physiology</option>
+                    </Select>
                   </FormControl>
                 </Box>
                 <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>Course</FormLabel>
-                    <Select className="form-control select select2-hidden-accessible" placeholder="Select Course *">
-                      <option data-select2-id="21">Computer Science</option>
-                      <option data-select2-id="22"> English Literature</option>
-                      <option data-select2-id="23">Urdu Literature</option>
-                      <option data-select2-id="24">Mathematics</option>
-                      <option data-select2-id="25">Physiology</option>
+                    <Select
+                      className="form-control select select2-hidden-accessible"
+                      placeholder="Select Course *"
+                      name="courseCode"
+                      value={formData.courseCode}
+                      onChange={handleChange}
+                    >
+                      <option>Computer Science</option>
+                      <option>English Literature</option>
+                      <option>Urdu Literature</option>
+                      <option>Mathematics</option>
+                      <option>Physiology</option>
                     </Select>
                   </FormControl>
                 </Box>
                 <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
                     <FormLabel>
-                      Status <Text as="span" className="login-danger">*</Text>
+                      Status{" "}
+                      <Text as="span" className="login-danger">
+                        *
+                      </Text>
                     </FormLabel>
-                    <Select className="form-control select select2-hidden-accessible" placeholder="Select Status">
-                      <option data-select2-id="12">Select Status</option>
-                      <option data-select2-id="36">In Stock</option>
-                      <option data-select2-id="37">Out of Stock</option>
+                    <Select
+                      className="form-control select select2-hidden-accessible"
+                      placeholder="Select Status"
+                      name="availability"
+                      value={formData.availability}
+                      onChange={handleChange}
+                    >
+                      <option>In Stock</option>
+                      <option>Out of Stock</option>
                     </Select>
                   </FormControl>
                 </Box>
                 <Box mt={6} className="col-12">
                   <Box className="student-submit">
-                    <Button type="submit" colorScheme="blue" _hover={{ bg: "blue.300", color: "white" }}>
+                    <Button
+                      type="submit"
+                      colorScheme="blue"
+                      _hover={{ bg: "blue.300", color: "white" }}
+                    >
                       Submit
                     </Button>
                   </Box>
