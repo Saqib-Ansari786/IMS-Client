@@ -45,6 +45,8 @@ export default function ViewStudents() {
     isError,
   } = useQuery("students", () => apiMiddleware("admin/students/students"));
 
+  console.log(students);
+
   return (
     <PageHeader
       headers={headers}
@@ -83,12 +85,14 @@ export default function ViewStudents() {
               />
             </>
           ) : (
-            <NotDataFoundMessage/>
+            <NotDataFoundMessage />
           )}
         </>
       )}
       {selectedComponent === "Add" && <AddStudent />}
-      {selectedComponent === "StudentProfileView" && <StudentProfileView students={students} />}
+      {selectedComponent === "StudentProfileView" && (
+        <StudentProfileView students={students} />
+      )}
     </PageHeader>
   );
 }

@@ -60,10 +60,10 @@ const router = createBrowserRouter(
         <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
         <Route path="studentview" element={<ViewStudents />} />
+        <Route path="studentview/:st_ID" element={<StudentDetail />} />
         <Route path="teacherview" element={<ViewTeachers />} />
         <Route path="courses" element={<CoursePage />} />
         <Route path="library" element={<LibraryView />} />
-        <Route path="check" element={<StudentDetail />} />
         <Route path="result" element={<ResultPage />} />
         <Route path="timetable" element={<TimetablePage />} />
       </Route>

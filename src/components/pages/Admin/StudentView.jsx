@@ -11,6 +11,8 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
+import { Navigate } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function StudentView({ headers, data, entries }) {
   return (
@@ -56,13 +58,15 @@ export default function StudentView({ headers, data, entries }) {
                   {row.registrationDate}
                 </Td>
                 <Td key={rowIndex} textAlign="center">
-                  <IconButton
-                    size="sm"
-                    colorScheme="blue"
-                    title="View"
-                    icon={<Icon as={ViewIcon} />}
-                    mr={2}
-                  />
+                  <Link to={`${row.beltNo}`}>
+                    <IconButton
+                      size="sm"
+                      colorScheme="blue"
+                      title="View"
+                      icon={<Icon as={ViewIcon} />}
+                      mr={2}
+                    />
+                  </Link>
                   <IconButton
                     size="sm"
                     colorScheme="blue"

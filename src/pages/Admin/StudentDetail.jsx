@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Container,
@@ -13,29 +13,16 @@ import {
   Tbody,
   Tr,
   Td,
-} from '@chakra-ui/react';
-import { EditIcon, DownloadIcon } from '@chakra-ui/icons';
-
-const studentData = {
-  _id: "653946a07941151a0129f1ed",
-  firstname: "umair",
-  lastname: "farooqui",
-  beltNo: "123ABC",
-  registrationDate: "2023-01-03T19:00:00.000Z",
-  dob: "1998-12-31T19:00:00.000Z",
-  email: "omairfic922@gmail.com",
-  type: "student",
-  gender: "Male",
-  contactNo: "0123455",
-  homeNo: "1934343",
-  address: "ST 02 Lahore",
-  courseCode: "CSE111",
-  CourseId: [],
-  createdAt: "2023-10-25T16:47:28.606Z",
-  updatedAt: "2023-10-25T16:47:28.606Z",
-};
+} from "@chakra-ui/react";
+import { EditIcon, DownloadIcon } from "@chakra-ui/icons";
+import { useParams } from "react-router";
+import { useQueryClient } from "react-query";
 
 const StudentDetail = () => {
+  const { st_ID } = useParams(); // Get the course ID from the URL
+  const queryClient = useQueryClient();
+  const students = queryClient.getQueryData("students");
+
   const {
     firstname,
     lastname,
@@ -46,13 +33,26 @@ const StudentDetail = () => {
     homeNo,
     address,
     courseCode,
-  } = studentData;
+    picture,
+  } = students.find((student) => student.beltNo === st_ID);
 
   return (
     <Container maxW="container.xl" mt="4">
       <Box p={4} bg="white" borderRadius="md" boxShadow="md">
-        <List display="flex" listStyleType="none" justifyContent="space-between" alignItems="center">
-          <Text color={"#1D238F"} fontSize="2xl" fontWeight={"bold"} textAlign={'left'}>About Student</Text>
+        <List
+          display="flex"
+          listStyleType="none"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Text
+            color={"#1D238F"}
+            fontSize="2xl"
+            fontWeight={"bold"}
+            textAlign={"left"}
+          >
+            About Student
+          </Text>
           <Box>
             <Button
               leftIcon={<DownloadIcon />}
@@ -85,19 +85,23 @@ const StudentDetail = () => {
               <Image
                 borderRadius={5}
                 height={"20em"}
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&sg"
+                src={
+                  picture
+                    ? picture
+                    : "https://www.w3schools.com/howto/img_avatar.png"
+                }
                 alt="student"
               />
             </GridItem>
-            
-            <GridItem paddingTop={"3em"} textAlign={'left'}>
+
+            <GridItem paddingTop={"3em"} textAlign={"left"}>
               <Text fontSize="4xl" fontWeight="medium">
                 {firstname + " " + lastname}
               </Text>
               <Text mt={4}>
                 Aliquam erat volutpat. Curabiene natis massa sedde lacu stiquen
-                sodale word moun taiery.Aliquam erat volutpat urabiene natis massa
-                sedde sodale word moun taiery.
+                sodale word moun taiery.Aliquam erat volutpat urabiene natis
+                massa sedde sodale word moun taiery.
               </Text>
               <Table>
                 <Tbody>
