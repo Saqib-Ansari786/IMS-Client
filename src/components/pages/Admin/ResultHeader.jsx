@@ -7,6 +7,7 @@ export default function ResultHeader({
   children,
   data,
   headers,
+  name
 }) {
  
 
