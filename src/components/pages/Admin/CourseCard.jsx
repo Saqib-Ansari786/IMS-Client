@@ -9,8 +9,10 @@ import {
   Td,
   Stack,
   Heading,
+  Button,
 } from "@chakra-ui/react";
 import { FaCalendar, FaUser, FaUsers } from "react-icons/fa";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
 export default function CourseCard({
@@ -52,7 +54,7 @@ export default function CourseCard({
             </Tr>
             <Tr>
               <Td>
-                <Stack spacing={1} direction="row" alignItems="center">
+                <Stack pt={2} spacing={1} direction="row" alignItems="center">
                   <FaUser color={"red"} />
                   <Text fontWeight="semibold">Author</Text>
                 </Stack>
@@ -70,6 +72,21 @@ export default function CourseCard({
             </Tr>
           </Tbody>
         </Table>
+        <Stack>
+          <Button
+            as={Link}
+            to={""}
+            colorScheme="blue"
+            _hover={{ backgroundColor: "blue.300", color: "white" }}
+            color={"white"}
+            leftIcon={<EditIcon />}
+          >
+            Edit
+          </Button>
+          <Button colorScheme="red" leftIcon={<DeleteIcon />}>
+            Delete
+          </Button>
+        </Stack>
       </Box>
     </Box>
   );

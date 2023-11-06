@@ -2,8 +2,13 @@ import { Grid, GridItem, Heading, Container, Spinner } from "@chakra-ui/react";
 import CourseCard from "../../components/pages/Admin/CourseCard";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
+import CoursePageHeader from "../../components/pages/Admin/CoursePageHeader";
+import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
+import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
+import { useState } from "react";
 
 export default function CoursePage() {
+  const [entries, setEntries] = useState(5);
   const {
     data: courses,
     isLoading,
@@ -11,10 +16,10 @@ export default function CoursePage() {
   } = useQuery("courses", () => apiMiddleware("admin/courses/courses"));
   return (
     <Container maxW="container.xl" mt="4">
-      <Heading as="h1" size="xl" mb="4">
-        Courses
-      </Heading>
+      <CoursePageHeader>
+      <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
       <Grid
+      p={6}
         templateColumns={{
           base: "repeat(1, 1fr)",
           md: "repeat(2, 1fr)",
@@ -23,7 +28,7 @@ export default function CoursePage() {
         gap={4}
       >
         {isLoading ? (
-          <>
+          < >
             <Spinner
               marginTop={10}
               size="xl"
@@ -43,9 +48,10 @@ export default function CoursePage() {
             </GridItem>
           ))
         ) : (
-          <p>No data</p>
+          <NotDataFoundMessage/>
         )}
       </Grid>
+      </CoursePageHeader>
     </Container>
   );
 }
