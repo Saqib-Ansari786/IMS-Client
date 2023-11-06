@@ -121,11 +121,16 @@ export default function ProductPageTable({ products, entries }) {
   };
 
   const onEdit = async (editedProduct) => {
+    console.log(editedProduct);
     const response = await apiMiddleware(
       `admin/products/edit/${editedProduct._id}`,
       {
         method: "POST",
-        body: JSON.stringify(editedProduct),
+        body: JSON.stringify({
+          name: editedProduct.name,
+          category: editedProduct.category,
+          quantity: editedProduct.quantity,
+        }),
       }
     );
     console.log(response);
