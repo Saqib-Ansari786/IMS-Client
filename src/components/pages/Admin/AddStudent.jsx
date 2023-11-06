@@ -11,6 +11,7 @@ import {
   createCloudinaryFormdata,
   uploadToCloudinary,
 } from "../../../utils/cloudinarySetup";
+import apiMiddleware from "../../common/Server/apiMiddleware";
 
 export default function AddStudent() {
   const [formData, setFormData] = useState({
@@ -66,23 +67,45 @@ export default function AddStudent() {
     };
     console.log("Student Data:", updatedFormData);
     // POST studentData to your backend
-    // try {
-    //   console.log("Student Data:", formData);
-    //   const response = await fetch("your-backend-endpoint", {
-    //     method: "POST",
-    //     body: JSON.stringify(formData),
-    //   });
 
-    //   if (response.ok) {
-    //     // Handle success
-    //     console.log("Student added successfully.");
-    //   } else {
-    //     // Handle error
-    //     console.error("Failed to add student.");
-    //   }
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
+    const response = await apiMiddleware("admin/students/register", {
+      method: "POST",
+      body: JSON.stringify({
+        firstname: updatedFormData.firstName,
+        lastname: updatedFormData.lastName,
+        beltNo: updatedFormData.beltNo,
+        email: updatedFormData.email,
+        registrationDate: updatedFormData.registrationDate,
+        address: updatedFormData.address,
+        gender: updatedFormData.gender,
+        contactNo: updatedFormData.personalMobileNo,
+        homeNo: updatedFormData.homePhoneNo,
+        courseCode: updatedFormData.course,
+        picture: updatedFormData.profilePicture,
+        type: "Student",
+        dob: updatedFormData.dateOfBirth,
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    console.log("Response:", response);
+
+    // Clear the form
+
+    setFormData({
+      firstName: "",
+      lastName: "",
+      beltNo: "",
+      email: "",
+      registrationDate: "",
+      course: "",
+      gender: "",
+      personalMobileNo: "",
+      homePhoneNo: "",
+      dateOfBirth: "",
+      address: "",
+      profilePicture: null,
+    });
   };
 
   return (
