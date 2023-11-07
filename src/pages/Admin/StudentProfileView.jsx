@@ -31,7 +31,6 @@ export default function StudentProfileView({ students }) {
             designation={`${student.type.charAt(0).toUpperCase()}${student.type.slice(1)}`}
             phoneNumber={student.contactNo}
             beltNo={student.beltNo}
-            address={student.address}
             // onReadMoreClick={() => handleReadMoreClick(student)}
           />
         ))}

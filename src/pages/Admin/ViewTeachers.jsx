@@ -87,7 +87,7 @@ export default function ViewStudents() {
         </>
       )}
       {selectedComponent === "Add" && <AddTeacher />}
-      {selectedComponent === "TeacherProfileView" && <TeacherProfileView />}
+      {selectedComponent === "TeacherProfileView" && <TeacherProfileView teachers={teachers} />}
     </PageHeader>
   );
 }

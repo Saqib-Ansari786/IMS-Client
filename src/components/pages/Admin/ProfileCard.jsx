@@ -25,15 +25,14 @@ export default function ProfileCard({ imgUrl, name, designation, phoneNumber, ad
           {designation}
         </Text>
         <Text fontSize="sm" color="gray.500" mt="1">
-          Phone No:  {phoneNumber}
-        </Text>
-        <Text fontSize="sm" color="gray.500" mt="1">
           Belt No:  {beltNo}
         </Text>
-        <Text fontSize="md" mt="3" mb="4">
-        <b>Address:</b>  {address}
+        <Text fontSize="sm" color="gray.500" mt="1">
+          Phone No:  {phoneNumber}
         </Text>
+      
         <Button
+         mt={3}
           colorScheme="blue"
           size="sm"
           borderRadius="sm"
