@@ -70,6 +70,7 @@ export default function LibraryManagementHeader({ children, data, headers, handl
           <Button
             leftIcon={<AddIcon />}
             colorScheme="blue"
+            variant={selectedView !== "ListView" ? "solid" : "outline"}
             _hover={{ bg: "blue.300", color: "white" }}
             onClick={() => {
               handleAddClick();
