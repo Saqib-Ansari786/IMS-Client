@@ -12,31 +12,31 @@ import {
   Input,
 } from "@chakra-ui/react";
 
-export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
-  const [editedStudent, setEditedStudent] = useState({...student});
+export default function EditTeacherModal({ isOpen, onClose, teacher, onEdit }) {
+  const [editedTeacher, setEditedTeacher] = useState({ ...teacher });
+
   useEffect(() => {
-    setEditedStudent({ ...student });
-  }, [student]);
+    setEditedTeacher({ ...teacher });
+  }, [teacher]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedStudent((prevStudent) => ({
-      ...prevStudent,
+    setEditedTeacher((prevTeacher) => ({
+      ...prevTeacher,
       [name]: value,
     }));
   };
 
   const handleSave = () => {
-    onEdit(editedStudent);
+    onEdit(editedTeacher);
     onClose();
   };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      
       <ModalContent backgroundColor={"white"}>
-      
-        <ModalHeader>Edit Student</ModalHeader>
+        <ModalHeader>Edit Teacher</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <FormControl>
@@ -44,7 +44,7 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
             <Input
               type="text"
               name="firstname"
-              value={editedStudent.firstname}
+              value={editedTeacher.firstname}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -53,7 +53,7 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
             <Input
               type="text"
               name="lastname"
-              value={editedStudent.lastname}
+              value={editedTeacher.lastname}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -62,16 +62,16 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
             <Input
               type="text"
               name="beltNo"
-              value={editedStudent.beltNo}
+              value={editedTeacher.beltNo}
               onChange={handleInputChange}
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Registration Date</FormLabel>
+            <FormLabel>Joining Date</FormLabel>
             <Input
               type="text"
-              name="registrationDate"
-              value={editedStudent.registrationDate}
+              name="joiningDate"
+              value={editedTeacher.joiningDate}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -80,7 +80,7 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
             <Input
               type="text"
               name="dob"
-              value={editedStudent.dob}
+              value={editedTeacher.dob}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -89,7 +89,7 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
             <Input
               type="text"
               name="email"
-              value={editedStudent.email}
+              value={editedTeacher.email}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -98,7 +98,7 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
             <Input
               type="text"
               name="type"
-              value={editedStudent.type}
+              value={editedTeacher.type}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -107,7 +107,7 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
             <Input
               type="text"
               name="gender"
-              value={editedStudent.gender}
+              value={editedTeacher.gender}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -116,7 +116,7 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
             <Input
               type="text"
               name="contactNo"
-              value={editedStudent.contactNo}
+              value={editedTeacher.contactNo}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -125,7 +125,7 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
             <Input
               type="text"
               name="homeNo"
-              value={editedStudent.homeNo}
+              value={editedTeacher.homeNo}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -134,7 +134,16 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
             <Input
               type="text"
               name="address"
-              value={editedStudent.address}
+              value={editedTeacher.address}
+              onChange={handleInputChange}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Designation</FormLabel>
+            <Input
+              type="text"
+              name="designation"
+              value={editedTeacher.designation}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -143,7 +152,7 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
             <Input
               type="text"
               name="courseCode"
-              value={editedStudent.courseCode}
+              value={editedTeacher.courseCode}
               onChange={handleInputChange}
             />
           </FormControl>

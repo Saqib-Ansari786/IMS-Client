@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import {
-  Box,
   Table,
   Thead,
   Tbody,
@@ -11,8 +11,58 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
+import AlertDeleteDialog from "./AlertDeleteDialog";
+import EditTeacherModal from "./EditTeacehrModal";
+
 
 export default function TeacherView({ headers, data, entries }) {
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+  const [deleteTeacher, setDeleteTeacher] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedTeacher, setSelectedTeacher] = useState(null);
+
+  
+
+  const handleOpenDeleteConfirmation = (teacher) => {
+    setDeleteTeacher(teacher);
+    setIsDeleteConfirmationOpen(true);
+  };
+
+  const handleCloseDeleteConfirmation = () => {
+    setIsDeleteConfirmationOpen(false);
+    setDeleteTeacher(null);
+  };
+
+  const handleConfirmDeleteTeacher = (deleteTeacher) => {
+    if (deleteTeacher) {
+      // Implement your delete logic here
+      console.log(`Deleting teacher with ID: ${deleteTeacher}`);
+      // Close the confirmation dialog
+      handleCloseDeleteConfirmation();
+    }
+  };
+  
+  // Function to open the edit modal
+  const openEditModal = (teacher) => {
+    setSelectedTeacher(teacher);
+    setIsEditModalOpen(true);
+  };
+  
+  // Function to close the edit modal
+  const closeEditModal = () => {
+    setSelectedTeacher(null);
+    setIsEditModalOpen(false);
+  };
+  
+  // Function to handle editing the teacher
+  const handleEditTeacher = (editedTeacher) => {
+    // Implement your logic to update the teacher with the editedteacher data
+    console.log("Edited teacher data:", editedTeacher);
+    // Close the edit modal
+    closeEditModal();
+  };
+
+
   return (
     <TableContainer
       mt={3}
@@ -68,6 +118,7 @@ export default function TeacherView({ headers, data, entries }) {
                     colorScheme="blue"
                     title="Edit"
                     icon={<Icon as={EditIcon} />}
+                    onClick={() => openEditModal(row)}
                     mr={2}
                   />
                   <IconButton
@@ -75,12 +126,25 @@ export default function TeacherView({ headers, data, entries }) {
                     colorScheme="red"
                     title="Delete"
                     icon={<Icon as={DeleteIcon} />}
+                    onClick={() => handleOpenDeleteConfirmation(row)}
                   />
                 </Td>
               </Tr>
             ))}
         </Tbody>
       </Table>
+      <AlertDeleteDialog
+        isOpen={isDeleteConfirmationOpen}
+        onClose={handleCloseDeleteConfirmation}
+        type={"teacher"}
+        onConfirm={handleConfirmDeleteTeacher}
+      />
+      <EditTeacherModal
+  isOpen={isEditModalOpen}
+  onClose={closeEditModal}
+  teacher={selectedTeacher}
+  onEdit={handleEditTeacher}
+/>
     </TableContainer>
   );
 }

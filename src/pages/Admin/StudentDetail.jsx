@@ -66,16 +66,7 @@ const StudentDetail = () => {
               mr={2}
               onClick={() => window.print()}
             >
-              Download
-            </Button>
-            <Button
-              leftIcon={<EditIcon />}
-              colorScheme="blue"
-              variant="solid"
-              _hover={{ bg: "blue.300", color: "white" }}
-              mr={2}
-            >
-              Edit Student
+              Get Print
             </Button>
           </Box>
         </List>

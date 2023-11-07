@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   Thead,
@@ -12,8 +12,50 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
+import AlertDeleteDialog from "./AlertDeleteDialog";
+import EditBookModal from "./EditBookModal";
 
 export default function BookList({ headers, data, entries }) {
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+  const [deleteBook, setDeleteBook] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
+
+  const handleOpenDeleteConfirmation = (book) => {
+    setDeleteBook(book);
+    setIsDeleteConfirmationOpen(true);
+  };
+
+  const handleCloseDeleteConfirmation = () => {
+    setIsDeleteConfirmationOpen(false);
+    setDeleteBook(null);
+  };
+
+  const handleConfirmDeleteBook = (deleteBook) => {
+    if (deleteBook) {
+      // Implement your delete logic here
+      console.log(`Deleting book with ID: ${deleteBook}`);
+      // Close the confirmation dialog
+      handleCloseDeleteConfirmation();
+    }
+  };
+
+  const openEditModal = (book) => {
+    setSelectedBook(book);
+    setIsEditModalOpen(true);
+  };
+
+  const closeEditModal = () => {
+    setSelectedBook(null);
+    setIsEditModalOpen(false);
+  };
+
+  const handleEditBook = (editedBook) => {
+    // Implement your logic to update the book with the edited book data
+    console.log("Edited book data:", editedBook);
+    closeEditModal();
+  };
+
   return (
     <TableContainer
       mt={3}
@@ -74,18 +116,32 @@ export default function BookList({ headers, data, entries }) {
                     title="Edit"
                     icon={<Icon as={EditIcon} />}
                     mr={2}
+                    onClick={() => openEditModal(row)}
                   />
                   <IconButton
                     size="sm"
                     colorScheme="red"
                     title="Delete"
                     icon={<Icon as={DeleteIcon} />}
+                    onClick={() => handleOpenDeleteConfirmation(row)}
                   />
                 </Td>
               </Tr>
             ))}
         </Tbody>
       </Table>
+      <AlertDeleteDialog
+        isOpen={isDeleteConfirmationOpen}
+        onClose={handleCloseDeleteConfirmation}
+        type={"book"}
+        onConfirm={handleConfirmDeleteBook}
+      />
+      <EditBookModal
+        isOpen={isEditModalOpen}
+        onClose={closeEditModal}
+        book={selectedBook}
+        onEdit={handleEditBook}
+      />
     </TableContainer>
   );
 }

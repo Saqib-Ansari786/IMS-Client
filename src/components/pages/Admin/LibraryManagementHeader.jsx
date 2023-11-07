@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { Box, Flex, Heading, Button } from "@chakra-ui/react";
-import { DownloadIcon, AddIcon } from "@chakra-ui/icons";
+import { DownloadIcon, AddIcon, RepeatIcon } from "@chakra-ui/icons";
 import AddBook from "./AddBook";
 import * as XLSX from "xlsx";
 
-export default function LibraryManagementHeader({ children, data, headers }) {
-  const [showAddBook, setShowAddBook] = useState(false);
+export default function LibraryManagementHeader({ children, data, headers, handleListViewClick, handleAddClick }) {
+  // const [showAddBook, setShowAddBook] = useState(false);
 
-  const toggleAddBook = () => {
-    setShowAddBook(!showAddBook);
+  // const toggleAddBook = () => {
+  //   setShowAddBook(!showAddBook);
+  // };
+  
+  const [selectedView, setSelectedView] = useState("ListView");
+
+  const handleViewChange = (view) => {
+    setSelectedView(view);
   };
 
   const downloadExcel = () => {
@@ -49,16 +55,32 @@ export default function LibraryManagementHeader({ children, data, headers }) {
             Download
           </Button>
           <Button
+            leftIcon={<RepeatIcon />}
+            colorScheme="blue"
+            variant={selectedView === "ListView" ? "solid" : "outline"}
+            _hover={{ bg: selectedView === "ListView" ? "blue.300" : "blue.200", color: "white" }}
+            onClick={() => {
+              handleListViewClick();
+              handleViewChange("ListView");
+            }}
+            mr={2}
+          >
+            List View
+          </Button>
+          <Button
             leftIcon={<AddIcon />}
             colorScheme="blue"
             _hover={{ bg: "blue.300", color: "white" }}
-            onClick={toggleAddBook}
+            onClick={() => {
+              handleAddClick();
+              handleViewChange("Add");
+            }}
           >
             Add Book
           </Button>
         </Flex>
       </Flex>
-      {showAddBook ? <AddBook /> : children}
+      {children}
     </Box>
   );
 }

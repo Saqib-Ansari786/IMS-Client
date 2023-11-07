@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Image,
@@ -14,16 +14,64 @@ import {
 import { FaCalendar, FaUser, FaUsers } from "react-icons/fa";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import AlertDeleteDialog from "./AlertDeleteDialog";
+import EditCourseModal from "./EditCourseModal";
 
 export default function CourseCard({
   imageUrl,
   name,
   description,
+  department,
+  strength,
   duration,
   author,
   category,
   courseCode,
 }) {
+  const [deleteCourse, setDeleteCourse] = useState(null);
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
+  const openDeleteConfirmation = (course) => {
+    setDeleteCourse(course);
+    setIsDeleteConfirmationOpen(true);
+  };
+
+  const handleCloseDeleteConfirmation = () => {
+    setDeleteCourse(null);
+    setIsDeleteConfirmationOpen(false);
+  };
+
+  const handleConfirmDeleteCourse = (deleteCourse) => {
+    if (deleteCourse) {
+      // Implement your delete logic here
+      console.log(`Deleting course with ID: ${deleteCourse}`);
+      // Close the confirmation dialog
+      handleCloseDeleteConfirmation();
+    }
+  };
+
+  // Function to open the edit modal
+  const openEditModal = (course) => {
+    setSelectedCourse(course);
+    setIsEditModalOpen(true);
+  };
+
+  // Function to close the edit modal
+  const closeEditModal = () => {
+    setSelectedCourse(null);
+    setIsEditModalOpen(false);
+  };
+
+  // Function to handle editing the course
+  const handleEditCourse = (editedCourse) => {
+    // Implement your logic to update the course with the editedCourse data
+    console.log("Edited course data:", editedCourse);
+    // Close the edit modal
+    closeEditModal();
+  };
+
   return (
     <Box
       maxW="sm"
@@ -80,12 +128,40 @@ export default function CourseCard({
             _hover={{ backgroundColor: "blue.300", color: "white" }}
             color={"white"}
             leftIcon={<EditIcon />}
+            onClick={() =>
+              openEditModal({
+                courseCode,
+                name,
+                description,
+                department,
+                strength,
+                duration,
+                author,
+                category,
+              })
+            }
           >
             Edit
           </Button>
-          <Button colorScheme="red" leftIcon={<DeleteIcon />}>
+          <Button
+            colorScheme="red"
+            leftIcon={<DeleteIcon />}
+            onClick={() => openDeleteConfirmation(courseCode)}
+          >
             Delete
           </Button>
+          <AlertDeleteDialog
+            isOpen={isDeleteConfirmationOpen}
+            onClose={handleCloseDeleteConfirmation}
+            type={"course"}
+            onConfirm={handleConfirmDeleteCourse}
+          />
+          <EditCourseModal
+            isOpen={isEditModalOpen}
+            onClose={closeEditModal}
+            course={selectedCourse}
+            onEdit={handleEditCourse}
+          />
         </Stack>
       </Box>
     </Box>

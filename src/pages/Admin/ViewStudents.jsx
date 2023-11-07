@@ -26,7 +26,7 @@ export default function ViewStudents() {
   const [entries, setEntries] = useState(5);
   const headers = jsonData.headers;
   const [selectedComponent, setSelectedComponent] = useState("ListView");
-
+ 
   const handleListViewClick = () => {
     setSelectedComponent("ListView");
   };

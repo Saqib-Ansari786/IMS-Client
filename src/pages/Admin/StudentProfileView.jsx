@@ -10,6 +10,8 @@ export default function StudentProfileView({ students }) {
   //   setSelectedStudent(student);
   // };
 
+  
+
   return (
     <>
     <Container maxW="container.xl" mt="4">

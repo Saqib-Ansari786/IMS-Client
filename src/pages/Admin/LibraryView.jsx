@@ -7,13 +7,22 @@ import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
 import { Spinner } from "@chakra-ui/react";
 import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
+import AddBook from "../../components/pages/Admin/AddBook";
 const jsonData = {
   headers: ["TITLE", "AUTHOR", "ISBN", "CATEGORY", "AVAILABILTY", "ACTION"],
 };
 
 export default function LibraryView() {
   const [entries, setEntries] = useState(5);
+  const [selectedComponent, setSelectedComponent] = useState("ListView");
   const headers = jsonData.headers;
+  const handleListViewClick = () => {
+    setSelectedComponent("ListView");
+  };
+
+  const handleAddClick = () => {
+    setSelectedComponent("Add");
+  };
   const {
     data: books,
     isLoading,
@@ -21,7 +30,14 @@ export default function LibraryView() {
   } = useQuery("books", () => apiMiddleware("admin/libraries/library-items"));
   return (
     <>
-      <LibraryManagementHeader data={books} headers={headers}>
+      <LibraryManagementHeader
+        handleListViewClick={handleListViewClick}
+        handleAddClick={handleAddClick}
+        data={books}
+        headers={headers}
+      >
+        {selectedComponent === "ListView" && (
+        <>
         {isLoading ? (
           <>
             <Spinner
@@ -43,8 +59,11 @@ export default function LibraryView() {
             <BookList headers={headers} data={books} entries={entries} />
           </>
         ) : (
-          <NotDataFoundMessage/>
+          <NotDataFoundMessage />
         )}
+      </>
+      )}
+        {selectedComponent === "Add" && <AddBook />}
       </LibraryManagementHeader>
     </>
   );
