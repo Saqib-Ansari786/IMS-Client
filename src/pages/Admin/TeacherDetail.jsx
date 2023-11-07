@@ -54,7 +54,7 @@ const TeacherDetail = () => {
             fontWeight={"bold"}
             textAlign={"left"}
           >
-            About Student
+            About Teacher
           </Text>
           <Box>
             <Button
@@ -105,7 +105,7 @@ const TeacherDetail = () => {
                   </Tr>
                   <Tr>
                     <Td fontWeight="bold">Name:</Td>
-                    <Td>{firstname + " " + lastname}</Td>
+                    <Td>{`${firstname.charAt(0).toUpperCase() + firstname.slice(1)} ${lastname.charAt(0).toUpperCase() + lastname.slice(1)}`}</Td>
                   </Tr>
                   <Tr>
                     <Td fontWeight="bold">Date Of Birth:</Td>

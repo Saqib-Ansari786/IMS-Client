@@ -85,7 +85,7 @@ export default function ResultPage() {
     isError,
   } = useQuery("result_record", () => apiMiddleware("admin/result/result"));
   return (
-    <ResultHeader name={"Studnet Result"} headers={headers} data={data}>
+    <ResultHeader name={"Student Result"} headers={headers} data={data}>
       <StudentSearch />
       <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
       <ResultTable headers={headers} data={data} entries={entries} />

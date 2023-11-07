@@ -14,27 +14,27 @@ import {
   Tr,
   Td,
 } from "@chakra-ui/react";
-import { EditIcon, DownloadIcon } from "@chakra-ui/icons";
+import { DownloadIcon } from "@chakra-ui/icons";
 import { useParams } from "react-router";
 import { useQueryClient } from "react-query";
 
-const StudentDetail = () => {
-  const { st_ID } = useParams(); // Get the course ID from the URL
+const BookDetail = () => {
+  const { book_isbn } = useParams();
   const queryClient = useQueryClient();
-  const students = queryClient.getQueryData("students");
+  const books = queryClient.getQueryData("books");
 
   const {
-    firstname,
-    lastname,
-    dob,
-    email,
-    gender,
-    contactNo,
-    homeNo,
-    address,
+    title,
+    authorName,
+    publisherName,
+    isbn,
+    category,
+    availability,
+    language,
+    quantity,
+    department,
     courseCode,
-    picture,
-  } = students.find((student) => student.beltNo === st_ID);
+  } = books.find((book) => book.isbn === book_isbn);
 
   return (
     <Container maxW="container.xl" mt="4">
@@ -51,7 +51,7 @@ const StudentDetail = () => {
             fontWeight={"bold"}
             textAlign={"left"}
           >
-            About Student
+            Book Information
           </Text>
           <Box>
             <Button
@@ -76,18 +76,14 @@ const StudentDetail = () => {
               <Image
                 borderRadius={5}
                 height={"20em"}
-                src={
-                  picture
-                    ? picture
-                    : "https://www.w3schools.com/howto/img_avatar.png"
-                }
+                src={"https://www.w3schools.com/howto/img_avatar.png"}
                 alt="student"
               />
             </GridItem>
 
             <GridItem paddingTop={"3em"} textAlign={"left"}>
               <Text fontSize="4xl" fontWeight="medium">
-              {`${firstname.charAt(0).toUpperCase() + firstname.slice(1)} ${lastname.charAt(0).toUpperCase() + lastname.slice(1)}`}
+              {title.charAt(0).toUpperCase() + title.slice(1)}
               </Text>
               <Text mt={4}>
                 Aliquam erat volutpat. Curabiene natis massa sedde lacu stiquen
@@ -97,32 +93,36 @@ const StudentDetail = () => {
               <Table>
                 <Tbody>
                   <Tr>
-                    <Td fontWeight="bold">Name:</Td>
-                    <Td>{firstname + " " + lastname}</Td>
+                    <Td fontWeight="bold">Isbn:</Td>
+                    <Td>{isbn}</Td>
                   </Tr>
                   <Tr>
-                    <Td fontWeight="bold">Date Of Birth:</Td>
-                    <Td>{new Date(dob).toLocaleDateString()}</Td>
+                    <Td fontWeight="bold">Author Name:</Td>
+                    <Td>{authorName}</Td>
                   </Tr>
                   <Tr>
-                    <Td fontWeight="bold">Email:</Td>
-                    <Td>{email}</Td>
+                    <Td fontWeight="bold">Publisher Name:</Td>
+                    <Td>{publisherName}</Td>
                   </Tr>
                   <Tr>
-                    <Td fontWeight="bold">Gender:</Td>
-                    <Td>{gender}</Td>
+                    <Td fontWeight="bold">Category:</Td>
+                    <Td>{category}</Td>
                   </Tr>
                   <Tr>
-                    <Td fontWeight="bold">Contact No:</Td>
-                    <Td>{contactNo}</Td>
+                    <Td fontWeight="bold">Availability:</Td>
+                    <Td>{availability? "available": "Not Available"}</Td>
                   </Tr>
                   <Tr>
-                    <Td fontWeight="bold">Home No:</Td>
-                    <Td>{homeNo}</Td>
+                    <Td fontWeight="bold">Language:</Td>
+                    <Td>{language}</Td>
                   </Tr>
                   <Tr>
-                    <Td fontWeight="bold">Address:</Td>
-                    <Td>{address}</Td>
+                    <Td fontWeight="bold">Quantity:</Td>
+                    <Td>{quantity}</Td>
+                  </Tr>
+                  <Tr>
+                    <Td fontWeight="bold">Department:</Td>
+                    <Td>{department}</Td>
                   </Tr>
                   <Tr>
                     <Td fontWeight="bold">Course Code:</Td>
@@ -138,4 +138,4 @@ const StudentDetail = () => {
   );
 };
 
-export default StudentDetail;
+export default BookDetail;

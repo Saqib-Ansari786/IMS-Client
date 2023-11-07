@@ -14,6 +14,8 @@ import {
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 import AlertDeleteDialog from "./AlertDeleteDialog";
 import EditBookModal from "./EditBookModal";
+import { Navigate } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function BookList({ headers, data, entries }) {
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
@@ -103,6 +105,7 @@ export default function BookList({ headers, data, entries }) {
                   </Badge>
                 </Td>
                 <Td key={rowIndex} textAlign="center">
+                <Link to={`${row.isbn}`}>
                   <IconButton
                     size="sm"
                     colorScheme="blue"
@@ -110,6 +113,7 @@ export default function BookList({ headers, data, entries }) {
                     icon={<Icon as={ViewIcon} />}
                     mr={2}
                   />
+                  </Link>
                   <IconButton
                     size="sm"
                     colorScheme="blue"

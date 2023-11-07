@@ -46,6 +46,7 @@ import ResultPage from "./pages/Admin/ResultPage";
 import TimetablePage from "./pages/Admin/TimetablePage";
 import StudentDetail from "./pages/Admin/StudentDetail";
 import TeacherDetail from "./pages/Admin/TeacherDetail";
+import BookDetail from "./pages/Admin/BookDetail";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -62,10 +63,11 @@ const router = createBrowserRouter(
         <Route path="profile" element={<Profile />} />
         <Route path="studentview" element={<ViewStudents />} />
         <Route path="studentview/:st_ID" element={<StudentDetail />} />
-        <Route path="teacherview/:t_ID" element={<TeacherDetail/>} />
         <Route path="teacherview" element={<ViewTeachers />} />
+        <Route path="teacherview/:t_ID" element={<TeacherDetail/>} />
         <Route path="courses" element={<CoursePage />} />
         <Route path="library" element={<LibraryView />} />
+        <Route path="library/:book_isbn" element={<BookDetail/>} />
         <Route path="result" element={<ResultPage />} />
         <Route path="timetable" element={<TimetablePage />} />
       </Route>
