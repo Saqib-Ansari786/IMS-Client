@@ -12,6 +12,7 @@ import {
   uploadToCloudinary,
 } from "../../../utils/cloudinarySetup";
 import apiMiddleware from "../../common/Server/apiMiddleware";
+import SuccessModal from "../Inventory_Admin/SucessModal";
 
 export default function AddStudent() {
   const [formData, setFormData] = useState({
@@ -47,13 +48,29 @@ export default function AddStudent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setSuccessMessage("Student successfully added!");
+    setFormData({
+      firstName: "",
+      lastName: "",
+      beltNo: "",
+      email: "",
+      registrationDate: "",
+      course: "",
+      gender: "",
+      personalMobileNo: "",
+      homePhoneNo: "",
+      dateOfBirth: "",
+      address: "",
+      profilePicture: "",
+    });
+    setIsModalOpen(true);
     // Prepare the form data
     const cloudinaryFormData = createCloudinaryFormdata(
       formData.profilePicture,
       "ims-client-student",
       "ims_student_images"
     );
+  
     // Upload the image to Cloudinary
     const cloudinaryResponse = await uploadToCloudinary(cloudinaryFormData);
     console.log("Cloudinary Response:", cloudinaryResponse);
@@ -107,6 +124,14 @@ export default function AddStudent() {
       profilePicture: null,
     });
   };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSuccessMessage(null);
+  };
+
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <Box
@@ -261,6 +286,11 @@ export default function AddStudent() {
           Add Student
         </Button>
       </form>
+      <SuccessModal
+        successMessage={successMessage}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+      />
     </Box>
   );
 }

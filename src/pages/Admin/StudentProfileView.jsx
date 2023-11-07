@@ -26,7 +26,7 @@ export default function StudentProfileView({ students }) {
         {students.map((student, index) => (
           <ProfileCard
             key={index}
-            imgUrl={student.imgUrl}
+            imgUrl={student.picture}
             name={`${student.firstname.charAt(0).toUpperCase()}${student.firstname.slice(1)} ${student.lastname.charAt(0).toUpperCase()}${student.lastname.slice(1)}`}
             designation={`${student.type.charAt(0).toUpperCase()}${student.type.slice(1)}`}
             phoneNumber={student.contactNo}

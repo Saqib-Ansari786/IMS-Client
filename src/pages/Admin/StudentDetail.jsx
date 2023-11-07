@@ -24,6 +24,7 @@ const StudentDetail = () => {
   const students = queryClient.getQueryData("students");
 
   const {
+    beltNo,
     firstname,
     lastname,
     dob,
@@ -34,6 +35,8 @@ const StudentDetail = () => {
     address,
     courseCode,
     picture,
+    registrationDate,
+    type
   } = students.find((student) => student.beltNo === st_ID);
 
   return (
@@ -97,8 +100,20 @@ const StudentDetail = () => {
               <Table>
                 <Tbody>
                   <Tr>
+                    <Td fontWeight="bold">Belt No:</Td>
+                    <Td>{beltNo}</Td>
+                  </Tr>
+                  <Tr>
                     <Td fontWeight="bold">Name:</Td>
                     <Td>{firstname + " " + lastname}</Td>
+                  </Tr>
+                  <Tr>
+                    <Td fontWeight="bold">Type:</Td>
+                    <Td>{type}</Td>
+                  </Tr>
+                  <Tr>
+                    <Td fontWeight="bold">Registration Date:</Td>
+                    <Td>{registrationDate}</Td>
                   </Tr>
                   <Tr>
                     <Td fontWeight="bold">Date Of Birth:</Td>

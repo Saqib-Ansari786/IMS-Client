@@ -9,7 +9,7 @@ export default function TeacherProfileView({teachers}) {
         {teachers.map((teacher, index) => (
           <ProfileCard
             key={index}
-            imgUrl={teacher.imgUrl}
+            imgUrl={teacher.picture}
             name={`${teacher.firstname.charAt(0).toUpperCase()}${teacher.firstname.slice(1)} ${teacher.lastname.charAt(0).toUpperCase()}${teacher.lastname.slice(1)}`}
             designation={teacher.designation}
             phoneNumber={teacher.contactNo}

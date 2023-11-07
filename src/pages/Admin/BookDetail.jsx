@@ -17,6 +17,7 @@ import {
 import { DownloadIcon } from "@chakra-ui/icons";
 import { useParams } from "react-router";
 import { useQueryClient } from "react-query";
+import bookImage from "../../assets/bookimage.jpg"
 
 const BookDetail = () => {
   const { book_isbn } = useParams();
@@ -76,7 +77,7 @@ const BookDetail = () => {
               <Image
                 borderRadius={5}
                 height={"20em"}
-                src={"https://www.w3schools.com/howto/img_avatar.png"}
+                src={bookImage}
                 alt="student"
               />
             </GridItem>
