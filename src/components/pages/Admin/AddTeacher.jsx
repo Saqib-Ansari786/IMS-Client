@@ -12,6 +12,7 @@ import {
   uploadToCloudinary,
 } from "../../../utils/cloudinarySetup";
 import apiMiddleware from "../../common/Server/apiMiddleware";
+import SuccessModal from "../Inventory_Admin/SucessModal";
 
 export default function AddTeacher() {
   const [formData, setFormData] = useState({
@@ -47,7 +48,23 @@ export default function AddTeacher() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setSuccessMessage("Teacher successfully added!");
+    setIsModalOpen(true);
+    setFormData({
+      email: "",
+      firstname: "",
+      lastname: "",
+      beltNo: "",
+      joiningDate: "",
+      designation: "",
+      dob: "",
+      gender: "",
+      contactNo: "",
+      homeNo: "",
+      address: "",
+      courseCode: "",
+      picture: "",
+    });
     // Create a FormData object to send the file to the server
     const cloudinaryFormData = createCloudinaryFormdata(
       formData.picture,
@@ -94,6 +111,15 @@ export default function AddTeacher() {
       picture: null,
     });
   };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSuccessMessage(null);
+  };
+
+
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <Box
       mt={4}
@@ -240,6 +266,11 @@ export default function AddTeacher() {
           Add Teacher
         </Button>
       </form>
+      <SuccessModal
+        successMessage={successMessage}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+      />
     </Box>
   );
 }

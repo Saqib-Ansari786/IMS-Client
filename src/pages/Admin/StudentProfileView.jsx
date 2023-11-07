@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import { Container, Grid, GridItem } from '@chakra-ui/react';
 import ProfileCard from '../../components/pages/Admin/ProfileCard';
 import StudentDetail from './StudentDetail';
+import ShowEntriesDropdown from '../../components/pages/Admin/ShowEntriesDropdown';
 
 export default function StudentProfileView({ students }) {
+  const [entries, setEntries] = useState(5);
   // const [selectedStudent, setSelectedStudent] = useState(null);
 
   // const handleReadMoreClick = (student) => {
@@ -14,7 +16,9 @@ export default function StudentProfileView({ students }) {
 
   return (
     <>
+    <ShowEntriesDropdown  entries={entries} setEntries={setEntries} />
     <Container maxW="container.xl" mt="4">
+      
       <Grid
         templateColumns={{
           base: 'repeat(1, 1fr)',
@@ -23,7 +27,7 @@ export default function StudentProfileView({ students }) {
         }}
         gap={4}
       >
-        {students.map((student, index) => (
+        {students.slice(0, entries).map((student, index) => (
           <ProfileCard
             key={index}
             imgUrl={student.picture}

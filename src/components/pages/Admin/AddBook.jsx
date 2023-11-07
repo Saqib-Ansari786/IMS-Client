@@ -9,6 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import apiMiddleware from "../../common/Server/apiMiddleware";
+import SuccessModal from "../Inventory_Admin/SucessModal";
 
 const AddBook = () => {
   const [formData, setFormData] = useState({
@@ -36,6 +37,20 @@ const AddBook = () => {
     e.preventDefault();
     // You can access the form data as an object with the specified properties.
     console.log("Form Data:", formData);
+    setFormData({
+      title: "",
+      authorName: "",
+      publisherName: "",
+      isbn: "",
+      category: "",
+      availability: "",
+      language: "",
+      quantity: "",
+      department: "",
+      courseCode: "",
+    });
+    setIsModalOpen(true);
+    setSuccessMessage("Book successfully added!");
 
     const response = apiMiddleware("admin/libraries/library-items", {
       method: "POST",
@@ -63,6 +78,15 @@ const AddBook = () => {
       courseCode: "",
     });
   };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSuccessMessage(null);
+  };
+
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <Box className="row">
       <Box className="col-sm-12">
@@ -275,10 +299,16 @@ const AddBook = () => {
                       Submit
                     </Button>
                   </Box>
+                  
                 </Box>
               </Box>
             </form>
           </Box>
+          <SuccessModal
+        successMessage={successMessage}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+      />
         </Box>
       </Box>
     </Box>

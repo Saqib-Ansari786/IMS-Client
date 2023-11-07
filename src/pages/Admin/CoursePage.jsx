@@ -42,7 +42,7 @@ export default function CoursePage() {
         ) : isError ? (
           <p>Error</p>
         ) : courses.length > 0 ? (
-          courses.map((course, index) => (
+          courses.slice(0, entries).map((course, index) => (
             <GridItem key={index}>
               <CourseCard {...course} />
             </GridItem>

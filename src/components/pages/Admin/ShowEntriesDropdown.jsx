@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Flex, Select } from "@chakra-ui/react";
 
 const ShowEntriesDropdown = ({ entries, setEntries }) => {
-  const options = [5, 10, 25, 50, 100];
+  const options = [5, 10, 25, 50, 100, 200, 500, 1000];
 
   return (
     <Flex ml={5} mt={5} alignItems="center">

@@ -9,6 +9,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 import apiMiddleware from "../../common/Server/apiMiddleware";
+import SuccessModal from "../Inventory_Admin/SucessModal";
 
 export default function AddCourse() {
   const [formData, setFormData] = useState({
@@ -34,6 +35,18 @@ export default function AddCourse() {
     e.preventDefault();
     // You can access the form data as an object with the specified properties.
     console.log("Form Data:", formData);
+    setSuccessMessage("Course successfully added!");
+    setFormData({
+      courseCode: "",
+      name: "",
+      department: "",
+      strength: "",
+      duration: "", 
+      author: "",
+      category: "",
+      description: "",
+    });
+    setIsModalOpen(true);
 
     const response = await apiMiddleware("admin/courses/course", {
       method: "POST",
@@ -54,6 +67,15 @@ export default function AddCourse() {
       description: "",
     });
   };
+  
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSuccessMessage(null);
+  };
+
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <Box mt={4} p={4} backgroundColor="white" mx={3}>
@@ -148,6 +170,11 @@ export default function AddCourse() {
           Add Course
         </Button>
       </form>
+      <SuccessModal
+        successMessage={successMessage}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+      />
     </Box>
   );
 }

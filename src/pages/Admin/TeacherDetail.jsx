@@ -24,7 +24,7 @@ const TeacherDetail = () => {
   const teachers = queryClient.getQueryData("teachers");
 
   const {
-    belNo,
+    beltNo,
     firstname,
     lastname,
     dob,
@@ -101,7 +101,7 @@ const TeacherDetail = () => {
                 <Tbody>
                   <Tr>
                     <Td fontWeight="bold">Belt No:</Td>
-                    <Td>{belNo}</Td>
+                    <Td>{beltNo}</Td>
                   </Tr>
                   <Tr>
                     <Td fontWeight="bold">Name:</Td>
@@ -110,6 +110,10 @@ const TeacherDetail = () => {
                   <Tr>
                     <Td fontWeight="bold">Date Of Birth:</Td>
                     <Td>{new Date(dob).toLocaleDateString()}</Td>
+                  </Tr>
+                  <Tr>
+                    <Td fontWeight="bold">Joining Date:</Td>
+                    <Td>{new Date(joiningDate).toLocaleDateString()}</Td>
                   </Tr>
                   <Tr>
                     <Td fontWeight="bold">Email:</Td>
