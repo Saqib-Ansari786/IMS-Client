@@ -98,7 +98,7 @@ const TimetablePage = () => {
   };
 
   return (
-    <Box p={4}>
+    <Box bgColor={"white"} borderRadius={8} p={4}>
       <Heading as="h1" mb={4}>
         Timetable Page
       </Heading>
@@ -153,7 +153,7 @@ const TimetablePage = () => {
       </Flex>
       <Modal isOpen={isModalOpen} onClose={handleModalClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent backgroundColor={"white"}>
           <ModalHeader>Select Details</ModalHeader>
           <ModalCloseButton />
           <ModalBody bg={"white"}>

@@ -1,15 +1,20 @@
 import React from 'react';
 import { Box, Text, Button, Avatar } from '@chakra-ui/react';
+import { Link } from "react-router-dom";
 
 export default function ProfileCard({ imgUrl, name, designation, phoneNumber, address, beltNo, onReadMoreClick }) {
   return (
+    <Link to={`${beltNo}`}>
     <Box
       maxW="2xs"
       borderWidth="1px"
       borderRadius="md"
       overflow="hidden"   
       backgroundColor={"white"}
-      _hover={{ boxShadow: 'md' }}
+      transition="box-shadow 0.3s"
+      _hover={{ 
+        boxShadow: 'lg', 
+        transform: 'scale(1.02)',       }}
     >
       <Box className="card-body text-center" p="4">
         <Avatar
@@ -30,17 +35,12 @@ export default function ProfileCard({ imgUrl, name, designation, phoneNumber, ad
         <Text fontSize="sm" color="gray.500" mt="1">
           Phone No:  {phoneNumber}
         </Text>
-      
-        <Button
-         mt={3}
-          colorScheme="blue"
-          size="sm"
-          borderRadius="sm"
-          onClick={onReadMoreClick}
-        >
-          Read More
-        </Button>
+        
+        
+        
+
       </Box>
     </Box>
+    </Link>
   );
 }

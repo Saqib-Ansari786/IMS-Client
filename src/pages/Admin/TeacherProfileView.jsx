@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, GridItem, Heading, Container } from '@chakra-ui/react';
+import {Grid, Container } from '@chakra-ui/react';
 import ProfileCard from '../../components/pages/Admin/ProfileCard';
 
 export default function TeacherProfileView({teachers}) {
