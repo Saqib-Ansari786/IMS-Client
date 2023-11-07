@@ -5,7 +5,6 @@ import StudentView from "../../components/pages/Admin/StudentView";
 import PageHeader from "../../components/pages/Admin/PageHeader";
 import AddStudent from "../../components/pages/Admin/AddStudent";
 import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
-import TeacherProfileView from "./TeacherProfileView";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
 import StudentProfileView from "./StudentProfileView";

@@ -13,7 +13,8 @@ import {
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 import AlertDeleteDialog from "./AlertDeleteDialog";
 import EditTeacherModal from "./EditTeacehrModal";
-
+import { Navigate } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function TeacherView({ headers, data, entries }) {
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
@@ -106,6 +107,7 @@ export default function TeacherView({ headers, data, entries }) {
                   {row.joiningDate}
                 </Td>
                 <Td key={rowIndex} textAlign="center">
+                <Link to={`${row.beltNo}`}>
                   <IconButton
                     size="sm"
                     colorScheme="blue"
@@ -113,6 +115,7 @@ export default function TeacherView({ headers, data, entries }) {
                     icon={<Icon as={ViewIcon} />}
                     mr={2}
                   />
+                   </Link>
                   <IconButton
                     size="sm"
                     colorScheme="blue"
