@@ -17,7 +17,7 @@ import EditBookModal from "./EditBookModal";
 import { Navigate } from "react-router";
 import { Link } from "react-router-dom";
 
-export default function BookList({ headers, data, entries }) {
+export default function BookList({ headers, data, entries, search}) {
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
   const [deleteBook, setDeleteBook] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -80,7 +80,11 @@ export default function BookList({ headers, data, entries }) {
         </Thead>
         <Tbody>
           {data &&
-            data.slice(0, entries).map((row, rowIndex) => (
+            data.filter((row)=> {
+              return search.toLowerCase() === ''
+              ? row
+              : row.title.toLowerCase().includes(search) || row.isbn.includes(search) || row.category.toLowerCase().includes(search)  ;
+            }).slice(0, entries).map((row, rowIndex) => (
               <Tr key={rowIndex}>
                 <Td key={rowIndex} textAlign="center">
                   {row.title}

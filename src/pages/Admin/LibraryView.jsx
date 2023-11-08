@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import BookList from "../../components/pages/Admin/BookList";
 import LibraryManagementHeader from "../../components/pages/Admin/LibraryManagementHeader";
 import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
-import SearchBook from "../../components/pages/Admin/SearchBook";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
 import { Spinner } from "@chakra-ui/react";
 import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 import AddBook from "../../components/pages/Admin/AddBook";
+import Search from "../../components/pages/Admin/Search";
 const jsonData = {
   headers: ["TITLE", "AUTHOR", "ISBN", "CATEGORY", "AVAILABILTY", "ACTION"],
 };
@@ -16,10 +16,16 @@ export default function LibraryView() {
   const [entries, setEntries] = useState(5);
   const [selectedComponent, setSelectedComponent] = useState("ListView");
   const headers = jsonData.headers;
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+  };
+
   const handleListViewClick = () => {
     setSelectedComponent("ListView");
   };
-
+  
   const handleAddClick = () => {
     setSelectedComponent("Add");
   };
@@ -54,9 +60,9 @@ export default function LibraryView() {
           <p>Error</p>
         ) : books.length > 0 ? (
           <>
-            <SearchBook />
+            <Search handleSearch={handleSearch} input1={"Search by ISBN"} input2={"Search by Title"} input3={"Search by Category"} />
             <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
-            <BookList headers={headers} data={books} entries={entries} />
+            <BookList headers={headers} data={books} entries={entries} search={search} />
           </>
         ) : (
           <NotDataFoundMessage />

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import StudentSearch from "../../components/pages/Admin/StudentSearch";
 import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
 import ResultTable from "../../components/pages/Admin/ResultTable";
 import ResultHeader from "../../components/pages/Admin/ResultHeader";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
+import Search from "../../components/pages/Admin/Search";
 
 const jsonData = {
   headers: [
@@ -86,7 +86,7 @@ export default function ResultPage() {
   } = useQuery("result_record", () => apiMiddleware("admin/result/result"));
   return (
     <ResultHeader name={"Student Result"} headers={headers} data={data}>
-      <StudentSearch />
+      <Search input1={"Belt No"} input2={"Student Name"} input3={"Course Name"}/>
       <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
       <ResultTable headers={headers} data={data} entries={entries} />
     </ResultHeader>

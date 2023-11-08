@@ -16,13 +16,11 @@ import EditTeacherModal from "./EditTeacehrModal";
 import { Navigate } from "react-router";
 import { Link } from "react-router-dom";
 
-export default function TeacherView({ headers, data, entries }) {
+export default function TeacherView({ headers, data, entries, search }) {
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
   const [deleteTeacher, setDeleteTeacher] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedTeacher, setSelectedTeacher] = useState(null);
-
-  
+  const [selectedTeacher, setSelectedTeacher] = useState(null);  
 
   const handleOpenDeleteConfirmation = (teacher) => {
     setDeleteTeacher(teacher);
@@ -86,7 +84,11 @@ export default function TeacherView({ headers, data, entries }) {
         </Thead>
         <Tbody>
           {data &&
-            data.slice(0, entries).map((row, rowIndex) => (
+            data.filter((row)=> {
+              return search.toLowerCase() === ''
+              ? row
+              : row.firstname.toLowerCase().includes(search) || row.lastname.toLowerCase().includes(search) || row.beltNo.includes(search) ;
+            }).slice(0, entries).map((row, rowIndex) => (
               <Tr key={rowIndex}>
                 <Td key={rowIndex} textAlign="center">
                   {row.beltNo}
@@ -104,7 +106,7 @@ export default function TeacherView({ headers, data, entries }) {
                   {row.contactNo}
                 </Td>
                 <Td key={rowIndex} textAlign="center">
-                  {row.joiningDate}
+                  {new Date(row.joiningDate).toLocaleDateString()}
                 </Td>
                 <Td key={rowIndex} textAlign="center">
                 <Link to={`${row.beltNo}`}>

@@ -18,13 +18,12 @@ import { Navigate } from "react-router";
 import { Link } from "react-router-dom";
 
 
-export default function StudentView({ headers, data, entries }) {
+export default function StudentView({ headers, data, entries, search}) {
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
   const [deleteStudent, setDeleteStudent] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
-
-  
+ 
 
   const handleOpenDeleteConfirmation = (student) => {
     setDeleteStudent(student);
@@ -76,6 +75,7 @@ export default function StudentView({ headers, data, entries }) {
       backgroundColor="white"
     >
       <Table variant="striped" colorScheme="blackAlpha">
+
         <Thead>
           <Tr>
             {headers &&
@@ -88,8 +88,12 @@ export default function StudentView({ headers, data, entries }) {
         </Thead>
         <Tbody>
           {data &&
-            data.slice(0, entries).map((row, rowIndex) => (
-              
+            data.filter((row)=> {
+              return search.toLowerCase() === ''
+              ? row
+              : row.firstname.toLowerCase().includes(search) || row.lastname.toLowerCase().includes(search) || row.beltNo.includes(search) || row.courseCode.toLowerCase().includes(search) ;
+            }).slice(0, entries).map((row, rowIndex) => (
+
               <Tr key={rowIndex}>
                 <Td key={rowIndex} textAlign="center">
                   {row.beltNo}
@@ -107,7 +111,7 @@ export default function StudentView({ headers, data, entries }) {
                   {row.contactNo}
                 </Td>
                 <Td key={rowIndex} textAlign="center">
-                  {row.registrationDate}
+                  {new Date(row.registrationDate).toLocaleDateString()}
                 </Td>
                 <Td key={rowIndex} textAlign="center">
                   <Link to={`${row.beltNo}`}>

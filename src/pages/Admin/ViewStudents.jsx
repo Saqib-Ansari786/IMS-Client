@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Spinner, Stack } from "@chakra-ui/react";
-import StudentSearch from "../../components/pages/Admin/StudentSearch";
 import StudentView from "../../components/pages/Admin/StudentView";
 import PageHeader from "../../components/pages/Admin/PageHeader";
 import AddStudent from "../../components/pages/Admin/AddStudent";
@@ -9,6 +8,7 @@ import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
 import StudentProfileView from "./StudentProfileView";
 import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
+import Search from "../../components/pages/Admin/Search";
 
 const jsonData = {
   headers: [
@@ -25,7 +25,12 @@ export default function ViewStudents() {
   const [entries, setEntries] = useState(5);
   const headers = jsonData.headers;
   const [selectedComponent, setSelectedComponent] = useState("ListView");
- 
+  const [search, setSearch] = useState("");
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+  }
+
   const handleListViewClick = () => {
     setSelectedComponent("ListView");
   };
@@ -75,12 +80,13 @@ export default function ViewStudents() {
             <p>Error</p>
           ) : students.length > 0 ? (
             <>
-              <StudentSearch />
+              <Search handleSearch={handleSearch} input1={"BeltNo"} input2={"Name"} input3={"Course Name"} />
               <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
               <StudentView
                 headers={headers}
                 data={students}
                 entries={entries}
+                search={search}
               />
             </>
           ) : (
