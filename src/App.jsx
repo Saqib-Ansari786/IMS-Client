@@ -27,7 +27,6 @@ import AssignmentPage from "./pages/Teacher/Assignment";
 import AssignmentDetailsPage from "./pages/Teacher/AssignmentDetails";
 import CoursePage from "./pages/Admin/CoursePage";
 import ViewTeachers from "./pages/Admin/ViewTeachers";
-import TeacherProfileView from "./pages/Admin/TeacherProfileView";
 import CourseDetail from "./pages/Teacher/CourseDetails";
 import ClassesPage from "./pages/Teacher/Marks_firstpage";
 import AssessmentsPage from "./pages/Teacher/Marks_secpage";

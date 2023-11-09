@@ -9,6 +9,7 @@ import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
 import NoDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 import Search from "../../components/pages/Admin/Search";
+import ErrorComponent from "../../components/pages/Admin/ErrorComponent";
 
 const jsonData = {
   headers: [
@@ -75,7 +76,7 @@ export default function ViewStudents() {
               <p>Loading...</p>
             </>
           ) : isError ? (
-            <p>Error</p>
+            <ErrorComponent/>
           ) : teachers.length > 0 ? (
             <>
               <Search handleSearch={handleSearch} input1={"Belt No"} input2={"Name"} input3={"Designation"} />

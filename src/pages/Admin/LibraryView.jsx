@@ -8,6 +8,7 @@ import { Spinner } from "@chakra-ui/react";
 import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 import AddBook from "../../components/pages/Admin/AddBook";
 import Search from "../../components/pages/Admin/Search";
+import ErrorComponent from "../../components/pages/Admin/ErrorComponent";
 const jsonData = {
   headers: ["TITLE", "AUTHOR", "ISBN", "CATEGORY", "AVAILABILTY", "ACTION"],
 };
@@ -25,7 +26,7 @@ export default function LibraryView() {
   const handleListViewClick = () => {
     setSelectedComponent("ListView");
   };
-  
+
   const handleAddClick = () => {
     setSelectedComponent("Add");
   };
@@ -57,7 +58,7 @@ export default function LibraryView() {
             <p>Loading...</p>
           </>
         ) : isError ? (
-          <p>Error</p>
+          <ErrorComponent/>
         ) : books.length > 0 ? (
           <>
             <Search handleSearch={handleSearch} input1={"Search by ISBN"} input2={"Search by Title"} input3={"Search by Category"} />
