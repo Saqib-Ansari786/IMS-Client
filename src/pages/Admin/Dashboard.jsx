@@ -1,5 +1,4 @@
-import { Flex, SimpleGrid, Stack, Text, Heading } from "@chakra-ui/react";
-import CustomCard from "../../components/pages/Dashboard/CustomCard";
+import { Flex, SimpleGrid, Heading } from "@chakra-ui/react";
 import AnnouncementCard from "../../components/pages/Dashboard/AnnouncementCard";
 import DashboardWidget from "../../components/pages/Admin/DashboardWidget";
 import TopStudentsTable from "../../components/pages/Admin/TopStudentCard";

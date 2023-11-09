@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Container,
@@ -36,7 +35,7 @@ const StudentDetail = () => {
     courseCode,
     picture,
     registrationDate,
-    type
+    type,
   } = students.find((student) => student.beltNo === st_ID);
 
   return (
@@ -90,7 +89,9 @@ const StudentDetail = () => {
 
             <GridItem paddingTop={"3em"} textAlign={"left"}>
               <Text fontSize="4xl" fontWeight="medium">
-              {`${firstname.charAt(0).toUpperCase() + firstname.slice(1)} ${lastname.charAt(0).toUpperCase() + lastname.slice(1)}`}
+                {`${firstname.charAt(0).toUpperCase() + firstname.slice(1)} ${
+                  lastname.charAt(0).toUpperCase() + lastname.slice(1)
+                }`}
               </Text>
               <Text mt={4}>
                 Aliquam erat volutpat. Curabiene natis massa sedde lacu stiquen

@@ -1,4 +1,4 @@
-import { Grid, GridItem, Heading, Container, Spinner } from "@chakra-ui/react";
+import { Grid, GridItem,  Container, Spinner } from "@chakra-ui/react";
 import CourseCard from "../../components/pages/Admin/CourseCard";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
