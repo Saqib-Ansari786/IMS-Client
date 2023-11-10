@@ -6,6 +6,7 @@ import {
   Input,
   Select,
   Button,
+  Text,
 } from "@chakra-ui/react";
 import {
   createCloudinaryFormdata,
@@ -13,6 +14,7 @@ import {
 } from "../../../utils/cloudinarySetup";
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import SuccessModal from "../Inventory_Admin/SucessModal";
+import { set } from "date-fns";
 
 export default function AddTeacher() {
   const [formData, setFormData] = useState({
@@ -27,17 +29,35 @@ export default function AddTeacher() {
     contactNo: "",
     homeNo: "",
     address: "",
-    courseCode: "",
+    courseCode: [],
     picture: null,
   });
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
+
     if (type === "file") {
       setFormData({
         ...formData,
         picture: e.target.files[0],
       });
+    } else if (name === "courseCode") {
+      // Check if the course is not already selected
+      if (!formData.courseCode.includes(value)) {
+        // Check the number of selected courses
+        if (formData.courseCode.length < 3) {
+          setFormData({
+            ...formData,
+            courseCode: [...formData.courseCode, value],
+          });
+        } else {
+          // Display an error message or take appropriate action for exceeding the limit
+          console.error("You can only select up to 3 courses.");
+        }
+      } else {
+        // Display an error message or take appropriate action for duplicate selection
+        console.error("You cannot select the same course again.");
+      }
     } else {
       setFormData({
         ...formData,
@@ -45,49 +65,44 @@ export default function AddTeacher() {
       });
     }
   };
+  const handleRemoveCourse = (index) => {
+    const updatedCourseCodes = [...formData.courseCode];
+    updatedCourseCodes.splice(index, 1);
+    setFormData({
+      ...formData,
+      courseCode: updatedCourseCodes,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccessMessage("Teacher successfully added!");
-    setIsModalOpen(true);
-    setFormData({
-      email: "",
-      firstname: "",
-      lastname: "",
-      beltNo: "",
-      joiningDate: "",
-      designation: "",
-      dob: "",
-      gender: "",
-      contactNo: "",
-      homeNo: "",
-      address: "",
-      courseCode: "",
-      picture: "",
-    });
+    console.log("Form Data:", formData);
+
     // Create a FormData object to send the file to the server
-    const cloudinaryFormData = createCloudinaryFormdata(
-      formData.picture,
-      "ims_teacher_images",
-      "ims_teacher_images"
-    );
-    const cloudinaryResponse = await uploadToCloudinary(cloudinaryFormData);
-    console.log("Cloudinary Response:", cloudinaryResponse);
-    // Get the image URL from the response
-    const profilePictureUrl = cloudinaryResponse.secure_url;
 
-    // Add the image URL to the form data
-    const updatedFormData = {
-      ...formData,
-      picture: profilePictureUrl,
-    };
+    if (formData.picture) {
+      const cloudinaryFormData = createCloudinaryFormdata(
+        formData.picture,
+        "ims_teacher_images",
+        "ims_teacher_images"
+      );
+      const cloudinaryResponse = await uploadToCloudinary(cloudinaryFormData);
+      console.log("Cloudinary Response:", cloudinaryResponse);
+      // Get the image URL from the response
+      const profilePictureUrl = cloudinaryResponse.secure_url;
 
-    console.log("Updated Form Data:", updatedFormData);
+      setFormData({
+        ...formData,
+        picture: profilePictureUrl,
+      });
+
+      console.log("Updated Form Data:", formData);
+    }
 
     const response = await apiMiddleware("admin/teachers/register", {
       method: "POST",
       body: JSON.stringify({
-        ...updatedFormData,
+        ...formData,
         type: "Teacher",
       }),
       headers: { "Content-Type": "application/json" },
@@ -95,27 +110,35 @@ export default function AddTeacher() {
 
     console.log("Response:", response);
 
-    setFormData({
-      email: "",
-      firstname: "",
-      lastname: "",
-      beltNo: "",
-      joiningDate: "",
-      designation: "",
-      dob: "",
-      gender: "",
-      contactNo: "",
-      homeNo: "",
-      address: "",
-      courseCode: "",
-      picture: null,
-    });
+    if (response.success) {
+      setSuccessMessage("Teacher successfully added!");
+      setIsModalOpen(true);
+      // Reset the form
+
+      setFormData({
+        email: "",
+        firstname: "",
+        lastname: "",
+        beltNo: "",
+        joiningDate: "",
+        designation: "",
+        dob: "",
+        gender: "",
+        contactNo: "",
+        homeNo: "",
+        address: "",
+        courseCode: [],
+        picture: null,
+      });
+    } else {
+      setSuccessMessage("Teacher could not be added!");
+      setIsModalOpen(true);
+    }
   };
   const closeModal = () => {
     setIsModalOpen(false);
     setSuccessMessage(null);
   };
-
 
   const [successMessage, setSuccessMessage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -246,7 +269,7 @@ export default function AddTeacher() {
           <Select
             name="courseCode"
             placeholder="Select Class"
-            value={formData.courseCode}
+            value={formData.courseCode[0]}
             onChange={handleChange}
           >
             <option value="Computer">Computer</option>
@@ -255,6 +278,21 @@ export default function AddTeacher() {
             <option value="Commerce">Commerce</option>
           </Select>
         </FormControl>
+        {/* Display selected courses below the dropdown */}
+        <Box
+          mt={2}
+          flexDirection="row"
+          display="flex"
+          alignItems="center"
+          justifyContent={"space-evenly"}
+        >
+          {formData.courseCode.map((course, index) => (
+            <Text key={index} mt={2} onClick={() => handleRemoveCourse(index)}>
+              {course}
+            </Text>
+          ))}
+        </Box>
+
         <FormControl mt={4}>
           <FormLabel>Profile Picture</FormLabel>
           <Input type="file" name="picture" onChange={handleChange} />
