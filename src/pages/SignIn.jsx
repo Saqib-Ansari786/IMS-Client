@@ -92,6 +92,8 @@ export default function SignIn() {
         status: "error",
         duration: 3000,
         isClosable: true,
+        position: "top-right",
+        containerStyle:{color: "white"}
       });
     }
   };
@@ -234,7 +236,7 @@ export default function SignIn() {
                 }}
                 disabled={loading}
               >
-                {loading ? <Spinner color="secondary.base" /> : "Sign In"}
+                {loading ? <Spinner color="white" /> : "Sign In"}
               </Button>
             </Stack>
           </Box>
