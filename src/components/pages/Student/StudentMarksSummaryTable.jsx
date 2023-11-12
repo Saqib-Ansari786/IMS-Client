@@ -16,11 +16,11 @@ export default function StudentMarksSummaryTable({
   boxStyle,
 }) {
   return (
-    <TableContainer>
+    <TableContainer mt={3}>
       <Box
         w="100%"
         h="100%"
-        bg="#FB635C"
+        bg="#2FB5EE"
         boxShadow="0px 20px 27px rgba(0, 0, 0, 0.05)"
         borderTopRadius={8}
         display="flex"
@@ -33,7 +33,7 @@ export default function StudentMarksSummaryTable({
       >
         {text}
       </Box>
-      <Table variant="simple" backgroundColor={"white"} borderBottomRadius={8}>
+      <Table variant="striped" backgroundColor={"white"} borderBottomRadius={8}>
         <Thead>
           <Tr>
             {headers &&
