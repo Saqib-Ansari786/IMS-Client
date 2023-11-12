@@ -10,18 +10,22 @@ import {
   IconButton,
   Icon,
   TableContainer,
+  useToast,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 import AlertDeleteDialog from "./AlertDeleteDialog";
 import EditBookModal from "./EditBookModal";
 import { Navigate } from "react-router";
 import { Link } from "react-router-dom";
+import apiMiddleware from "../../common/Server/apiMiddleware";
 
-export default function BookList({ headers, data, entries, search}) {
-  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+export default function BookList({ headers, data, entries, search }) {
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
+    useState(false);
   const [deleteBook, setDeleteBook] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
+  const toast = useToast();
 
   const handleOpenDeleteConfirmation = (book) => {
     setDeleteBook(book);
@@ -33,10 +37,36 @@ export default function BookList({ headers, data, entries, search}) {
     setDeleteBook(null);
   };
 
-  const handleConfirmDeleteBook = (deleteBook) => {
+  const handleConfirmDeleteBook = async () => {
     if (deleteBook) {
-      // Implement your delete logic here
-      console.log(`Deleting book with ID: ${deleteBook}`);
+      console.log("Delete book:", deleteBook);
+      const requestOptions = {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      };
+      try {
+        const response = await apiMiddleware(
+          `admin/libraries/library-items/${deleteBook}`,
+          requestOptions
+        );
+        if (response.success) {
+          toast({
+            title: "Book Deleted",
+            description: "Book has been deleted successfully",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+        }
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Book cannot be deleted",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
       // Close the confirmation dialog
       handleCloseDeleteConfirmation();
     }
@@ -80,62 +110,67 @@ export default function BookList({ headers, data, entries, search}) {
         </Thead>
         <Tbody>
           {data &&
-            data.filter((row)=> {
-              return search.toLowerCase() === ''
-              ? row
-              : row.title.toLowerCase().includes(search) || row.isbn.includes(search) || row.category.toLowerCase().includes(search)  ;
-            }).slice(0, entries).map((row, rowIndex) => (
-              <Tr key={rowIndex}>
-                <Td key={rowIndex} textAlign="center">
-                  {row.title}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.authorName}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.isbn}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.category}
-                </Td>
-                <Td key={rowIndex} textAlign="center" color={"white"}>
-                  <Badge
-                    borderRadius={5}
-                    fontSize={"2xs"}
-                    colorScheme={row.availability ? "green" : "red"}
-                    variant="solid"
-                  >
-                    {row.availability ? "In Stock" : "Out of Stock"}
-                  </Badge>
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                <Link to={`${row.isbn}`}>
-                  <IconButton
-                    size="sm"
-                    colorScheme="blue"
-                    title="View"
-                    icon={<Icon as={ViewIcon} />}
-                    mr={2}
-                  />
-                  </Link>
-                  <IconButton
-                    size="sm"
-                    colorScheme="blue"
-                    title="Edit"
-                    icon={<Icon as={EditIcon} />}
-                    mr={2}
-                    onClick={() => openEditModal(row)}
-                  />
-                  <IconButton
-                    size="sm"
-                    colorScheme="red"
-                    title="Delete"
-                    icon={<Icon as={DeleteIcon} />}
-                    onClick={() => handleOpenDeleteConfirmation(row)}
-                  />
-                </Td>
-              </Tr>
-            ))}
+            data
+              .filter((row) => {
+                return search.toLowerCase() === ""
+                  ? row
+                  : row.title.toLowerCase().includes(search) ||
+                      row.isbn.includes(search) ||
+                      row.category.toLowerCase().includes(search);
+              })
+              .slice(0, entries)
+              .map((row, rowIndex) => (
+                <Tr key={rowIndex}>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.title}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.authorName}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.isbn}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.category}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center" color={"white"}>
+                    <Badge
+                      borderRadius={5}
+                      fontSize={"2xs"}
+                      colorScheme={row.availability ? "green" : "red"}
+                      variant="solid"
+                    >
+                      {row.availability ? "In Stock" : "Out of Stock"}
+                    </Badge>
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    <Link to={`${row.isbn}`}>
+                      <IconButton
+                        size="sm"
+                        colorScheme="blue"
+                        title="View"
+                        icon={<Icon as={ViewIcon} />}
+                        mr={2}
+                      />
+                    </Link>
+                    <IconButton
+                      size="sm"
+                      colorScheme="blue"
+                      title="Edit"
+                      icon={<Icon as={EditIcon} />}
+                      mr={2}
+                      onClick={() => openEditModal(row)}
+                    />
+                    <IconButton
+                      size="sm"
+                      colorScheme="red"
+                      title="Delete"
+                      icon={<Icon as={DeleteIcon} />}
+                      onClick={() => handleOpenDeleteConfirmation(row._id)}
+                    />
+                  </Td>
+                </Tr>
+              ))}
         </Tbody>
       </Table>
       <AlertDeleteDialog
