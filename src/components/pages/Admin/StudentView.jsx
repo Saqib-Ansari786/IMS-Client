@@ -9,21 +9,22 @@ import {
   IconButton,
   Icon,
   TableContainer,
-
+  useToast,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 import AlertDeleteDialog from "./AlertDeleteDialog";
 import EditStudentModal from "./EditStudentModal";
 import { Navigate } from "react-router";
 import { Link } from "react-router-dom";
+import apiMiddleware from "../../common/Server/apiMiddleware";
 
-
-export default function StudentView({ headers, data, entries, search}) {
-  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+export default function StudentView({ headers, data, entries, search }) {
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
+    useState(false);
   const [deleteStudent, setDeleteStudent] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
- 
+  const toast = useToast();
 
   const handleOpenDeleteConfirmation = (student) => {
     setDeleteStudent(student);
@@ -35,27 +36,53 @@ export default function StudentView({ headers, data, entries, search}) {
     setDeleteStudent(null);
   };
 
-  const handleConfirmDeleteStudent = (deleteStudent) => {
+  const handleConfirmDeleteStudent = async () => {
     if (deleteStudent) {
-      // Implement your delete logic here
-      console.log(`Deleting student with ID: ${deleteStudent}`);
-      // Close the confirmation dialog
+      console.log("Delete student:", deleteStudent);
+      const requestOptions = {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      };
+      try {
+        const response = await apiMiddleware(
+          `admin/students/students/${deleteStudent}`,
+          requestOptions
+        );
+        if (response.success) {
+          toast({
+            title: "Student Deleted",
+            description: "Student has been deleted successfully",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+        }
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Student cannot be deleted",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+
       handleCloseDeleteConfirmation();
     }
   };
-  
+
   // Function to open the edit modal
   const openEditModal = (student) => {
     setSelectedStudent(student);
     setIsEditModalOpen(true);
   };
-  
+
   // Function to close the edit modal
   const closeEditModal = () => {
     setSelectedStudent(null);
     setIsEditModalOpen(false);
   };
-  
+
   // Function to handle editing the student
   const handleEditStudent = (editedStudent) => {
     // Implement your logic to update the student with the editedStudent data
@@ -63,7 +90,6 @@ export default function StudentView({ headers, data, entries, search}) {
     // Close the edit modal
     closeEditModal();
   };
-
 
   return (
     <TableContainer
@@ -75,7 +101,6 @@ export default function StudentView({ headers, data, entries, search}) {
       backgroundColor="white"
     >
       <Table variant="striped" colorScheme="blackAlpha">
-
         <Thead>
           <Tr>
             {headers &&
@@ -88,59 +113,64 @@ export default function StudentView({ headers, data, entries, search}) {
         </Thead>
         <Tbody>
           {data &&
-            data.filter((row)=> {
-              return search.toLowerCase() === ''
-              ? row
-              : row.firstname.toLowerCase().includes(search) || row.lastname.toLowerCase().includes(search) || row.beltNo.includes(search) || row.courseCode.toLowerCase().includes(search) ;
-            }).slice(0, entries).map((row, rowIndex) => (
-
-              <Tr key={rowIndex}>
-                <Td key={rowIndex} textAlign="center">
-                  {row.beltNo}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.firstname + " " + row.lastname}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.courseCode}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.email}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.contactNo}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {new Date(row.registrationDate).toLocaleDateString()}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  <Link to={`${row.beltNo}`}>
+            data
+              .filter((row) => {
+                return search.toLowerCase() === ""
+                  ? row
+                  : row.firstname.toLowerCase().includes(search) ||
+                      row.lastname.toLowerCase().includes(search) ||
+                      row.beltNo.includes(search) ||
+                      row.courseCode.toLowerCase().includes(search);
+              })
+              .slice(0, entries)
+              .map((row, rowIndex) => (
+                <Tr key={rowIndex}>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.beltNo}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.firstname + " " + row.lastname}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.courseCode}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.email}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.contactNo}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {new Date(row.registrationDate).toLocaleDateString()}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    <Link to={`${row.beltNo}`}>
+                      <IconButton
+                        size="sm"
+                        colorScheme="blue"
+                        title="View"
+                        icon={<Icon as={ViewIcon} />}
+                        mr={2}
+                      />
+                    </Link>
                     <IconButton
                       size="sm"
                       colorScheme="blue"
-                      title="View"
-                      icon={<Icon as={ViewIcon} />}
+                      title="Edit"
+                      icon={<Icon as={EditIcon} />}
+                      onClick={() => openEditModal(row)}
                       mr={2}
                     />
-                  </Link>
-                  <IconButton
-                    size="sm"
-                    colorScheme="blue"
-                    title="Edit"
-                    icon={<Icon as={EditIcon} />}
-                    onClick={() => openEditModal(row)}
-                    mr={2}
-                  />
-                  <IconButton
-                    size="sm"
-                    colorScheme="red"
-                    title="Delete"
-                    icon={<Icon as={DeleteIcon} />}
-                    onClick={() => handleOpenDeleteConfirmation(row)}
-                  />
-                </Td>
-              </Tr>
-            ))}
+                    <IconButton
+                      size="sm"
+                      colorScheme="red"
+                      title="Delete"
+                      icon={<Icon as={DeleteIcon} />}
+                      onClick={() => handleOpenDeleteConfirmation(row._id)}
+                    />
+                  </Td>
+                </Tr>
+              ))}
         </Tbody>
       </Table>
       <AlertDeleteDialog
@@ -150,11 +180,11 @@ export default function StudentView({ headers, data, entries, search}) {
         onConfirm={handleConfirmDeleteStudent}
       />
       <EditStudentModal
-  isOpen={isEditModalOpen}
-  onClose={closeEditModal}
-  student={selectedStudent}
-  onEdit={handleEditStudent}
-/>
+        isOpen={isEditModalOpen}
+        onClose={closeEditModal}
+        student={selectedStudent}
+        onEdit={handleEditStudent}
+      />
     </TableContainer>
   );
 }
