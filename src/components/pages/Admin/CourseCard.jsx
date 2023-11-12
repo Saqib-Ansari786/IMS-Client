@@ -10,12 +10,14 @@ import {
   Stack,
   Heading,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import { FaCalendar, FaUser, FaUsers } from "react-icons/fa";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import AlertDeleteDialog from "./AlertDeleteDialog";
 import EditCourseModal from "./EditCourseModal";
+import apiMiddleware from "../../common/Server/apiMiddleware";
 
 export default function CourseCard({
   imageUrl,
@@ -27,11 +29,14 @@ export default function CourseCard({
   author,
   category,
   courseCode,
+  _id,
 }) {
   const [deleteCourse, setDeleteCourse] = useState(null);
-  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
+    useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const toast = useToast();
 
   const openDeleteConfirmation = (course) => {
     setDeleteCourse(course);
@@ -43,10 +48,36 @@ export default function CourseCard({
     setIsDeleteConfirmationOpen(false);
   };
 
-  const handleConfirmDeleteCourse = (deleteCourse) => {
+  const handleConfirmDeleteCourse = async () => {
     if (deleteCourse) {
-      // Implement your delete logic here
-      console.log(`Deleting course with ID: ${deleteCourse}`);
+      console.log("Delete course:", deleteCourse);
+      const requestOptions = {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      };
+      try {
+        const response = await apiMiddleware(
+          `admin/courses/course/${deleteCourse}`,
+          requestOptions
+        );
+        if (response.success) {
+          toast({
+            title: "Course Deleted",
+            description: "Course has been deleted successfully",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+        }
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Course cannot be deleted",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
       // Close the confirmation dialog
       handleCloseDeleteConfirmation();
     }
@@ -146,7 +177,7 @@ export default function CourseCard({
           <Button
             colorScheme="red"
             leftIcon={<DeleteIcon />}
-            onClick={() => openDeleteConfirmation(courseCode)}
+            onClick={() => openDeleteConfirmation(_id)}
           >
             Delete
           </Button>
