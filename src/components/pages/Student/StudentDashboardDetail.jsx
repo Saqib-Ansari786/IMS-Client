@@ -5,7 +5,7 @@ export default function StudentDashboardDetail({ text }) {
     <Box
       w="100%"
       h="100%"
-      bg="#180E8A"
+      bg="#1D238F"
       boxShadow="0px 20px 27px rgba(0, 0, 0, 0.05)"
       borderRadius={8}
       display="flex"
@@ -15,6 +15,7 @@ export default function StudentDashboardDetail({ text }) {
       fontSize="3xl"
       fontWeight="bold"
       mt={30}
+      padding={1}
     >
       {text}
     </Box>

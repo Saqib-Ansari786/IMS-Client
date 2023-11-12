@@ -2,6 +2,7 @@ import { Stack, Flex, Heading } from "@chakra-ui/react";
 import StudentDashboardCard from "../../components/pages/Student/StudentDashboardCard";
 import Timetable from "../../components/pages/Student/Timetable";
 import AnnouncementCard from "../../components/pages/Dashboard/AnnouncementCard";
+import StudentDashboardDetail from "../../components/pages/Student/StudentDashboardDetail";
 
 const courseData = {
   courseCode: "CSC 102",
@@ -20,9 +21,7 @@ const announcements = [
 export default function Home() {
   return (
     <Stack minW="100%">
-     <Heading mb={"5"} as="h3" size="md" color="#120E87">
-        Welcome Murtaza!
-      </Heading>
+     <StudentDashboardDetail text={"Welcome Murtaza!"}/>
       <Timetable />
       <Flex direction={{ base: "column", md: "row" }} gap={3}>
         <Flex direction="column" flex={{ base: "1", md: "0.7" }} minW="0">
