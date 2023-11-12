@@ -83,10 +83,18 @@ export default function ResultPage() {
     data: result_data,
     isLoading,
     isError,
-  } = useQuery("result_record", () => apiMiddleware("admin/result/result"));
+  } = useQuery("result_record", () =>
+    apiMiddleware("admin/students/students-status")
+  );
+
+  console.log(result_data);
   return (
     <ResultHeader name={"Student Result"} headers={headers} data={data}>
-      <Search input1={"Belt No"} input2={"Student Name"} input3={"Course Name"}/>
+      <Search
+        input1={"Belt No"}
+        input2={"Student Name"}
+        input3={"Course Name"}
+      />
       <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
       <ResultTable headers={headers} data={data} entries={entries} />
     </ResultHeader>

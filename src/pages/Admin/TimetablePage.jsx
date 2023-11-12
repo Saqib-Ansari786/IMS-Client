@@ -20,9 +20,19 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
+import { useQuery } from "react-query";
 
 const TimetablePage = () => {
-  const [timetable, setTimetable] = useState([]);
+  const {
+    data: timetable_record,
+    isLoading,
+    isError,
+  } = useQuery("timetable", () => apiMiddleware("admin/timetable/timetable"));
+
+  console.log(timetable_record);
+
+  const [timetable, setTimetable] = useState([...timetable_record]);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedTeacher, setSelectedTeacher] = useState("");
   const [selectedRoom, setSelectedRoom] = useState("");
@@ -61,8 +71,8 @@ const TimetablePage = () => {
     const isConflict = timetable.some(
       (entry) =>
         entry.day === selectedTimeSlot.day &&
-        entry.course === selectedCourse &&
-        entry.teacher === selectedTeacher &&
+        entry.courseCode === selectedCourse && // Update key to match data structure
+        entry.teacherName === selectedTeacher && // Update key to match data structure
         entry.room === selectedRoom
     );
 
@@ -74,8 +84,8 @@ const TimetablePage = () => {
         (entry) =>
           entry.day !== selectedTimeSlot.day &&
           entry.time === selectedTimeSlot.time &&
-          entry.course === selectedCourse &&
-          entry.teacher === selectedTeacher &&
+          entry.courseCode === selectedCourse && // Update key to match data structure
+          entry.teacherName === selectedTeacher && // Update key to match data structure
           entry.room === selectedRoom
       );
 
@@ -87,12 +97,13 @@ const TimetablePage = () => {
         updatedTimetable.push({
           day: selectedTimeSlot.day,
           time: selectedTimeSlot.time,
-          course: selectedCourse,
-          teacher: selectedTeacher,
+          courseCode: selectedCourse, // Update key to match data structure
+          teacherName: selectedTeacher, // Update key to match data structure
           room: selectedRoom,
         });
         setTimetable(updatedTimetable);
         setIsModalOpen(false);
+        console.log(timetable);
       }
     }
   };
@@ -131,17 +142,20 @@ const TimetablePage = () => {
                         }}
                       >
                         {/* Display timetable data if exists */}
-                        {timetable.map((entry) =>
-                          entry.day === day && entry.time === `${time}:00` ? (
-                            <div key={entry.day + entry.time}>
-                              {entry.course}
-                              <br />
-                              {entry.teacher}
-                              <br />
-                              {entry.room}
-                            </div>
-                          ) : null
-                        )}
+                        {timetable.length > 0 &&
+                          timetable.map((entry) =>
+                            entry.day === day && entry.time === `${time}:00` ? (
+                              <div key={entry.day + entry.time}>
+                                {entry.courseCode}{" "}
+                                {/* Update key to match data structure */}
+                                <br />
+                                {entry.teacherName}{" "}
+                                {/* Update key to match data structure */}
+                                <br />
+                                {entry.room}
+                              </div>
+                            ) : null
+                          )}
                       </Td>
                     ))}
                   </Tr>

@@ -66,9 +66,7 @@ const router = createBrowserRouter(
       {/* Admin */}
       <Route
         path="admin/"
-        element={
-          <AdminRootLayout isAdminAuthenticated={admin ? true : false} />
-        }
+        element={<AdminRootLayout isAdminAuthenticated={true} />}
       >
         <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
