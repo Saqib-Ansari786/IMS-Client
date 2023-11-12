@@ -7,6 +7,7 @@ import {
   Select,
   Button,
   Text,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   createCloudinaryFormdata,
@@ -14,6 +15,7 @@ import {
 } from "../../../utils/cloudinarySetup";
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import SuccessModal from "../Inventory_Admin/SucessModal";
+import { useQuery } from "react-query";
 
 export default function AddTeacher() {
   const [formData, setFormData] = useState({
@@ -28,9 +30,17 @@ export default function AddTeacher() {
     contactNo: "",
     homeNo: "",
     address: "",
-    courseCode: [],
+    courseId: [],
     picture: null,
   });
+
+  const [loading, setLoading] = useState(false);
+
+  const {
+    data: courses,
+    isLoading,
+    isError,
+  } = useQuery("courses", () => apiMiddleware("admin/courses/courses"));
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -40,14 +50,14 @@ export default function AddTeacher() {
         ...formData,
         picture: e.target.files[0],
       });
-    } else if (name === "courseCode") {
+    } else if (name === "courseId") {
       // Check if the course is not already selected
-      if (!formData.courseCode.includes(value)) {
+      if (!formData.courseId.includes(value)) {
         // Check the number of selected courses
-        if (formData.courseCode.length < 3) {
+        if (formData.courseId.length < 3) {
           setFormData({
             ...formData,
-            courseCode: [...formData.courseCode, value],
+            courseId: [...formData.courseId, value],
           });
         } else {
           // Display an error message or take appropriate action for exceeding the limit
@@ -65,11 +75,11 @@ export default function AddTeacher() {
     }
   };
   const handleRemoveCourse = (index) => {
-    const updatedCourseCodes = [...formData.courseCode];
-    updatedCourseCodes.splice(index, 1);
+    const updatedcourseIds = [...formData.courseId];
+    updatedcourseIds.splice(index, 1);
     setFormData({
       ...formData,
-      courseCode: updatedCourseCodes,
+      courseId: updatedcourseIds,
     });
   };
 
@@ -85,6 +95,7 @@ export default function AddTeacher() {
         "ims_teacher_images",
         "ims_teacher_images"
       );
+      setLoading(true);
       const cloudinaryResponse = await uploadToCloudinary(cloudinaryFormData);
       console.log("Cloudinary Response:", cloudinaryResponse);
       // Get the image URL from the response
@@ -97,42 +108,45 @@ export default function AddTeacher() {
 
       console.log("Updated Form Data:", formData);
     }
-
-    const response = await apiMiddleware("admin/teachers/register", {
-      method: "POST",
-      body: JSON.stringify({
-        ...formData,
-        type: "Teacher",
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    console.log("Response:", response);
-
-    if (response.success) {
-      setSuccessMessage("Teacher successfully added!");
-      setIsModalOpen(true);
-      // Reset the form
-
-      setFormData({
-        email: "",
-        firstname: "",
-        lastname: "",
-        beltNo: "",
-        joiningDate: "",
-        designation: "",
-        dob: "",
-        gender: "",
-        contactNo: "",
-        homeNo: "",
-        address: "",
-        courseCode: [],
-        picture: null,
+    try {
+      const response = await apiMiddleware("admin/teachers/register", {
+        method: "POST",
+        body: JSON.stringify({
+          ...formData,
+          type: "teacher",
+        }),
+        headers: { "Content-Type": "application/json" },
       });
-    } else {
+
+      console.log("Response:", response);
+
+      if (response.success) {
+        setSuccessMessage("Teacher successfully added!");
+        setIsModalOpen(true);
+        // Reset the form
+
+        setFormData({
+          email: "",
+          firstname: "",
+          lastname: "",
+          beltNo: "",
+          joiningDate: "",
+          designation: "",
+          dob: "",
+          gender: "",
+          contactNo: "",
+          homeNo: "",
+          address: "",
+          courseId: [],
+          picture: null,
+        });
+      }
+    } catch (error) {
       setSuccessMessage("Teacher could not be added!");
       setIsModalOpen(true);
     }
+
+    setLoading(false);
   };
   const closeModal = () => {
     setIsModalOpen(false);
@@ -266,15 +280,16 @@ export default function AddTeacher() {
         <FormControl isRequired mt={4}>
           <FormLabel>Course</FormLabel>
           <Select
-            name="courseCode"
+            name="courseId"
             placeholder="Select Class"
-            value={formData.courseCode[0]}
+            value={formData.courseId[0]}
             onChange={handleChange}
           >
-            <option value="Computer">Computer</option>
-            <option value="Mechanical">Mechanical</option>
-            <option value="Mathematics">Mathematics</option>
-            <option value="Commerce">Commerce</option>
+            {courses?.map((course) => (
+              <option key={course._id} value={course._id}>
+                {course.name}
+              </option>
+            ))}
           </Select>
         </FormControl>
         {/* Display selected courses below the dropdown */}
@@ -285,7 +300,7 @@ export default function AddTeacher() {
           alignItems="center"
           justifyContent={"space-evenly"}
         >
-          {formData.courseCode.map((course, index) => (
+          {formData.courseId.map((course, index) => (
             <Text key={index} mt={2} onClick={() => handleRemoveCourse(index)}>
               {course}
             </Text>
@@ -299,8 +314,15 @@ export default function AddTeacher() {
             Upload a profile picture.
           </small>
         </FormControl>
-        <Button type="submit" mt={6} colorScheme="blue" py={4} fontSize="1rem">
-          Add Teacher
+        <Button
+          type="submit"
+          mt={6}
+          colorScheme="blue"
+          py={4}
+          fontSize="1rem"
+          disabled={loading}
+        >
+          {loading ? <Spinner /> : "Add Teacher"}
         </Button>
       </form>
       <SuccessModal
