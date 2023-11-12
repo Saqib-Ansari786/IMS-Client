@@ -81,6 +81,9 @@ export default function SignIn() {
           status: "success",
           duration: 3000,
           isClosable: true,
+          position: "top-right",
+          colorScheme: "green",
+          containerStyle:{color: "white"}
         });
       }
       event.target.reset();
