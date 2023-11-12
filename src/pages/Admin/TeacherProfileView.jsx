@@ -4,7 +4,7 @@ import ProfileCard from '../../components/pages/Admin/ProfileCard';
 import ShowEntriesDropdown from '../../components/pages/Admin/ShowEntriesDropdown';
 
 export default function TeacherProfileView({teachers}) {
-  const [entries, setEntries] = useState(5);
+  const [entries, setEntries] = useState(10);
   return (
     <>
     <ShowEntriesDropdown  entries={entries} setEntries={setEntries} />

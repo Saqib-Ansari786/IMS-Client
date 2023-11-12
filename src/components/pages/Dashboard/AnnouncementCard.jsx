@@ -6,7 +6,7 @@ export default function AnnouncementCard({ data }) {
       bg="white"
       height="fit-content"
       boxShadow="xl"
-      rounded="2xl"
+      rounded="lg"
       p={5}
       textAlign={"left"}
     >

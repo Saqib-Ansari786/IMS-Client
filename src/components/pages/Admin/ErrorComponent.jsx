@@ -7,14 +7,13 @@ export default function ErrorComponent () {
     <Box
       p={4}
       w={"100%"}
-      borderWidth="1px"
-      borderRadius="md"
-      borderColor="red.500"
       bg="white"
       color="red.600"
-      maxW="md"
+      maxW="lg"
       textAlign="center"
       boxShadow="lg"
+      mt={10}
+      mb={10}
     >
       <Icon as={WarningIcon} w={12} h={12} color="red.500" />
       <Text fontSize="lg" fontWeight="bold">

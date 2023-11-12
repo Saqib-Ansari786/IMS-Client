@@ -35,10 +35,6 @@ export default function ProfileCard({ imgUrl, name, designation, phoneNumber, ad
         <Text fontSize="sm" color="gray.500" mt="1">
           Phone No:  {phoneNumber}
         </Text>
-        
-        
-        
-
       </Box>
     </Box>
     </Link>
