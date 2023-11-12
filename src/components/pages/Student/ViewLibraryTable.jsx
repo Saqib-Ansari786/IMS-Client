@@ -1,27 +1,21 @@
 import { useState } from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Button, Box } from "@chakra-ui/react";
+import { set } from "date-fns";
 
   
   export default function ViewLibraryTable({ headers, data }) {
-    const [searchTerm, setSearchTerm] = useState("");
+    const [search, setSearch] = useState("");
 
-    const filteredData = data.filter((row) =>
-      row.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  
-    const handleSearch = () => {
-      
-    };
   
     return (
-      <TableContainer>
+      <TableContainer bgColor={"white"}>
         <Box mb={4} bg="white" p={2} display="flex" alignItems="center">
         <Input
           placeholder="Search by title..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
-        <Button ml={2} colorScheme="blue" onClick={handleSearch}>
+        <Button ml={2} colorScheme="blue" >
           Search
         </Button>
       </Box>
@@ -38,7 +32,11 @@ import { Table, Thead, Tbody, Tr, Th, Td, TableContainer, Input, Button, Box } f
           </Thead>
           <Tbody>
             {data &&
-              data.map((row, rowIndex) => (
+              data.filter((row)=> {
+                return search.toLowerCase() === ''
+                ? row
+                : row.title.toLowerCase().includes(search) ;
+              }).map((row, rowIndex) => (
                 <Tr key={rowIndex}>
                   <Td key={rowIndex} textAlign="center">
                     {row.title}

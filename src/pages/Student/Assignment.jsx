@@ -1,6 +1,7 @@
 import { Stack } from "@chakra-ui/react";
 import StudentDashboardDetail from "../../components/pages/Student/StudentDashboardDetail";
 import StudentAssignmentTable from "../../components/pages/Student/StudentAssignmentTable";
+import StudentAssignmentCard from "../../components/pages/Student/StudentAssignmentTable";
 
 const jsonData = {
   headers: ["TITLE", "START DATE", "END DATE", "DOWNLOAD", "UPLOAD", "STATUS"],

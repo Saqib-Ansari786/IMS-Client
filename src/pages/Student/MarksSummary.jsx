@@ -10,29 +10,6 @@ const jsonData = {
     "TEACHER COMMENT",
   ],
   data: {
-    QuiztableData: [
-      {
-        title: "Quiz 1",
-        totalMarks: "10",
-        obtainedMarks: "9",
-        dateTime: "10/01/2023 Wednesday",
-        teacherComment: "Good Job",
-      },
-      {
-        title: "Quiz 2",
-        totalMarks: "10",
-        obtainedMarks: "10",
-        dateTime: "10/01/2023 Monday",
-        teacherComment: "Excellent Job",
-      },
-      {
-        title: "Quiz 1",
-        totalMarks: "10",
-        obtainedMarks: "5",
-        dateTime: "10/01/2023 Friday",
-        teacherComment: "Need Improvement",
-      },
-    ],
     AssignmenttableData: [
       {
         title: "Assignment 1",
@@ -58,9 +35,23 @@ const jsonData = {
     ],
     FinaltableData: [
       {
-        title: "Finals",
+        title: "First Term",
+        totalMarks: "25",
+        obtainedMarks: "21",
+        dateTime: "10/01/2023 wednesday",
+        teacherComment: "Good Job",
+      },
+      {
+        title: "Mid Term",
+        totalMarks: "25",
+        obtainedMarks: "23",
+        dateTime: "10/01/2023 wednesday",
+        teacherComment: "Good Job",
+      },
+      {
+        title: "Final Term",
         totalMarks: "100",
-        obtainedMarks: "83",
+        obtainedMarks: "82",
         dateTime: "10/01/2023 wednesday",
         teacherComment: "Good Job",
       },
@@ -74,12 +65,6 @@ export const MarksSummary = () => {
   return (
     <Stack gap={0}>
       <StudentDashboardDetail text={"Marks Summary"} />
-      <StudentMarksSummaryTable
-        text={"Quizes"}
-        headers={headers}
-        data={data.QuiztableData}
-        boxStyle={{ marginTop: "10" }}
-      />
       <StudentMarksSummaryTable
         text={"Assignments"}
         headers={headers}

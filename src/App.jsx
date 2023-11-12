@@ -46,11 +46,19 @@ import TimetablePage from "./pages/Admin/TimetablePage";
 import StudentDetail from "./pages/Admin/StudentDetail";
 import TeacherDetail from "./pages/Admin/TeacherDetail";
 import BookDetail from "./pages/Admin/BookDetail";
+import AssignmentCard from "./components/pages/Student/AssignmentCard";
 
 const admin = localStorage.getItem("admin");
 const student = localStorage.getItem("student");
 const teacher = localStorage.getItem("teacher");
 const inventory_admin = localStorage.getItem("inventory_admin");
+const assignmentData = {
+  title: "Assignment 1",
+  totalMarks: "10",
+  obtainedMarks: "9",
+  dateTime: "10/01/2023 Wednesday",
+  teacherComment: "Good Job",
+};
 
 console.log(admin);
 console.log(student);
@@ -94,6 +102,7 @@ const router = createBrowserRouter(
         <Route path="marks" element={<MarksSummary />} />
         <Route path="resources" element={<CourseResources />} />
         <Route path="viewlibrary" element={<ViewLibrary />} />
+        <Route path="check" element={<AssignmentCard {...assignmentData} /> } />
       </Route>
 
       {/* Teacher */}

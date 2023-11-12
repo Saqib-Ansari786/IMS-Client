@@ -1,4 +1,7 @@
 import {
+  Box,
+  Text,
+  Flex,
   Table,
   Thead,
   Tbody,
@@ -6,9 +9,6 @@ import {
   Th,
   Td,
   TableContainer,
-  Box,
-  Text,
-  Flex,
 } from "@chakra-ui/react";
 import { Bar } from "react-chartjs-2";
 
@@ -21,69 +21,72 @@ export default function StudentAttendanceTable({ headers, data }) {
     : 0;
 
   const chartData = {
-    labels: ["Total Classes", "Present", "Absent"],
+    labels: ["Present", "Absent"],
     datasets: [
       {
         label: "Attendance",
-        backgroundColor: ["#3182CE", "green", "red"], 
-        data: [totalClasses, totalPresent, totalAbsent],
+        backgroundColor: ["green", "red"],
+        data: [totalPresent, totalAbsent],
       },
     ],
   };
 
   return (
     <>
-      <Box backgroundColor="white" borderRadius="md" boxShadow="md">
+    
+     <TableContainer backgroundColor="white" borderRadius="md" boxShadow="md" p="4">
+     <Flex direction="column" align="center" p="3">
+      <Box backgroundColor="white" borderRadius="md" boxShadow="md" mb="2">
         <Bar
           data={chartData}
           options={{
             scales: {
               y: {
                 beginAtZero: true,
-                max: totalClasses + 10, 
+                max: totalClasses,
               },
             },
           }}
         />
       </Box>
-      <TableContainer backgroundColor="white" borderRadius="md" boxShadow="md" p="4">
-        <Box color="#4076CE" fontSize="xl" mb="3">
-          Total classes: {totalClasses} ({presentPercentage}%)
-        </Box>
-        <Flex justifyContent="flex-end" mr="4">
-          <Text color="green" mr="4">
-            Present: {totalPresent}
-          </Text>
-          <Text color="red">Absent: {totalAbsent}</Text>
-        </Flex>
-        <Table variant="simple" backgroundColor="white" mt="4">
-          <Thead>
-            <Tr>
-              {headers &&
-                headers.map((header, index) => (
-                  <Th key={index} textAlign="center">
-                    {header}
-                  </Th>
-                ))}
-            </Tr>
-          </Thead>
-          <Tbody>
-            {data &&
-              data.map((row, rowIndex) => (
-                <Tr key={rowIndex}>
-                  <Td textAlign="center">{row.topic}</Td>
-                  <Td textAlign="center">
-                    <Text color={row.status === "Present" ? "green" : "red"}>
-                      {row.status}
-                    </Text>
-                  </Td>
-                  <Td textAlign="center">{row.classstartingtime}</Td>
-                  <Td textAlign="center">{row.classendingtime}</Td>
-                </Tr>
-              ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </>
+    </Flex>
+     <Box color="#4076CE" fontSize="xl" mb="3">
+       Total classes: {totalClasses} ({presentPercentage}%)
+     </Box>
+     <Flex justifyContent="flex-end" mr="4">
+       <Text color="green" mr="4">
+         Present: {totalPresent}
+       </Text>
+       <Text color="red">Absent: {totalAbsent}</Text>
+     </Flex>
+     <Table variant="striped" backgroundColor="white" mt="4">
+       <Thead>
+         <Tr>
+           {headers &&
+             headers.map((header, index) => (
+               <Th key={index} textAlign="center">
+                 {header}
+               </Th>
+             ))}
+         </Tr>
+       </Thead>
+       <Tbody>
+         {data &&
+           data.map((row, rowIndex) => (
+             <Tr key={rowIndex}>
+               <Td textAlign="center">{row.topic}</Td>
+               <Td textAlign="center">
+                 <Text color={row.status === "Present" ? "green" : "red"}>
+                   {row.status}
+                 </Text>
+               </Td>
+               <Td textAlign="center">{row.classstartingtime}</Td>
+               <Td textAlign="center">{row.classendingtime}</Td>
+             </Tr>
+           ))}
+       </Tbody>
+     </Table>
+   </TableContainer>
+   </>
   );
 }

@@ -26,7 +26,6 @@ export default function Home() {
       <Flex direction={{ base: "column", md: "row" }} gap={3}>
         <Flex direction="column" flex={{ base: "1", md: "0.7" }} minW="0">
            <StudentDashboardCard {...courseData} />
-           
         </Flex>
         <Flex direction="column" flex={{ base: "1", md: "0.3" }} minW="0">
           <AnnouncementCard data={announcements} />
