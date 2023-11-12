@@ -1,132 +1,4 @@
-// import {
-//   Box,
-//   Button,
-//   Flex,
-//   FormControl,
-//   FormLabel,
-//   Grid,
-//   GridItem,
-//   Image,
-//   Input,
-//   Stack,
-//   Text,
-// } from "@chakra-ui/react";
-// import { LockIcon } from "@chakra-ui/icons";
-// import logo from "../assets/logo.png";
-// import { Link } from "react-router-dom";
-
-// export default function SignIn() {
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     const data = new FormData(event.currentTarget);
-//     console.log({
-//       email: data.get("email"),
-//       password: data.get("password"),
-//     });
-//     event.target.reset();
-//   };
-
-//   return (
-//     <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} minH="100vh">
-//       <GridItem bg="#F3EFEF">
-//         <Flex
-//           direction="column"
-//           alignItems="center"
-//           justifyContent="center"
-//           h="100%"
-//         >
-//           <Image src={logo} alt="Logo" objectFit="contain" w="50%" mb={4} />
-//           <Text
-//             as="h1"
-//             color="primary.base"
-//             fontSize="2xl"
-//             fontWeight="bold"
-//             textAlign="center"
-//           >
-//             Police Training Institute
-//           </Text>
-//           <Stack direction="row" spacing={3} mt={5}>
-//             <Link to="/student">
-//               <Button bg="primary.base" color="white">
-//                 student
-//               </Button>
-//             </Link>
-//             <Link to="/teacher">
-//               <Button bg="primary.base" color="white">
-//                 Teacher
-//               </Button>
-//             </Link>
-//             <Link to="/admin">
-//               <Button bg="primary.base" color="white">
-//                 Admin
-//               </Button>
-//             </Link>
-//             <Link to="/inventory_admin">
-//               <Button bg="primary.base" color="white">
-//                 Inventory Admin
-//               </Button>
-//             </Link>
-//           </Stack>
-//         </Flex>
-//       </GridItem>
-//       <GridItem
-//         bg={{ base: "gray.50", md: "white" }}
-//         p={8}
-//         boxShadow={{ base: "none", md: "xl" }}
-//         w="100%"
-//       >
-//         <Flex
-//           direction="column"
-//           alignItems="center"
-//           justifyContent="center"
-//           height="100%"
-//         >
-//           <LockIcon mb={3} w={10} h={10} color="primary.base" />
-//           <Text as="h1" fontSize="2xl" fontWeight="bold" mb={9}>
-//             Welcome to SignIn Page
-//           </Text>
-//           <Box as="form" onSubmit={handleSubmit} width="100%">
-//             <Stack spacing={4}>
-//               <FormControl isRequired>
-//                 <FormLabel htmlFor="email">Email Address</FormLabel>
-//                 <Input
-//                   type="email"
-//                   placeholder="eg: abc@gmail.com"
-//                   id="email"
-//                   name="email"
-//                   autoComplete="email"
-//                   autoFocus
-//                 />
-//               </FormControl>
-//               <FormControl isRequired>
-//                 <FormLabel htmlFor="password">Password</FormLabel>
-//                 <Input
-//                   type="password"
-//                   placeholder="*********"
-//                   id="password"
-//                   name="password"
-//                   autoComplete="current-password"
-//                   minLength={8}
-//                 />
-//               </FormControl>
-//               <Button
-//                 type="submit"
-//                 bg={"primary.base"}
-//                 color={"white.base"}
-//                 size="lg"
-//                 mt={4}
-//               >
-//                 Sign In
-//               </Button>
-//             </Stack>
-//           </Box>
-//         </Flex>
-//       </GridItem>
-//     </Grid>
-//   );
-// }
-
-import React, { useCallback, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -137,6 +9,7 @@ import {
   GridItem,
   Image,
   Input,
+  Spinner,
   Stack,
   Text,
   useToast,
@@ -144,17 +17,16 @@ import {
 import { LockIcon } from "@chakra-ui/icons";
 import logo from "../assets/logo.png";
 import apiMiddleware from "../components/common/Server/apiMiddleware";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 export default function SignIn() {
   const [selectedRole, setSelectedRole] = useState("student");
-  const navigate = useNavigate();
   const toast = useToast();
   const admin = localStorage.getItem("admin");
   const student = localStorage.getItem("student");
   const teacher = localStorage.getItem("teacher");
   const inventory_admin = localStorage.getItem("inventory_admin");
-
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -164,6 +36,7 @@ export default function SignIn() {
       password: data.get("password"),
     });
     try {
+      setLoading(true);
       const response = await apiMiddleware("auth/login", {
         method: "POST",
         body: JSON.stringify({
@@ -200,6 +73,7 @@ export default function SignIn() {
           default:
             break;
         }
+        setLoading(false);
 
         toast({
           title: "Login Successfull",
@@ -209,9 +83,9 @@ export default function SignIn() {
           isClosable: true,
         });
       }
-
       event.target.reset();
     } catch (error) {
+      setLoading(false);
       toast({
         title: "Login Failed",
         description: "Please check your credentials",
@@ -358,8 +232,9 @@ export default function SignIn() {
                   bg: "primary.hover",
                   color: "white.base",
                 }}
+                disabled={loading}
               >
-                Sign In
+                {loading ? <Spinner color="secondary.base" /> : "Sign In"}
               </Button>
             </Stack>
           </Box>
