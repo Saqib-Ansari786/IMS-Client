@@ -36,29 +36,28 @@ export default function ResultTable({ headers, data, entries }) {
             data.slice(0, entries).map((row, rowIndex) => (
               <Tr key={rowIndex}>
                 <Td key={rowIndex} textAlign="center">
-                  {row.beltno}
+                  {row.beltNo} {/* Update key to match data structure */}
                 </Td>
                 <Td key={rowIndex} textAlign="center">
-                  {row.name}
+                  {row.studentName} {/* Update key to match data structure */}
                 </Td>
                 <Td key={rowIndex} textAlign="center">
-                  {row.course}
+                  {row.durationStatus}{" "}
+                  {/* Update key to match data structure */}
                 </Td>
                 <Td key={rowIndex} textAlign="center">
                   <Badge
                     borderRadius={5}
                     fontSize={"2xs"}
-                    colorScheme={row.durationComplete ? "green" : "red"}
+                    colorScheme={row.status === "Completed" ? "green" : "red"}
                     color={"white"}
                     variant="solid"
                   >
-                    {row.durationComplete ? "Completed" : "Not Completed"}
+                    {row.status === "Completed" ? "Completed" : "Not Completed"}
                   </Badge>
                 </Td>
                 <Td key={rowIndex} textAlign="center">
-                  {row.marks !== null ? (
-                    row.marks
-                  ) : (
+                  {row.status === "Pending" ? (
                     <Badge
                       borderRadius={5}
                       fontSize={"xs"}
@@ -68,32 +67,9 @@ export default function ResultTable({ headers, data, entries }) {
                     >
                       Pending
                     </Badge>
+                  ) : (
+                    row.marks
                   )}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  <Badge
-                    borderRadius={5}
-                    fontSize={"xs"}
-                    color={"white"}
-                    colorScheme={
-                      row.durationComplete
-                        ? row.marks !== null
-                          ? row.marks >= 50
-                            ? "green"
-                            : "red"
-                          : "yellow"
-                        : "yellow"
-                    }
-                    variant="solid"
-                  >
-                    {row.durationComplete
-                      ? row.marks !== null
-                        ? row.marks >= 50
-                          ? "Pass"
-                          : "Fail"
-                        : "Pending"
-                      : "Pending"}
-                  </Badge>
                 </Td>
               </Tr>
             ))}

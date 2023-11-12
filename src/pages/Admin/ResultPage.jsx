@@ -12,66 +12,7 @@ const jsonData = {
     "STUDENT NAME",
     "COURSE NAME",
     "DURATION STATUS",
-    "MARKS",
     "STATUS",
-  ],
-  data: [
-    {
-      beltno: 1,
-      name: "Student A",
-      durationComplete: false,
-      marks: null,
-      course: "Maths",
-    },
-    {
-      beltno: 2,
-      name: "Student B",
-      durationComplete: true,
-      marks: 85,
-      course: "Maths",
-    },
-    {
-      beltno: 3,
-      name: "Student C",
-      durationComplete: false,
-      marks: null,
-      course: "Maths",
-    },
-    {
-      beltno: 4,
-      name: "Student D",
-      durationComplete: true,
-      marks: 72,
-      course: "Maths",
-    },
-    {
-      beltno: 5,
-      name: "Student E",
-      durationComplete: true,
-      marks: 45,
-      course: "Maths",
-    },
-    {
-      beltno: 5,
-      name: "Student E",
-      durationComplete: true,
-      marks: 45,
-      course: "Maths",
-    },
-    {
-      beltno: 5,
-      name: "Student E",
-      durationComplete: true,
-      marks: 45,
-      course: "Maths",
-    },
-    {
-      beltno: 5,
-      name: "Student E",
-      durationComplete: true,
-      marks: 45,
-      course: "Maths",
-    },
   ],
 };
 export default function ResultPage() {
@@ -89,14 +30,14 @@ export default function ResultPage() {
 
   console.log(result_data);
   return (
-    <ResultHeader name={"Student Result"} headers={headers} data={data}>
+    <ResultHeader name={"Student Result"} headers={headers} data={result_data}>
       <Search
         input1={"Belt No"}
         input2={"Student Name"}
         input3={"Course Name"}
       />
       <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
-      <ResultTable headers={headers} data={data} entries={entries} />
+      <ResultTable headers={headers} data={result_data} entries={entries} />
     </ResultHeader>
   );
 }

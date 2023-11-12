@@ -1,5 +1,5 @@
 // src/pages/TimetablePage.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Heading,
@@ -32,7 +32,7 @@ const TimetablePage = () => {
 
   console.log(timetable_record);
 
-  const [timetable, setTimetable] = useState([...timetable_record]);
+  const [timetable, setTimetable] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedTeacher, setSelectedTeacher] = useState("");
   const [selectedRoom, setSelectedRoom] = useState("");
@@ -50,6 +50,12 @@ const TimetablePage = () => {
     "Course C": ["Teacher X", "Teacher Z"],
   };
   const availableRooms = ["Room 101", "Room 102", "Room 103"];
+
+  useEffect(() => {
+    if (timetable_record) {
+      setTimetable(timetable_record);
+    }
+  }, [timetable_record]);
 
   const handleBoxClick = (day, time) => {
     setSelectedTimeSlot({ day, time });
@@ -142,7 +148,11 @@ const TimetablePage = () => {
                         }}
                       >
                         {/* Display timetable data if exists */}
-                        {timetable.length > 0 &&
+                        {isLoading ? (
+                          <div>Loading...</div>
+                        ) : isError ? (
+                          <div>Error</div>
+                        ) : timetable ? (
                           timetable.map((entry) =>
                             entry.day === day && entry.time === `${time}:00` ? (
                               <div key={entry.day + entry.time}>
@@ -155,7 +165,8 @@ const TimetablePage = () => {
                                 {entry.room}
                               </div>
                             ) : null
-                          )}
+                          )
+                        ) : null}
                       </Td>
                     ))}
                   </Tr>
