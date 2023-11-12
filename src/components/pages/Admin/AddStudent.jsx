@@ -6,6 +6,7 @@ import {
   Input,
   Select,
   Button,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   createCloudinaryFormdata,
@@ -13,22 +14,40 @@ import {
 } from "../../../utils/cloudinarySetup";
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import SuccessModal from "../Inventory_Admin/SucessModal";
+import { useQuery } from "react-query";
 
 export default function AddStudent() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     beltNo: "",
     email: "",
     registrationDate: "",
-    course: "",
+    courseId: "", // Updated from courseCode
     gender: "",
-    personalMobileNo: "",
-    homePhoneNo: "",
-    dateOfBirth: "",
+    contactNo: "",
+    homeNo: "",
+    dob: "",
     address: "",
-    profilePicture: null,
+    picture: null,
+    teacherId: "", // Added teacherId
   });
+
+  const [loading, setLoading] = useState(false);
+
+  const {
+    data: courses,
+    isLoading,
+    isError,
+  } = useQuery("courses", () => apiMiddleware("admin/courses/courses"));
+
+  const {
+    data: teachers,
+    isLoading: teachersLoading,
+    isError: teachersError,
+  } = useQuery("teachers", () => apiMiddleware("admin/teachers/teachers"));
+
+  console.log("teachers", teachers);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -42,96 +61,81 @@ export default function AddStudent() {
     const file = e.target.files[0];
     setFormData({
       ...formData,
-      profilePicture: file,
+      picture: file,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccessMessage("Student successfully added!");
-    setFormData({
-      firstName: "",
-      lastName: "",
-      beltNo: "",
-      email: "",
-      registrationDate: "",
-      course: "",
-      gender: "",
-      personalMobileNo: "",
-      homePhoneNo: "",
-      dateOfBirth: "",
-      address: "",
-      profilePicture: "",
-    });
-    setIsModalOpen(true);
+
     // Prepare the form data
     const cloudinaryFormData = createCloudinaryFormdata(
-      formData.profilePicture,
+      formData.picture,
       "ims-client-student",
       "ims_student_images"
     );
-  
+
+    setLoading(true);
     // Upload the image to Cloudinary
     const cloudinaryResponse = await uploadToCloudinary(cloudinaryFormData);
     console.log("Cloudinary Response:", cloudinaryResponse);
+
     // Get the image URL from the response
     const profilePictureUrl = cloudinaryResponse.secure_url;
 
     // Add the image URL to the form data
     const updatedFormData = {
       ...formData,
-      profilePicture: profilePictureUrl,
+      picture: profilePictureUrl,
+      type: "student",
     };
-    console.log("Student Data:", updatedFormData);
-    // POST studentData to your backend
 
+    console.log("Student Data:", updatedFormData);
+
+    // POST studentData to your backend
     const response = await apiMiddleware("admin/students/register", {
       method: "POST",
-      body: JSON.stringify({
-        firstname: updatedFormData.firstName,
-        lastname: updatedFormData.lastName,
-        beltNo: updatedFormData.beltNo,
-        email: updatedFormData.email,
-        registrationDate: updatedFormData.registrationDate,
-        address: updatedFormData.address,
-        gender: updatedFormData.gender,
-        contactNo: updatedFormData.personalMobileNo,
-        homeNo: updatedFormData.homePhoneNo,
-        courseCode: updatedFormData.course,
-        picture: updatedFormData.profilePicture,
-        type: "Student",
-        dob: updatedFormData.dateOfBirth,
-      }),
+      body: JSON.stringify(updatedFormData),
       headers: { "Content-Type": "application/json" },
     });
 
     console.log("Response:", response);
 
-    // Clear the form
+    setLoading(false);
 
+    if (response.success) {
+      setSuccessMessage("Student added successfully!");
+      setIsModalOpen(true);
+    } else {
+      setSuccessMessage("Student addition failed!");
+      setIsModalOpen(true);
+    }
+
+    // Clear the form
     setFormData({
-      firstName: "",
-      lastName: "",
+      firstname: "",
+      lastname: "",
       beltNo: "",
       email: "",
       registrationDate: "",
-      course: "",
+      courseId: "",
       gender: "",
-      personalMobileNo: "",
-      homePhoneNo: "",
-      dateOfBirth: "",
+      contactNo: "",
+      homeNo: "",
+      dob: "",
       address: "",
-      profilePicture: null,
+      picture: null,
+      teacherId: "",
     });
   };
+
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const closeModal = () => {
     setIsModalOpen(false);
     setSuccessMessage(null);
   };
-
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <Box
@@ -149,8 +153,8 @@ export default function AddStudent() {
           <Input
             type="text"
             placeholder="Enter First Name"
-            name="firstName"
-            value={formData.firstName}
+            name="firstname"
+            value={formData.firstname}
             onChange={handleInputChange}
           />
         </FormControl>
@@ -160,8 +164,8 @@ export default function AddStudent() {
           <Input
             type="text"
             placeholder="Enter Last Name"
-            name="lastName"
-            value={formData.lastName}
+            name="lastname"
+            value={formData.lastname}
             onChange={handleInputChange}
           />
         </FormControl>
@@ -201,15 +205,33 @@ export default function AddStudent() {
         <FormControl isRequired mt={4}>
           <FormLabel>Course</FormLabel>
           <Select
-            placeholder="Select Class"
-            name="course"
-            value={formData.course}
+            placeholder="Select Course"
+            name="courseId"
+            value={formData.courseId}
             onChange={handleInputChange}
           >
-            <option value="Computer">Computer</option>
-            <option value="Mechanical">Mechanical</option>
-            <option value="Mathematics">Mathematics</option>
-            <option value="Commerce">Commerce</option>
+            {courses?.map((course) => (
+              <option key={course._id} value={course._id}>
+                {course.name}
+              </option>
+            ))}
+            {/* Add other course options as needed */}
+          </Select>
+        </FormControl>
+        <FormControl isRequired mt={4}>
+          <FormLabel>Teacher</FormLabel>
+          <Select
+            placeholder="Select Teacher"
+            name="teacherId"
+            value={formData.teacherId}
+            onChange={handleInputChange}
+          >
+            {teachers?.map((teacher) => (
+              <option key={teacher._id} value={teacher._id}>
+                {teacher.firstname} {teacher.lastname}
+              </option>
+            ))}
+            {/* Add other course options as needed */}
           </Select>
         </FormControl>
 
@@ -231,8 +253,8 @@ export default function AddStudent() {
           <Input
             type="tel"
             placeholder="Enter Mobile No."
-            name="personalMobileNo"
-            value={formData.personalMobileNo}
+            name="contactNo"
+            value={formData.contactNo}
             onChange={handleInputChange}
           />
         </FormControl>
@@ -242,8 +264,8 @@ export default function AddStudent() {
           <Input
             type="tel"
             placeholder="Enter Home Phone No."
-            name="homePhoneNo"
-            value={formData.homePhoneNo}
+            name="homeNo"
+            value={formData.homeNo}
             onChange={handleInputChange}
           />
         </FormControl>
@@ -252,8 +274,8 @@ export default function AddStudent() {
           <FormLabel>Date Of Birth</FormLabel>
           <Input
             type="date"
-            name="dateOfBirth"
-            value={formData.dateOfBirth}
+            name="dob"
+            value={formData.dob}
             onChange={handleInputChange}
           />
         </FormControl>
@@ -273,7 +295,7 @@ export default function AddStudent() {
           <FormLabel>Profile Picture</FormLabel>
           <Input
             type="file"
-            name="profilePicture"
+            name="picture"
             accept="image/*"
             onChange={handleImageUpload}
           />
@@ -282,8 +304,15 @@ export default function AddStudent() {
           </small>
         </FormControl>
 
-        <Button type="submit" mt={6} colorScheme="blue" py={4} fontSize="1rem">
-          Add Student
+        <Button
+          type="submit"
+          mt={6}
+          colorScheme="blue"
+          py={4}
+          fontSize="1rem"
+          disabled={loading}
+        >
+          {loading ? <Spinner /> : "Add Student"}
         </Button>
       </form>
       <SuccessModal

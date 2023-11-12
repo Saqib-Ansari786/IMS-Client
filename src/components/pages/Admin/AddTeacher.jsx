@@ -14,7 +14,6 @@ import {
 } from "../../../utils/cloudinarySetup";
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import SuccessModal from "../Inventory_Admin/SucessModal";
-import { set } from "date-fns";
 
 export default function AddTeacher() {
   const [formData, setFormData] = useState({
