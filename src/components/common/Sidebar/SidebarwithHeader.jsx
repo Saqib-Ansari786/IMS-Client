@@ -14,6 +14,7 @@ export default function SidebarwithHeader({
   linkItems,
   routeItems,
   headerRoutes,
+  user,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -42,6 +43,7 @@ export default function SidebarwithHeader({
             onClose={onClose}
             linkItems={linkItems}
             routeItems={routeItems}
+            user={user}
           />
         </DrawerContent>
       </Drawer>

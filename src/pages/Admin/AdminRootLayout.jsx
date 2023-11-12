@@ -19,7 +19,13 @@ export default function AdminRootLayout({ isAdminAuthenticated }) {
   } else {
     return (
       <div>
-        <SidebarwithHeader linkItems={LinkItems}>
+        <SidebarwithHeader
+          linkItems={LinkItems}
+          logoutClose={() => {
+            localStorage.removeItem("admin");
+            window.location.reload();
+          }}
+        >
           <Breadcrumbs />
           <Outlet />
         </SidebarwithHeader>

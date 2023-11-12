@@ -47,6 +47,16 @@ import StudentDetail from "./pages/Admin/StudentDetail";
 import TeacherDetail from "./pages/Admin/TeacherDetail";
 import BookDetail from "./pages/Admin/BookDetail";
 
+const admin = localStorage.getItem("admin");
+const student = localStorage.getItem("student");
+const teacher = localStorage.getItem("teacher");
+const inventory_admin = localStorage.getItem("inventory_admin");
+
+console.log(admin);
+console.log(student);
+console.log(teacher);
+console.log(inventory_admin);
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
@@ -56,17 +66,19 @@ const router = createBrowserRouter(
       {/* Admin */}
       <Route
         path="admin/"
-        element={<AdminRootLayout isAdminAuthenticated={true} />}
+        element={
+          <AdminRootLayout isAdminAuthenticated={admin ? true : false} />
+        }
       >
         <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
         <Route path="studentview" element={<ViewStudents />} />
         <Route path="studentview/:st_ID" element={<StudentDetail />} />
         <Route path="teacherview" element={<ViewTeachers />} />
-        <Route path="teacherview/:t_ID" element={<TeacherDetail/>} />
+        <Route path="teacherview/:t_ID" element={<TeacherDetail />} />
         <Route path="courses" element={<CoursePage />} />
         <Route path="library" element={<LibraryView />} />
-        <Route path="library/:book_isbn" element={<BookDetail/>} />
+        <Route path="library/:book_isbn" element={<BookDetail />} />
         <Route path="result" element={<ResultPage />} />
         <Route path="timetable" element={<TimetablePage />} />
       </Route>
@@ -74,7 +86,9 @@ const router = createBrowserRouter(
       {/* Student */}
       <Route
         path="student/"
-        element={<StudentRootLayout isStudentAuthenticated={true} />}
+        element={
+          <StudentRootLayout isStudentAuthenticated={student ? true : false} />
+        }
       >
         <Route index element={<Home />} />
         <Route path="assignments" element={<Assignment />} />
@@ -87,7 +101,9 @@ const router = createBrowserRouter(
       {/* Teacher */}
       <Route
         path="teacher/"
-        element={<TeacherRootLayout isTeacherAuthenticated={true} />}
+        element={
+          <TeacherRootLayout isTeacherAuthenticated={teacher ? true : false} />
+        }
       >
         <Route index element={<TeacherDashboard />} />
         <Route path="manage-attendance" element={<ManageAttendancePage />} />
@@ -118,7 +134,11 @@ const router = createBrowserRouter(
 
       <Route
         path="inventory_admin/"
-        element={<InventoryAdminLayout isInventoryAdminAuthenticated={true} />}
+        element={
+          <InventoryAdminLayout
+            isInventoryAdminAuthenticated={inventory_admin ? true : false}
+          />
+        }
       >
         <Route index element={<InventoryDashboard />} />
         <Route path="products" element={<ProductPage />} />

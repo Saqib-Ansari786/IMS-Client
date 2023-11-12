@@ -4,17 +4,20 @@ import {
   Flex,
   useColorModeValue,
   Text,
+  Button,
 } from "@chakra-ui/react";
 import { InfoIcon } from "@chakra-ui/icons";
 import NavItem from "./NavItem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SidebarContent({
   onClose,
   linkItems,
   routeItems,
+  user,
   ...rest
 }) {
+  const navigate = useNavigate();
   return (
     <Box
       transition="3s ease"
@@ -65,13 +68,18 @@ export default function SidebarContent({
           </Box>
         </Box>
 
-        <Box bottom={{ base: "14", md: "6" }} ml={1} position={"fixed"}>
-          {/* This pushes the Logout link to the bottom */}
-          <Link to={"/"}>
-            <NavItem p={3} icon={InfoIcon}>
-              <Text fontSize={{ base: "xl", md: "md" }}> Logout</Text>
-            </NavItem>
-          </Link>
+        <Box
+          bottom={{ base: "14", md: "6" }}
+          ml={1}
+          position={"fixed"}
+          onClick={() => {
+            localStorage.clear();
+            navigate("/");
+          }}
+        >
+          <NavItem p={3} icon={InfoIcon}>
+            <Text fontSize={{ base: "xl", md: "md" }}> Logout</Text>
+          </NavItem>
         </Box>
       </Flex>
     </Box>

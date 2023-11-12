@@ -14,12 +14,14 @@ const LinkItems = [
 ];
 
 export default function StudentRootLayout({ isStudentAuthenticated }) {
+  const student = localStorage.getItem("student");
+  console.log("student key in student page", student);
   if (!isStudentAuthenticated) {
     return <Navigate to="/" />;
   } else {
     return (
       <div>
-        <SidebarwithHeader linkItems={LinkItems}>
+        <SidebarwithHeader linkItems={LinkItems} user={"student"}>
           <Breadcrumbs />
           <Outlet />
         </SidebarwithHeader>

@@ -126,7 +126,7 @@
 //   );
 // }
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Box,
   Button,
@@ -144,12 +144,16 @@ import {
 import { LockIcon } from "@chakra-ui/icons";
 import logo from "../assets/logo.png";
 import apiMiddleware from "../components/common/Server/apiMiddleware";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const [selectedRole, setSelectedRole] = useState("student");
   const navigate = useNavigate();
   const toast = useToast();
+  const admin = localStorage.getItem("admin");
+  const student = localStorage.getItem("student");
+  const teacher = localStorage.getItem("teacher");
+  const inventory_admin = localStorage.getItem("inventory_admin");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -173,6 +177,30 @@ export default function SignIn() {
       console.log("User", response.user);
 
       if (response.success) {
+        switch (selectedRole) {
+          case "student":
+            localStorage.setItem("student", JSON.stringify(response.user));
+            window.location.reload();
+            break;
+          case "teacher":
+            localStorage.setItem("teacher", JSON.stringify(response.user));
+            window.location.reload();
+            break;
+          case "admin":
+            localStorage.setItem("admin", JSON.stringify(response.user));
+            window.location.reload();
+            break;
+          case "inventory_admin":
+            localStorage.setItem(
+              "inventory_admin",
+              JSON.stringify(response.user)
+            );
+            window.location.reload();
+            break;
+          default:
+            break;
+        }
+
         toast({
           title: "Login Successfull",
           description: "You are logged in successfully",
@@ -180,23 +208,6 @@ export default function SignIn() {
           duration: 3000,
           isClosable: true,
         });
-
-        switch (selectedRole) {
-          case "student":
-            navigate("/student");
-            break;
-          case "teacher":
-            navigate("/teacher");
-            break;
-          case "admin":
-            navigate("/admin");
-            break;
-          case "inventory_admin":
-            navigate("/inventory_admin");
-            break;
-          default:
-            break;
-        }
       }
 
       event.target.reset();
@@ -225,6 +236,19 @@ export default function SignIn() {
         return null;
     }
   };
+
+  if (admin !== null) {
+    return <Navigate to="/admin" />;
+  }
+  if (student !== null) {
+    return <Navigate to="/student" />;
+  }
+  if (teacher !== null) {
+    return <Navigate to="/teacher" />;
+  }
+  if (inventory_admin !== null) {
+    return <Navigate to="/inventory_admin" />;
+  }
 
   return (
     <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} minH="100vh">
