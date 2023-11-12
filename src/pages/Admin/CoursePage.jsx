@@ -6,6 +6,7 @@ import CoursePageHeader from "../../components/pages/Admin/CoursePageHeader";
 import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
 import { useState } from "react";
+import ErrorComponent from "../../components/pages/Admin/ErrorComponent";
 
 export default function CoursePage() {
   const [entries, setEntries] = useState(5);
@@ -40,7 +41,7 @@ export default function CoursePage() {
             <p>Loading...</p>
           </>
         ) : isError ? (
-          <p>Error</p>
+          <ErrorComponent/>
         ) : courses.length > 0 ? (
           courses.slice(0, entries).map((course, index) => (
             <GridItem key={index}>

@@ -64,9 +64,12 @@ export default function CourseCard({
           toast({
             title: "Course Deleted",
             description: "Course has been deleted successfully",
+            position: "top-right",
+            colorScheme: "green",
             status: "success",
             duration: 3000,
             isClosable: true,
+            containerStyle:{color: "white"}
           });
         }
       } catch (error) {
@@ -76,6 +79,8 @@ export default function CourseCard({
           status: "error",
           duration: 3000,
           isClosable: true,
+          position: "top-right",
+          containerStyle:{color: "white"}
         });
       }
       // Close the confirmation dialog

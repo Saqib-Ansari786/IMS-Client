@@ -10,7 +10,7 @@ import {
   Badge,
 } from "@chakra-ui/react";
 
-export default function ResultTable({ headers, data, entries }) {
+export default function ResultTable({ headers, data, entries, search }) {
   return (
     <TableContainer
       mt={3}
@@ -33,17 +33,22 @@ export default function ResultTable({ headers, data, entries }) {
         </Thead>
         <Tbody>
           {data &&
-            data.slice(0, entries).map((row, rowIndex) => (
+            data
+            .filter((row) => {
+              return search.toLowerCase() === ""
+                ? row
+                : row.studentName.toLowerCase().includes(search) ||
+                    row.beltNo.includes(search);
+            }).slice(0, entries).map((row, rowIndex) => (
               <Tr key={rowIndex}>
                 <Td key={rowIndex} textAlign="center">
-                  {row.beltNo} {/* Update key to match data structure */}
+                  {row.beltNo} 
                 </Td>
                 <Td key={rowIndex} textAlign="center">
-                  {row.studentName} {/* Update key to match data structure */}
+                  {row.studentName} 
                 </Td>
                 <Td key={rowIndex} textAlign="center">
                   {row.durationStatus}{" "}
-                  {/* Update key to match data structure */}
                 </Td>
                 <Td key={rowIndex} textAlign="center">
                   <Badge

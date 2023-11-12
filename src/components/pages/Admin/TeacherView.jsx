@@ -53,7 +53,10 @@ export default function TeacherView({ headers, data, entries, search }) {
             description: "Teacher has been deleted successfully",
             status: "success",
             duration: 3000,
+            colorScheme: "green",
             isClosable: true,
+            containerStyle: {color:"white"},
+            position: "top-right"
           });
         }
       } catch (error) {
@@ -63,6 +66,8 @@ export default function TeacherView({ headers, data, entries, search }) {
           status: "error",
           duration: 3000,
           isClosable: true,
+          containerStyle: {color:"white"},
+            position: "top-right"
         });
       }
       // Close the confirmation dialog

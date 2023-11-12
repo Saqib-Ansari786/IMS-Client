@@ -8,6 +8,7 @@ import {
   Button,
   Text,
   Spinner,
+  useToast,
 } from "@chakra-ui/react";
 import {
   createCloudinaryFormdata,
@@ -35,6 +36,7 @@ export default function AddTeacher() {
   });
 
   const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
   const {
     data: courses,
@@ -142,8 +144,15 @@ export default function AddTeacher() {
         });
       }
     } catch (error) {
-      setSuccessMessage("Teacher could not be added!");
-      setIsModalOpen(true);
+      toast({
+        title: "Error",
+        description: "Some thing went wrong. Teacher cannot be added",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        containerStyle: {color:"white"},
+        position: "top-right"
+      });
     }
 
     setLoading(false);
@@ -322,7 +331,7 @@ export default function AddTeacher() {
           fontSize="1rem"
           disabled={loading}
         >
-          {loading ? <Spinner /> : "Add Teacher"}
+          {loading ? <Spinner color="white" /> : "Add Teacher"}
         </Button>
       </form>
       <SuccessModal
