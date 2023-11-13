@@ -51,14 +51,7 @@ import AssignmentCard from "./components/pages/Student/AssignmentCard";
 const admin = localStorage.getItem("admin");
 const student = localStorage.getItem("student");
 const teacher = localStorage.getItem("teacher");
-const inventory_admin = localStorage.getItem("inventory_admin");
-const assignmentData = {
-  title: "Assignment 1",
-  totalMarks: "10",
-  obtainedMarks: "9",
-  dateTime: "10/01/2023 Wednesday",
-  teacherComment: "Good Job",
-};
+const inventory_admin = localStorage.getItem("iadmin");
 
 console.log(admin);
 console.log(student);
@@ -74,7 +67,9 @@ const router = createBrowserRouter(
       {/* Admin */}
       <Route
         path="admin/"
-        element={<AdminRootLayout isAdminAuthenticated={true} />}
+        element={
+          <AdminRootLayout isAdminAuthenticated={admin ? true : false} />
+        }
       >
         <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
@@ -102,7 +97,7 @@ const router = createBrowserRouter(
         <Route path="marks" element={<MarksSummary />} />
         <Route path="resources" element={<CourseResources />} />
         <Route path="viewlibrary" element={<ViewLibrary />} />
-        <Route path="check" element={<AssignmentCard {...assignmentData} /> } />
+        <Route path="check" element={<AssignmentCard {...assignmentData} />} />
       </Route>
 
       {/* Teacher */}

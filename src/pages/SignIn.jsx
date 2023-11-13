@@ -25,7 +25,7 @@ export default function SignIn() {
   const admin = localStorage.getItem("admin");
   const student = localStorage.getItem("student");
   const teacher = localStorage.getItem("teacher");
-  const inventory_admin = localStorage.getItem("inventory_admin");
+  const iadmin = localStorage.getItem("iadmin");
   const [loading, setLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -63,11 +63,8 @@ export default function SignIn() {
             localStorage.setItem("admin", JSON.stringify(response.user));
             window.location.reload();
             break;
-          case "inventory_admin":
-            localStorage.setItem(
-              "inventory_admin",
-              JSON.stringify(response.user)
-            );
+          case "iadmin":
+            localStorage.setItem("iadmin", JSON.stringify(response.user));
             window.location.reload();
             break;
           default:
@@ -83,7 +80,7 @@ export default function SignIn() {
           isClosable: true,
           position: "top-right",
           colorScheme: "green",
-          containerStyle:{color: "white"}
+          containerStyle: { color: "white" },
         });
       }
       event.target.reset();
@@ -96,7 +93,7 @@ export default function SignIn() {
         duration: 3000,
         isClosable: true,
         position: "top-right",
-        containerStyle:{color: "white"}
+        containerStyle: { color: "white" },
       });
     }
   };
@@ -109,7 +106,7 @@ export default function SignIn() {
         return "Teacher Login";
       case "admin":
         return "Admin Login";
-      case "inventory_admin":
+      case "iadmin":
         return "Inventory Admin Login";
       default:
         return null;
@@ -125,7 +122,7 @@ export default function SignIn() {
   if (teacher !== null) {
     return <Navigate to="/teacher" />;
   }
-  if (inventory_admin !== null) {
+  if (iadmin !== null) {
     return <Navigate to="/inventory_admin" />;
   }
 
@@ -171,11 +168,9 @@ export default function SignIn() {
               Admin
             </Button>
             <Button
-              bg={
-                selectedRole === "inventory_admin" ? "primary.base" : "gray.300"
-              }
-              color={selectedRole === "inventory_admin" ? "white" : "black"}
-              onClick={() => setSelectedRole("inventory_admin")}
+              bg={selectedRole === "iadmin" ? "primary.base" : "gray.300"}
+              color={selectedRole === "iadmin" ? "white" : "black"}
+              onClick={() => setSelectedRole("iadmin")}
             >
               Inventory Admin
             </Button>
