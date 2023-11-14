@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -182,7 +182,7 @@ export default function EditTeacherModal({ isOpen, onClose, teacher }) {
             <Select
               name="courseId"
               placeholder="Select Class"
-              value={editedTeacher.courseId[0]}
+              value={editedTeacher.courseId}
               onChange={handleInputChange}
             >
               {courses?.map((course) => (
@@ -199,7 +199,7 @@ export default function EditTeacherModal({ isOpen, onClose, teacher }) {
             alignItems="center"
             justifyContent={"space-evenly"}
           >
-            {editedTeacher.courseId.map((course, index) => (
+            {editedTeacher?.courseId?.map((course, index) => (
               <Text
                 key={index}
                 mt={2}
