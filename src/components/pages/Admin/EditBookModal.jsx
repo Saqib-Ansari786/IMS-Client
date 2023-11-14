@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -11,11 +11,14 @@ import {
   FormLabel,
   Input,
   Select,
+  useToast,
 } from "@chakra-ui/react";
+import apiMiddleware from "../../common/Server/apiMiddleware";
 
-export default function EditBookModal({ isOpen, onClose, book, onEdit }) {
+export default function EditBookModal({ isOpen, onClose, book }) {
   const [editedBook, setEditedBook] = useState({ ...book });
-
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
   useEffect(() => {
     setEditedBook({ ...book });
   }, [book]);
@@ -31,6 +34,41 @@ export default function EditBookModal({ isOpen, onClose, book, onEdit }) {
   const handleSave = () => {
     onEdit(editedBook);
     onClose();
+  };
+
+  const onEdit = async (book) => {
+    setLoading(true);
+    try {
+      const response = await apiMiddleware(`admin/books/${book._id}`, {
+        method: "POST",
+        body: JSON.stringify(book),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log("response from server", response);
+
+      if (response.success) {
+        toast({
+          title: "Book Edited",
+          description: "Book has been edited successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
