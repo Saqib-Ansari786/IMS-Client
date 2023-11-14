@@ -10,12 +10,17 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Select
+  Select,
+  useToast,
+  Spinner,
 } from "@chakra-ui/react";
+import apiMiddleware from "../../common/Server/apiMiddleware";
 
-export default function EditCourseModal({ isOpen, onClose, course, onEdit }) {
-    console.log(course)
+export default function EditCourseModal({ isOpen, onClose, course }) {
+  console.log(course);
   const [editedCourse, setEditedCourse] = useState({ ...course });
+  const toast = useToast();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setEditedCourse({ ...course });
@@ -32,6 +37,37 @@ export default function EditCourseModal({ isOpen, onClose, course, onEdit }) {
   const handleSave = () => {
     onEdit(editedCourse);
     onClose();
+  };
+
+  const onEdit = async (course) => {
+    setLoading(true);
+    try {
+      const response = await apiMiddleware(`/courses/${course._id}`, {
+        method: "POST",
+        body: JSON.stringify(course),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.success) {
+        toast({
+          title: "Course Edited",
+          description: "Course has been edited successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+    setLoading(false);
   };
 
   return (
@@ -81,15 +117,15 @@ export default function EditCourseModal({ isOpen, onClose, course, onEdit }) {
           <FormControl>
             <FormLabel>Duration</FormLabel>
             <Select
-            name="duration"
-            placeholder="Select Duration"
-            value={editedCourse.duration}
-            onChange={handleInputChange}
-          >
-            <option value="7">7</option>
-            <option value="14">14</option>
-            <option value="30">30</option>
-          </Select>
+              name="duration"
+              placeholder="Select Duration"
+              value={editedCourse.duration}
+              onChange={handleInputChange}
+            >
+              <option value="7">7</option>
+              <option value="14">14</option>
+              <option value="30">30</option>
+            </Select>
           </FormControl>
           <FormControl>
             <FormLabel>Author</FormLabel>
@@ -118,8 +154,13 @@ export default function EditCourseModal({ isOpen, onClose, course, onEdit }) {
               onChange={handleInputChange}
             />
           </FormControl>
-          <Button mt={4} colorScheme="blue" onClick={handleSave}>
-            Save
+          <Button
+            mt={4}
+            colorScheme="blue"
+            onClick={handleSave}
+            disabled={loading}
+          >
+            {loading ? <Spinner /> : "Save Changes"}
           </Button>
         </ModalBody>
       </ModalContent>

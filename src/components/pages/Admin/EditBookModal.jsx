@@ -12,6 +12,7 @@ import {
   Input,
   Select,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import apiMiddleware from "../../common/Server/apiMiddleware";
 
@@ -39,13 +40,16 @@ export default function EditBookModal({ isOpen, onClose, book }) {
   const onEdit = async (book) => {
     setLoading(true);
     try {
-      const response = await apiMiddleware(`admin/books/${book._id}`, {
-        method: "POST",
-        body: JSON.stringify(book),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await apiMiddleware(
+        `admin/libraries/library-items/edit/${book._id}`,
+        {
+          method: "POST",
+          body: JSON.stringify(book),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       console.log("response from server", response);
 
@@ -141,8 +145,13 @@ export default function EditBookModal({ isOpen, onClose, book }) {
               <option value="false">Out of Stock</option>
             </Select>
           </FormControl>
-          <Button mt={4} colorScheme="blue" onClick={handleSave}>
-            Save
+          <Button
+            mt={4}
+            colorScheme="blue"
+            onClick={handleSave}
+            disabled={loading}
+          >
+            {loading ? <Spinner /> : "Save"}
           </Button>
         </ModalBody>
       </ModalContent>
