@@ -10,10 +10,18 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Select,
+  useToast,
+  Spinner,
 } from "@chakra-ui/react";
+import apiMiddleware from "../../common/Server/apiMiddleware";
+import { useQuery, useQueryClient } from "react-query";
 
-export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
-  const [editedStudent, setEditedStudent] = useState({...student});
+export default function EditStudentModal({ isOpen, onClose, student }) {
+  const [editedStudent, setEditedStudent] = useState({ ...student });
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
+  const clientquery = useQueryClient;
   useEffect(() => {
     setEditedStudent({ ...student });
   }, [student]);
@@ -30,12 +38,59 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
     onEdit(editedStudent);
     onClose();
   };
+
+  const onEdit = async (student) => {
+    console.log("Student", student);
+    try {
+      setLoading(true);
+      const response = await apiMiddleware(
+        `admin/students/edit/${student._id}`,
+        {
+          method: "POST",
+          body: JSON.stringify(student),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      console.log("Response:", response);
+      if (response.success) {
+        toast({
+          title: "Student Edited",
+          description: "Student has been edited successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        clientquery.invalidateQueries("students");
+      }
+    } catch (error) {
+      console.log("Error", error);
+      toast({
+        title: "Error",
+        description: "Error editing student",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+    setLoading(false);
+  };
+
+  const {
+    data: courses,
+    isLoading,
+    isError,
+  } = useQuery("courses", () => apiMiddleware("admin/courses/courses"));
+
+  const {
+    data: teachers,
+    isLoading: teachersLoading,
+    isError: teachersError,
+  } = useQuery("teachers", () => apiMiddleware("admin/teachers/teachers"));
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      
+
       <ModalContent backgroundColor={"white"}>
-      
         <ModalHeader>Edit Student</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -84,33 +139,7 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
               onChange={handleInputChange}
             />
           </FormControl>
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="text"
-              name="email"
-              value={editedStudent.email}
-              onChange={handleInputChange}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Type</FormLabel>
-            <Input
-              type="text"
-              name="type"
-              value={editedStudent.type}
-              onChange={handleInputChange}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Gender</FormLabel>
-            <Input
-              type="text"
-              name="gender"
-              value={editedStudent.gender}
-              onChange={handleInputChange}
-            />
-          </FormControl>
+
           <FormControl>
             <FormLabel>Contact Number</FormLabel>
             <Input
@@ -121,34 +150,44 @@ export default function EditStudentModal({ isOpen, onClose, student, onEdit }) {
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Home Number</FormLabel>
-            <Input
-              type="text"
-              name="homeNo"
-              value={editedStudent.homeNo}
+            <FormLabel>Course</FormLabel>
+            <Select
+              placeholder="Select Course"
+              name="courseId"
+              value={editedStudent.courseId}
               onChange={handleInputChange}
-            />
+            >
+              {courses?.map((course) => (
+                <option key={course._id} value={course._id}>
+                  {course.name}
+                </option>
+              ))}
+              {/* Add other course options as needed */}
+            </Select>
           </FormControl>
           <FormControl>
-            <FormLabel>Address</FormLabel>
-            <Input
-              type="text"
-              name="address"
-              value={editedStudent.address}
+            <FormLabel>Teacher</FormLabel>
+            <Select
+              placeholder="Select Teacher"
+              name="teacherId"
+              value={editedStudent.teacherId}
               onChange={handleInputChange}
-            />
+            >
+              {teachers?.map((teacher) => (
+                <option key={teacher._id} value={teacher._id}>
+                  {teacher.firstname} {teacher.lastname}
+                </option>
+              ))}
+              {/* Add other course options as needed */}
+            </Select>
           </FormControl>
-          <FormControl>
-            <FormLabel>Course Code</FormLabel>
-            <Input
-              type="text"
-              name="courseCode"
-              value={editedStudent.courseCode}
-              onChange={handleInputChange}
-            />
-          </FormControl>
-          <Button mt={4} colorScheme="blue" onClick={handleSave}>
-            Save
+          <Button
+            mt={4}
+            colorScheme="blue"
+            onClick={handleSave}
+            disabled={loading}
+          >
+            {loading ? <Spinner /> : "Save"}
           </Button>
         </ModalBody>
       </ModalContent>

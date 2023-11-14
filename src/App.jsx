@@ -52,6 +52,13 @@ const admin = localStorage.getItem("admin");
 const student = localStorage.getItem("student");
 const teacher = localStorage.getItem("teacher");
 const inventory_admin = localStorage.getItem("iadmin");
+const assignmentData = {
+  title: "Assignment 1",
+  totalMarks: "10",
+  obtainedMarks: "9",
+  dateTime: "10/01/2023 Wednesday",
+  teacherComment: "Good Job",
+};
 
 console.log(admin);
 console.log(student);
