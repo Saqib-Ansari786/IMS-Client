@@ -18,6 +18,8 @@ import { LockIcon } from "@chakra-ui/icons";
 import logo from "../assets/logo.png";
 import apiMiddleware from "../components/common/Server/apiMiddleware";
 import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/redux-slices/user_slice";
 
 export default function SignIn() {
   const [selectedRole, setSelectedRole] = useState("student");
@@ -27,6 +29,8 @@ export default function SignIn() {
   const teacher = localStorage.getItem("teacher");
   const iadmin = localStorage.getItem("iadmin");
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -52,18 +56,22 @@ export default function SignIn() {
       if (response.success) {
         switch (selectedRole) {
           case "student":
+            dispatch(setUser({ ...response.user, type: "student" }));
             localStorage.setItem("student", JSON.stringify(response.user));
             window.location.reload();
             break;
           case "teacher":
+            dispatch(setUser({ ...response.user, type: "teacher" }));
             localStorage.setItem("teacher", JSON.stringify(response.user));
             window.location.reload();
             break;
           case "admin":
+            dispatch(setUser("admin"));
             localStorage.setItem("admin", JSON.stringify(response.user));
             window.location.reload();
             break;
           case "iadmin":
+            dispatch(setUser({ ...response.user, type: "iadmin" }));
             localStorage.setItem("iadmin", JSON.stringify(response.user));
             window.location.reload();
             break;

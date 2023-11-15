@@ -47,11 +47,14 @@ import StudentDetail from "./pages/Admin/StudentDetail";
 import TeacherDetail from "./pages/Admin/TeacherDetail";
 import BookDetail from "./pages/Admin/BookDetail";
 import AssignmentCard from "./components/pages/Student/AssignmentCard";
+import { useSelector } from "react-redux";
+import { selectUser } from "./store/redux-slices/user_slice";
 
 const admin = localStorage.getItem("admin");
 const student = localStorage.getItem("student");
 const teacher = localStorage.getItem("teacher");
 const inventory_admin = localStorage.getItem("iadmin");
+
 const assignmentData = {
   title: "Assignment 1",
   totalMarks: "10",
@@ -154,6 +157,9 @@ const router = createBrowserRouter(
 );
 
 function App() {
+  const user = useSelector(selectUser);
+  console.log("user came from redux persist using redux toolkit", user);
+
   return <RouterProvider router={router} />;
 }
 
