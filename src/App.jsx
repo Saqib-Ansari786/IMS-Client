@@ -60,11 +60,6 @@ const assignmentData = {
   teacherComment: "Good Job",
 };
 
-console.log(admin);
-console.log(student);
-console.log(teacher);
-console.log(inventory_admin);
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
@@ -94,9 +89,7 @@ const router = createBrowserRouter(
       {/* Student */}
       <Route
         path="student/"
-        element={
-          <StudentRootLayout isStudentAuthenticated={student ? true : false} />
-        }
+        element={<StudentRootLayout isStudentAuthenticated={!!student} />}
       >
         <Route index element={<Home />} />
         <Route path="assignments" element={<Assignment />} />
