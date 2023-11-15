@@ -1,14 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import teacher_slice from "./redux-slices/teacher_slice";
-import student_slice from "./redux-slices/student_slice";
-import admin_slice from "./redux-slices/admin_slice";
-import inventoryAdmin_slice from "./redux-slices/inventoryAdmin_slice";
+import storage from "redux-persist/lib/storage";
+import user_slice from "./redux-slices/user_slice";
+import { persistReducer, persistStore } from "redux-persist";
+
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, user_slice);
 
 export const store = configureStore({
   reducer: {
-    teacher: teacher_slice,
-    student: student_slice,
-    admin: admin_slice,
-    inventoryAdmin: inventoryAdmin_slice,
+    user: persistedReducer,
   },
 });
+
+const persistor = persistStore(store);
+
+export default { store, persistor };
