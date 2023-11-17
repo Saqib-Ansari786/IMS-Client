@@ -49,6 +49,7 @@ import BookDetail from "./pages/Admin/BookDetail";
 import AssignmentCard from "./components/pages/Student/AssignmentCard";
 import { useSelector } from "react-redux";
 import { selectUser } from "./store/redux-slices/user_slice";
+import AdminSignIn from "./pages/AdminSignIn";
 
 const admin = localStorage.getItem("admin");
 const student = localStorage.getItem("student");
@@ -67,7 +68,9 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<SignIn />} />
+      <Route path="/check" element={<AdminSignIn />} />
       <Route path="*" element={<NotFound />} />
+      
 
       {/* Admin */}
       <Route
