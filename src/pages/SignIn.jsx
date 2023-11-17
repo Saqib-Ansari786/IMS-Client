@@ -13,6 +13,7 @@ import {
   Stack,
   Text,
   useToast,
+  Link
 } from "@chakra-ui/react";
 import { LockIcon } from "@chakra-ui/icons";
 import logo from "../assets/logo.png";
@@ -229,7 +230,11 @@ export default function SignIn() {
                   autoComplete="current-password"
                   minLength={8}
                 />
+                
               </FormControl>
+              <Link color="primary.base"  alignSelf="flex-start">
+              Forgot Password?
+            </Link>
               <Button
                 type="submit"
                 bg={"primary.base"}
