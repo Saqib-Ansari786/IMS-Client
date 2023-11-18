@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import image from "../assets/authimage.jpg";
 
-const AdminSignIn = () => {
+const NewPassword = () => {
   const formWidth = useBreakpointValue({ base: "90%", md: "40%", lg: "30%" });
 
   return (
@@ -55,46 +55,48 @@ const AdminSignIn = () => {
             textAlign="center"
             mb={"3"}
           >
-            Admin Login
+            New Password
           </Text>
           <Stack spacing={4}>
             <FormControl isRequired>
-              <FormLabel htmlFor="email">Email Address</FormLabel>
+              <FormLabel htmlFor="newPassword">New Password</FormLabel>
               <Input
-                type="email"
-                placeholder="eg: abc@gmail.com"
-                id="email"
-                name="email"
-                autoComplete="email"
+                type="password"
+                placeholder="Enter new password"
+                id="newPassword"
+                name="newPassword"
+                minLength={8}
+                autoComplete="new-password"
               />
             </FormControl>
             <FormControl isRequired>
-              <FormLabel htmlFor="password">Password</FormLabel>
+              <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
               <Input
                 type="password"
-                placeholder="*********"
-                id="password"
-                name="password"
-                autoComplete="current-password"
+                placeholder="Confirm new password"
+                id="confirmPassword"
+                name="confirmPassword"
                 minLength={8}
+                autoComplete="new-password"
               />
             </FormControl>
-            <Link color="primary.base" href="/forget"  alignSelf="flex-start">
-              Forgot Password?
-            </Link>
             <Button
               type="submit"
               bg={"primary.base"}
               color={"white.base"}
               size="lg"
               mt={4}
+              width="100%"
               _hover={{
                 bg: "primary.hover",
                 color: "white.base",
               }}
             >
-              {"Sign In"}
+              {"Set New Password"}
             </Button>
+            <Link color="blue.400" href="/" alignSelf="flex-end" mt={4}>
+              Back to Sign In
+            </Link>
           </Stack>
         </Box>
       </Flex>
@@ -102,4 +104,4 @@ const AdminSignIn = () => {
   );
 };
 
-export default AdminSignIn;
+export default NewPassword;

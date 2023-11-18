@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import image from "../assets/authimage.jpg";
 
-const AdminSignIn = () => {
+const ForgotPassword = () => {
   const formWidth = useBreakpointValue({ base: "90%", md: "40%", lg: "30%" });
 
   return (
@@ -55,9 +55,12 @@ const AdminSignIn = () => {
             textAlign="center"
             mb={"3"}
           >
-            Admin Login
+            Forgot Password
           </Text>
           <Stack spacing={4}>
+            <Text fontSize="md" textAlign="center" mb={4}>
+              Enter your email address below to reset your password.
+            </Text>
             <FormControl isRequired>
               <FormLabel htmlFor="email">Email Address</FormLabel>
               <Input
@@ -68,20 +71,6 @@ const AdminSignIn = () => {
                 autoComplete="email"
               />
             </FormControl>
-            <FormControl isRequired>
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <Input
-                type="password"
-                placeholder="*********"
-                id="password"
-                name="password"
-                autoComplete="current-password"
-                minLength={8}
-              />
-            </FormControl>
-            <Link color="primary.base" href="/forget"  alignSelf="flex-start">
-              Forgot Password?
-            </Link>
             <Button
               type="submit"
               bg={"primary.base"}
@@ -93,8 +82,11 @@ const AdminSignIn = () => {
                 color: "white.base",
               }}
             >
-              {"Sign In"}
+              {"Reset Password"}
             </Button>
+            <Link color="primary.base" href="/verifycode" alignSelf="flex-start">
+              Back to Sign In
+            </Link>
           </Stack>
         </Box>
       </Flex>
@@ -102,4 +94,4 @@ const AdminSignIn = () => {
   );
 };
 
-export default AdminSignIn;
+export default ForgotPassword;

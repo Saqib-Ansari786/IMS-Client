@@ -50,6 +50,9 @@ import AssignmentCard from "./components/pages/Student/AssignmentCard";
 import { useSelector } from "react-redux";
 import { selectUser } from "./store/redux-slices/user_slice";
 import AdminSignIn from "./pages/AdminSignIn";
+import ForgotPassword from "./pages/ForgotPassword";
+import VerificationCode from "./pages/VerificationCode";
+import NewPassword from "./pages/NewPassword";
 
 const admin = localStorage.getItem("admin");
 const student = localStorage.getItem("student");
@@ -69,6 +72,9 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<SignIn />} />
       <Route path="/check" element={<AdminSignIn />} />
+      <Route path="/forget" element={<ForgotPassword />} />
+      <Route path="/verifycode" element={<VerificationCode />} />
+      <Route path="/newpass" element={<NewPassword />} />
       <Route path="*" element={<NotFound />} />
       
 

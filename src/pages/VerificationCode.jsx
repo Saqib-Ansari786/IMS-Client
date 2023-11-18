@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import image from "../assets/authimage.jpg";
 
-const AdminSignIn = () => {
+const VerificationCode = () => {
   const formWidth = useBreakpointValue({ base: "90%", md: "40%", lg: "30%" });
 
   return (
@@ -55,33 +55,22 @@ const AdminSignIn = () => {
             textAlign="center"
             mb={"3"}
           >
-            Admin Login
+            Verification Code
           </Text>
           <Stack spacing={4}>
+            <Text fontSize="md" textAlign="center" mb={4}>
+              Please enter the verification code sent to your email.
+            </Text>
             <FormControl isRequired>
-              <FormLabel htmlFor="email">Email Address</FormLabel>
+              <FormLabel htmlFor="verificationCode">Verification Code</FormLabel>
               <Input
-                type="email"
-                placeholder="eg: abc@gmail.com"
-                id="email"
-                name="email"
-                autoComplete="email"
+                type="text"
+                placeholder="Enter code"
+                id="verificationCode"
+                name="verificationCode"
+                autoComplete="off"
               />
             </FormControl>
-            <FormControl isRequired>
-              <FormLabel htmlFor="password">Password</FormLabel>
-              <Input
-                type="password"
-                placeholder="*********"
-                id="password"
-                name="password"
-                autoComplete="current-password"
-                minLength={8}
-              />
-            </FormControl>
-            <Link color="primary.base" href="/forget"  alignSelf="flex-start">
-              Forgot Password?
-            </Link>
             <Button
               type="submit"
               bg={"primary.base"}
@@ -93,8 +82,11 @@ const AdminSignIn = () => {
                 color: "white.base",
               }}
             >
-              {"Sign In"}
+              {"Verify"}
             </Button>
+            <Link color="blue.400" href="/" alignSelf="flex-end">
+              Back to Sign In
+            </Link>
           </Stack>
         </Box>
       </Flex>
@@ -102,4 +94,5 @@ const AdminSignIn = () => {
   );
 };
 
-export default AdminSignIn;
+export default VerificationCode;
+
