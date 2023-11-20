@@ -6,6 +6,7 @@ import { persistReducer, persistStore } from "redux-persist";
 const persistConfig = {
   key: "root",
   storage,
+  whitelist: ["user"],
 };
 
 const persistedReducer = persistReducer(persistConfig, user_slice);
@@ -14,6 +15,10 @@ const store = configureStore({
   reducer: {
     user: persistedReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 const persistor = persistStore(store);

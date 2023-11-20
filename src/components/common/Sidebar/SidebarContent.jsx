@@ -9,6 +9,8 @@ import {
 import { InfoIcon } from "@chakra-ui/icons";
 import NavItem from "./NavItem";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../store/redux-slices/user_slice";
 
 export default function SidebarContent({
   onClose,
@@ -18,6 +20,7 @@ export default function SidebarContent({
   ...rest
 }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <Box
       transition="3s ease"
@@ -73,7 +76,7 @@ export default function SidebarContent({
           ml={1}
           position={"fixed"}
           onClick={() => {
-            localStorage.clear();
+            dispatch(setUser(null));
             navigate("/");
           }}
         >

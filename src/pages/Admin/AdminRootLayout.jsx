@@ -11,6 +11,8 @@ import {
   CheckIcon,
   EditIcon,
 } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/redux-slices/user_slice";
 
 const LinkItems = [
   { name: "Home", icon: InfoIcon, route: "/admin" },
@@ -23,23 +25,20 @@ const LinkItems = [
   { name: "Calendar", icon: CalendarIcon, route: "/admin/calendar" },
 ];
 
-export default function AdminRootLayout({ isAdminAuthenticated }) {
-  if (!isAdminAuthenticated) {
-    return <Navigate to="/" />;
-  } else {
-    return (
-      <div>
-        <SidebarwithHeader
-          linkItems={LinkItems}
-          logoutClose={() => {
-            localStorage.removeItem("admin");
-            window.location.reload();
-          }}
-        >
-          <Breadcrumbs />
-          <Outlet />
-        </SidebarwithHeader>
-      </div>
-    );
+export default function AdminRootLayout() {
+  const user = useSelector(selectUser);
+  if (user) {
+    if (user.type !== "admin") {
+      return <Navigate to="/" />;
+    } else {
+      return (
+        <div>
+          <SidebarwithHeader linkItems={LinkItems} user={"admin"}>
+            <Breadcrumbs />
+            <Outlet />
+          </SidebarwithHeader>
+        </div>
+      );
+    }
   }
 }

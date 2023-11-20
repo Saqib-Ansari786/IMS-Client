@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -13,24 +13,21 @@ import {
   Stack,
   Text,
   useToast,
-  Link
+  Link,
 } from "@chakra-ui/react";
 import { LockIcon } from "@chakra-ui/icons";
 import logo from "../assets/logo.png";
 import apiMiddleware from "../components/common/Server/apiMiddleware";
-import { Navigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "../store/redux-slices/user_slice";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser, setUser } from "../store/redux-slices/user_slice";
 
 export default function SignIn() {
   const [selectedRole, setSelectedRole] = useState("student");
   const toast = useToast();
-  const admin = localStorage.getItem("admin");
-  const student = localStorage.getItem("student");
-  const teacher = localStorage.getItem("teacher");
-  const iadmin = localStorage.getItem("iadmin");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -58,23 +55,15 @@ export default function SignIn() {
         switch (selectedRole) {
           case "student":
             dispatch(setUser({ ...response.user, type: "student" }));
-            localStorage.setItem("student", JSON.stringify(response.user));
-            window.location.reload();
             break;
           case "teacher":
             dispatch(setUser({ ...response.user, type: "teacher" }));
-            localStorage.setItem("teacher", JSON.stringify(response.user));
-            window.location.reload();
             break;
           case "admin":
-            dispatch(setUser("admin"));
-            localStorage.setItem("admin", JSON.stringify(response.user));
-            window.location.reload();
+            dispatch(setUser({ ...response.data.user, type: "admin" }));
             break;
           case "iadmin":
-            dispatch(setUser({ ...response.user, type: "iadmin" }));
-            localStorage.setItem("iadmin", JSON.stringify(response.user));
-            window.location.reload();
+            dispatch(setUser({ ...response.data.user, type: "iadmin" }));
             break;
           default:
             break;
@@ -122,17 +111,21 @@ export default function SignIn() {
     }
   };
 
-  if (admin !== null) {
-    return <Navigate to="/admin" />;
-  }
-  if (student !== null) {
-    return <Navigate to="/student" />;
-  }
-  if (teacher !== null) {
-    return <Navigate to="/teacher" />;
-  }
-  if (iadmin !== null) {
-    return <Navigate to="/inventory_admin" />;
+  if (user) {
+    if (user.type) {
+      switch (user.type) {
+        case "student":
+          return <Navigate to="/student" />;
+        case "teacher":
+          return <Navigate to="/teacher" />;
+        case "admin":
+          return <Navigate to="/admin" />;
+        case "iadmin":
+          return <Navigate to="/iadmin" />;
+        default:
+          return null;
+      }
+    }
   }
 
   return (
@@ -230,11 +223,10 @@ export default function SignIn() {
                   autoComplete="current-password"
                   minLength={8}
                 />
-                
               </FormControl>
-              <Link color="primary.base"  alignSelf="flex-start">
-              Forgot Password?
-            </Link>
+              <Link color="primary.base" alignSelf="flex-start">
+                Forgot Password?
+              </Link>
               <Button
                 type="submit"
                 bg={"primary.base"}

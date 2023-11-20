@@ -54,11 +54,6 @@ import ForgotPassword from "./pages/ForgotPassword";
 import VerificationCode from "./pages/VerificationCode";
 import NewPassword from "./pages/NewPassword";
 
-const admin = localStorage.getItem("admin");
-const student = localStorage.getItem("student");
-const teacher = localStorage.getItem("teacher");
-const inventory_admin = localStorage.getItem("iadmin");
-
 const assignmentData = {
   title: "Assignment 1",
   totalMarks: "10",
@@ -76,15 +71,9 @@ const router = createBrowserRouter(
       <Route path="/verifycode" element={<VerificationCode />} />
       <Route path="/newpass" element={<NewPassword />} />
       <Route path="*" element={<NotFound />} />
-      
 
       {/* Admin */}
-      <Route
-        path="admin/"
-        element={
-          <AdminRootLayout isAdminAuthenticated={admin ? true : false} />
-        }
-      >
+      <Route path="admin/" element={<AdminRootLayout />}>
         <Route index element={<Dashboard />} />
         <Route path="profile" element={<Profile />} />
         <Route path="studentview" element={<ViewStudents />} />
@@ -99,10 +88,7 @@ const router = createBrowserRouter(
       </Route>
 
       {/* Student */}
-      <Route
-        path="student/"
-        element={<StudentRootLayout isStudentAuthenticated={!!student} />}
-      >
+      <Route path="student/" element={<StudentRootLayout />}>
         <Route index element={<Home />} />
         <Route path="assignments" element={<Assignment />} />
         <Route path="attendance" element={<AttendanceDetail />} />
@@ -113,12 +99,7 @@ const router = createBrowserRouter(
       </Route>
 
       {/* Teacher */}
-      <Route
-        path="teacher/"
-        element={
-          <TeacherRootLayout isTeacherAuthenticated={teacher ? true : false} />
-        }
-      >
+      <Route path="teacher/" element={<TeacherRootLayout />}>
         <Route index element={<TeacherDashboard />} />
         <Route path="manage-attendance" element={<ManageAttendancePage />} />
         <Route
@@ -146,14 +127,7 @@ const router = createBrowserRouter(
 
       {/* Inventory Admin */}
 
-      <Route
-        path="inventory_admin/"
-        element={
-          <InventoryAdminLayout
-            isInventoryAdminAuthenticated={inventory_admin ? true : false}
-          />
-        }
-      >
+      <Route path="inventory_admin/" element={<InventoryAdminLayout />}>
         <Route index element={<InventoryDashboard />} />
         <Route path="products" element={<ProductPage />} />
         <Route path="create-product" element={<CreateProductPage />} />

@@ -10,6 +10,8 @@ import {
 } from "@chakra-ui/icons";
 import Breadcrumbs from "../../components/common/Breadcrumb/Breadcrumb";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/redux-slices/user_slice";
 
 const LinkItems = [
   { name: "Home", icon: InfoIcon, route: "/student" },
@@ -20,19 +22,20 @@ const LinkItems = [
   { name: "View Library", icon: SearchIcon, route: "/student/viewlibrary" },
 ];
 
-export default function StudentRootLayout({ isStudentAuthenticated }) {
-  const student = localStorage.getItem("student");
-  console.log("student key in student page", student);
-  if (!isStudentAuthenticated) {
-    return <Navigate to="/" />;
-  } else {
-    return (
-      <div>
-        <SidebarwithHeader linkItems={LinkItems} user={"student"}>
-          <Breadcrumbs />
-          <Outlet />
-        </SidebarwithHeader>
-      </div>
-    );
+export default function StudentRootLayout() {
+  const user = useSelector(selectUser);
+  if (user) {
+    if (user.type !== "student") {
+      return <Navigate to="/" />;
+    } else {
+      return (
+        <div>
+          <SidebarwithHeader linkItems={LinkItems} user={"student"}>
+            <Breadcrumbs />
+            <Outlet />
+          </SidebarwithHeader>
+        </div>
+      );
+    }
   }
 }
