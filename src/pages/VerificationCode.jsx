@@ -11,11 +11,59 @@ import {
   FormControl,
   FormLabel,
   Link,
+  useToast,
 } from "@chakra-ui/react";
 import image from "../assets/authimage.jpg";
+import { useState } from "react";
+import apiMiddleware from "../components/common/Server/apiMiddleware";
+import { useNavigate } from "react-router-dom";
 
 const VerificationCode = () => {
   const formWidth = useBreakpointValue({ base: "90%", md: "40%", lg: "30%" });
+  const [verificationCode, setVerificationCode] = useState("");
+  const toast = useToast();
+  const navigate = useNavigate();
+
+  const handleVerificationCodeChange = (e) => {
+    // Allow only digits
+    const sanitizedValue = e.target.value.replace(/\D/g, "");
+    setVerificationCode(sanitizedValue);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Verification code submitted:", verificationCode);
+
+    // Add your logic for verifying the code here
+    try {
+      const response = await apiMiddleware("auth/verify-code", {
+        method: "POST",
+        body: JSON.stringify({ verificationCode }),
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log("Response:", response);
+      if (response.success) {
+        // If the verification code is valid, show a toast notification
+        toast({
+          title: "Verification Code",
+          description: "Verification code is valid",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+      navigate("/newpassword");
+    } catch (error) {
+      // If the verification code is invalid, show a toast notification
+      toast({
+        title: "Error",
+        description: "Invalid verification code",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <Flex
@@ -37,14 +85,15 @@ const VerificationCode = () => {
         flexDirection={{ base: "column", md: "row" }}
       >
         <Box flex={{ base: "1", md: "1", lg: "1" }} alignSelf={"center"}>
-          <Image
-            src={image}
-            alt="Logo"
-            maxWidth="80%"
-            margin="0 auto"
-          />
+          <Image src={image} alt="Logo" maxWidth="80%" margin="0 auto" />
         </Box>
-        <Box width="1px" bg="gray.300" my={4} mx={6} display={{ base: "none", md: "block" }}></Box>
+        <Box
+          width="1px"
+          bg="gray.300"
+          my={4}
+          mx={6}
+          display={{ base: "none", md: "block" }}
+        ></Box>
         <Box flex="1" p={8}>
           <LockIcon mb={3} w={10} h={10} color="#FFBF01" />
           <Text
@@ -61,29 +110,37 @@ const VerificationCode = () => {
             <Text fontSize="md" textAlign="center" mb={4}>
               Please enter the verification code sent to your email.
             </Text>
-            <FormControl isRequired>
-              <FormLabel htmlFor="verificationCode">Verification Code</FormLabel>
-              <Input
-                type="text"
-                placeholder="Enter code"
-                id="verificationCode"
-                name="verificationCode"
-                autoComplete="off"
-              />
-            </FormControl>
-            <Button
-              type="submit"
-              bg={"primary.base"}
-              color={"white.base"}
-              size="lg"
-              mt={4}
-              _hover={{
-                bg: "primary.hover",
-                color: "white.base",
-              }}
-            >
-              {"Verify"}
-            </Button>
+            <form onSubmit={handleSubmit}>
+              <FormControl isRequired>
+                <FormLabel htmlFor="verificationCode">
+                  Verification Code
+                </FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Enter code"
+                  id="verificationCode"
+                  name="verificationCode"
+                  autoComplete="off"
+                  maxLength={4}
+                  pattern="\d{4}" // Allow only digits and enforce a 4-digit pattern
+                  value={verificationCode}
+                  onChange={handleVerificationCodeChange}
+                />
+              </FormControl>
+              <Button
+                type="submit"
+                bg={"primary.base"}
+                color={"white.base"}
+                size="lg"
+                mt={4}
+                _hover={{
+                  bg: "primary.hover",
+                  color: "white.base",
+                }}
+              >
+                {"Verify"}
+              </Button>
+            </form>
             <Link color="blue.400" href="/" alignSelf="flex-end">
               Back to Sign In
             </Link>
@@ -95,4 +152,3 @@ const VerificationCode = () => {
 };
 
 export default VerificationCode;
-
