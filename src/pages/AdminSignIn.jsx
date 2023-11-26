@@ -37,14 +37,15 @@ const AdminSignIn = () => {
         flexDirection={{ base: "column", md: "row" }}
       >
         <Box flex={{ base: "1", md: "1", lg: "1" }} alignSelf={"center"}>
-          <Image
-            src={image}
-            alt="Logo"
-            maxWidth="80%"
-            margin="0 auto"
-          />
+          <Image src={image} alt="Logo" maxWidth="80%" margin="0 auto" />
         </Box>
-        <Box width="1px" bg="gray.300" my={4} mx={6} display={{ base: "none", md: "block" }}></Box>
+        <Box
+          width="1px"
+          bg="gray.300"
+          my={4}
+          mx={6}
+          display={{ base: "none", md: "block" }}
+        ></Box>
         <Box flex="1" p={8}>
           <LockIcon mb={3} w={10} h={10} color="#FFBF01" />
           <Text
@@ -79,7 +80,11 @@ const AdminSignIn = () => {
                 minLength={8}
               />
             </FormControl>
-            <Link color="primary.base" href="/forget"  alignSelf="flex-start">
+            <Link
+              color="primary.base"
+              to="/forget-password"
+              alignSelf="flex-start"
+            >
               Forgot Password?
             </Link>
             <Button

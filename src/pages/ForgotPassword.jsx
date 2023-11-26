@@ -11,11 +11,58 @@ import {
   FormControl,
   FormLabel,
   Link,
+  useToast,
 } from "@chakra-ui/react";
 import image from "../assets/authimage.jpg";
+import { useState } from "react";
+import apiMiddleware from "../components/common/Server/apiMiddleware";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
+  const toast = useToast();
+  const navigate = useNavigate();
+
   const formWidth = useBreakpointValue({ base: "90%", md: "40%", lg: "30%" });
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // You can perform any actions with the email value here
+    console.log("Email submitted:", email);
+    // Add your logic for password reset here
+    try {
+      const response = await apiMiddleware("auth/forgot-password", {
+        method: "POST",
+        body: JSON.stringify({ email }),
+        headers: { "Content-Type": "application/json" },
+      });
+      console.log("Response:", response);
+      if (response.success) {
+        // If the password reset request is successful, show a toast notification
+        toast({
+          title: "Password Reset",
+          description: "Password reset request has been sent successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+
+      navigate("/verifycode");
+    } catch (error) {
+      // If the password reset request is unsuccessful, show a toast notification
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <Flex
@@ -37,14 +84,15 @@ const ForgotPassword = () => {
         flexDirection={{ base: "column", md: "row" }}
       >
         <Box flex={{ base: "1", md: "1", lg: "1" }} alignSelf={"center"}>
-          <Image
-            src={image}
-            alt="Logo"
-            maxWidth="80%"
-            margin="0 auto"
-          />
+          <Image src={image} alt="Logo" maxWidth="80%" margin="0 auto" />
         </Box>
-        <Box width="1px" bg="gray.300" my={4} mx={6} display={{ base: "none", md: "block" }}></Box>
+        <Box
+          width="1px"
+          bg="gray.300"
+          my={4}
+          mx={6}
+          display={{ base: "none", md: "block" }}
+        ></Box>
         <Box flex="1" p={8}>
           <LockIcon mb={3} w={10} h={10} color="#FFBF01" />
           <Text
@@ -61,30 +109,34 @@ const ForgotPassword = () => {
             <Text fontSize="md" textAlign="center" mb={4}>
               Enter your email address below to reset your password.
             </Text>
-            <FormControl isRequired>
-              <FormLabel htmlFor="email">Email Address</FormLabel>
-              <Input
-                type="email"
-                placeholder="eg: abc@gmail.com"
-                id="email"
-                name="email"
-                autoComplete="email"
-              />
-            </FormControl>
-            <Button
-              type="submit"
-              bg={"primary.base"}
-              color={"white.base"}
-              size="lg"
-              mt={4}
-              _hover={{
-                bg: "primary.hover",
-                color: "white.base",
-              }}
-            >
-              {"Reset Password"}
-            </Button>
-            <Link color="primary.base" href="/verifycode" alignSelf="flex-start">
+            <form onSubmit={handleSubmit}>
+              <FormControl isRequired>
+                <FormLabel htmlFor="email">Email Address</FormLabel>
+                <Input
+                  type="email"
+                  placeholder="eg: abc@gmail.com"
+                  id="email"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+              </FormControl>
+              <Button
+                type="submit"
+                bg={"primary.base"}
+                color={"white.base"}
+                size="lg"
+                mt={4}
+                _hover={{
+                  bg: "primary.hover",
+                  color: "white.base",
+                }}
+              >
+                {"Reset Password"}
+              </Button>
+            </form>
+            <Link color="primary.base" href="/" alignSelf="flex-start">
               Back to Sign In
             </Link>
           </Stack>

@@ -67,7 +67,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<SignIn />} />
       <Route path="/check" element={<AdminSignIn />} />
-      <Route path="/forget" element={<ForgotPassword />} />
+      <Route path="/forget-password" element={<ForgotPassword />} />
       <Route path="/verifycode" element={<VerificationCode />} />
       <Route path="/newpass" element={<NewPassword />} />
       <Route path="*" element={<NotFound />} />

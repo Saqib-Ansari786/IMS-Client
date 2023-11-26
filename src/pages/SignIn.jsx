@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -13,12 +13,11 @@ import {
   Stack,
   Text,
   useToast,
-  Link,
 } from "@chakra-ui/react";
 import { LockIcon } from "@chakra-ui/icons";
 import logo from "../assets/logo.png";
 import apiMiddleware from "../components/common/Server/apiMiddleware";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, setUser } from "../store/redux-slices/user_slice";
 
@@ -224,7 +223,11 @@ export default function SignIn() {
                   minLength={8}
                 />
               </FormControl>
-              <Link color="primary.base" alignSelf="flex-start">
+              <Link
+                color="primary.base"
+                alignSelf="flex-start"
+                to={"/forget-password"}
+              >
                 Forgot Password?
               </Link>
               <Button
