@@ -1,12 +1,24 @@
-import React from 'react';
-import { Center, Heading, Text, Button, Link, Box, Image as ChakraImage, Flex } from '@chakra-ui/react'; // Rename the Image component here
-import { Link as RouterLink } from 'react-router-dom';
+import {
+  Center,
+  Heading,
+  Text,
+  Button,
+  Link,
+  Image as ChakraImage,
+  Flex,
+} from "@chakra-ui/react"; // Rename the Image component here
+import { Link as RouterLink } from "react-router-dom";
 import errorImage from "../../src/assets/logo.png"; // Import your error image
 
 const NotFound = () => {
   return (
     <Center height="100vh">
-      <Flex direction="column" alignItems="center" justifyContent="center" textAlign="center">
+      <Flex
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center"
+      >
         <ChakraImage src={errorImage} alt="Error Image" mb={4} h={60} w={350} />
         <Heading size="xl" mb={4}>
           404 - Page Not Found

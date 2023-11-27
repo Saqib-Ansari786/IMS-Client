@@ -1,14 +1,38 @@
 import { useQuery } from "react-query";
 import apiMiddleware from "./apiMiddleware";
+import { useToast } from "@chakra-ui/react";
 
-// add book
-export const addBook = (book) => {
-  return apiMiddleware("admin/add-book", {
-    method: "POST",
-    body: JSON.stringify(book),
-    headers: { "Content-Type": "application/json" },
-  });
-};
+// get all books
+
+export async function usePostBook(book) {
+  const toast = useToast();
+  try {
+    const response = await apiMiddleware("admin/add-book", {
+      method: "POST",
+      body: JSON.stringify(book),
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("response from server", response);
+
+    if (response.success) {
+      toast({
+        title: "Book Added",
+        description: "Book has been added successfully",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  } catch (error) {
+    toast({
+      title: "Error",
+      description: "Something went wrong",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
+}
 
 // get all books
 
@@ -21,16 +45,60 @@ export const GetAllBooks = () => {
 
 // edit book
 
-export const editBook = (book) => {
-  return apiMiddleware("admin/edit-book", {
-    method: "POST",
-    body: JSON.stringify(book),
-    headers: { "Content-Type": "application/json" },
-  });
-};
+export async function useEditBook(id, book) {
+  const toast = useToast();
+  try {
+    const response = await apiMiddleware(`admin/edit-book/${id}`, {
+      method: "POST",
+      body: JSON.stringify(book),
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("response from server", response);
+
+    if (response.success) {
+      toast({
+        title: "Book Edited",
+        description: "Book has been edited successfully",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  } catch (error) {
+    toast({
+      title: "Error",
+      description: "Something went wrong",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
+}
 
 // delete book
 
-export const deleteBook = (bookId) => {
-  return apiMiddleware(`admin/delete-book/${bookId}`);
-};
+export async function useDeleteBook(id) {
+  const toast = useToast();
+  try {
+    const response = await apiMiddleware(`admin/delete-book/${id}`);
+    console.log("response from server", response);
+
+    if (response.success) {
+      toast({
+        title: "Book Deleted",
+        description: "Book has been deleted successfully",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  } catch (error) {
+    toast({
+      title: "Error",
+      description: "Something went wrong",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
+}
