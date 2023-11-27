@@ -223,13 +223,14 @@ export default function SignIn() {
                   minLength={8}
                 />
               </FormControl>
-              <Link
+              <Button
                 color="primary.base"
                 alignSelf="flex-start"
                 to={"/forget-password"}
+                as={Link}
               >
                 Forgot Password?
-              </Link>
+              </Button>
               <Button
                 type="submit"
                 bg={"primary.base"}

@@ -10,13 +10,12 @@ import {
   Stack,
   FormControl,
   FormLabel,
-  Link,
   useToast,
 } from "@chakra-ui/react";
 import image from "../assets/authimage.jpg";
 import { useState } from "react";
 import apiMiddleware from "../components/common/Server/apiMiddleware";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const VerificationCode = () => {
   const formWidth = useBreakpointValue({ base: "90%", md: "40%", lg: "30%" });
@@ -137,13 +136,14 @@ const VerificationCode = () => {
                   bg: "primary.hover",
                   color: "white.base",
                 }}
+                w="100%"
               >
                 {"Verify"}
               </Button>
             </form>
-            <Link color="blue.400" href="/" alignSelf="flex-end">
+            <Button color="blue.400" to="/" alignSelf="flex-end" as={Link}>
               Back to Sign In
-            </Link>
+            </Button>
           </Stack>
         </Box>
       </Flex>

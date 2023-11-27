@@ -10,18 +10,19 @@ import {
   Stack,
   FormControl,
   FormLabel,
-  Link,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import image from "../assets/authimage.jpg";
 import { useState } from "react";
 import apiMiddleware from "../components/common/Server/apiMiddleware";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const toast = useToast();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const formWidth = useBreakpointValue({ base: "90%", md: "40%", lg: "30%" });
   const handleEmailChange = (e) => {
@@ -34,7 +35,8 @@ const ForgotPassword = () => {
     console.log("Email submitted:", email);
     // Add your logic for password reset here
     try {
-      const response = await apiMiddleware("auth/forgot-password", {
+      setLoading(true);
+      const response = await apiMiddleware("auth/sendmail", {
         method: "POST",
         body: JSON.stringify({ email }),
         headers: { "Content-Type": "application/json" },
@@ -44,13 +46,13 @@ const ForgotPassword = () => {
         // If the password reset request is successful, show a toast notification
         toast({
           title: "Password Reset",
-          description: "Password reset request has been sent successfully",
+          description:
+            "Password reset request has been sent successfully to your email",
           status: "success",
           duration: 3000,
           isClosable: true,
         });
       }
-
       navigate("/verifycode");
     } catch (error) {
       // If the password reset request is unsuccessful, show a toast notification
@@ -62,6 +64,7 @@ const ForgotPassword = () => {
         isClosable: true,
       });
     }
+    setLoading(false);
   };
 
   return (
@@ -132,11 +135,13 @@ const ForgotPassword = () => {
                   bg: "primary.hover",
                   color: "white.base",
                 }}
+                disabled={loading}
+                w="100%"
               >
-                {"Reset Password"}
+                {loading ? <Spinner /> : "Send Email"}
               </Button>
             </form>
-            <Link color="primary.base" href="/" alignSelf="flex-start">
+            <Link color="primary.base" to="/" alignSelf="flex-start">
               Back to Sign In
             </Link>
           </Stack>

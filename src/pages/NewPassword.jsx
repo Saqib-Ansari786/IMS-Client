@@ -10,10 +10,10 @@ import {
   Stack,
   FormControl,
   FormLabel,
-  Link,
 } from "@chakra-ui/react";
 import image from "../assets/authimage.jpg";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const NewPassword = () => {
   const formWidth = useBreakpointValue({ base: "90%", md: "40%", lg: "30%" });
@@ -127,9 +127,15 @@ const NewPassword = () => {
                 {"Set New Password"}
               </Button>
             </form>
-            <Link color="blue.400" href="/" alignSelf="flex-end" mt={4}>
+            <Button
+              color="blue.400"
+              to="/"
+              alignSelf="flex-end"
+              mt={4}
+              as={Link}
+            >
               Back to Sign In
-            </Link>
+            </Button>
           </Stack>
         </Box>
       </Flex>
