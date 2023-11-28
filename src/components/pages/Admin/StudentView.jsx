@@ -17,15 +17,16 @@ import EditStudentModal from "./EditStudentModal";
 import { Navigate } from "react-router";
 import { Link } from "react-router-dom";
 import apiMiddleware from "../../common/Server/apiMiddleware";
+import { deleteStudent } from "../../common/Server/admin/student";
 
 export default function StudentView({ headers, data, entries, search }) {
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
     useState(false);
-  const [deleteStudent, setDeleteStudent] = useState(null);
+  const [deletedStudent, setDeleteStudent] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [loading, setLoading] = useState(false);
   const toast = useToast();
-
   const handleOpenDeleteConfirmation = (student) => {
     setDeleteStudent(student);
     setIsDeleteConfirmationOpen(true);
@@ -37,43 +38,34 @@ export default function StudentView({ headers, data, entries, search }) {
   };
 
   const handleConfirmDeleteStudent = async () => {
-    if (deleteStudent) {
-      console.log("Delete student:", deleteStudent);
-      const requestOptions = {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      };
-      try {
-        const response = await apiMiddleware(
-          `admin/students/students/${deleteStudent}`,
-          requestOptions
-        );
-        if (response.success) {
-          toast({
-            title: "Student Deleted",
-            description: "Student has been deleted successfully",
-            status: "success",
-            duration: 3000,
-            colorScheme: "green",
-            isClosable: true,
-            containerStyle: {color:"white"},
-            position: "top-right"
-          });
-        }
-      } catch (error) {
+    // Implement your logic to delete the student
+
+    try {
+      setLoading(true);
+      const response = await deleteStudent(deletedStudent);
+      console.log("response from server", response);
+
+      if (response.success) {
         toast({
-          title: "Error",
-          description: "Student cannot be deleted",
-          status: "error",
+          title: "Student Deleted",
+          description: "Student has been deleted successfully",
+          status: "success",
           duration: 3000,
           isClosable: true,
-          containerStyle: {color:"white"},
-          position: "top-right"
         });
       }
-
-      handleCloseDeleteConfirmation();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
+    setLoading(false);
+
+    handleCloseDeleteConfirmation();
   };
 
   // Function to open the edit modal

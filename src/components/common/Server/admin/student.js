@@ -1,36 +1,90 @@
 import { useQuery } from "react-query";
-import apiMiddleware from "./apiMiddleware";
+import { useToast } from "@chakra-ui/react";
+import apiMiddleware from "../apiMiddleware";
 
-// add student
-export const addStudent = (student) => {
-  return apiMiddleware("admin/students/register", {
-    method: "POST",
-    body: JSON.stringify(student),
-    headers: { "Content-Type": "application/json" },
-  });
-};
+// get all students
+
+export async function usePostStudent(student) {
+  const toast = useToast();
+  try {
+    const response = await apiMiddleware("admin/add-student", {
+      method: "POST",
+      body: JSON.stringify(student),
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("response from server", response);
+
+    if (response.success) {
+      toast({
+        title: "Student Added",
+        description: "Student has been added successfully",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  } catch (error) {
+    toast({
+      title: "Error",
+      description: "Something went wrong",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
+}
 
 // get all students
 
 export const GetAllStudents = () => {
   const { data, isLoading, error } = useQuery("students", () =>
-    apiMiddleware("admin/students/students")
+    apiMiddleware("admin/get-all-students")
   );
   return { data, isLoading, error };
 };
 
 // edit student
 
-export const editStudent = (id, student) => {
-  return apiMiddleware(`admin/students/edit/${id}`, {
-    method: "POST",
-    body: JSON.stringify(student),
-    headers: { "Content-Type": "application/json" },
-  });
-};
+export async function useEditStudent(id, student) {
+  const toast = useToast();
+  try {
+    const response = await apiMiddleware(`admin/edit-student/${id}`, {
+      method: "POST",
+      body: JSON.stringify(student),
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("response from server", response);
+
+    if (response.success) {
+      toast({
+        title: "Student Edited",
+        description: "Student has been edited successfully",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  } catch (error) {
+    toast({
+      title: "Error",
+      description: "Something went wrong",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
+}
 
 // delete student
 
-export const deleteStudent = (studentId) => {
-  return apiMiddleware(`admin/students/students/${studentId}`);
-};
+export async function deleteStudent(id) {
+  try {
+    const response = await apiMiddleware(`admin/students/students/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
