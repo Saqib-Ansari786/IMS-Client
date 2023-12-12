@@ -53,6 +53,9 @@ import AdminSignIn from "./pages/AdminSignIn";
 import ForgotPassword from "./pages/ForgotPassword";
 import VerificationCode from "./pages/VerificationCode";
 import NewPassword from "./pages/NewPassword";
+import LibraryManagement from "./pages/Admin/LibraryManagement";
+import IssueBookRequest from "./pages/Admin/IssueBookRequest";
+import AddBookCategory from "./components/pages/Admin/AddBookCategory";
 
 const assignmentData = {
   title: "Assignment 1",
@@ -85,6 +88,9 @@ const router = createBrowserRouter(
         <Route path="library/:book_isbn" element={<BookDetail />} />
         <Route path="result" element={<ResultPage />} />
         <Route path="timetable" element={<TimetablePage />} />
+        <Route path="librarymanagement" element={<LibraryManagement />} />
+        <Route path="library/issuerequest" element={<IssueBookRequest />} />
+        <Route path="library/addbookcategory" element={<AddBookCategory />} />
       </Route>
 
       {/* Student */}
