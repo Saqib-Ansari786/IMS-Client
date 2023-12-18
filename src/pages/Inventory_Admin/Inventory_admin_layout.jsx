@@ -44,7 +44,20 @@ export default function InventoryAdminLayout() {
       );
     }
   } else {
-    if (location.pathname === "/inventory_admin") {
+    if (
+      location.pathname === "/inventory_admin" ||
+      location.pathname === "/inventory_admin/" ||
+      location.pathname === "/inventory_admin/products" ||
+      location.pathname === "/inventory_admin/products/" ||
+      location.pathname === "/inventory_admin/create-product" ||
+      location.pathname === "/inventory_admin/create-product/" ||
+      location.pathname === "/inventory_admin/sales" ||
+      location.pathname === "/inventory_admin/sales/" ||
+      location.pathname === "/inventory_admin/create-sale" ||
+      location.pathname === "/inventory_admin/create-sale/" ||
+      location.pathname === "/inventory_admin/sales-report" ||
+      location.pathname === "/inventory_admin/sales-report/"
+    ) {
       return <Navigate to="/iadmin-login" />;
     }
   }
