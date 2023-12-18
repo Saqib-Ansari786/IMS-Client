@@ -17,7 +17,7 @@ import { HamburgerIcon, BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import logo from "../../../assets/logo.png";
 import { Link } from "react-router-dom";
 
-export default function MobileNav({ onOpen, link, ...rest }) {
+export default function MobileNav({ onOpen, user, ...rest }) {
   return (
     <Box
       display="flex"
@@ -84,9 +84,8 @@ export default function MobileNav({ onOpen, link, ...rest }) {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">Rena Tahir</Text>
                   <Text fontSize="xs" color="gray.600">
-                    Admin
+                    {user?.type}
                   </Text>
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>

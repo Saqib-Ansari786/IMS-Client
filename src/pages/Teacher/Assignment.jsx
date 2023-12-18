@@ -140,7 +140,6 @@ const AssignmentPage = () => {
         size="sm"
         mb={4}
         onClick={() => {
-          setNewAssignment({ title: "", description: "" });
           onOpen();
         }}
       >

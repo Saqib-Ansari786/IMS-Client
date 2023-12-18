@@ -12,7 +12,7 @@ export default function ClassesPage() {
   return (
     <Box p={4}>
       <Heading as="h1" size="xl" mb={4}>
-        Classes
+        Courses
       </Heading>
       <SimpleGrid columns={3} spacing={4}>
         {classes.map((cls) => (
@@ -28,7 +28,7 @@ export default function ClassesPage() {
               _hover={{ bgColor: "secondary.base" }}
             >
               <Heading as="h2" size="lg">
-                Class {cls.id}
+                Course {cls.id}
               </Heading>
               <p>Students: {cls.studentsCount}</p>
             </Box>

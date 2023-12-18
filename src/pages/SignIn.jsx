@@ -101,10 +101,6 @@ export default function SignIn() {
         return "Student Login";
       case "teacher":
         return "Teacher Login";
-      case "admin":
-        return "Admin Login";
-      case "iadmin":
-        return "Inventory Admin Login";
       default:
         return null;
     }
@@ -160,20 +156,6 @@ export default function SignIn() {
               onClick={() => setSelectedRole("teacher")}
             >
               Teacher
-            </Button>
-            <Button
-              bg={selectedRole === "admin" ? "primary.base" : "gray.300"}
-              color={selectedRole === "admin" ? "white" : "black"}
-              onClick={() => setSelectedRole("admin")}
-            >
-              Admin
-            </Button>
-            <Button
-              bg={selectedRole === "iadmin" ? "primary.base" : "gray.300"}
-              color={selectedRole === "iadmin" ? "white" : "black"}
-              onClick={() => setSelectedRole("iadmin")}
-            >
-              Inventory Admin
             </Button>
           </Stack>
         </Flex>

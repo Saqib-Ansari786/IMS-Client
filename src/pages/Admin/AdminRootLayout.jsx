@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import SidebarwithHeader from "../../components/common/Sidebar/SidebarwithHeader";
 import Breadcrumbs from "../../components/common/Breadcrumb/Breadcrumb";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import {
   InfoIcon,
   SearchIcon,
@@ -18,7 +18,7 @@ const LinkItems = [
   { name: "Home", icon: InfoIcon, route: "/admin" },
   { name: "Students", icon: SearchIcon, route: "/admin/studentview" },
   { name: "Teachers", icon: StarIcon, route: "/admin/teacherview" },
-  { name: "Library", icon: EditIcon, route: "/admin/library" },
+  { name: "Library", icon: EditIcon, route: "/admin/library-management" },
   { name: "Courses", icon: CalendarIcon, route: "/admin/courses" },
   { name: "Result", icon: CheckIcon, route: "/admin/result" },
   { name: "Time Table", icon: TimeIcon, route: "/admin/timetable" },
@@ -27,9 +27,11 @@ const LinkItems = [
 
 export default function AdminRootLayout() {
   const user = useSelector(selectUser);
+  const location = useLocation();
+
   if (user) {
     if (user.type !== "admin") {
-      return <Navigate to="/" />;
+      return <Navigate to="/admin-login" />;
     } else {
       return (
         <div>
@@ -39,6 +41,10 @@ export default function AdminRootLayout() {
           </SidebarwithHeader>
         </div>
       );
+    }
+  } else {
+    if (location.pathname === "/admin") {
+      return <Navigate to="/admin-login" />;
     }
   }
 }

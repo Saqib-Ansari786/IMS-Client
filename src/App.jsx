@@ -69,7 +69,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<SignIn />} />
-      <Route path="/check" element={<AdminSignIn />} />
+      <Route path="/admin-login" element={<AdminSignIn />} />
       <Route path="/forget-password" element={<ForgotPassword />} />
       <Route path="/verifycode" element={<VerificationCode />} />
       <Route path="/newpass" element={<NewPassword />} />
@@ -88,7 +88,7 @@ const router = createBrowserRouter(
         <Route path="library/:book_isbn" element={<BookDetail />} />
         <Route path="result" element={<ResultPage />} />
         <Route path="timetable" element={<TimetablePage />} />
-        <Route path="librarymanagement" element={<LibraryManagement />} />
+        <Route path="library-management" element={<LibraryManagement />} />
         <Route path="library/issuerequest" element={<IssueBookRequest />} />
         <Route path="library/addbookcategory" element={<AddBookCategory />} />
       </Route>
@@ -96,6 +96,7 @@ const router = createBrowserRouter(
       {/* Student */}
       <Route path="student/" element={<StudentRootLayout />}>
         <Route index element={<Home />} />
+        <Route path="profile" element={<Profile />} />
         <Route path="assignments" element={<Assignment />} />
         <Route path="attendance" element={<AttendanceDetail />} />
         <Route path="marks" element={<MarksSummary />} />
@@ -107,6 +108,7 @@ const router = createBrowserRouter(
       {/* Teacher */}
       <Route path="teacher/" element={<TeacherRootLayout />}>
         <Route index element={<TeacherDashboard />} />
+        <Route path="profile" element={<Profile />} />
         <Route path="manage-attendance" element={<ManageAttendancePage />} />
         <Route
           path="add-attendance/:courseId"
@@ -135,6 +137,7 @@ const router = createBrowserRouter(
 
       <Route path="inventory_admin/" element={<InventoryAdminLayout />}>
         <Route index element={<InventoryDashboard />} />
+        <Route path="profile" element={<Profile />} />
         <Route path="products" element={<ProductPage />} />
         <Route path="create-product" element={<CreateProductPage />} />
         <Route path="sales" element={<SalesPage />} />

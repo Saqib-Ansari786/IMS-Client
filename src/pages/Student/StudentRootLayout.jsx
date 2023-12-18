@@ -9,7 +9,7 @@ import {
   ChatIcon,
 } from "@chakra-ui/icons";
 import Breadcrumbs from "../../components/common/Breadcrumb/Breadcrumb";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/redux-slices/user_slice";
 
@@ -24,6 +24,7 @@ const LinkItems = [
 
 export default function StudentRootLayout() {
   const user = useSelector(selectUser);
+  const location = useLocation();
   if (user) {
     if (user.type !== "student") {
       return <Navigate to="/" />;
@@ -37,5 +38,8 @@ export default function StudentRootLayout() {
         </div>
       );
     }
+  }
+  if (location.pathname === "/student") {
+    return <Navigate to="/" />;
   }
 }
