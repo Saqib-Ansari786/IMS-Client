@@ -2,7 +2,7 @@ import { Outlet } from "react-router";
 import SidebarwithHeader from "../../components/common/Sidebar/SidebarwithHeader";
 import { InfoIcon, SearchIcon, SettingsIcon, StarIcon } from "@chakra-ui/icons";
 import Breadcrumbs from "../../components/common/Breadcrumb/Breadcrumb";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/redux-slices/user_slice";
 
@@ -28,6 +28,7 @@ const LinkItems = [
 ];
 
 export default function InventoryAdminLayout() {
+  const location = useLocation();
   const user = useSelector(selectUser);
   if (user) {
     if (user.type !== "iadmin") {
@@ -41,6 +42,10 @@ export default function InventoryAdminLayout() {
           </SidebarwithHeader>
         </div>
       );
+    }
+  } else {
+    if (location.pathname === "/inventory_admin") {
+      return <Navigate to="/iadmin-login" />;
     }
   }
 }

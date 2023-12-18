@@ -22,7 +22,6 @@ const LinkItems = [
   { name: "Courses", icon: CalendarIcon, route: "/admin/courses" },
   { name: "Result", icon: CheckIcon, route: "/admin/result" },
   { name: "Time Table", icon: TimeIcon, route: "/admin/timetable" },
-  { name: "Calendar", icon: CalendarIcon, route: "/admin/calendar" },
 ];
 
 export default function AdminRootLayout() {

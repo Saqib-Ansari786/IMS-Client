@@ -21,7 +21,7 @@ import apiMiddleware from "../components/common/Server/apiMiddleware";
 import { setUser } from "../store/redux-slices/user_slice";
 import { useNavigate } from "react-router-dom";
 
-const AdminSignIn = () => {
+const IadminSignIn = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ const AdminSignIn = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    type: "admin",
+    type: "iadmin",
   });
 
   const handleChange = (e) => {
@@ -60,8 +60,8 @@ const AdminSignIn = () => {
           duration: 3000,
           isClosable: true,
         });
-        dispatch(setUser({ ...response.data.user, type: "admin" }));
-        navigate("/admin");
+        dispatch(setUser({ ...response.data.user, type: "iadmin" }));
+        navigate("/inventory_admin");
       }
     } catch (error) {
       console.log("Error:", error);
@@ -77,7 +77,7 @@ const AdminSignIn = () => {
       setFormData({
         email: "",
         password: "",
-        type: "admin",
+        type: "iadmin",
       });
     }
   };
@@ -121,7 +121,7 @@ const AdminSignIn = () => {
             textAlign="center"
             mb={"3"}
           >
-            Admin Login
+            Inventory Admin Login
           </Text>
           <form onSubmit={handleSubmit}>
             <Stack spacing={4}>
@@ -178,4 +178,4 @@ const AdminSignIn = () => {
   );
 };
 
-export default AdminSignIn;
+export default IadminSignIn;

@@ -56,6 +56,7 @@ import NewPassword from "./pages/NewPassword";
 import LibraryManagement from "./pages/Admin/LibraryManagement";
 import IssueBookRequest from "./pages/Admin/IssueBookRequest";
 import AddBookCategory from "./components/pages/Admin/AddBookCategory";
+import IadminSignIn from "./pages/IadminSignIn";
 
 const assignmentData = {
   title: "Assignment 1",
@@ -70,6 +71,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<SignIn />} />
       <Route path="/admin-login" element={<AdminSignIn />} />
+      <Route path="/iadmin-login" element={<IadminSignIn />} />
       <Route path="/forget-password" element={<ForgotPassword />} />
       <Route path="/verifycode" element={<VerificationCode />} />
       <Route path="/newpass" element={<NewPassword />} />
