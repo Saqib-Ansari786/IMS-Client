@@ -4,9 +4,9 @@ import { Box, Heading, SimpleGrid } from '@chakra-ui/react';
 
 const cardData = [
   { icon: <FaReact />, name: "All Books", link: "/admin/library" }, 
-  { icon: <FaReact />, name: "Add Book"},
+  { icon: <FaReact />, name: "Add Book", link: "/admin/library/addbook"},
   { icon: <FaReact />, name: "Issue Requests", link: "/admin/library/issuerequest" },
-  { icon: <FaReact />, name: "All issued Books" },
+  { icon: <FaReact />, name: "All issued Books", link: "/admin/library/allissuedbooks" },
   { icon: <FaReact />, name: "Add Book Category", link: "/admin/library/addbookcategory" },
 ];
 

@@ -55,8 +55,11 @@ import VerificationCode from "./pages/VerificationCode";
 import NewPassword from "./pages/NewPassword";
 import LibraryManagement from "./pages/Admin/LibraryManagement";
 import IssueBookRequest from "./pages/Admin/IssueBookRequest";
-import AddBookCategory from "./components/pages/Admin/AddBookCategory";
 import IadminSignIn from "./pages/IadminSignIn";
+import AddBook from "./components/pages/Admin/AddBook";
+import AddBookPage from "./pages/Admin/AddBookPage";
+import AllIssuedBooksPage from "./pages/Admin/AllIssuedBooksPage";
+import AddBookCategoryPage from "./pages/Admin/AddBookCategoryPage";
 
 const assignmentData = {
   title: "Assignment 1",
@@ -92,7 +95,9 @@ const router = createBrowserRouter(
         <Route path="timetable" element={<TimetablePage />} />
         <Route path="library-management" element={<LibraryManagement />} />
         <Route path="library/issuerequest" element={<IssueBookRequest />} />
-        <Route path="library/addbookcategory" element={<AddBookCategory />} />
+        <Route path="library/addbookcategory" element={<AddBookCategoryPage />} />
+        <Route path="library/addbook" element={<AddBookPage />} />
+        <Route path="library/allissuedbooks" element={<AllIssuedBooksPage />} />
       </Route>
 
       {/* Student */}

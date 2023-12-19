@@ -88,7 +88,7 @@ const AddBook = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <Box className="row">
+    <Box bgColor={"white"} borderRadius={"md"} className="row">
       <Box className="col-sm-12">
         <Box className="card">
           <Box className="card-body">

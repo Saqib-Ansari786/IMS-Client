@@ -11,10 +11,10 @@ import {
   Icon,
   TableContainer,
 } from "@chakra-ui/react";
-import { CheckCircleIcon, CloseIcon, ViewIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import {  CloseIcon } from "@chakra-ui/icons";
 
-export default function IssueRequest({ headers, data, entries, search }) {
+
+export default function AllIssuedBooks({ headers, data, entries, search }) {
 
   return (
     <TableContainer
@@ -65,17 +65,13 @@ export default function IssueRequest({ headers, data, entries, search }) {
                     {row.role}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    <IconButton
-                      size="sm"
-                      colorScheme="green"
-                      title="Accepted"
-                      icon={<Icon as={CheckCircleIcon} />}
-                      ml={2}
-                    />
+                    {row.issueDate}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
                     <IconButton
                       size="sm"
                       colorScheme="red"
-                      title="Rejected"
+                      title="Clear"
                       icon={<Icon as={CloseIcon} />}
                       ml={2}
                     />
