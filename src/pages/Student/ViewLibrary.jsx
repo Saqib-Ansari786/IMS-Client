@@ -4,7 +4,7 @@ import ViewLibraryTable from "../../components/pages/Student/ViewLibraryTable";
 
 
 const jsonData = {
-  headers: ["TITLE", "AUTHER NAME", "PUBLISHER NAME", "ISBN", "CATEGORY", "AVAILABILITY"],
+  headers: ["TITLE", "AUTHER NAME", "PUBLISHER NAME", "ISBN", "CATEGORY", "AVAILABILITY", "ISSUE REQUEST"],
   data: [
     {
       title: "Learn C++",
