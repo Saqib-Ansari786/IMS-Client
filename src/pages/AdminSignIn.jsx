@@ -57,6 +57,9 @@ const AdminSignIn = () => {
         toast({
           title: "Logged in successfully",
           status: "success",
+          position: "top-right",
+          colorScheme: "green",
+          containerStyle: { color: "white" },
           duration: 3000,
           isClosable: true,
         });
@@ -70,6 +73,8 @@ const AdminSignIn = () => {
         description: error.message,
         status: "error",
         duration: 3000,
+        position: "top-right",
+        containerStyle: { color: "white" },
         isClosable: true,
       });
     } finally {

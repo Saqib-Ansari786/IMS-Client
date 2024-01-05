@@ -60,6 +60,8 @@ import AddBook from "./components/pages/Admin/AddBook";
 import AddBookPage from "./pages/Admin/AddBookPage";
 import AllIssuedBooksPage from "./pages/Admin/AllIssuedBooksPage";
 import AddBookCategoryPage from "./pages/Admin/AddBookCategoryPage";
+import GenerateCertificate from "./pages/Student/GenerateCertifcate";
+import StudentCertificate from "./components/pages/Student/StudentCertificate";
 
 const assignmentData = {
   title: "Assignment 1",
@@ -109,6 +111,7 @@ const router = createBrowserRouter(
         <Route path="marks" element={<MarksSummary />} />
         <Route path="resources" element={<CourseResources />} />
         <Route path="viewlibrary" element={<ViewLibrary />} />
+        <Route path="certificate" element={<GenerateCertificate />} />
         <Route path="check" element={<AssignmentCard {...assignmentData} />} />
       </Route>
 

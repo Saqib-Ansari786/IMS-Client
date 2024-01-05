@@ -58,6 +58,9 @@ const IadminSignIn = () => {
           title: "Logged in successfully",
           status: "success",
           duration: 3000,
+          colorScheme: "green",
+          position: "top-right",
+          containerStyle: { color: "white" },
           isClosable: true,
         });
         dispatch(setUser({ ...response.data.user, type: "iadmin" }));
@@ -70,6 +73,8 @@ const IadminSignIn = () => {
         description: error.message,
         status: "error",
         duration: 3000,
+        position: "top-right",
+        containerStyle: { color: "white" },
         isClosable: true,
       });
     } finally {

@@ -59,6 +59,8 @@ const ForgotPassword = () => {
       toast({
         title: "Error",
         description: "Something went wrong",
+        position: "top-right",
+        containerStyle: { color: "white" },
         status: "error",
         duration: 3000,
         isClosable: true,
