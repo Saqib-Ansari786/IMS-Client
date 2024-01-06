@@ -5,6 +5,14 @@ import BoxwithCircularProgressBar from "../../components/pages/Teacher/CircularP
 import ActivityBox from "../../components/pages/Teacher/ActivityBox";
 import MessageBox from "../../components/pages/Teacher/MessageBox";
 import DocumentBox from "../../components/pages/Teacher/DocumentBox";
+import { selectUser } from "../../store/redux-slices/user_slice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
+import {
+  selectTeacher,
+  setTeacher,
+} from "../../store/redux-slices/teacher_slice";
 
 const Layout = ({ children, heading }) => {
   return (
@@ -18,6 +26,23 @@ const Layout = ({ children, heading }) => {
 };
 
 const TeacherDashboard = () => {
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const teacher = useSelector(selectTeacher);
+
+  if (teacher) {
+    console.log("Teacher", teacher);
+  }
+
+  useEffect(() => {
+    const getTeacher = async () => {
+      const teacher = await apiMiddleware(`/auth/getteacher/${user.id}`);
+      console.log("Teacher", teacher);
+      dispatch(setTeacher(teacher.user));
+    };
+
+    getTeacher();
+  }, []);
   return (
     <Box>
       <Grid

@@ -20,7 +20,7 @@ const apiMiddleware = async (path, options = {}) => {
       return data;
     }
 
-    return data.data;
+    return data?.data || data;
   } catch (error) {
     throw new Error(`Error fetching data: ${error.message}`);
   }

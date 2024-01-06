@@ -1,8 +1,22 @@
 import { Box, Grid, GridItem, Heading } from "@chakra-ui/react";
 import ProfileColumn from "../../components/pages/Profile/ProfileColumn";
 import AnnouncementCard from "../../components/pages/Dashboard/AnnouncementCard";
+import { selectUser } from "../../store/redux-slices/user_slice";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { selectTeacher } from "../../store/redux-slices/teacher_slice";
 
 const Profile = () => {
+  const user = useSelector(selectUser);
+  const teacher = useSelector(selectTeacher);
+  // const student = useSelector(selectTeacher);
+  // const admin = useSelector(selectTeacher);
+  // const iadmin = useSelector(selectTeacher);
+
+  // const userdata = user.type === "student" ? student : user.type === "teacher" ? teacher : user.type === "admin" ? admin : iadmin;
+
+  console.log("Teacher", teacher);
+
   const announcements = [
     { id: 1, title: "Announcement 1", content: "Content 1" },
     { id: 2, title: "Announcement 2", content: "Content 2" },

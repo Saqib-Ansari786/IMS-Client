@@ -1,7 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import user_slice from "./redux-slices/user_slice";
 import { persistReducer, persistStore } from "redux-persist";
+import teacher_slice from "./redux-slices/teacher_slice";
+import user_slice from "./redux-slices/user_slice";
 
 const persistConfig = {
   key: "root",
@@ -9,12 +10,15 @@ const persistConfig = {
   whitelist: ["user"],
 };
 
-const persistedReducer = persistReducer(persistConfig, user_slice);
+const rootReducer = combineReducers({
+  user: user_slice,
+  teacher: teacher_slice,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-  reducer: {
-    user: persistedReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,

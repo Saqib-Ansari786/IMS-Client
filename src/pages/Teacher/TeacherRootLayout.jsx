@@ -5,6 +5,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { ChatIcon, SettingsIcon, StarIcon, ViewIcon } from "@chakra-ui/icons";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/redux-slices/user_slice";
+import { selectTeacher } from "../../store/redux-slices/teacher_slice";
 
 const LinkItems = [
   { name: "Home", icon: ViewIcon, route: "/teacher" },
@@ -21,6 +22,7 @@ const LinkItems = [
 
 export default function TeacherRootLayout() {
   const user = useSelector(selectUser);
+  const teacher = useSelector(selectTeacher);
   const location = useLocation();
 
   if (user) {
@@ -29,7 +31,7 @@ export default function TeacherRootLayout() {
     } else {
       return (
         <div>
-          <SidebarwithHeader linkItems={LinkItems}>
+          <SidebarwithHeader linkItems={LinkItems} user={teacher}>
             <Breadcrumbs />
             <Outlet />
           </SidebarwithHeader>

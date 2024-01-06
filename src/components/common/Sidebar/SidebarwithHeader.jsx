@@ -49,7 +49,7 @@ export default function SidebarwithHeader({
       </Drawer>
       {/* mobilenav */}
       <Box>
-        <MobileNav onOpen={onOpen} link={headerRoutes} />
+        <MobileNav onOpen={onOpen} link={headerRoutes} user={user} />
       </Box>
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
