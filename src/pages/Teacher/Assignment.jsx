@@ -31,6 +31,10 @@ import { FaAd, FaEdit, FaTrash, FaFileAlt, FaUserAlt } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import { AttachmentIcon, TimeIcon } from "@chakra-ui/icons";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
+import { selectUser } from "../../store/redux-slices/user_slice";
+import { useSelector } from "react-redux";
+import { useQuery } from "react-query";
 
 const initialAssignments = [
   {
@@ -96,13 +100,21 @@ const AssignmentComponent = ({ assignment }) => {
 };
 
 const AssignmentPage = () => {
-  const [assignments, setAssignments] = useState(initialAssignments);
+  const user = useSelector(selectUser);
   const [newAssignment, setNewAssignment] = useState({
     title: "",
     description: "",
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedAssignment, setSelectedAssignment] = useState(null);
+
+  const {
+    data: assignments,
+    isLoading,
+    isError,
+  } = useQuery("assignments", () =>
+    apiMiddleware(`assignments/getassignments/${user.id}`)
+  );
 
   const handleAddAssignment = () => {
     setAssignments([...assignments, newAssignment]);
@@ -148,11 +160,15 @@ const AssignmentPage = () => {
 
       {/* Assignment List */}
 
-      <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={4}>
-        {initialAssignments.map((assignment, index) => (
-          <AssignmentComponent key={index} assignment={assignment} />
-        ))}
-      </Grid>
+      {assignments?.length === 0 ? (
+        <Text>No assignments found</Text>
+      ) : (
+        <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={4}>
+          {assignments?.map((assignment, index) => (
+            <AssignmentComponent key={index} assignment={assignment} />
+          ))}
+        </Grid>
+      )}
 
       {/* Add/Edit Assignment Modal */}
       <Modal isOpen={isOpen} onClose={onClose}>

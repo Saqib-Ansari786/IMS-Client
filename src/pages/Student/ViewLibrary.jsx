@@ -1,10 +1,19 @@
 import { Stack } from "@chakra-ui/react";
 import StudentDashboardDetail from "../../components/pages/Student/StudentDashboardDetail";
 import ViewLibraryTable from "../../components/pages/Student/ViewLibraryTable";
-
+import { useQuery } from "react-query";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
 
 const jsonData = {
-  headers: ["TITLE", "AUTHER NAME", "PUBLISHER NAME", "ISBN", "CATEGORY", "AVAILABILITY", "ISSUE REQUEST"],
+  headers: [
+    "TITLE",
+    "AUTHER NAME",
+    "PUBLISHER NAME",
+    "ISBN",
+    "CATEGORY",
+    "AVAILABILITY",
+    "ISSUE REQUEST",
+  ],
   data: [
     {
       title: "Learn C++",
@@ -38,17 +47,24 @@ const jsonData = {
       category: "Computer Science",
       availability: "Available",
     },
-    
   ],
 };
 
 export const ViewLibrary = () => {
+  const {
+    data: books,
+    isLoading,
+    isError,
+  } = useQuery("books", () => apiMiddleware("admin/libraries/library-items"));
+
+  console.log(books);
+
   const headers = jsonData.headers;
   const data = jsonData.data;
   return (
     <Stack minW="100%">
       <StudentDashboardDetail text={"View Library"} />
-      <ViewLibraryTable headers={headers} data={data}/>
+      <ViewLibraryTable headers={headers} data={books} />
     </Stack>
   );
 };
