@@ -17,7 +17,6 @@ const LinkItems = [
     icon: SettingsIcon,
     route: "/teacher/manage-courses",
   },
-  { name: "View Library", icon: ChatIcon, route: "/teacher/viewlibrary" },
 ];
 
 export default function TeacherRootLayout() {

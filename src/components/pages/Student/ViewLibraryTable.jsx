@@ -52,8 +52,8 @@ export default function ViewLibraryTable({ headers, data }) {
   };
 
   return (
-    <TableContainer bgColor={"white"}>
-      <Box mb={4} bg="white" p={2} display="flex" alignItems="center">
+    <Box p={3} borderRadius="lg" bgColor={"white"}>
+      <Box mt={2} bg="white" mb={4} display="flex" alignItems="center">
         <Input
           placeholder="Search by title..."
           value={search}
@@ -63,62 +63,72 @@ export default function ViewLibraryTable({ headers, data }) {
           Search
         </Button>
       </Box>
-      <Table variant="simple" backgroundColor={"white"} mt={3} borderRadius={8}>
-        <Thead>
-          <Tr>
-            {headers &&
-              headers.map((header, index) => (
-                <Th key={index} textAlign="center">
-                  {header}
-                </Th>
-              ))}
-          </Tr>
-        </Thead>
-        <Tbody>
-          {data &&
-            data?.map((row, rowIndex) => (
-              <Tr key={row._id}>
-                <Td key={rowIndex} textAlign="center">
-                  {row.title}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.authorName}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.publisherName}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.isbn}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.category}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  <span
-                    style={{
-                      color: row.availability === true ? "green" : "red",
-                    }}
-                  >
-                    {row.availability === true ? "Available" : "Not Available"}
-                  </span>
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.availability === true ? (
-                    <Button
-                      size="sm"
-                      colorScheme="blue"
-                      onClick={() => handleIssueRequest(row)}
+      <TableContainer borderWidth="1px" borderRadius="lg" bgColor={"white"}>
+        <Table
+          variant="striped"
+          colorScheme="blackAlpha"
+          backgroundColor={"white"}
+          mt={3}
+          borderRadius={8}
+        >
+          <Thead>
+            <Tr>
+              {headers &&
+                headers.map((header, index) => (
+                  <Th key={index} textAlign="center">
+                    {header}
+                  </Th>
+                ))}
+            </Tr>
+          </Thead>
+          <Tbody>
+            {data &&
+              data?.map((row, rowIndex) => (
+                <Tr key={row._id}>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.title}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.authorName}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.publisherName}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.isbn}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.category}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    <span
+                      style={{
+                        color: row.availability === true ? "green" : "red",
+                      }}
                     >
-                      Issue Request
-                    </Button>
-                  ) : (
-                    <Badge colorScheme="red">Not Available</Badge>
-                  )}
-                </Td>
-              </Tr>
-            ))}
-        </Tbody>
-      </Table>
-    </TableContainer>
+                      {row.availability === true
+                        ? "Available"
+                        : "Not Available"}
+                    </span>
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.availability === true ? (
+                      <Button
+                        size="sm"
+                        colorScheme="blue"
+                        onClick={() => handleIssueRequest(row)}
+                      >
+                        Issue Request
+                      </Button>
+                    ) : (
+                      <Badge colorScheme="red">Not Available</Badge>
+                    )}
+                  </Td>
+                </Tr>
+              ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }

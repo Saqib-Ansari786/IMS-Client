@@ -141,7 +141,6 @@ const router = createBrowserRouter(
           path="classes/:classId/assessment/:assessmentId"
           element={<MarksSummaryPage />}
         />
-        <Route path="viewlibrary" element={<ViewLibrary />} />
       </Route>
 
       {/* Inventory Admin */}
