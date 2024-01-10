@@ -12,7 +12,7 @@ import {
   Button,
   useToast,
 } from "@chakra-ui/react";
-import { FaCalendar, FaUser, FaUsers } from "react-icons/fa";
+import { FaCalendar, FaList, FaUser, FaUsers } from "react-icons/fa";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import AlertDeleteDialog from "./AlertDeleteDialog";
@@ -148,7 +148,7 @@ export default function CourseCard({
             <Tr>
               <Td>
                 <Stack spacing={1} direction="row" alignItems="center">
-                  <FaUsers color={"green"} />
+                  <FaList color={"green"} />
                   <Text fontWeight="semibold">Category</Text>
                 </Stack>
               </Td>

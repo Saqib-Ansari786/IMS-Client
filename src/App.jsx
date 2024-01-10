@@ -62,6 +62,8 @@ import AllIssuedBooksPage from "./pages/Admin/AllIssuedBooksPage";
 import AddBookCategoryPage from "./pages/Admin/AddBookCategoryPage";
 import GenerateCertificate from "./pages/Student/GenerateCertifcate";
 import StudentCertificate from "./components/pages/Student/StudentCertificate";
+import CourseMaterialCard from "./components/pages/Teacher/CourseMaterialCard";
+import AllCourseMaterialPage from "./pages/Teacher/AllCourseMaterialPage";
 
 const assignmentData = {
   title: "Assignment 1",
@@ -136,11 +138,13 @@ const router = createBrowserRouter(
         />
         <Route path="course-details/:courseId" element={<CourseDetail />} />
         <Route path="classes" element={<ClassesPage />} />
+        
         <Route path="classes/:classId" element={<AssessmentsPage />} />
         <Route
           path="classes/:classId/assessment/:assessmentId"
           element={<MarksSummaryPage />}
         />
+        <Route path="coursematerial" element={<AllCourseMaterialPage/>} />
       </Route>
 
       {/* Inventory Admin */}

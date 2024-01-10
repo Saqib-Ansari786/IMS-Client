@@ -1,4 +1,4 @@
-import { Grid, GridItem,  Container, Spinner } from "@chakra-ui/react";
+import { Grid, GridItem,  Container, Spinner, Box } from "@chakra-ui/react";
 import CourseCard from "../../components/pages/Admin/CourseCard";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import { useQuery } from "react-query";
@@ -16,15 +16,17 @@ export default function CoursePage() {
     isError,
   } = useQuery("courses", () => apiMiddleware("admin/courses/courses"));
   return (
-    <Container maxW="container.xl" mt="4">
+    <Box  mt="4">
       <CoursePageHeader>
       <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
       <Grid
       p={6}
         templateColumns={{
           base: "repeat(1, 1fr)",
+          sm: "repeat(1, 1fr)",
           md: "repeat(2, 1fr)",
           lg: "repeat(3, 1fr)",
+          
         }}
         gap={4}
       >
@@ -53,6 +55,6 @@ export default function CoursePage() {
         )}
       </Grid>
       </CoursePageHeader>
-    </Container>
+    </Box>
   );
 }
