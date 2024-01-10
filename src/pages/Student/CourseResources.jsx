@@ -48,7 +48,6 @@ export default function CourseResources() {
   );
   console.log(student);
   const headers = jsonData.headers;
-  const data = jsonData.data;
   return (
     <Stack minW="100%">
       <StudentDashboardDetail text={"Class Resources"} />

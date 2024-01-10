@@ -15,10 +15,12 @@ import {
 import { selectUser } from "../../../store/redux-slices/user_slice";
 import { useSelector } from "react-redux";
 import apiMiddleware from "../../common/Server/apiMiddleware";
+import { useQueryClient } from "react-query";
 
 export default function ViewLibraryTable({ headers, data }) {
   const [search, setSearch] = useState("");
   const user = useSelector(selectUser);
+  const queryClient = useQueryClient();
 
   console.log(user);
 
@@ -46,6 +48,7 @@ export default function ViewLibraryTable({ headers, data }) {
 
     if (response.success) {
       alert("Issue request sent successfully!");
+      queryClient.invalidateQueries("books");
     } else {
       alert("Error sending issue request!");
     }
