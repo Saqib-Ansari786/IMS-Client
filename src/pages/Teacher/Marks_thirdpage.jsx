@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   Box,
   Button,
+  Flex,
   Heading,
   Table,
   Thead,
@@ -10,6 +11,7 @@ import {
   Th,
   Td,
   Input,
+  TableContainer,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
@@ -18,7 +20,7 @@ export default function MarksSummaryPage() {
 
   // Mock student data
   const students = [
-    { id: 1, name: "Student 1" },
+    { beltNo: 1, name: "Student 1" },
     { id: 2, name: "Student 2" },
     { id: 3, name: "Student 3" },
     // Add more student data here
@@ -44,33 +46,42 @@ export default function MarksSummaryPage() {
   };
 
   return (
-    <Box p={4}>
-      <Heading as="h1" size="xl" mb={4}>
-        Marks Summary for Class {classId} - {assessmentId}
-      </Heading>
-      <Button
-        colorScheme="blue"
-        mb={4}
-        onClick={handleAddEditMarks}
-        disabled={isEditable}
-      >
-        Add/Edit Marks
-      </Button>
-      <Table variant="striped">
-        <Thead>
+    <Box bgColor="white" borderRadius={8} p={4}>
+       <Heading color="#1D238F" as="h1" size="xl" mb={5}>
+          Marks Summary for Class {classId} - {assessmentId}
+        </Heading>
+      <Flex justify="end" align="center" mb={4}>
+       
+        {!isEditable && (
+          <Button colorScheme="blue" onClick={handleAddEditMarks}>
+            Add/Edit Marks
+          </Button>
+        )}
+      </Flex>
+      <TableContainer    mt={3}
+      borderWidth="1px"
+      borderRadius="lg"
+      p={4}
+      
+      backgroundColor="white">
+      <Table colorScheme="blackAlpha" variant={"striped"}>
+        <Thead  textAlign="center">
           <Tr>
-            <Th>Student ID</Th>
-            <Th>Student Name</Th>
-            <Th>Obtained Marks</Th>
+            <Th textAlign={"center"}>Belt No</Th>
+            <Th textAlign={"center"}>Student Name</Th>
+            <Th textAlign={"center"}>Obtained Marks</Th>
           </Tr>
         </Thead>
         <Tbody>
           {marks.map((mark, index) => (
             <Tr key={mark.studentId}>
-              <Td>{mark.studentId}</Td>
-              <Td>{students[index].name}</Td>
-              <Td>
+              <Td textAlign={"center"}>{mark.studentId}</Td>
+              <Td textAlign={"center"}>{students[index].name}</Td>
+              <Td textAlign={"center"}>
                 <Input
+                border={"1px"}
+                borderColor={"grey"}
+                bgColor={"white"}
                   type="number"
                   value={mark.obtainedMarks}
                   isReadOnly={!isEditable}
@@ -85,6 +96,7 @@ export default function MarksSummaryPage() {
           ))}
         </Tbody>
       </Table>
+      </TableContainer>
       {isEditable && (
         <Button colorScheme="blue" mt={4} onClick={handleSaveMarks}>
           Save Marks
