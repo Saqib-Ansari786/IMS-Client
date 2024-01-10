@@ -1,10 +1,20 @@
-import { Stack } from "@chakra-ui/react";
+import { Spinner, Stack, Text } from "@chakra-ui/react";
 import StudentDashboardDetail from "../../components/pages/Student/StudentDashboardDetail";
 import CourseResourcesTable from "../../components/pages/Student/CourseResourcesTable";
-
+import { useSelector } from "react-redux";
+import { selectStudent } from "../../store/redux-slices/student_slice";
+import { useQuery } from "react-query";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
 
 const jsonData = {
-  headers: ["TITLE", "FILE TITLE", "UPLOAD TIME", "FILE SIZE", "FILE TYPE", "DOWNLOAD"],
+  headers: [
+    "TITLE",
+    "FILE TITLE",
+    "UPLOAD TIME",
+    "FILE SIZE",
+    "FILE TYPE",
+    "DOWNLOAD",
+  ],
   data: [
     {
       title: "Course Hand Book",
@@ -21,17 +31,40 @@ const jsonData = {
       fileSize: "3KB",
       fileType: "powerpoint",
       download: null,
-    }
+    },
   ],
 };
 
 export default function CourseResources() {
+  const student = useSelector(selectStudent);
+  const {
+    data: studentCourseMaterials,
+    isLoading,
+    isError,
+  } = useQuery("studentCourseMaterials", () =>
+    apiMiddleware(
+      `courses/course-materials/${student.courseId}/${student.teacherId}`
+    )
+  );
+  console.log(student);
   const headers = jsonData.headers;
   const data = jsonData.data;
   return (
     <Stack minW="100%">
       <StudentDashboardDetail text={"Class Resources"} />
-      <CourseResourcesTable headers={headers} data={data} />
+      {isLoading ? (
+        <Spinner />
+      ) : isError ? (
+        <Text>There was an error fetching the data</Text>
+      ) : studentCourseMaterials.length === 0 ? (
+        <Text>No Resources</Text>
+      ) : (
+        <CourseResourcesTable
+          headers={headers}
+          data={studentCourseMaterials}
+          type="student"
+        />
+      )}
     </Stack>
   );
 }

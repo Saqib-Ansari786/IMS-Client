@@ -8,7 +8,7 @@ import student_slice from "./redux-slices/student_slice";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"],
+  whitelist: ["user", "teacher", "student"],
 };
 
 const rootReducer = combineReducers({

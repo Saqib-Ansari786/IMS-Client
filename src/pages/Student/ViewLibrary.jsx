@@ -56,9 +56,6 @@ export const ViewLibrary = () => {
     isLoading,
     isError,
   } = useQuery("books", () => apiMiddleware("admin/libraries/library-items"));
-
-  console.log(books);
-
   const headers = jsonData.headers;
   const data = jsonData.data;
   return (
