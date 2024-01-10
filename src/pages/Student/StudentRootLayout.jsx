@@ -12,6 +12,7 @@ import Breadcrumbs from "../../components/common/Breadcrumb/Breadcrumb";
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/redux-slices/user_slice";
+import { selectStudent } from "../../store/redux-slices/student_slice";
 
 const LinkItems = [
   { name: "Home", icon: InfoIcon, route: "/student" },
@@ -24,6 +25,7 @@ const LinkItems = [
 
 export default function StudentRootLayout() {
   const user = useSelector(selectUser);
+  const student = useSelector(selectStudent);
   const location = useLocation();
   if (user) {
     if (user.type !== "student") {
@@ -31,7 +33,7 @@ export default function StudentRootLayout() {
     } else {
       return (
         <div>
-          <SidebarwithHeader linkItems={LinkItems} user={"student"}>
+          <SidebarwithHeader linkItems={LinkItems} user={student}>
             <Breadcrumbs />
             <Outlet />
           </SidebarwithHeader>

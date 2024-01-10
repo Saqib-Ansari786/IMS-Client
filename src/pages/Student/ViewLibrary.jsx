@@ -1,4 +1,4 @@
-import { Stack } from "@chakra-ui/react";
+import { Stack, Spinner } from "@chakra-ui/react";
 import StudentDashboardDetail from "../../components/pages/Student/StudentDashboardDetail";
 import ViewLibraryTable from "../../components/pages/Student/ViewLibraryTable";
 import { useQuery } from "react-query";
@@ -64,7 +64,13 @@ export const ViewLibrary = () => {
   return (
     <Stack minW="100%">
       <StudentDashboardDetail text={"View Library"} />
-      <ViewLibraryTable headers={headers} data={books} />
+      {isLoading ? (
+        <Spinner />
+      ) : isError ? (
+        <div>Error</div>
+      ) : (
+        <ViewLibraryTable headers={headers} data={books} />
+      )}
     </Stack>
   );
 };
