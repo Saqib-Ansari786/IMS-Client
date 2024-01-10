@@ -31,7 +31,6 @@ const jsonData = {
 
 export default function Assignment() {
   const student = useSelector(selectStudent);
-  console.log(student);
   const {
     data: studentAssignments,
     isLoading,
@@ -43,7 +42,6 @@ export default function Assignment() {
   );
 
   const headers = jsonData.headers;
-  const data = jsonData.data;
   return (
     <Stack minW="100%">
       <StudentDashboardDetail text={"Class Assignments"} />
