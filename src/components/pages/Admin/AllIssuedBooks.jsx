@@ -11,11 +11,9 @@ import {
   Icon,
   TableContainer,
 } from "@chakra-ui/react";
-import {  CloseIcon } from "@chakra-ui/icons";
-
+import { CloseIcon } from "@chakra-ui/icons";
 
 export default function AllIssuedBooks({ headers, data, entries, search }) {
-
   return (
     <TableContainer
       mt={3}
@@ -50,10 +48,7 @@ export default function AllIssuedBooks({ headers, data, entries, search }) {
               .map((row, rowIndex) => (
                 <Tr key={rowIndex}>
                   <Td key={rowIndex} textAlign="center">
-                    {row.beltno}
-                  </Td>
-                  <Td key={rowIndex} textAlign="center">
-                    {row.name}
+                    {row.isbn}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
                     {row.title}
@@ -62,19 +57,13 @@ export default function AllIssuedBooks({ headers, data, entries, search }) {
                     {row.authorName}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    {row.role}
+                    {row.language}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    {row.issueDate}
+                    {row.department}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    <IconButton
-                      size="sm"
-                      colorScheme="red"
-                      title="Clear"
-                      icon={<Icon as={CloseIcon} />}
-                      ml={2}
-                    />
+                    {row.quantity}
                   </Td>
                 </Tr>
               ))}

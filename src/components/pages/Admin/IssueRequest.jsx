@@ -15,7 +15,6 @@ import { CheckCircleIcon, CloseIcon, ViewIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
 export default function IssueRequest({ headers, data, entries, search }) {
-
   return (
     <TableContainer
       mt={3}
@@ -50,19 +49,16 @@ export default function IssueRequest({ headers, data, entries, search }) {
               .map((row, rowIndex) => (
                 <Tr key={rowIndex}>
                   <Td key={rowIndex} textAlign="center">
-                    {row.beltno}
+                    {row.libraryItemId}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    {row.name}
+                    {row.studentId}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    {row.title}
+                    {row.status}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    {row.authorName}
-                  </Td>
-                  <Td key={rowIndex} textAlign="center">
-                    {row.role}
+                    {row.issueDate}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
                     <IconButton
