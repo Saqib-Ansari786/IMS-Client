@@ -15,9 +15,12 @@ export default function AssessmentsPage() {
 
   return ( 
     <Box bgColor={"whiteAlpha.700"} borderRadius={8} p={6}>
-      <Heading as="h1" color={"#1D238F"} size="xl" mb={4}>
-        Assessments for Class {classId}
+      <Box py={2} bg="#1D238F" rounded="lg" boxShadow="md" mb={7}>
+      <Heading as="h4" fontWeight={"semibold"} color={"white"} 
+       size="xl" >
+       Assessments for Class {classId}
       </Heading>
+      </Box>
       <Grid
         templateColumns={{
           base: "1fr",

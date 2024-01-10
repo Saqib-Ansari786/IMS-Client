@@ -27,6 +27,7 @@ export default function MarksummaryCourseCard({
       borderRadius="xl"
       overflow="hidden"
       boxShadow="xl"
+      transition="all 0.3s ease"
       backgroundColor="white"
       _hover={{ 
         transform: 'scale(1.05)',
@@ -36,7 +37,7 @@ export default function MarksummaryCourseCard({
       key={courseCode}
     >
       <Box p="4">
-        <Heading color={"blue.600"} as="h1" size="xl">
+        <Heading color={"#1D238F"} as="h1" size="xl">
           {courseCode}
         </Heading>
         <Heading as="h4" size="md">

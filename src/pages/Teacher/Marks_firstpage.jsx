@@ -1,15 +1,8 @@
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import TeacherCourseCard from "../../components/pages/Teacher/TeacherCourseCard";
 import MarksummaryCourseCard from "../../components/pages/Teacher/MarksummaryCourseCard";
 
 export default function ClassesPage() {
-  // Mock class data
-  const classes = [
-    { id: "A", studentsCount: 25 },
-    { id: "B", studentsCount: 30 },
-    { id: "C", studentsCount: 20 },
-  ];
   const courses = [
     {
       id: 1,
@@ -49,10 +42,12 @@ export default function ClassesPage() {
 
   return (
     <Box bgColor={"white"} borderRadius={8} p={4}>
-      <Heading as="h1" color={"#1D238F"} 
-       size="xl"  mb={7}>
+      <Box py={2} bg="#1D238F" rounded="lg" boxShadow="md" mb={7}>
+      <Heading as="h4" fontWeight={"semibold"} color={"white"} 
+       size="xl" >
         All Courses
       </Heading>
+      </Box>
       <SimpleGrid columns={3} spacing={4}>
         {courses.map((data) => (
           <Link to={`${data.id}`} key={data.id}>

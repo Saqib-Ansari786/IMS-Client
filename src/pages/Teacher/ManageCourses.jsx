@@ -119,9 +119,12 @@ const courses = [
 const ManageCourses = () => {
   return (
     <Box borderRadius={10} p={4} backgroundColor={"white"} spacing="4" width="100%">
-      <Heading as="h5" size="xl" color={"#120E87"}>
-          All Courses
-        </Heading>
+      <Box py={2} bg="#1D238F" rounded="lg" boxShadow="md" mb={7}>
+      <Heading as="h4" fontWeight={"semibold"} color={"white"} 
+       size="xl" >
+        All Courses
+      </Heading>
+      </Box>
       <SimpleGrid mt={5} columns={{ base: 1, sm: 2, md: 2, lg: 3, }} spacing="4" width="100%">
         {courses.map((course, index) => (
           <TeacherCourseCard key={index} {...course} />

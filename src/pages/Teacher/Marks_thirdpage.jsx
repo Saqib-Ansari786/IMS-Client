@@ -47,9 +47,12 @@ export default function MarksSummaryPage() {
 
   return (
     <Box bgColor="white" borderRadius={8} p={4}>
-       <Heading color="#1D238F" as="h1" size="xl" mb={5}>
-          Marks Summary for Class {classId} - {assessmentId}
-        </Heading>
+      <Box py={2} bg="#1D238F" rounded="lg" boxShadow="md" mb={7}>
+      <Heading as="h4" fontWeight={"semibold"} color={"white"} 
+       size="xl" >
+      Marks Summary for Class {classId} - {assessmentId}
+      </Heading>
+      </Box>
       <Flex justify="end" align="center" mb={4}>
        
         {!isEditable && (
