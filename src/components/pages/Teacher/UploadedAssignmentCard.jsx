@@ -34,10 +34,10 @@ export default function UploadedAssignmentCard({
       boxShadow="xl"
       transition="all 0.3s ease"
       backgroundColor="white"
-      _hover={{ 
-        transform: 'scale(1.05)',
-        boxShadow: 'lg',
-        color: "black"
+      _hover={{
+        transform: "scale(1.05)",
+        boxShadow: "lg",
+        color: "black",
       }}
       key={courseCode}
     >
@@ -50,7 +50,7 @@ export default function UploadedAssignmentCard({
         </Text>
         <Table size="sm" mt="3">
           <Tbody>
-          <Tr>
+            <Tr>
               <Td>
                 <Stack spacing={1} direction="row" alignItems="center">
                   <FaUsers color={"blue"} />
@@ -95,18 +95,16 @@ export default function UploadedAssignmentCard({
               </Td>
               <Td textAlign="right">{endDate}</Td>
             </Tr>
-           
           </Tbody>
         </Table>
         <Stack>
-        <Button
-          as={Link}
-            to={`detail/${id}`}
+          <Button
+            as={Link}
+            to={`${id}`}
             colorScheme="teal"
             _hover={{ backgroundColor: "teal.300", color: "white" }}
             color={"white"}
             leftIcon={<ViewIcon />}
-            
           >
             View Detail
           </Button>
@@ -122,7 +120,6 @@ export default function UploadedAssignmentCard({
           </Button>
         </Stack>
       </Box>
-      
     </Box>
   );
 }

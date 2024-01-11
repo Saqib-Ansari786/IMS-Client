@@ -101,7 +101,10 @@ const router = createBrowserRouter(
         <Route path="timetable" element={<TimetablePage />} />
         <Route path="library-management" element={<LibraryManagement />} />
         <Route path="library/issuerequest" element={<IssueBookRequest />} />
-        <Route path="library/addbookcategory" element={<AddBookCategoryPage />} />
+        <Route
+          path="library/addbookcategory"
+          element={<AddBookCategoryPage />}
+        />
         <Route path="library/addbook" element={<AddBookPage />} />
         <Route path="library/allissuedbooks" element={<AllIssuedBooksPage />} />
       </Route>
@@ -129,23 +132,32 @@ const router = createBrowserRouter(
           element={<AddStudentAttendancePage />}
         />
         <Route path="assignments" element={<TeacherAssignmentPage />} />
-        <Route path="assignments/uploaded/:courseCode" element={<TeacherUploadedAssignmentPage />} />
-        <Route path="assignments/uploaded/:courseCode/detail/:assignmentId" element={<AssignmentDetailsPage />} />
+        <Route
+          path="assignments/:courseId"
+          element={<TeacherUploadedAssignmentPage />}
+        />
+        <Route
+          path="assignments/:courseId/:assignmentId"
+          element={<AssignmentDetailsPage />}
+        />
         <Route path="manage-courses" element={<CourseMaterialPage />} />
-        <Route path="manage-courses/coursematerials" element={<AllCourseMaterialPage />} />
+        <Route
+          path="manage-courses/coursematerials"
+          element={<AllCourseMaterialPage />}
+        />
         <Route
           path="manage-courses/add-new-course"
           element={<AddNewCourse />}
         />
         <Route path="course-details/:courseId" element={<CourseDetail />} />
         <Route path="classes" element={<ClassesPage />} />
-        
+
         <Route path="classes/:classId" element={<AssessmentsPage />} />
         <Route
           path="classes/:classId/assessment/:assessmentId"
           element={<MarksSummaryPage />}
         />
-        <Route path="coursematerial" element={<AllCourseMaterialPage/>} />
+        <Route path="coursematerial" element={<AllCourseMaterialPage />} />
       </Route>
 
       {/* Inventory Admin */}

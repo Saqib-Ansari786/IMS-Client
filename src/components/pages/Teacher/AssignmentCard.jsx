@@ -22,19 +22,26 @@ import {
   InputGroup,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { FaCalendar, FaList, FaSortNumericUp, FaUser, FaUsers } from "react-icons/fa";
+import {
+  FaCalendar,
+  FaList,
+  FaSortNumericUp,
+  FaUser,
+  FaUsers,
+} from "react-icons/fa";
 import { AddIcon, ViewIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
 export default function AssignmentCard({
   courseCode,
+  courseId,
   name,
   description,
   strength,
   duration,
   author,
   category,
-  totaluploadedAssignment
+  totaluploadedAssignment,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -87,12 +94,11 @@ export default function AssignmentCard({
         boxShadow: "lg",
         color: "black",
       }}
-      
       key={courseCode}
     >
       <Box p="4">
         <Heading color={"#1D238F"} as="h1" size="xl">
-          {courseCode}
+          {courseId}
         </Heading>
         <Heading as="h4" size="md">
           {name}
@@ -102,7 +108,7 @@ export default function AssignmentCard({
         </Text>
         <Table size="sm" mt="3">
           <Tbody>
-          <Tr>
+            <Tr>
               <Td>
                 <Stack spacing={1} direction="row" alignItems="center">
                   <FaCalendar color={"blue"} />
@@ -151,17 +157,16 @@ export default function AssignmentCard({
         </Table>
         <Stack>
           <Button
-          as={Link}
-            to={`uploaded/${courseCode}`}
+            as={Link}
+            to={`${courseId}`}
             colorScheme="blue"
             _hover={{ backgroundColor: "blue.300", color: "white" }}
             color={"white"}
             leftIcon={<ViewIcon />}
-            
           >
             View Assignments
           </Button>
-          
+
           <Button
             to={""}
             colorScheme="teal"
