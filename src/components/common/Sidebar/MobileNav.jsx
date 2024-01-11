@@ -85,7 +85,11 @@ export default function MobileNav({ onOpen, user, ...rest }) {
                   ml="2"
                 >
                   <Text fontSize="xs" color="gray.600">
-                    {user?.firstname + " " + user?.lastname}
+                    {user?.type === "admin"
+                      ? "Admin"
+                      : user?.type === "iadmin"
+                      ? "Inventory Admin"
+                      : user?.firstname + " " + user?.lastname}
                   </Text>
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>

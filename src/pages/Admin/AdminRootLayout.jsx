@@ -34,7 +34,7 @@ export default function AdminRootLayout() {
     } else {
       return (
         <div>
-          <SidebarwithHeader linkItems={LinkItems} user={"admin"}>
+          <SidebarwithHeader linkItems={LinkItems} user={user}>
             <Breadcrumbs />
             <Outlet />
           </SidebarwithHeader>

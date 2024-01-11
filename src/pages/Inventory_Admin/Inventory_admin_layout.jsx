@@ -36,7 +36,7 @@ export default function InventoryAdminLayout() {
     } else {
       return (
         <div>
-          <SidebarwithHeader linkItems={LinkItems}>
+          <SidebarwithHeader linkItems={LinkItems} user={user}>
             <Breadcrumbs />
             <Outlet />
           </SidebarwithHeader>

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import LibraryManagementHeader from "../../components/pages/Admin/LibraryManagementHeader";
+import { useState } from "react";
 import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
 import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 import Search from "../../components/pages/Admin/Search";
@@ -24,9 +23,6 @@ export default function IssueBookRequest() {
   } = useQuery("issuedRequests", () =>
     apiMiddleware("admin/libraries/library-items/issue-requests")
   );
-
-  console.log(issuedRequests);
-
   const issueRequests = [
     {
       beltno: "123",

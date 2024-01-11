@@ -1,6 +1,10 @@
 import { Stack } from "@chakra-ui/react";
 import StudentDashboardDetail from "../../components/pages/Student/StudentDashboardDetail";
 import StudentMarksSummaryTable from "../../components/pages/Student/StudentMarksSummaryTable";
+import { useQuery } from "react-query";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
+import { useSelector } from "react-redux";
+import { selectStudent } from "../../store/redux-slices/student_slice";
 const jsonData = {
   headers: [
     "TITLE",
@@ -60,6 +64,22 @@ const jsonData = {
 };
 
 export const MarksSummary = () => {
+  const student = useSelector(selectStudent);
+  console.log(student, "student-----------------------------");
+
+  const {
+    data: studentMarksSummary,
+    error,
+    isLoading,
+  } = useQuery("studentMarksSummary", () =>
+    apiMiddleware(`marks/marks-summary/${student?._id}/${student?.courseId}`)
+  );
+
+  console.log(
+    studentMarksSummary,
+    "studentMarksSummary-----------------------------"
+  );
+
   const headers = jsonData.headers;
   const data = jsonData.data;
   return (
@@ -70,7 +90,21 @@ export const MarksSummary = () => {
         headers={headers}
         data={data.AssignmenttableData}
       />
-      <StudentMarksSummaryTable text={"Finals"} headers={headers} data={data.FinaltableData} />
+      <StudentMarksSummaryTable
+        text={"S1"}
+        headers={headers}
+        data={data.FinaltableData}
+      />
+      <StudentMarksSummaryTable
+        text={"S2"}
+        headers={headers}
+        data={data.FinaltableData}
+      />
+      <StudentMarksSummaryTable
+        text={"Final"}
+        headers={headers}
+        data={data.FinaltableData}
+      />
     </Stack>
   );
 };
