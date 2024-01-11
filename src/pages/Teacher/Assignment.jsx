@@ -160,11 +160,11 @@ const AssignmentPage = () => {
 
       {/* Assignment List */}
 
-      {assignments?.length === 0 ? (
+      {initialAssignments?.length === 1 ? (
         <Text>No assignments found</Text>
       ) : (
         <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={4}>
-          {assignments?.map((assignment, index) => (
+          {initialAssignments?.map((assignment, index) => (
             <AssignmentComponent key={index} assignment={assignment} />
           ))}
         </Grid>

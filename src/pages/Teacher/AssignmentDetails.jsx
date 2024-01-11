@@ -10,6 +10,7 @@ import {
   Tr,
   Link,
   CircularProgress,
+  TableContainer,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
@@ -129,8 +130,8 @@ const AssignmentDetailsPage = () => {
   const progressValue = (totalStudents / 50) * 100;
 
   return (
-    <Box p={4} minW={"100%"}>
-      <Heading size="lg" mb={4} fontWeight="bold">
+    <Box bgColor={"white"} borderRadius={8} p={4} minW={"100%"}>
+      <Heading color={"#1D238F"} size="lg" mb={4} fontWeight="bold">
         {selectedAssignment.title}
       </Heading>
 
@@ -153,22 +154,29 @@ const AssignmentDetailsPage = () => {
       <Text fontWeight="bold" fontSize="lg">
         {totalStudents}/{50}
       </Text>
-
-      <Table variant="striped" bgColor={"white"} mt={4}>
+      <TableContainer
+        mt={3}
+        borderWidth="1px"
+        borderRadius="lg"
+        p={4}
+        backgroundColor="white"
+      >
+      <Table colorScheme="blackAlpha" variant="striped" bgColor={"white"} mt={4}>
         <Thead>
           <Tr>
-            <Th>Student</Th>
-            <Th>Date Submitted</Th>
-            <Th>Documents</Th>
-            <Th>Submission Description</Th>
+            <Th textAlign={"center"}>Student</Th>
+            <Th textAlign={"center"}>Date Submitted</Th>
+            <Th textAlign={"center"}>Upload File</Th>
+            <Th textAlign={"center"}>Description</Th>
+
           </Tr>
         </Thead>
         <Tbody>
           {selectedAssignment.submissions.map((submission, index) => (
             <Tr key={index}>
-              <Td>{submission.studentName}</Td>
-              <Td>{submission.dateSubmitted.toLocaleString()}</Td>
-              <Td>
+              <Td textAlign={"center"}>{submission.studentName}</Td>
+              <Td textAlign={"center"}>{submission.dateSubmitted.toLocaleString()}</Td>
+              <Td textAlign={"center"}>
                 {submission.documents.map((document, docIndex) => (
                   <div key={docIndex}>
                     <Link
@@ -181,11 +189,12 @@ const AssignmentDetailsPage = () => {
                   </div>
                 ))}
               </Td>
-              <Td>{submission.description}</Td>
+              <Td textAlign={"center"}>{submission.description}</Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
+      </TableContainer>
     </Box>
   );
 };

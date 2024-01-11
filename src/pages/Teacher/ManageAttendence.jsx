@@ -112,7 +112,7 @@ const AddAttendancePage = () => {
               w={28}
               onClick={() => handleSort("department")}
             >
-              Department
+              Category
             </Button>
           </HStack>
 
@@ -190,8 +190,8 @@ const AddAttendancePage = () => {
             <Tr>
               <Th>No.</Th>
               <Th>Course ID</Th>
-              <Th>Department Name</Th>
-              <Th>Attendance</Th>
+              <Th>Category</Th>
+              <Th>Strength</Th>
               <Th>Date</Th>
               <Th>Actions</Th>
             </Tr>

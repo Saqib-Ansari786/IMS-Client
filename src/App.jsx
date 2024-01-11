@@ -64,6 +64,8 @@ import GenerateCertificate from "./pages/Student/GenerateCertifcate";
 import StudentCertificate from "./components/pages/Student/StudentCertificate";
 import CourseMaterialCard from "./components/pages/Teacher/CourseMaterialCard";
 import AllCourseMaterialPage from "./pages/Teacher/AllCourseMaterialPage";
+import TeacherAssignmentPage from "./pages/Teacher/TeacherAssignmentPage";
+import TeacherUploadedAssignmentPage from "./pages/Teacher/TeacherUploadedAssignemntPage";
 
 const assignmentData = {
   title: "Assignment 1",
@@ -126,11 +128,9 @@ const router = createBrowserRouter(
           path="add-attendance/:courseId"
           element={<AddStudentAttendancePage />}
         />
-        <Route path="assignments" element={<AssignmentPage />} />
-        <Route
-          path="assignments/details/:assignmentId"
-          element={<AssignmentDetailsPage />}
-        />
+        <Route path="assignments" element={<TeacherAssignmentPage />} />
+        <Route path="assignments/uploaded/:courseCode" element={<TeacherUploadedAssignmentPage />} />
+        <Route path="assignments/uploaded/:courseCode/detail/:assignmentId" element={<AssignmentDetailsPage />} />
         <Route path="manage-courses" element={<CourseMaterialPage />} />
         <Route
           path="manage-courses/add-new-course"
