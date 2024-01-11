@@ -9,12 +9,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-export default function StudentMarksSummaryTable({
-  text,
-  headers,
-  data,
-  boxStyle,
-}) {
+export default function StudentMarksSummaryTable({ text, data, boxStyle }) {
   return (
     <TableContainer mt={3}>
       <Box
@@ -36,12 +31,11 @@ export default function StudentMarksSummaryTable({
       <Table variant="striped" backgroundColor={"white"} borderBottomRadius={8}>
         <Thead>
           <Tr>
-            {headers &&
-              headers.map((header, index) => (
-                <Th key={index} textAlign="center">
-                  {header}
-                </Th>
-              ))}
+            {["No.", "TOTAL MARKS", "OBTAINED MARKS"].map((header, index) => (
+              <Th key={index} textAlign="center">
+                {header}
+              </Th>
+            ))}
           </Tr>
         </Thead>
         <Tbody>
@@ -49,19 +43,13 @@ export default function StudentMarksSummaryTable({
             data.map((row, rowIndex) => (
               <Tr key={rowIndex}>
                 <Td key={rowIndex} textAlign="center">
-                  {row.title}
+                  {rowIndex + 1}
                 </Td>
                 <Td key={rowIndex} textAlign="center">
                   {row.totalMarks}
                 </Td>
                 <Td key={rowIndex} textAlign="center">
                   {row.obtainedMarks}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.dateTime}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.teacherComment}
                 </Td>
               </Tr>
             ))}
