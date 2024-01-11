@@ -45,9 +45,12 @@ const AllCourseMaterialPage = () => {
  
   return (
     <Box borderRadius={8} bgColor={"white"} p={5} spacing="4">
-      <Heading as="h5" size="xl" color={"#120E87"}>
-          All Course Material
-        </Heading>
+       <Box py={2} bg="#1D238F" rounded="lg" boxShadow="md" mb={7}>
+      <Heading as="h4" fontWeight={"semibold"} color={"white"} 
+       size="xl" >
+        All Course Material
+      </Heading>
+      </Box>
       <SimpleGrid mt={5} columns={{ base: 1, sm: 2, md: 2, lg: 3, }} spacing="4" width="100%">
         {courseMaterials.map((data) => (
           <GridItem key={data.id}>

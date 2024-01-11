@@ -132,6 +132,7 @@ const router = createBrowserRouter(
         <Route path="assignments/uploaded/:courseCode" element={<TeacherUploadedAssignmentPage />} />
         <Route path="assignments/uploaded/:courseCode/detail/:assignmentId" element={<AssignmentDetailsPage />} />
         <Route path="manage-courses" element={<CourseMaterialPage />} />
+        <Route path="manage-courses/coursematerials" element={<AllCourseMaterialPage />} />
         <Route
           path="manage-courses/add-new-course"
           element={<AddNewCourse />}

@@ -26,6 +26,7 @@ import {
 } from "@chakra-ui/react";
 import { FaCalendar, FaList, FaUser, FaUsers } from "react-icons/fa";
 import { AddIcon, ViewIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
 
 export default function TeacherCourseCard({
   courseCode,
@@ -130,12 +131,12 @@ export default function TeacherCourseCard({
         </Table>
         <Stack>
           <Button
-            to={""}
+            as={Link}
+            to={"coursematerials"}
             colorScheme="blue"
             _hover={{ backgroundColor: "blue.300", color: "white" }}
             color={"white"}
             leftIcon={<ViewIcon />}
-            onClick={() => alert("HEllo")}
           >
             View All Course Material
           </Button>
