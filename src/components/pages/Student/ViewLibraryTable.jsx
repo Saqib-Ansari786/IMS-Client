@@ -11,6 +11,8 @@ import {
   Button,
   Box,
   Badge,
+  useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import { selectUser } from "../../../store/redux-slices/user_slice";
 import { useSelector } from "react-redux";
@@ -21,6 +23,8 @@ export default function ViewLibraryTable({ headers, data }) {
   const [search, setSearch] = useState("");
   const user = useSelector(selectUser);
   const queryClient = useQueryClient();
+  const toast = useToast();
+  const [loading, setLoading] = useState(false);
 
   console.log(user);
 
@@ -39,19 +43,49 @@ export default function ViewLibraryTable({ headers, data }) {
       body: JSON.stringify(issueRequest),
     };
 
-    const response = await apiMiddleware(
-      "library/library-items/issue-request",
-      requestOptions
-    );
+    // const response = await apiMiddleware(
+    //   "library/library-items/issue-request",
+    //   requestOptions
+    // );
 
-    console.log(response);
+    // console.log(response);
 
-    if (response.success) {
-      alert("Issue request sent successfully!");
-      queryClient.invalidateQueries("books");
-    } else {
-      alert("Error sending issue request!");
+    // if (response.success) {
+    //   alert("Issue request sent successfully!");
+    //   queryClient.invalidateQueries("books");
+    // } else {
+    //   alert("Error sending issue request!");
+    // }
+
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `${import.meta.env.VITE_BASE_URL}library/library-items/issue-request`,
+        requestOptions
+      );
+
+      const data = await res.json();
+
+      if (data?.success) {
+        toast({
+          title: "Issue request sent successfully!",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        queryClient.invalidateQueries("books");
+      } else if (data?.error === "Library item already requested") {
+        toast({
+          title: "Book already issued",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
+    setLoading(false);
   };
 
   return (
@@ -62,7 +96,12 @@ export default function ViewLibraryTable({ headers, data }) {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <Button ml={2} colorScheme="blue">
+        <Button
+          ml={2}
+          backgroundColor={"primary.base"}
+          color={"white"}
+          _hover={{ bg: "primary.hover", color: "white" }}
+        >
           Search
         </Button>
       </Box>
@@ -118,10 +157,12 @@ export default function ViewLibraryTable({ headers, data }) {
                     {row.availability === true ? (
                       <Button
                         size="sm"
-                        colorScheme="blue"
+                        backgroundColor={"primary.base"}
+                        color={"white"}
+                        _hover={{ bg: "primary.hover", color: "white" }}
                         onClick={() => handleIssueRequest(row)}
                       >
-                        Issue Request
+                        {loading ? <Spinner size={"sm"} /> : "Issue Request"}
                       </Button>
                     ) : (
                       <Badge colorScheme="red">Not Available</Badge>
