@@ -11,23 +11,79 @@ import {
   IconButton,
   Input,
   Button,
+  Spinner,
 } from "@chakra-ui/react";
 import { DownloadIcon, AttachmentIcon, CheckIcon } from "@chakra-ui/icons";
+import {
+  createCloudinaryFormdata,
+  uploadToCloudinary,
+} from "../../../utils/cloudinarySetup";
+import apiMiddleware from "../../common/Server/apiMiddleware";
 
-export default function StudentAssignmentTable({ header, data }) {
-  const [uploadedFileName, setUploadedFileName] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isUploadHovered, setIsUploadHovered] = useState(false);
+export default function StudentAssignmentTable({ header, data, studentId }) {
+  const [assignmentState, setAssignmentState] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  const handleFileUpload = (event) => {
+  const handleFileUpload = (event, assignmentId) => {
     const file = event.target.files[0];
     if (file) {
-      setUploadedFileName(file.name);
+      setAssignmentState((prev) => ({
+        ...prev,
+        [assignmentId]: {
+          ...prev[assignmentId],
+          file,
+          uploadedFile: file.name,
+        },
+      }));
     }
   };
 
-  const handleSubmission = () => {
-    setIsSubmitted(true);
+  console.log("assignmentState:", assignmentState);
+
+  const handleSubmission = async (assignmentId) => {
+    // Make the API call
+    const uploadedFile = assignmentState[assignmentId]?.file;
+
+    if (uploadedFile) {
+      console.log("uploadedFile:", uploadedFile);
+      // Assuming you have the assignment data for the current row, let's call it 'currentAssignment'
+      const currentAssignment = data?.find(
+        (assignment) => assignment._id === assignmentId
+      );
+
+      console.log("currentAssignment:", currentAssignment);
+
+      const cloudinaryFormData = createCloudinaryFormdata(
+        uploadedFile,
+        "ims-client-student",
+        "ims_student_images"
+      );
+
+      setLoading(true);
+      const cloudinaryResponse = await uploadToCloudinary(cloudinaryFormData);
+      console.log("Cloudinary Response:", cloudinaryResponse);
+
+      const payload = {
+        studentId,
+        assignmentId: currentAssignment._id,
+        doc: cloudinaryResponse.secure_url,
+      };
+
+      const options = {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const response = await apiMiddleware(
+        "assignments/add-submission",
+        options
+      );
+      console.log("Response:", response);
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,7 +91,7 @@ export default function StudentAssignmentTable({ header, data }) {
       <Table variant="simple" backgroundColor="white" mt={5} borderRadius={8}>
         <Thead>
           <Tr>
-            {header.map((header, index) => (
+            {header?.map((header, index) => (
               <Th key={index} textAlign="center">
                 {header}
               </Th>
@@ -43,65 +99,76 @@ export default function StudentAssignmentTable({ header, data }) {
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((row, rowIndex) => (
-            <Tr key={rowIndex}>
-              <Td key={rowIndex} textAlign="center">
-                {row.title}
+          {data?.map((row) => (
+            <Tr key={row._id}>
+              <Td key={row._id} textAlign="center">
+                <Box>{row.title}</Box>
               </Td>
-              <Td key={rowIndex} textAlign="center">
-                <Box color="#17AD37">{row.startDate}</Box>
+              <Td key={row._id} textAlign="center">
+                <Box>{row.startDate}</Box>
               </Td>
-              <Td key={rowIndex} textAlign="center">
-                <Box color="#FE1212">{row.endDate}</Box>
+              <Td key={row._id} textAlign="center">
+                <Box>{row.endDate}</Box>
               </Td>
-              <Td key={rowIndex} textAlign="center">
+              <Td key={row._id} textAlign="center">
                 <Box>
-                  <a href={`file_url/${row.downloadLink}`} download>
+                  <a href={row.downloadLink} download>
                     <IconButton
-                      backgroundColor="white"
-                      color="downloadIcon.base"
+                      aria-label="Download"
                       icon={<DownloadIcon />}
+                      size="sm"
                     />
-                    {row.downloadLink}
                   </a>
                 </Box>
               </Td>
-              <Td key={rowIndex} textAlign="center">
+              <Td key={row._id} textAlign="center">
                 <Box
-                  color={isUploadHovered ? "green" : "#FE1212"}
-                  onMouseEnter={() => setIsUploadHovered(true)}
-                  onMouseLeave={() => setIsUploadHovered(false)}
+                  color={
+                    assignmentState[row._id]?.uploadedFile ? "green" : "#FE1212"
+                  }
+                  onMouseEnter={() =>
+                    setAssignmentState((prev) => ({
+                      ...prev,
+                      [row._id]: { ...prev[row._id], isUploadHovered: true },
+                    }))
+                  }
+                  onMouseLeave={() =>
+                    setAssignmentState((prev) => ({
+                      ...prev,
+                      [row._id]: { ...prev[row._id], isUploadHovered: false },
+                    }))
+                  }
                 >
-                  {uploadedFileName ? (
+                  {assignmentState[row._id]?.uploadedFile ? (
                     <div>
                       <CheckIcon />
-                      {uploadedFileName}
+                      {assignmentState[row._id].uploadedFile}
                     </div>
                   ) : (
-                    <label htmlFor="upload-input">
+                    <label htmlFor={`upload-input-${row._id}`}>
                       <AttachmentIcon cursor="pointer" />
                       Upload
                     </label>
                   )}
                   <Input
-                    id="upload-input"
+                    id={`upload-input-${row._id}`}
                     type="file"
                     display="none"
-                    onChange={handleFileUpload}
+                    onChange={(event) => handleFileUpload(event, row._id)}
                   />
                 </Box>
               </Td>
-              <Td key={rowIndex} textAlign="center">
+              <Td key={row._id} textAlign="center">
                 <Box>
-                  {isSubmitted ? (
+                  {row?.submissions?.includes(studentId) ? (
                     <Box color="#17AD37">Submitted</Box>
                   ) : (
                     <Button
                       colorScheme="green"
                       size="sm"
-                      onClick={handleSubmission}
+                      onClick={() => handleSubmission(row._id)}
                     >
-                      Submit
+                      {loading ? <Spinner size="sm" /> : "Submit"}
                     </Button>
                   )}
                 </Box>
@@ -113,4 +180,3 @@ export default function StudentAssignmentTable({ header, data }) {
     </TableContainer>
   );
 }
-

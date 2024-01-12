@@ -37,7 +37,7 @@ export default function Assignment() {
     isError,
   } = useQuery("studentAssignments", () =>
     apiMiddleware(
-      `assignments/getassignments/${student.courseId}/${student._id}`
+      `assignments/getassignments/${student.courseId}/${student.teacherId}`
     )
   );
 
@@ -53,9 +53,9 @@ export default function Assignment() {
         <Text>No Assignments</Text>
       ) : (
         <StudentAssignmentTable
-          headers={headers}
+          header={headers}
           data={studentAssignments}
-          type="student"
+          studentId={student._id}
         />
       )}
     </Stack>

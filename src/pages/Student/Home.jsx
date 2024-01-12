@@ -6,7 +6,10 @@ import StudentDashboardDetail from "../../components/pages/Student/StudentDashbo
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../store/redux-slices/user_slice";
 import { useEffect } from "react";
-import { setStudent } from "../../store/redux-slices/student_slice";
+import {
+  selectStudent,
+  setStudent,
+} from "../../store/redux-slices/student_slice";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 
 const courseData = {
@@ -26,6 +29,7 @@ const announcements = [
 export default function Home() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const student = useSelector(selectStudent);
 
   useEffect(() => {
     const getStudent = async () => {
@@ -43,7 +47,7 @@ export default function Home() {
       <Timetable />
       <Flex direction={{ base: "column", md: "row" }} gap={3}>
         <Flex direction="column" flex={{ base: "1", md: "0.7" }} minW="0">
-          <StudentDashboardCard {...courseData} />
+          <StudentDashboardCard {...student} />
         </Flex>
         <Flex direction="column" flex={{ base: "1", md: "0.3" }} minW="0">
           <AnnouncementCard data={announcements} />
