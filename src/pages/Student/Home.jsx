@@ -43,7 +43,9 @@ export default function Home() {
 
   return (
     <Stack minW="100%">
-      <StudentDashboardDetail text={"Welcome Murtaza!"} />
+      <StudentDashboardDetail
+        text={`Welcome, ${student?.firstname + " " + student?.lastname}`}
+      />
       <Timetable />
       <Flex direction={{ base: "column", md: "row" }} gap={3}>
         <Flex direction="column" flex={{ base: "1", md: "0.7" }} minW="0">

@@ -30,12 +30,13 @@ import { Link } from "react-router-dom";
 
 export default function TeacherCourseCard({
   courseCode,
+  courseId,
   name,
   description,
   strength,
   duration,
   author,
-  category
+  category,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -61,7 +62,7 @@ export default function TeacherCourseCard({
   };
 
   const handleSubmit = () => {
-    console.log(formData); 
+    console.log(formData);
     setFormData({
       title: "",
       description: "",
@@ -77,11 +78,11 @@ export default function TeacherCourseCard({
       overflow="hidden"
       boxShadow="xl"
       backgroundColor="white"
-      key={courseCode}
+      key={courseId}
     >
       <Box p="4">
         <Heading color={"#1D238F"} as="h1" size="xl">
-          {courseCode}
+          {courseId}
         </Heading>
         <Heading as="h4" size="md">
           {name}
@@ -153,7 +154,7 @@ export default function TeacherCourseCard({
         <ModalOverlay />
         <ModalContent bgColor={"white"}>
           <ModalHeader>Add Course Material</ModalHeader>
-          <ModalCloseButton/>
+          <ModalCloseButton />
           <ModalBody>
             <FormControl mb="4">
               <FormLabel>Title</FormLabel>

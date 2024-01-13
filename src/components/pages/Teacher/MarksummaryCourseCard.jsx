@@ -13,12 +13,13 @@ import { FaCalendar, FaList, FaUser, FaUsers } from "react-icons/fa";
 
 export default function MarksummaryCourseCard({
   courseCode,
+  courseId,
   name,
   description,
   strength,
   duration,
   author,
-  category
+  category,
 }) {
   return (
     <Box
@@ -29,16 +30,16 @@ export default function MarksummaryCourseCard({
       boxShadow="xl"
       transition="all 0.3s ease"
       backgroundColor="white"
-      _hover={{ 
-        transform: 'scale(1.05)',
-        boxShadow: 'lg',
-        color: "black"
+      _hover={{
+        transform: "scale(1.05)",
+        boxShadow: "lg",
+        color: "black",
       }}
-      key={courseCode}
+      key={courseId}
     >
       <Box p="4">
         <Heading color={"#1D238F"} as="h1" size="xl">
-          {courseCode}
+          {courseId}
         </Heading>
         <Heading as="h4" size="md">
           {name}
@@ -87,7 +88,6 @@ export default function MarksummaryCourseCard({
           </Tbody>
         </Table>
       </Box>
-      
     </Box>
   );
 }
