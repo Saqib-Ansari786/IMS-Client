@@ -16,7 +16,6 @@ import {
 } from "@chakra-ui/react";
 import { selectUser } from "../../../store/redux-slices/user_slice";
 import { useSelector } from "react-redux";
-import apiMiddleware from "../../common/Server/apiMiddleware";
 import { useQueryClient } from "react-query";
 
 export default function ViewLibraryTable({ headers, data }) {
@@ -25,12 +24,14 @@ export default function ViewLibraryTable({ headers, data }) {
   const queryClient = useQueryClient();
   const toast = useToast();
   const [loading, setLoading] = useState(false);
+  const [issueRequestId, setIssueRequestId] = useState(null);
 
   console.log(user);
 
   const handleIssueRequest = async (book) => {
     // Add logic here to handle issuing the book
     console.log(`Issuing request for ${book._id}`);
+    setIssueRequestId(book._id);
 
     const issueRequest = {
       libraryItemId: book._id,
@@ -42,20 +43,6 @@ export default function ViewLibraryTable({ headers, data }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(issueRequest),
     };
-
-    // const response = await apiMiddleware(
-    //   "library/library-items/issue-request",
-    //   requestOptions
-    // );
-
-    // console.log(response);
-
-    // if (response.success) {
-    //   alert("Issue request sent successfully!");
-    //   queryClient.invalidateQueries("books");
-    // } else {
-    //   alert("Error sending issue request!");
-    // }
 
     try {
       setLoading(true);
@@ -162,7 +149,11 @@ export default function ViewLibraryTable({ headers, data }) {
                         _hover={{ bg: "primary.hover", color: "white" }}
                         onClick={() => handleIssueRequest(row)}
                       >
-                        {loading ? <Spinner size={"sm"} /> : "Issue Request"}
+                        {loading && issueRequestId === row._id ? (
+                          <Spinner size={"sm"} />
+                        ) : (
+                          "Issue Request"
+                        )}
                       </Button>
                     ) : (
                       <Badge colorScheme="red">Not Available</Badge>
