@@ -55,8 +55,8 @@ export default function TeacherView({ headers, data, entries, search }) {
             duration: 3000,
             colorScheme: "green",
             isClosable: true,
-            containerStyle: {color:"white"},
-            position: "top-right"
+            containerStyle: { color: "white" },
+            position: "top-right",
           });
         }
       } catch (error) {
@@ -66,8 +66,8 @@ export default function TeacherView({ headers, data, entries, search }) {
           status: "error",
           duration: 3000,
           isClosable: true,
-          containerStyle: {color:"white"},
-            position: "top-right"
+          containerStyle: { color: "white" },
+          position: "top-right",
         });
       }
       // Close the confirmation dialog
@@ -150,7 +150,9 @@ export default function TeacherView({ headers, data, entries, search }) {
                     <Link to={`${row.beltNo}`}>
                       <IconButton
                         size="sm"
-                        colorScheme="blue"
+                        backgroundColor={"primary.base"}
+                        color={"white"}
+                        _hover={{ bg: "primary.hover", color: "white" }}
                         title="View"
                         icon={<Icon as={ViewIcon} />}
                         mr={2}
@@ -158,7 +160,9 @@ export default function TeacherView({ headers, data, entries, search }) {
                     </Link>
                     <IconButton
                       size="sm"
-                      colorScheme="blue"
+                      backgroundColor={"primary.base"}
+                      color={"white"}
+                      _hover={{ bg: "primary.hover", color: "white" }}
                       title="Edit"
                       icon={<Icon as={EditIcon} />}
                       onClick={() => openEditModal(row)}

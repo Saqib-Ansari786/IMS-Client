@@ -69,7 +69,7 @@ export default function CourseCard({
             status: "success",
             duration: 3000,
             isClosable: true,
-            containerStyle:{color: "white"}
+            containerStyle: { color: "white" },
           });
         }
       } catch (error) {
@@ -80,7 +80,7 @@ export default function CourseCard({
           duration: 3000,
           isClosable: true,
           position: "top-right",
-          containerStyle:{color: "white"}
+          containerStyle: { color: "white" },
         });
       }
       // Close the confirmation dialog
@@ -160,9 +160,9 @@ export default function CourseCard({
           <Button
             as={Link}
             to={""}
-            colorScheme="blue"
-            _hover={{ backgroundColor: "blue.300", color: "white" }}
+            backgroundColor={"primary.base"}
             color={"white"}
+            _hover={{ bg: "primary.hover", color: "white" }}
             leftIcon={<EditIcon />}
             onClick={() =>
               openEditModal({

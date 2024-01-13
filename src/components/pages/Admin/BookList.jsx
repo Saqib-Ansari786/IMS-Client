@@ -147,7 +147,9 @@ export default function BookList({ headers, data, entries, search }) {
                     <Link to={`${row.isbn}`}>
                       <IconButton
                         size="sm"
-                        colorScheme="blue"
+                        backgroundColor={"primary.base"}
+                        color={"white"}
+                        _hover={{ bg: "primary.hover", color: "white" }}
                         title="View"
                         icon={<Icon as={ViewIcon} />}
                         mr={2}
@@ -155,7 +157,9 @@ export default function BookList({ headers, data, entries, search }) {
                     </Link>
                     <IconButton
                       size="sm"
-                      colorScheme="blue"
+                      backgroundColor={"primary.base"}
+                      color={"white"}
+                      _hover={{ bg: "primary.hover", color: "white" }}
                       title="Edit"
                       icon={<Icon as={EditIcon} />}
                       mr={2}

@@ -58,9 +58,16 @@ export default function PageHeader({
           </Button>
           <Button
             leftIcon={<RepeatIcon />}
-            colorScheme="blue"
+            backgroundColor={
+              selectedView === "ListView" ? "primary.base" : "white"
+            }
+            color={selectedView !== "ListView" ? "primary.base" : "white"}
             variant={selectedView === "ListView" ? "solid" : "outline"}
-            _hover={{ bg: selectedView === "ListView" ? "blue.300" : "blue.200", color: "white" }}
+            _hover={{
+              bg:
+                selectedView === "ListView" ? "primary.base" : "primary.hover",
+              color: "white",
+            }}
             onClick={() => {
               handleListViewClick();
               handleViewChange("ListView");
@@ -71,9 +78,16 @@ export default function PageHeader({
           </Button>
           <Button
             leftIcon={<RepeatIcon />}
-            colorScheme="blue"
+            backgroundColor={
+              selectedView === "Grid View" ? "primary.base" : "white"
+            }
+            color={selectedView !== "Grid View" ? "primary.base" : "white"}
             variant={selectedView === "Grid View" ? "solid" : "outline"}
-            _hover={{ bg: selectedView === "Grid View" ? "blue.300" : "blue.200", color: "white" }}
+            _hover={{
+              bg:
+                selectedView === "Grid View" ? "primary.base" : "primary.hover",
+              color: "white",
+            }}
             onClick={() => {
               handleGridClick();
               handleViewChange("Grid View");
@@ -84,9 +98,13 @@ export default function PageHeader({
           </Button>
           <Button
             leftIcon={<AddIcon />}
-            colorScheme="blue"
+            backgroundColor={selectedView === "Add" ? "primary.base" : "white"}
+            color={selectedView !== "Add" ? "primary.base" : "white"}
             variant={selectedView === "Add" ? "solid" : "outline"}
-            _hover={{ bg: selectedView === "Add" ? "blue.300" : "blue.200", color: "white" }}
+            _hover={{
+              bg: selectedView === "Add" ? "primary.base" : "primary.hover",
+              color: "white",
+            }}
             onClick={() => {
               handleAddClick();
               handleViewChange("Add");
@@ -100,4 +118,3 @@ export default function PageHeader({
     </Box>
   );
 }
-
