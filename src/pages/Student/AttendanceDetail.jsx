@@ -1,9 +1,13 @@
-import { Stack } from "@chakra-ui/react";
+import { Spinner, Stack, Text } from "@chakra-ui/react";
 import StudentDashboardDetail from "../../components/pages/Student/StudentDashboardDetail";
 import StudentAttendaceTable from "../../components/pages/Student/StudentAttendanceTable";
+import { useQuery } from "react-query";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
+import { selectStudent } from "../../store/redux-slices/student_slice";
+import { useSelector } from "react-redux";
 
 const jsonData = {
-  headers: ["TOPIC", "STATUS", "CLASS STARTING TIME", "CLASS ENDING TIME"],
+  headers: ["TOPIC", "STATUS", "CLASS STARTING TIME"],
   data: [
     {
       topic: "Class 1",
@@ -39,12 +43,27 @@ const jsonData = {
 };
 
 export const AttendanceDetail = () => {
+  const student = useSelector(selectStudent);
+  const {
+    data: studentAttendance,
+    isLoading,
+    isError,
+  } = useQuery("studentAttendance", () =>
+    apiMiddleware(
+      `attendances/attendance/${student._id}/${student.teacherId}/${student.courseId}`
+    )
+  );
   const headers = jsonData.headers;
-  const data = jsonData.data;
   return (
     <Stack minW="100%">
       <StudentDashboardDetail text={"Class Attendance Details"} />
-      <StudentAttendaceTable headers={headers} data={data} />
+      {isLoading ? (
+        <Spinner />
+      ) : isError ? (
+        <Text>There was an error fetching the data</Text>
+      ) : (
+        <StudentAttendaceTable header={headers} data={studentAttendance} />
+      )}
     </Stack>
   );
 };
