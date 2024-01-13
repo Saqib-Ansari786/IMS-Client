@@ -133,7 +133,7 @@ export default function TeacherCourseCard({
         <Stack>
           <Button
             as={Link}
-            to={"coursematerials"}
+            to={`${courseId}`}
             colorScheme="blue"
             _hover={{ backgroundColor: "blue.300", color: "white" }}
             color={"white"}

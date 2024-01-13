@@ -3,36 +3,6 @@ import TeacherCourseCard from "../../components/pages/Teacher/TeacherCourseCard"
 import { useSelector } from "react-redux";
 import { selectTeacher } from "../../store/redux-slices/teacher_slice";
 
-const courses = [
-  {
-    courseCode: "CS14",
-    name: "Programming Fundamentals",
-    description: "Learn the basics of Programming in this introductory course.",
-    duration: "7 weeks",
-    author: "Ghulam Murtaza",
-    category: "Computer Science",
-    strength: "50",
-  },
-  {
-    courseCode: "CS14",
-    name: "Programming Fundamentals",
-    description: "Learn the basics of Programming in this introductory course.",
-    duration: "7 weeks",
-    author: "Ghulam Murtaza",
-    category: "Computer Science",
-    strength: "50",
-  },
-  {
-    courseCode: "CS14",
-    name: "Programming Fundamentals",
-    description: "Learn the basics of Programming in this introductory course.",
-    duration: "7 weeks",
-    author: "Ghulam Murtaza",
-    category: "Computer Science",
-    strength: "50",
-  },
-];
-
 const ManageCourses = () => {
   const teacher = useSelector(selectTeacher);
 

@@ -142,7 +142,7 @@ const router = createBrowserRouter(
         />
         <Route path="manage-courses" element={<CourseMaterialPage />} />
         <Route
-          path="manage-courses/coursematerials"
+          path="manage-courses/:courseId"
           element={<AllCourseMaterialPage />}
         />
         <Route

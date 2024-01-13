@@ -1,8 +1,9 @@
 import { DownloadIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Box, Text, Button, Flex, IconButton } from "@chakra-ui/react";
 import { FaFile } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const CourseMaterialCard = ({ title, description, fileLink }) => {
+const CourseMaterialCard = ({ title, description, doc }) => {
   const handleDownload = () => {
     console.log(`Downloading: ${title}`);
   };
@@ -58,6 +59,9 @@ const CourseMaterialCard = ({ title, description, fileLink }) => {
         icon={<DownloadIcon />}
         _hover={{ backgroundColor: "blue.300", color: "white" }}
         mr={2}
+        as={Link}
+        to={doc}
+        download={doc}
       />
     </Box>
   );
