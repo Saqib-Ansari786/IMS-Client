@@ -15,12 +15,11 @@ import { EditIcon, ViewIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
 export default function UploadedAssignmentCard({
-  id,
-  courseCode,
+  _id,
+  courseId,
   title,
   description,
-  noofSubmittedStudents,
-  notSubmittedStudents,
+  submissions,
   strength,
   startDate,
   endDate,
@@ -39,7 +38,7 @@ export default function UploadedAssignmentCard({
         boxShadow: "lg",
         color: "black",
       }}
-      key={courseCode}
+      key={courseId}
     >
       <Box p="4">
         <Heading color={"#1D238F"} as="h1" size="xl">
@@ -66,16 +65,7 @@ export default function UploadedAssignmentCard({
                   <Text fontWeight="semibold">Submitted Students</Text>
                 </Stack>
               </Td>
-              <Td textAlign="right">{noofSubmittedStudents}</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <Stack pt={2} spacing={1} direction="row" alignItems="center">
-                  <FaUsers color={"red"} />
-                  <Text fontWeight="semibold">Not Submitted Students</Text>
-                </Stack>
-              </Td>
-              <Td textAlign="right">{notSubmittedStudents}</Td>
+              <Td textAlign="right">{submissions?.length}</Td>
             </Tr>
             <Tr>
               <Td>
@@ -100,7 +90,7 @@ export default function UploadedAssignmentCard({
         <Stack>
           <Button
             as={Link}
-            to={`${id}`}
+            to={`${_id}`}
             colorScheme="teal"
             _hover={{ backgroundColor: "teal.300", color: "white" }}
             color={"white"}

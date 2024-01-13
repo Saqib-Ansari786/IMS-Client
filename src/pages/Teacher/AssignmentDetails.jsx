@@ -12,6 +12,7 @@ import {
   CircularProgress,
   TableContainer,
 } from "@chakra-ui/react";
+import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 
 const assignments = [
@@ -118,28 +119,28 @@ const assignments = [
 
 const AssignmentDetailsPage = () => {
   const { assignmentId } = useParams();
-  const selectedAssignment = assignments.find(
-    (assignment) => assignment.id === Number(assignmentId)
+  const queryClient = useQueryClient();
+  const TeacherUploadedAssignemnts = queryClient.getQueryData(
+    "TeacherUploadedAssignemnts"
+  );
+  console.log(TeacherUploadedAssignemnts);
+  console.log(assignmentId);
+  const selectedAssignment = TeacherUploadedAssignemnts?.find(
+    (assignment) => assignment._id === assignmentId
   );
 
   if (!selectedAssignment) {
     return <div>Assignment not found</div>;
   }
 
-  const totalStudents = selectedAssignment.studentsSubmitted;
-  const progressValue = (totalStudents / 50) * 100;
+  const totalStudents = selectedAssignment?.submissions?.length;
+  const progressValue = (totalStudents / 20) * 100;
 
   return (
     <Box bgColor={"white"} borderRadius={8} p={4} minW={"100%"}>
       <Heading color={"#1D238F"} size="lg" mb={4} fontWeight="bold">
         {selectedAssignment.title}
       </Heading>
-
-      <Text fontSize="lg" fontWeight="bold" mb={2}>
-        Description:
-      </Text>
-      <Text>{selectedAssignment.description}</Text>
-
       <Text fontSize="lg" fontWeight="bold" mt={4}>
         Total Students Submitted:
       </Text>
@@ -152,49 +153,52 @@ const AssignmentDetailsPage = () => {
         mb={4}
       />
       <Text fontWeight="bold" fontSize="lg">
-        {totalStudents}/{50}
+        {totalStudents}/{20}
       </Text>
-      <TableContainer
-        mt={3}
-        borderWidth="1px"
-        borderRadius="lg"
-        p={4}
-        backgroundColor="white"
-      >
-      <Table colorScheme="blackAlpha" variant="striped" bgColor={"white"} mt={4}>
-        <Thead>
-          <Tr>
-            <Th textAlign={"center"}>Student</Th>
-            <Th textAlign={"center"}>Date Submitted</Th>
-            <Th textAlign={"center"}>Upload File</Th>
-            <Th textAlign={"center"}>Description</Th>
-
-          </Tr>
-        </Thead>
-        <Tbody>
-          {selectedAssignment.submissions.map((submission, index) => (
-            <Tr key={index}>
-              <Td textAlign={"center"}>{submission.studentName}</Td>
-              <Td textAlign={"center"}>{submission.dateSubmitted.toLocaleString()}</Td>
-              <Td textAlign={"center"}>
-                {submission.documents.map((document, docIndex) => (
-                  <div key={docIndex}>
-                    <Link
-                      href={document.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Document {docIndex + 1}
-                    </Link>
-                  </div>
+      {selectedAssignment?.submissions &&
+        selectedAssignment?.submissions.length > 0 && (
+          <TableContainer
+            mt={3}
+            borderWidth="1px"
+            borderRadius="lg"
+            p={4}
+            backgroundColor="white"
+          >
+            <Table
+              colorScheme="blackAlpha"
+              variant="striped"
+              bgColor={"white"}
+              mt={4}
+            >
+              <Thead>
+                <Tr>
+                  <Th textAlign={"center"}>Student</Th>
+                  <Th textAlign={"center"}>Date Submitted</Th>
+                  <Th textAlign={"center"}>Uploaded File</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {selectedAssignment.submissions.map((submission, index) => (
+                  <Tr key={index}>
+                    <Td textAlign={"center"}>
+                      {submission?.studentId?.firstname +
+                        " " +
+                        submission?.studentId?.lastname}
+                    </Td>
+                    <Td textAlign={"center"}>
+                      {submission?.submissionDate?.toLocaleString()}
+                    </Td>
+                    <Td textAlign={"center"}>
+                      <Link href={submission?.doc} download>
+                        Download
+                      </Link>
+                    </Td>
+                  </Tr>
                 ))}
-              </Td>
-              <Td textAlign={"center"}>{submission.description}</Td>
-            </Tr>
-          ))}
-        </Tbody>
-      </Table>
-      </TableContainer>
+              </Tbody>
+            </Table>
+          </TableContainer>
+        )}
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import { Box, SimpleGrid, Heading } from "@chakra-ui/react";
+import { Box, SimpleGrid, Heading, Spinner, Alert } from "@chakra-ui/react";
 import UploadedAssignmentCard from "../../components/pages/Teacher/UploadedAssignmentCard";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -88,9 +88,23 @@ const TeacherUploadedAssignmentPage = () => {
         spacing="4"
         width="100%"
       >
-        {assignments.map((assignments, index) => (
-          <UploadedAssignmentCard key={index} {...assignments} />
-        ))}
+        {isLoading ? (
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="#1D238F"
+            size="xl"
+          />
+        ) : isError ? (
+          <Alert status="error">
+            There was an error processing your request
+          </Alert>
+        ) : (
+          TeacherUploadedAssignemnts?.map((assignment, index) => (
+            <UploadedAssignmentCard key={index} {...assignment} />
+          ))
+        )}
       </SimpleGrid>
     </Box>
   );
