@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 import CreateSalePage from "./CreateSalePage";
@@ -8,6 +8,11 @@ import { Spinner } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 import Search from "../../components/pages/Admin/Search";
+import { useDispatch } from "react-redux";
+import {
+  fetchIssuedProducts,
+  fetchProducts,
+} from "../../store/redux-slices/products_slice";
 
 const jsonData = {
   headers: [
@@ -33,6 +38,7 @@ export default function SalesPage() {
   const handleListViewClick = () => {
     setSelectedComponent("ListView");
   };
+  const dispatch = useDispatch();
   const handleSearch = (e) => {
     setSearch(e.target.value);
     console.log(e);
@@ -43,6 +49,11 @@ export default function SalesPage() {
   };
 
   console.log(sales);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+    dispatch(fetchIssuedProducts());
+  }, [dispatch]);
 
   return (
     <SalesPageHeader
