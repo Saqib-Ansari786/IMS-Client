@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import ShowEntriesDropdown from "../../components/pages/Admin/ShowEntriesDropdown";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
-import ProductSearch from "../../components/pages/Inventory_Admin/ProductSearch";
 import CreateSalePage from "./CreateSalePage";
 import SalesTable from "../../components/pages/Inventory_Admin/SalesTable";
 import SalesPageHeader from "../../components/pages/Inventory_Admin/SalesPageHeader";
@@ -18,7 +17,6 @@ const jsonData = {
     "PRODUCT NAME",
     "CUSTOMER NAME",
     "CUSTOMER TYPE",
-    "ACTION",
   ],
 };
 

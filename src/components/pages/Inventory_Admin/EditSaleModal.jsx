@@ -45,12 +45,7 @@ export default function EditSaleModal({ isOpen, onClose, sale, onEdit }) {
         <ModalBody>
           <FormControl>
             <FormLabel>Date</FormLabel>
-            <Input
-              type="date"
-              name="date"
-              value={editedSale?.date}
-              onChange={handleInputChange}
-            />
+            <Input type="date" name="date" value={editedSale?.date} disabled />
           </FormControl>
           <FormControl>
             <FormLabel>Quantity</FormLabel>
@@ -58,16 +53,12 @@ export default function EditSaleModal({ isOpen, onClose, sale, onEdit }) {
               type="number"
               name="quantity"
               value={editedSale?.quantity}
-              onChange={handleInputChange}
+              disabled
             />
           </FormControl>
           <FormControl>
             <FormLabel>Product Name</FormLabel>
-            <Select
-              name="productId"
-              value={editedSale?.productId}
-              onChange={handleInputChange}
-            >
+            <Select name="productId" value={editedSale?.productId} disabled>
               <option value="" disabled selected hidden>
                 Select Product
               </option>
