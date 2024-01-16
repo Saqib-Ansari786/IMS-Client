@@ -21,6 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const toast = useToast();
+  const [selectedRole, setSelectedRole] = useState("student");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -53,7 +54,13 @@ const ForgotPassword = () => {
           isClosable: true,
         });
       }
-      navigate("/verifycode");
+      navigate("/verifycode", {
+        state: {
+          pincode: response?.data?.pincode,
+          email: email,
+          type: selectedRole,
+        },
+      });
     } catch (error) {
       // If the password reset request is unsuccessful, show a toast notification
       toast({
@@ -127,6 +134,22 @@ const ForgotPassword = () => {
                   onChange={handleEmailChange}
                 />
               </FormControl>
+              <Stack direction="row" spacing={3} mt={5}>
+                <Button
+                  bg={selectedRole === "student" ? "primary.base" : "gray.300"}
+                  color={selectedRole === "student" ? "white" : "black"}
+                  onClick={() => setSelectedRole("student")}
+                >
+                  Student
+                </Button>
+                <Button
+                  bg={selectedRole === "teacher" ? "primary.base" : "gray.300"}
+                  color={selectedRole === "teacher" ? "white" : "black"}
+                  onClick={() => setSelectedRole("teacher")}
+                >
+                  Teacher
+                </Button>
+              </Stack>
               <Button
                 type="submit"
                 bg={"primary.base"}

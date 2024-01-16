@@ -150,8 +150,8 @@ export default function AddTeacher() {
         status: "error",
         duration: 3000,
         isClosable: true,
-        containerStyle: {color:"white"},
-        position: "top-right"
+        containerStyle: { color: "white" },
+        position: "top-right",
       });
     }
 
@@ -240,6 +240,7 @@ export default function AddTeacher() {
           <Input
             type="date"
             name="dob"
+            max={new Date().toISOString().split("T")[0]}
             value={formData.dob}
             onChange={handleChange}
           />

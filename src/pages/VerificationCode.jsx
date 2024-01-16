@@ -15,13 +15,15 @@ import {
 import image from "../assets/authimage.jpg";
 import { useState } from "react";
 import apiMiddleware from "../components/common/Server/apiMiddleware";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const VerificationCode = () => {
   const formWidth = useBreakpointValue({ base: "90%", md: "40%", lg: "30%" });
   const [verificationCode, setVerificationCode] = useState("");
   const toast = useToast();
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { pincode, email, type } = state;
 
   const handleVerificationCodeChange = (e) => {
     // Allow only digits
@@ -31,18 +33,9 @@ const VerificationCode = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Verification code submitted:", verificationCode);
 
-    // Add your logic for verifying the code here
     try {
-      const response = await apiMiddleware("auth/verify-code", {
-        method: "POST",
-        body: JSON.stringify({ verificationCode }),
-        headers: { "Content-Type": "application/json" },
-      });
-      console.log("Response:", response);
-      if (response.success) {
-        // If the verification code is valid, show a toast notification
+      if (verificationCode.toString() === pincode.toString()) {
         toast({
           title: "Verification Code",
           description: "Verification code is valid",
@@ -50,8 +43,23 @@ const VerificationCode = () => {
           duration: 3000,
           isClosable: true,
         });
+        navigate("/newpass",
+          {
+            state: {
+              email: email,
+              type: type,
+            }
+          });
       }
-      navigate("/newpassword");
+      else toast({
+        title: "Error",
+        description: "Invalid verification code",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+
+
     } catch (error) {
       // If the verification code is invalid, show a toast notification
       toast({
@@ -115,7 +123,7 @@ const VerificationCode = () => {
                   Verification Code
                 </FormLabel>
                 <Input
-                  type="text"
+                  type="number"
                   placeholder="Enter code"
                   id="verificationCode"
                   name="verificationCode"
@@ -130,6 +138,7 @@ const VerificationCode = () => {
                 type="submit"
                 bg={"primary.base"}
                 color={"white.base"}
+                onClick={handleSubmit}
                 size="lg"
                 mt={4}
                 _hover={{

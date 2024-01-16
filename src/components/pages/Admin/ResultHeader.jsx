@@ -3,21 +3,14 @@ import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import { DownloadIcon, AddIcon, RepeatIcon } from "@chakra-ui/icons";
 import * as XLSX from "xlsx";
 
-export default function ResultHeader({
-  children,
-  data,
-  headers,
-  name
-}) {
- 
-
+export default function ResultHeader({ children, data, headers, name }) {
   const downloadExcel = () => {
     const exportData = data.map((row) => [
-      row.beltno,
-      row.name,
-      row.course,
+      row.beltNo,
+      row.studentName,
+      row.durationStatus,
       row.durationComplete,
-      row.marks,
+      row.durationStatus,
     ]);
 
     const ws = XLSX.utils.aoa_to_sheet([headers, ...exportData]);

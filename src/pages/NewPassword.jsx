@@ -12,11 +12,17 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import image from "../assets/authimage.jpg";
+import apiMiddleware from "../components/common/Server/apiMiddleware";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
+import { Link, useLocation } from "react-router-dom";
 
 const NewPassword = () => {
   const formWidth = useBreakpointValue({ base: "90%", md: "40%", lg: "30%" });
+  const toast = useToast();
+  const { state } = useLocation();
+  const { email, type } = state;
+
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -28,13 +34,34 @@ const NewPassword = () => {
     setConfirmPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate passwords and perform your password reset logic here
     if (newPassword === confirmPassword) {
-      // Passwords match, perform the password reset action
-      console.log("Password reset successful! New password:", newPassword);
+      //make a fetch post call on /changepassword with payload including email,type,password
+
+      const payload = {
+        email,
+        type,
+        password: newPassword,
+      };
+
+      const response = await apiMiddleware("auth/changepassword", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.success === true) toast({
+        title: "Password Reset",
+        description: "Password reset successful",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+
+
       // Add your logic for setting the new password here
     } else {
       // Passwords do not match, handle the error
