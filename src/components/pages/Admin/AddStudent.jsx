@@ -275,6 +275,7 @@ export default function AddStudent() {
           <Input
             type="date"
             name="dob"
+            max={new Date().toISOString().split("T")[0]}
             value={formData.dob}
             onChange={handleInputChange}
           />
