@@ -17,6 +17,12 @@ import {
 } from "@chakra-ui/react";
 import { FaEdit, FaPlus, FaSortAlphaDown, FaSortAlphaUp } from "react-icons/fa"; // Import sort icons
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import {
+  selectCourses,
+  selectIsError,
+  selectIsLoading,
+} from "../../store/redux-slices/courses_slice";
 
 const sampleData = [
   {
@@ -47,6 +53,11 @@ const AddAttendancePage = () => {
   const [sortedData, setSortedData] = useState(sampleData);
   const [sortBy, setSortBy] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const courses = useSelector(selectCourses);
+  const isLoading = useSelector(selectIsLoading);
+  const isError = useSelector(selectIsError);
+
+  console.log(courses);
 
   const handleSort = (field) => {
     if (field === sortBy) {
@@ -192,20 +203,20 @@ const AddAttendancePage = () => {
               <Th>Course ID</Th>
               <Th>Category</Th>
               <Th>Strength</Th>
-              <Th>Date</Th>
+              <Th>Duration</Th>
               <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {sortedData.map((data, index) => (
+            {courses?.map((data, index) => (
               <Tr key={data.id}>
                 <Td>{index + 1}</Td>
-                <Td>{data.courseId}</Td>
-                <Td>{data.department}</Td>
-                <Td>{data.previousAttendance}</Td>
-                <Td>{data.date}</Td>
+                <Td>{data?.courseCode}</Td>
+                <Td>{data?.category}</Td>
+                <Td>{data?.strength}</Td>
+                <Td>{data?.duration} hrs</Td>
                 <Td>
-                  <Link to={`/teacher/add-attendance/${data.courseId}`}>
+                  <Link to={`/teacher/add-attendance/${data.courseCode}`}>
                     <Button colorScheme="blue" size="sm" mr={2}>
                       <FaPlus />
                     </Button>

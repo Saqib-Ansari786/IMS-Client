@@ -20,13 +20,21 @@ import {
   Input,
   Textarea,
   InputGroup,
-  InputRightElement,
-  IconButton,
   ModalCloseButton,
+  useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import { FaCalendar, FaList, FaUser, FaUsers } from "react-icons/fa";
 import { AddIcon, ViewIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import apiMiddleware from "../../common/Server/apiMiddleware";
+import { useQuery } from "react-query";
+import { selectTeacher } from "../../../store/redux-slices/teacher_slice";
+import { useSelector } from "react-redux";
+import {
+  createCloudinaryFormdata,
+  uploadToCloudinary,
+} from "../../../utils/cloudinarySetup";
 
 export default function TeacherCourseCard({
   courseCode,
@@ -38,12 +46,15 @@ export default function TeacherCourseCard({
   author,
   category,
 }) {
+  const teacher = useSelector(selectTeacher);
+  const toast = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     file: null,
   });
+  const [loading, setLoading] = useState();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -61,13 +72,65 @@ export default function TeacherCourseCard({
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    setLoading(true);
     console.log(formData);
-    setFormData({
-      title: "",
-      description: "",
-      file: null,
-    });
+    if (formData.file) {
+      // Upload the file to the server
+      const formDataFile = createCloudinaryFormdata(
+        formData.file,
+        "ims_teacher_images",
+        "ims_teacher_images"
+      );
+      const response = await uploadToCloudinary(formDataFile);
+      console.log(response);
+      if (response) {
+        var fileUrl = response?.secure_url;
+      }
+    }
+    const data = {
+      title: formData.title,
+      description: formData.description,
+      doc: fileUrl,
+      courseId: courseId,
+      teacherId: teacher._id,
+    };
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    const uploadCourseData = await apiMiddleware(
+      "courses/create-course-material",
+      requestOptions
+    );
+    if (uploadCourseData.success) {
+      toast({
+        title: "Course Material Added",
+        description: "Course Material has been added successfully.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+
+      console.log(uploadCourseData);
+      setFormData({
+        title: "",
+        description: "",
+        file: null,
+      });
+    } else {
+      toast({
+        title: "Error",
+        description: "Some thing went wrong. Course Material cannot be added",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+    setLoading(false);
     setIsOpen(false);
   };
   return (
@@ -178,18 +241,13 @@ export default function TeacherCourseCard({
             <FormControl mb="4">
               <FormLabel>Upload File</FormLabel>
               <InputGroup>
-                <Input
-                  type="file"
-                  name="file"
-                  onChange={handleFileChange}
-                  accept=".pdf,.doc,.docx"
-                />
+                <Input type="file" name="file" onChange={handleFileChange} />
               </InputGroup>
             </FormControl>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
-              Submit
+              {loading ? <Spinner size={"sm"} /> : "Submit"}
             </Button>
             <Button colorScheme="red" onClick={() => setIsOpen(false)}>
               Cancel

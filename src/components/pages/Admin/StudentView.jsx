@@ -112,12 +112,12 @@ export default function StudentView({ headers, data, entries, search }) {
           {data &&
             data
               .filter((row) => {
-                return search.toLowerCase() === ""
+                return search?.toLowerCase() === ""
                   ? row
-                  : row.firstname.toLowerCase().includes(search) ||
-                      row.lastname.toLowerCase().includes(search) ||
-                      row.beltNo.includes(search) ||
-                      row.courseCode.toLowerCase().includes(search);
+                  : row.firstname?.toLowerCase().includes(search) ||
+                      row.lastname?.toLowerCase().includes(search) ||
+                      row.email?.includes(search) ||
+                      row.courseCode?.toLowerCase().includes(search);
               })
               .slice(0, entries)
               .map((row, rowIndex) => (

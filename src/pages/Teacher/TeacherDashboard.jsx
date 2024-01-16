@@ -13,6 +13,7 @@ import {
   selectTeacher,
   setTeacher,
 } from "../../store/redux-slices/teacher_slice";
+import { fetchCourses } from "../../store/redux-slices/courses_slice";
 
 const Layout = ({ children, heading }) => {
   return (
@@ -42,7 +43,8 @@ const TeacherDashboard = () => {
     };
 
     getTeacher();
-  }, []);
+    dispatch(fetchCourses());
+  }, [dispatch]);
   return (
     <Box>
       <Grid
