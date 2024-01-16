@@ -34,50 +34,57 @@ export default function ResultTable({ headers, data, entries, search }) {
         <Tbody>
           {data &&
             data
-            .filter((row) => {
-              return search.toLowerCase() === ""
-                ? row
-                : row.studentName.toLowerCase().includes(search) ||
-                    row.beltNo.includes(search);
-            }).slice(0, entries).map((row, rowIndex) => (
-              <Tr key={rowIndex}>
-                <Td key={rowIndex} textAlign="center">
-                  {row.beltNo} 
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.studentName} 
-                </Td>
-                <Td key={rowIndex} textAlign="center">
+              .filter((row) => {
+                return search.toLowerCase() === ""
+                  ? row
+                  : row.studentName.toLowerCase().includes(search) ||
+                      row.beltNo.includes(search);
+              })
+              .slice(0, entries)
+              .map((row, rowIndex) => (
+                <Tr key={rowIndex}>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.beltNo}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.studentName}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.courseName}{" "}
+                  </Td>
+                  {/* <Td key={rowIndex} textAlign="center">
                   {row.durationStatus}{" "}
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  <Badge
-                    borderRadius={5}
-                    fontSize={"2xs"}
-                    colorScheme={row.status === "Completed" ? "green" : "red"}
-                    color={"white"}
-                    variant="solid"
-                  >
-                    {row.status === "Completed" ? "Completed" : "Not Completed"}
-                  </Badge>
-                </Td>
-                <Td key={rowIndex} textAlign="center">
-                  {row.status === "Pending" ? (
+                </Td> */}
+                  <Td key={rowIndex} textAlign="center">
                     <Badge
                       borderRadius={5}
-                      fontSize={"xs"}
-                      colorScheme={"yellow"}
-                      variant="solid"
+                      fontSize={"2xs"}
+                      colorScheme={row.status === "Completed" ? "green" : "red"}
                       color={"white"}
+                      variant="solid"
                     >
-                      Pending
+                      {row.status === "Completed"
+                        ? "Completed"
+                        : "Not Completed"}
                     </Badge>
-                  ) : (
-                    row.marks
-                  )}
-                </Td>
-              </Tr>
-            ))}
+                  </Td>
+                  <Td key={rowIndex} textAlign="center">
+                    {row.status === "Pending" ? (
+                      <Badge
+                        borderRadius={5}
+                        fontSize={"xs"}
+                        colorScheme={"yellow"}
+                        variant="solid"
+                        color={"white"}
+                      >
+                        Pending
+                      </Badge>
+                    ) : (
+                      row.marks
+                    )}
+                  </Td>
+                </Tr>
+              ))}
         </Tbody>
       </Table>
     </TableContainer>

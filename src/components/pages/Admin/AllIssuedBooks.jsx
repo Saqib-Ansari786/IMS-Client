@@ -40,9 +40,9 @@ export default function AllIssuedBooks({ headers, data, entries, search }) {
               .filter((row) => {
                 return search.toLowerCase() === ""
                   ? row
-                  : row.title.toLowerCase().includes(search) ||
-                      row.beltno.includes(search) ||
-                      row.authorName.toLowerCase().includes(search);
+                  : row.title?.toLowerCase().includes(search) ||
+                      row.beltno?.includes(search) ||
+                      row.authorName?.toLowerCase().includes(search);
               })
               .slice(0, entries)
               .map((row, rowIndex) => (
