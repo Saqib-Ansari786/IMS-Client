@@ -10,16 +10,10 @@ import {
   ListIcon,
 } from "@chakra-ui/react";
 import SalesChart from "../../components/pages/Inventory_Admin/SalesChart";
-import {
-  selectIssuedProducts,
-  selectProducts,
-} from "../../store/redux-slices/products_slice";
+import { selectIssuedProducts } from "../../store/redux-slices/products_slice";
 import { useSelector } from "react-redux";
 
 const SalesReportPage = () => {
-  const [totalSales, setTotalSales] = useState(0);
-  const [topProducts, setTopProducts] = useState([]);
-  const [topCategories, setTopCategories] = useState([]);
   const [salesData, setSalesData] = useState({
     labels: [],
     datasets: [
@@ -33,27 +27,8 @@ const SalesReportPage = () => {
     ],
   });
   const issuedProducts = useSelector(selectIssuedProducts);
-  const products = useSelector(selectProducts);
 
   useEffect(() => {
-    // Simulated data, replace with actual data retrieval logic
-    setTotalSales(250);
-    setTopProducts([
-      { name: "Product A", sales: 50 },
-      { name: "Product B", sales: 45 },
-      { name: "Product C", sales: 40 },
-      { name: "Product D", sales: 35 },
-      { name: "Product E", sales: 30 },
-    ]);
-    setTopCategories([
-      { name: "Category X", sales: 60 },
-      { name: "Category Y", sales: 55 },
-      { name: "Category Z", sales: 50 },
-      { name: "Category W", sales: 45 },
-      { name: "Category V", sales: 40 },
-    ]);
-
-    // Simulated sales data, replace with actual data retrieval logic
     setSalesData({
       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
       datasets: [
@@ -85,8 +60,7 @@ const SalesReportPage = () => {
             {issuedProducts?.slice(0, 5).map((product, index) => (
               <ListItem key={index}>
                 <ListIcon as="span" color="green.500" />
-                {products?.find((p) => p._id === product.productId)?.name}-{" "}
-                {product.quantity} sales
+                {product?.productId?.name} - ({product?.quantity})
               </ListItem>
             ))}
           </List>
@@ -99,8 +73,7 @@ const SalesReportPage = () => {
             {issuedProducts?.slice(0, 5).map((product, index) => (
               <ListItem key={index}>
                 <ListIcon as="span" color="green.500" />
-                {products?.find((p) => p._id === product.productId)?.category}-
-                {product.quantity} sales
+                {product?.productId?.category} - ({product?.quantity})
               </ListItem>
             ))}
           </List>

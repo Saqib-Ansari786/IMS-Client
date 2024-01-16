@@ -53,15 +53,15 @@ export default function InventoryAdminLayout() {
     }
   } else {
     if (
-      location.pathname === "/inventory_admin" ||
-      location.pathname === "/inventory_admin/" ||
-      location.pathname === "/inventory_admin/products" ||
-      location.pathname === "/inventory_admin/products/" ||
-      location.pathname === "/inventory_admin/create-product" ||
-      location.pathname === "/inventory_admin/create-product/" ||
-      location.pathname === "/inventory_admin/issued-products" ||
-      location.pathname === "/inventory_admin/issue-product" ||
-      location.pathname === "/inventory_admin/products-report"
+      location.pathname === "/iadmin" ||
+      location.pathname === "/iadmin/" ||
+      location.pathname === "/iadmin/products" ||
+      location.pathname === "/iadmin/products/" ||
+      location.pathname === "/iadmin/create-product" ||
+      location.pathname === "/iadmin/create-product/" ||
+      location.pathname === "/iadmin/issued-products" ||
+      location.pathname === "/iadmin/issue-product" ||
+      location.pathname === "/iadmin/products-report"
     ) {
       return <Navigate to="/iadmin-login" />;
     }

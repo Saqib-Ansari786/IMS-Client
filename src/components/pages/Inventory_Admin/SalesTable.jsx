@@ -109,13 +109,7 @@ export default function SalesTable({ headers, sales, entries, search }) {
                     <Td textAlign="center">{index + 1}</Td>
                     <Td textAlign="center">{sale?.date.split("T")[0]}</Td>
                     <Td textAlign="center">{sale?.quantity}</Td>
-                    <Td textAlign="center">
-                      {
-                        products.find(
-                          (product) => product._id === sale?.productId
-                        )?.name
-                      }
-                    </Td>
+                    <Td textAlign="center">{sale?.productId?.name}</Td>
                     <Td textAlign="center">{sale?.customerName}</Td>
                     <Td textAlign="center">{sale?.customerType}</Td>
                     <Td textAlign="center">

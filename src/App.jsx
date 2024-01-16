@@ -162,7 +162,7 @@ const router = createBrowserRouter(
 
       {/* Inventory Admin */}
 
-      <Route path="inventory_admin/" element={<InventoryAdminLayout />}>
+      <Route path="iadmin/" element={<InventoryAdminLayout />}>
         <Route index element={<InventoryDashboard />} />
         <Route path="profile" element={<Profile />} />
         <Route path="products" element={<ProductPage />} />

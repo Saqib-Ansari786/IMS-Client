@@ -64,7 +64,7 @@ const IadminSignIn = () => {
           isClosable: true,
         });
         dispatch(setUser({ ...response.data.user, type: "iadmin" }));
-        navigate("/inventory_admin");
+        navigate("/iadmin");
       }
     } catch (error) {
       console.log("Error:", error);
