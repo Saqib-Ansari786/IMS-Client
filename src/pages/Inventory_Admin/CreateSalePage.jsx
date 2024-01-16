@@ -68,10 +68,11 @@ const CreateSalePage = () => {
     setSuccessMessage(null);
   };
   return (
-    <Box backgroundColor={"white"} p={4}>
-      <Heading as="h1" mb={4}>
+    <Box backgroundColor={"white"} p={4} borderRadius={8}>
+      <Heading as="h1" mb={4} color={"#120E87"}>
         Create Sale
       </Heading>
+
       <form onSubmit={handleSubmit}>
         <FormControl>
           <FormLabel>Date</FormLabel>
@@ -126,7 +127,13 @@ const CreateSalePage = () => {
             <option value="Customer Type 3">Customer Type 3</option>
           </Select>
         </FormControl>
-        <Button mt={4} colorScheme="teal" type="submit">
+        <Button
+          mt={4}
+          backgroundColor={"primary.base"}
+          color={"white"}
+          _hover={{ bg: "primary.hover", color: "white" }}
+          type="submit"
+        >
           Create Sale
         </Button>
       </form>

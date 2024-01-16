@@ -89,18 +89,25 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  useToast,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon, ViewIcon } from "@chakra-ui/icons";
 import EditProductModal from "./EditProductModal"; // Import the EditProductModal component
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import { useQueryClient } from "react-query";
 
-export default function ProductPageTable({ products, entries, search }) {
+export default function ProductPageTable({
+  headers,
+  products,
+  entries,
+  search,
+}) {
   const [editProduct, setEditProduct] = useState(null);
   const [deleteProduct, setDeleteProduct] = useState(null);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
     useState(false);
   const queryClient = useQueryClient();
+  const toast = useToast();
 
   const openEditModal = (product) => {
     setEditProduct(product);
@@ -140,13 +147,52 @@ export default function ProductPageTable({ products, entries, search }) {
   };
 
   const onDelete = async (id) => {
-    const response = await apiMiddleware(`admin/products/products/${id}`, {
-      method: "DELETE",
-    });
-    console.log(response);
+    try {
+      const response = await apiMiddleware(`admin/products/products/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
 
-    if (response.success) {
-      queryClient.invalidateQueries("products");
+      console.log("Delete Product Response:", response);
+
+      if (response.success) {
+        console.log("Product Deleted Successfully");
+
+        toast({
+          title: "Product Deleted",
+          description: "Product has been deleted successfully",
+          status: "success",
+          duration: 3000,
+          colorScheme: "green",
+          isClosable: true,
+          containerStyle: { color: "white" },
+          position: "top-right",
+        });
+      } else {
+        console.log("Product Deletion Failed");
+
+        toast({
+          title: "Error",
+          description: "Product cannot be deleted",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          containerStyle: { color: "white" },
+          position: "top-right",
+        });
+      }
+    } catch (error) {
+      console.error("Error deleting product:", error);
+
+      toast({
+        title: "Error",
+        description: "An error occurred while deleting the product",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        containerStyle: { color: "white" },
+        position: "top-right",
+      });
     }
   };
 
@@ -163,11 +209,12 @@ export default function ProductPageTable({ products, entries, search }) {
         <Table variant="striped" colorScheme="blackAlpha">
           <Thead>
             <Tr>
-              <Th textAlign="center">ID</Th>
-              <Th textAlign="center">Name</Th>
-              <Th textAlign="center">Category</Th>
-              <Th textAlign="center">Quantity</Th>
-              <Th textAlign="center">Actions</Th>
+              {headers &&
+                headers.map((header, index) => (
+                  <Th key={index} textAlign="center">
+                    {header}
+                  </Th>
+                ))}
             </Tr>
           </Thead>
           <Tbody>
@@ -190,7 +237,9 @@ export default function ProductPageTable({ products, entries, search }) {
                     <Td textAlign="center">
                       <IconButton
                         size="sm"
-                        colorScheme="blue"
+                        backgroundColor={"primary.base"}
+                        color={"white"}
+                        _hover={{ bg: "primary.hover", color: "white" }}
                         title="Edit"
                         icon={<Icon as={EditIcon} />}
                         mr={2}
@@ -200,6 +249,7 @@ export default function ProductPageTable({ products, entries, search }) {
                         size="sm"
                         colorScheme="red"
                         title="Delete"
+                        _hover={{ bg: "red.600", color: "white" }}
                         icon={<Icon as={DeleteIcon} />}
                         onClick={() => openDeleteConfirmation(product)}
                       />

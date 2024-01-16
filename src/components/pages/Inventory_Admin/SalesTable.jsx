@@ -22,7 +22,7 @@ import EditSaleModal from "./EditSaleModal"; // Make sure you have an EditSaleMo
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import { useQueryClient } from "react-query";
 
-export default function SalesTable({ sales, entries, search }) {
+export default function SalesTable({ headers, sales, entries, search }) {
   const [editSale, setEditSale] = useState(null);
   const [deleteSale, setDeleteSale] = useState(null);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
@@ -82,13 +82,12 @@ export default function SalesTable({ sales, entries, search }) {
         <Table variant="striped" colorScheme="blackAlpha">
           <Thead>
             <Tr>
-              <Th textAlign="center">ID</Th>
-              <Th textAlign="center">Date</Th>
-              <Th textAlign="center">Quantity</Th>
-              <Th textAlign="center">Product Name</Th>
-              <Th textAlign="center">Customer Name</Th>
-              <Th textAlign="center">Customer Type</Th>
-              <Th textAlign="center">Actions</Th>
+              {headers &&
+                headers.map((header, index) => (
+                  <Th key={index} textAlign="center">
+                    {header}
+                  </Th>
+                ))}
             </Tr>
           </Thead>
           <Tbody>
@@ -113,7 +112,9 @@ export default function SalesTable({ sales, entries, search }) {
                     <Td textAlign="center">
                       <IconButton
                         size="sm"
-                        colorScheme="blue"
+                        backgroundColor={"primary.base"}
+                        color={"white"}
+                        _hover={{ bg: "primary.hover", color: "white" }}
                         title="Edit"
                         icon={<Icon as={EditIcon} />}
                         mr={2}
@@ -123,6 +124,7 @@ export default function SalesTable({ sales, entries, search }) {
                         size="sm"
                         colorScheme="red"
                         title="Delete"
+                        _hover={{ bg: "red.600", color: "white" }}
                         icon={<Icon as={DeleteIcon} />}
                         onClick={() => openDeleteConfirmation(sale)}
                       />

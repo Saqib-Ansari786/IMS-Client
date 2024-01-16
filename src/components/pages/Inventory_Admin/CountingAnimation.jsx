@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Text } from '@chakra-ui/react';
-import { CheckCircleIcon, StarIcon, WarningIcon } from '@chakra-ui/icons'; // Import Chakra UI icons
+import React, { useState, useEffect } from "react";
+import { Box, Text } from "@chakra-ui/react";
+import { CheckCircleIcon, StarIcon, WarningIcon } from "@chakra-ui/icons"; // Import Chakra UI icons
 
 function getIconByLabel(label) {
   switch (label) {
-    case 'Total Products':
+    case "Total Products":
       return <CheckCircleIcon />;
-    case 'Total Categories':
+    case "Total Categories":
       return <StarIcon />;
     default:
       return <WarningIcon />;
@@ -40,11 +40,9 @@ export default function CountingAnimation({ label, total }) {
       <Box fontSize="5xl" fontWeight="bold" mb={2} color={"#A9F6F6"}>
         {getIconByLabel(label)}
       </Box>
-      <Text fontSize="3xl">
-        {count}
-      </Text>
-      <Text fontSize="xl" color="#120E87">
-      {label}
+      <Text fontSize="3xl">{count}</Text>
+      <Text fontWeight={"bold"} fontSize="xl" color="primary.base">
+        {label}
       </Text>
     </>
   );

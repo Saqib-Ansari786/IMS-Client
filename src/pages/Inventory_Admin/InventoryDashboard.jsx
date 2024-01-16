@@ -19,8 +19,8 @@ const InventoryDashboard = () => {
   };
 
   return (
-    <Box p={4}>
-      <Heading mb={"5"} as="h3" size="md" color="#120E87">
+    <Box bgColor={"white"} p={4}>
+      <Heading mb={"5"} as="h1" size="xl" color="#120E87">
         Welcome Inventory Admin!
       </Heading>
       <Flex justify="space-between" flexWrap="wrap">
@@ -39,7 +39,7 @@ const InventoryDashboard = () => {
           <CountingAnimation label="Total Sales" total={150} />
         </Box>
       </Flex>
-      <Box p={4} m={2} bg="white" borderRadius="md" boxShadow="md">
+      <Box p={4} m={2} bg="white" borderRadius="md" boxShadow="lg">
         <ProductTable />
       </Box>
     </Box>

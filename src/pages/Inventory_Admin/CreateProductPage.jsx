@@ -66,7 +66,7 @@ const CreateProductPage = () => {
   };
 
   return (
-    <Box backgroundColor={"white"} p={4}>
+    <Box backgroundColor={"white"} p={4} borderRadius={8}>
       <Heading as="h1" mb={4} color={"#120E87"}>
         Add Product
       </Heading>
@@ -107,7 +107,13 @@ const CreateProductPage = () => {
             required
           />
         </FormControl>
-        <Button mt={4} colorScheme="teal" type="submit">
+        <Button
+          mt={4}
+          backgroundColor={"primary.base"}
+          color={"white"}
+          _hover={{ bg: "primary.hover", color: "white" }}
+          type="submit"
+        >
           Create Product
         </Button>
       </form>
@@ -116,7 +122,6 @@ const CreateProductPage = () => {
         isModalOpen={isModalOpen}
         closeModal={closeModal}
       />
-
     </Box>
   );
 };

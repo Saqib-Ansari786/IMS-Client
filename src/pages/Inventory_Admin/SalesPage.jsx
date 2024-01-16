@@ -10,12 +10,25 @@ import { useQuery } from "react-query";
 import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 import Search from "../../components/pages/Admin/Search";
 
+const jsonData = {
+  headers: [
+    "ID",
+    "DATE",
+    "QUANTITY",
+    "PRODUCT NAME",
+    "CUSTOMER NAME",
+    "CUSTOMER TYPE",
+    "ACTION",
+  ],
+};
+
 export default function SalesPage() {
   const {
     data: sales,
     isLoading,
     isError,
   } = useQuery("sales", () => apiMiddleware("admin/sales/sales"));
+  const headers = jsonData.headers;
   const [entries, setEntries] = useState(5);
   const [selectedComponent, setSelectedComponent] = useState("ListView");
   const [search, setSearch] = useState("");
@@ -33,6 +46,7 @@ export default function SalesPage() {
 
   return (
     <SalesPageHeader
+      headers={headers}
       handleListViewClick={handleListViewClick}
       handleAddClick={handleAddClick}
       sales={sales}
@@ -62,7 +76,12 @@ export default function SalesPage() {
                 input3={"Customer Name"}
               />
               <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
-              <SalesTable sales={sales} entries={entries} search={search} />
+              <SalesTable
+                headers={headers}
+                sales={sales}
+                entries={entries}
+                search={search}
+              />
             </>
           ) : (
             <NotDataFoundMessage />

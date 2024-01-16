@@ -3,8 +3,13 @@ import { Box, Flex, Heading, Button } from "@chakra-ui/react";
 import { DownloadIcon, AddIcon, RepeatIcon } from "@chakra-ui/icons";
 import * as XLSX from "xlsx";
 
-export default function ProductpageHeader({ children, handleListViewClick, handleAddClick, products}) {
-
+export default function ProductpageHeader({
+  headers,
+  children,
+  handleListViewClick,
+  handleAddClick,
+  products,
+}) {
   const [selectedView, setSelectedView] = useState("ListView");
 
   const handleViewChange = (view) => {
@@ -20,7 +25,7 @@ export default function ProductpageHeader({ children, handleListViewClick, handl
       product.quantity,
     ]);
 
-    const ws = XLSX.utils.aoa_to_sheet([products, ...exportData]);
+    const ws = XLSX.utils.aoa_to_sheet([headers, ...exportData]);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Products Data");
 
@@ -50,9 +55,16 @@ export default function ProductpageHeader({ children, handleListViewClick, handl
           </Button>
           <Button
             leftIcon={<RepeatIcon />}
-            colorScheme="blue"
+            backgroundColor={
+              selectedView === "ListView" ? "primary.base" : "white"
+            }
+            color={selectedView !== "ListView" ? "primary.base" : "white"}
             variant={selectedView === "ListView" ? "solid" : "outline"}
-            _hover={{ bg: selectedView === "ListView" ? "blue.300" : "blue.200", color: "white" }}
+            _hover={{
+              bg:
+                selectedView === "ListView" ? "primary.base" : "primary.hover",
+              color: "white",
+            }}
             onClick={() => {
               handleListViewClick();
               handleViewChange("ListView");
@@ -63,9 +75,14 @@ export default function ProductpageHeader({ children, handleListViewClick, handl
           </Button>
           <Button
             leftIcon={<AddIcon />}
-            colorScheme="blue"
-            _hover={{ bg: "blue.300", color: "white" }}
-           onClick={() => {
+            backgroundColor={selectedView === "Add" ? "primary.base" : "white"}
+            color={selectedView !== "Add" ? "primary.base" : "white"}
+            variant={selectedView === "Add" ? "solid" : "outline"}
+            _hover={{
+              bg: selectedView === "Add" ? "primary.base" : "primary.hover",
+              color: "white",
+            }}
+            onClick={() => {
               handleAddClick();
               handleViewChange("Add");
             }}

@@ -9,10 +9,15 @@ import ProductSearch from "../../components/pages/Inventory_Admin/ProductSearch"
 import { Spinner } from "@chakra-ui/react";
 import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
 import Search from "../../components/pages/Admin/Search";
+import ErrorComponent from "../../components/pages/Admin/ErrorComponent";
+const jsonData = {
+  headers: ["ID", "PRODUCT NAME", "CATEGORY", "QUANTITY", "ACTION"],
+};
 
 export default function ProductPage() {
   const [entries, setEntries] = useState(5);
   const [selectedComponent, setSelectedComponent] = useState("ListView");
+  const headers = jsonData.headers;
   const [search, setSearch] = useState("");
   const {
     data: products,
@@ -44,6 +49,7 @@ export default function ProductPage() {
 
   return (
     <ProductpageHeader
+      headers={headers}
       handleListViewClick={handleListViewClick}
       handleAddClick={handleAddClick}
       products={products}
@@ -63,7 +69,7 @@ export default function ProductPage() {
               <p>Loading...</p>
             </>
           ) : isError ? (
-            <p>Error</p>
+            <ErrorComponent />
           ) : products.length > 0 ? (
             <>
               <Search
@@ -74,6 +80,7 @@ export default function ProductPage() {
               />
               <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
               <ProductPageTable
+                headers={headers}
                 products={products}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
