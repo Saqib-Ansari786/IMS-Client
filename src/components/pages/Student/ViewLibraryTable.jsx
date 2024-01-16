@@ -112,55 +112,62 @@ export default function ViewLibraryTable({ headers, data }) {
           </Thead>
           <Tbody>
             {data &&
-              data?.map((row, rowIndex) => (
-                <Tr key={row._id}>
-                  <Td key={rowIndex} textAlign="center">
-                    {row.title}
-                  </Td>
-                  <Td key={rowIndex} textAlign="center">
-                    {row.authorName}
-                  </Td>
-                  <Td key={rowIndex} textAlign="center">
-                    {row.publisherName}
-                  </Td>
-                  <Td key={rowIndex} textAlign="center">
-                    {row.isbn}
-                  </Td>
-                  <Td key={rowIndex} textAlign="center">
-                    {row.category}
-                  </Td>
-                  <Td key={rowIndex} textAlign="center">
-                    <span
-                      style={{
-                        color: row.availability === true ? "green" : "red",
-                      }}
-                    >
-                      {row.availability === true
-                        ? "Available"
-                        : "Not Available"}
-                    </span>
-                  </Td>
-                  <Td key={rowIndex} textAlign="center">
-                    {row.availability === true ? (
-                      <Button
-                        size="sm"
-                        backgroundColor={"primary.base"}
-                        color={"white"}
-                        _hover={{ bg: "primary.hover", color: "white" }}
-                        onClick={() => handleIssueRequest(row)}
+              data
+                .filter((row) => {
+                  return search.toLowerCase() === ""
+                    ? row
+                    : row.title?.toLowerCase().includes(search) ||
+                        row.authorName?.includes(search);
+                })
+                .map((row, rowIndex) => (
+                  <Tr key={row._id}>
+                    <Td key={rowIndex} textAlign="center">
+                      {row.title}
+                    </Td>
+                    <Td key={rowIndex} textAlign="center">
+                      {row.authorName}
+                    </Td>
+                    <Td key={rowIndex} textAlign="center">
+                      {row.publisherName}
+                    </Td>
+                    <Td key={rowIndex} textAlign="center">
+                      {row.isbn}
+                    </Td>
+                    <Td key={rowIndex} textAlign="center">
+                      {row.category}
+                    </Td>
+                    <Td key={rowIndex} textAlign="center">
+                      <span
+                        style={{
+                          color: row.availability === true ? "green" : "red",
+                        }}
                       >
-                        {loading && issueRequestId === row._id ? (
-                          <Spinner size={"sm"} />
-                        ) : (
-                          "Issue Request"
-                        )}
-                      </Button>
-                    ) : (
-                      <Badge colorScheme="red">Not Available</Badge>
-                    )}
-                  </Td>
-                </Tr>
-              ))}
+                        {row.availability === true
+                          ? "Available"
+                          : "Not Available"}
+                      </span>
+                    </Td>
+                    <Td key={rowIndex} textAlign="center">
+                      {row.availability === true ? (
+                        <Button
+                          size="sm"
+                          backgroundColor={"primary.base"}
+                          color={"white"}
+                          _hover={{ bg: "primary.hover", color: "white" }}
+                          onClick={() => handleIssueRequest(row)}
+                        >
+                          {loading && issueRequestId === row._id ? (
+                            <Spinner size={"sm"} />
+                          ) : (
+                            "Issue Request"
+                          )}
+                        </Button>
+                      ) : (
+                        <Badge colorScheme="red">Not Available</Badge>
+                      )}
+                    </Td>
+                  </Tr>
+                ))}
           </Tbody>
         </Table>
       </TableContainer>

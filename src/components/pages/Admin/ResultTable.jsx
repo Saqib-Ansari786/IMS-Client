@@ -37,8 +37,8 @@ export default function ResultTable({ headers, data, entries, search }) {
               .filter((row) => {
                 return search.toLowerCase() === ""
                   ? row
-                  : row.studentName.toLowerCase().includes(search) ||
-                      row.beltNo.includes(search);
+                  : row.studentName?.toLowerCase().includes(search) ||
+                      row.beltNo?.includes(search);
               })
               .slice(0, entries)
               .map((row, rowIndex) => (
