@@ -22,7 +22,7 @@ import EditSaleModal from "./EditSaleModal"; // Make sure you have an EditSaleMo
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import { useQueryClient } from "react-query";
 
-export default function SalesTable({ sales, entries }) {
+export default function SalesTable({ sales, entries, search }) {
   const [editSale, setEditSale] = useState(null);
   const [deleteSale, setDeleteSale] = useState(null);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
@@ -93,33 +93,42 @@ export default function SalesTable({ sales, entries }) {
           </Thead>
           <Tbody>
             {sales ? (
-              sales.slice(0, entries).map((sale, index) => (
-                <Tr key={index}>
-                  <Td textAlign="center">{index + 1}</Td>
-                  <Td textAlign="center">{sale.date.split("T")[0]}</Td>
-                  <Td textAlign="center">{sale.quantity}</Td>
-                  <Td textAlign="center">{sale.productName}</Td>
-                  <Td textAlign="center">{sale.customerName}</Td>
-                  <Td textAlign="center">{sale.customerType}</Td>
-                  <Td textAlign="center">
-                    <IconButton
-                      size="sm"
-                      colorScheme="blue"
-                      title="Edit"
-                      icon={<Icon as={EditIcon} />}
-                      mr={2}
-                      onClick={() => openEditModal(sale)}
-                    />
-                    <IconButton
-                      size="sm"
-                      colorScheme="red"
-                      title="Delete"
-                      icon={<Icon as={DeleteIcon} />}
-                      onClick={() => openDeleteConfirmation(sale)}
-                    />
-                  </Td>
-                </Tr>
-              ))
+              sales
+                .filter((row) => {
+                  return search?.toLowerCase() === ""
+                    ? row
+                    : row.id?.includes(search) ||
+                        row.productName?.toLowerCase().includes(search) ||
+                        row.customerName?.toLowerCase().includes(search);
+                })
+                .slice(0, entries)
+                .map((sale, index) => (
+                  <Tr key={index}>
+                    <Td textAlign="center">{index + 1}</Td>
+                    <Td textAlign="center">{sale.date.split("T")[0]}</Td>
+                    <Td textAlign="center">{sale.quantity}</Td>
+                    <Td textAlign="center">{sale.productName}</Td>
+                    <Td textAlign="center">{sale.customerName}</Td>
+                    <Td textAlign="center">{sale.customerType}</Td>
+                    <Td textAlign="center">
+                      <IconButton
+                        size="sm"
+                        colorScheme="blue"
+                        title="Edit"
+                        icon={<Icon as={EditIcon} />}
+                        mr={2}
+                        onClick={() => openEditModal(sale)}
+                      />
+                      <IconButton
+                        size="sm"
+                        colorScheme="red"
+                        title="Delete"
+                        icon={<Icon as={DeleteIcon} />}
+                        onClick={() => openDeleteConfirmation(sale)}
+                      />
+                    </Td>
+                  </Tr>
+                ))
             ) : (
               <Tr>
                 <Td colSpan={7}>No sales found</Td>
