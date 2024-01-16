@@ -4,34 +4,24 @@ import DashboardWidget from "../../components/pages/Admin/DashboardWidget";
 import TopStudentsTable from "../../components/pages/Admin/TopStudentCard";
 import StudentYearChart from "../../components/pages/Admin/StudentYearChart";
 import EventCalendar from "../../components/pages/Admin/EventCalendar";
-
-const dashboardData = [
-  {
-    title: "Total Students",
-    value: "50055",
-    iconSrc:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
-    altText: "Students Icon",
-  },
-  {
-    title: "Total Teachers",
-    value: "123",
-    iconSrc: "assets/img/icons/teachers-icon.svg",
-    altText: "Teachers Icon",
-  },
-  {
-    title: "Courses",
-    value: "45",
-    iconSrc: "assets/img/icons/courses-icon.svg",
-    altText: "Courses Icon",
-  },
-  {
-    title: "Total Books",
-    value: "230",
-    iconSrc: "assets/img/icons/books-icon.svg",
-    altText: "Books Icon",
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchTeachers,
+  selectTeachers,
+  setTeachers,
+} from "../../store/redux-slices/teachers_slice";
+import {
+  fetchStudents,
+  selectStudents,
+  setStudents,
+} from "../../store/redux-slices/students_slice";
+import {
+  fetchCourses,
+  selectCourses,
+  setCourses,
+} from "../../store/redux-slices/courses_slice";
+import { useEffect, useState } from "react";
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
 
 const topStudentsData = [
   {
@@ -88,21 +78,86 @@ const announcements = [
 ];
 
 export default function Dashboard() {
+  const teachers = useSelector(selectTeachers);
+  const students = useSelector(selectStudents);
+  const courses = useSelector(selectCourses);
+  const [books, setBooks] = useState([]);
+  const dispatch = useDispatch();
+
+  console.log(courses, "courses");
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      const books = await apiMiddleware("admin/libraries/library-items");
+      setBooks(books);
+    };
+    dispatch(fetchTeachers());
+    dispatch(fetchStudents());
+    dispatch(fetchCourses());
+
+    fetchBooks();
+  }, [dispatch]);
+
+  const [dashboardData, setDashboardData] = useState([
+    {
+      title: "Total Students",
+      value: ``,
+      iconSrc:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s",
+      altText: "Students Icon",
+    },
+    {
+      title: "Total Teachers",
+      value: ``,
+      iconSrc: "assets/img/icons/teachers-icon.svg",
+      altText: "Teachers Icon",
+    },
+    {
+      title: "Courses",
+      value: ``,
+      iconSrc: "assets/img/icons/courses-icon.svg",
+      altText: "Courses Icon",
+    },
+    {
+      title: "Total Books",
+      value: "230",
+      iconSrc: "assets/img/icons/books-icon.svg",
+      altText: "Books Icon",
+    },
+  ]);
+
   return (
     <>
       <Heading mb={"5"} as="h3" size="md" color="#120E87">
         Welcome Admin!
       </Heading>
       <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={4} mb={2}>
-        {dashboardData.map((item, index) => (
-          <DashboardWidget
-            key={index}
-            title={item.title}
-            value={item.value}
-            iconSrc={item.iconSrc}
-            altText={item.altText}
-          />
-        ))}
+        <DashboardWidget
+          title={"Total Students"}
+          value={`${students?.length}`}
+          iconSrc={
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWje_gjVcmi-wks5nTRnW_xv5W2l3MVnk7W1QDcZuhNg&s"
+          }
+          altText={"Students Icon"}
+        />
+        <DashboardWidget
+          title={"Total Teachers"}
+          value={`${teachers?.length}`}
+          iconSrc={"assets/img/icons/teachers-icon.svg"}
+          altText={"Teachers Icon"}
+        />
+        <DashboardWidget
+          title={"Total Courses"}
+          value={`${courses?.length}`}
+          iconSrc={"assets/img/icons/courses-icon.svg"}
+          altText={"Courses Icon"}
+        />
+        <DashboardWidget
+          title={"Total Books"}
+          value={`${books?.length}`}
+          iconSrc={"assets/img/icons/books-icon.svg"}
+          altText={"Books Icon"}
+        />
       </SimpleGrid>
       <StudentYearChart data={chartData} />
       <Flex direction={{ base: "column", md: "row" }} gap={3}>

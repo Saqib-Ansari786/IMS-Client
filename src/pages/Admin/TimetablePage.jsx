@@ -30,8 +30,6 @@ const TimetablePage = () => {
     isError,
   } = useQuery("timetable", () => apiMiddleware("admin/timetable/timetable"));
 
-  console.log(timetable_record);
-
   const [timetable, setTimetable] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedTeacher, setSelectedTeacher] = useState("");

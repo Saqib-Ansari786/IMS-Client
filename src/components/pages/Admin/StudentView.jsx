@@ -123,25 +123,25 @@ export default function StudentView({ headers, data, entries, search }) {
               .map((row, rowIndex) => (
                 <Tr key={rowIndex}>
                   <Td key={rowIndex} textAlign="center">
-                    {row.beltNo}
+                    {row?.beltNo}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    {row.firstname + " " + row.lastname}
+                    {row?.firstname + " " + row.lastname}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    {row.courseCode}
+                    {row?.courseCode}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    {row.email}
+                    {row?.email}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    {row.contactNo}
+                    {row?.contactNo}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    {new Date(row.registrationDate).toLocaleDateString()}
+                    {new Date(row?.registrationDate).toLocaleDateString()}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    <Link to={`${row.beltNo}`}>
+                    <Link to={`${row?.beltNo}`}>
                       <IconButton
                         size="sm"
                         backgroundColor={"primary.base"}
