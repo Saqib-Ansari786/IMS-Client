@@ -1,6 +1,14 @@
 import { Outlet } from "react-router";
 import SidebarwithHeader from "../../components/common/Sidebar/SidebarwithHeader";
-import { InfoIcon, SearchIcon, SettingsIcon, StarIcon } from "@chakra-ui/icons";
+import {
+  BellIcon,
+  CalendarIcon,
+  InfoIcon,
+  SearchIcon,
+  SettingsIcon,
+  StarIcon,
+  SunIcon,
+} from "@chakra-ui/icons";
 import Breadcrumbs from "../../components/common/Breadcrumb/Breadcrumb";
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -14,16 +22,16 @@ const LinkItems = [
     icon: StarIcon,
     route: "create-product",
   },
-  { name: "Sales", icon: SettingsIcon, route: "sales" },
+  { name: "Issued Products", icon: SunIcon, route: "issued-products" },
   {
-    name: "Create Sales",
-    icon: SettingsIcon,
-    route: "create-sale",
+    name: "Issue Product",
+    icon: BellIcon,
+    route: "issue-product",
   },
   {
-    name: "Sales Report",
-    icon: SettingsIcon,
-    route: "sales-report",
+    name: "Products Report",
+    icon: CalendarIcon,
+    route: "products-report",
   },
 ];
 
@@ -51,12 +59,9 @@ export default function InventoryAdminLayout() {
       location.pathname === "/inventory_admin/products/" ||
       location.pathname === "/inventory_admin/create-product" ||
       location.pathname === "/inventory_admin/create-product/" ||
-      location.pathname === "/inventory_admin/sales" ||
-      location.pathname === "/inventory_admin/sales/" ||
-      location.pathname === "/inventory_admin/create-sale" ||
-      location.pathname === "/inventory_admin/create-sale/" ||
-      location.pathname === "/inventory_admin/sales-report" ||
-      location.pathname === "/inventory_admin/sales-report/"
+      location.pathname === "/inventory_admin/issued-products" ||
+      location.pathname === "/inventory_admin/issue-product" ||
+      location.pathname === "/inventory_admin/products-report"
     ) {
       return <Navigate to="/iadmin-login" />;
     }

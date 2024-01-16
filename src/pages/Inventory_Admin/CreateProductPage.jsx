@@ -91,9 +91,9 @@ const CreateProductPage = () => {
             placeholder="Select Category"
             required
           >
-            <option value="Category A">Category A</option>
-            <option value="Category B">Category B</option>
-            <option value="Category C">Category C</option>
+            <option value="Food Items">Food Items</option>
+            <option value="Stationary">Stationary</option>
+            <option value="Furniture Items">Furniture Items</option>
           </Select>
         </FormControl>
         <FormControl mt={4}>

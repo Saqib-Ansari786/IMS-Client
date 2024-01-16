@@ -9,15 +9,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 
-const ProductTable = () => {
-  const products = [
-    { id: 1, name: "Product 1", category: "Category 1", price: 10 },
-    { id: 2, name: "Product 2", category: "Category 2", price: 20 },
-    { id: 3, name: "Product 3", category: "Category 1", price: 15 },
-    { id: 4, name: "Product 4", category: "Category 3", price: 5 },
-    { id: 5, name: "Product 5", category: "Category 2", price: 25 },
-  ];
-
+const ProductTable = ({ products }) => {
   return (
     <TableContainer
       borderWidth="1px"
@@ -45,14 +37,15 @@ const ProductTable = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {products.map((product) => (
-            <Tr key={product.id}>
-              <Td textAlign={"center"}>{product.id}</Td>
-              <Td textAlign="center">{product.name}</Td>
-              <Td textAlign="center">{product.category}</Td>
-              <Td textAlign="center">{product.price}</Td>
-            </Tr>
-          ))}
+          {products &&
+            products.slice(0, 5).map((product, index) => (
+              <Tr key={index}>
+                <Td textAlign="center">{index + 1}</Td>
+                <Td textAlign="center">{product?.name}</Td>
+                <Td textAlign="center">{product?.category}</Td>
+                <Td textAlign="center">{product?.quantity}</Td>
+              </Tr>
+            ))}
         </Tbody>
       </Table>
     </TableContainer>

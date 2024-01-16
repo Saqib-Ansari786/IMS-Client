@@ -7,11 +7,12 @@ import student_slice from "./redux-slices/student_slice";
 import courses_slice from "./redux-slices/courses_slice";
 import teachers_slice from "./redux-slices/teachers_slice";
 import students_slice from "./redux-slices/students_slice";
+import products_slice from "./redux-slices/products_slice";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "teacher", "student"],
+  whitelist: ["user", "teacher", "student", "courses", "teachers", "students"],
 };
 
 const rootReducer = combineReducers({
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   courses: courses_slice,
   teachers: teachers_slice,
   students: students_slice,
+  products: products_slice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

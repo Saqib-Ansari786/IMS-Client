@@ -10,6 +10,11 @@ import {
   ListIcon,
 } from "@chakra-ui/react";
 import SalesChart from "../../components/pages/Inventory_Admin/SalesChart";
+import {
+  selectIssuedProducts,
+  selectProducts,
+} from "../../store/redux-slices/products_slice";
+import { useSelector } from "react-redux";
 
 const SalesReportPage = () => {
   const [totalSales, setTotalSales] = useState(0);
@@ -27,6 +32,8 @@ const SalesReportPage = () => {
       },
     ],
   });
+  const issuedProducts = useSelector(selectIssuedProducts);
+  const products = useSelector(selectProducts);
 
   useEffect(() => {
     // Simulated data, replace with actual data retrieval logic
@@ -52,7 +59,7 @@ const SalesReportPage = () => {
       datasets: [
         {
           label: "Sales Data",
-          data: [12, 19, 3, 5, 2, 3],
+          data: [...(issuedProducts?.map((product) => product.quantity) || [])],
           backgroundColor: "rgba(75, 192, 192, 0.2)",
           borderColor: "rgba(75, 192, 192, 1)",
           borderWidth: 1,
@@ -67,7 +74,7 @@ const SalesReportPage = () => {
         Sales Report
       </Heading>
       <Text fontSize="lg" fontWeight="bold">
-        Total Sales: {totalSales}
+        Total Sales: {issuedProducts?.length || 0}
       </Text>
       <Flex mt={4}>
         <Box flex="1" p={4} m={2} bg="white" borderRadius="md" boxShadow="md">
@@ -75,10 +82,11 @@ const SalesReportPage = () => {
             Top 5 Sales Products
           </Text>
           <List>
-            {topProducts.map((product, index) => (
+            {issuedProducts?.slice(0, 5).map((product, index) => (
               <ListItem key={index}>
                 <ListIcon as="span" color="green.500" />
-                {product.name} - {product.sales} sales
+                {products?.find((p) => p._id === product.productId)?.name}-{" "}
+                {product.quantity} sales
               </ListItem>
             ))}
           </List>
@@ -88,10 +96,11 @@ const SalesReportPage = () => {
             Top 5 Categories
           </Text>
           <List>
-            {topCategories.map((category, index) => (
+            {issuedProducts?.slice(0, 5).map((product, index) => (
               <ListItem key={index}>
                 <ListIcon as="span" color="green.500" />
-                {category.name} - {category.sales} sales
+                {products?.find((p) => p._id === product.productId)?.category}-
+                {product.quantity} sales
               </ListItem>
             ))}
           </List>

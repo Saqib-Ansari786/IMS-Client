@@ -44,6 +44,8 @@ export default function SalesPage() {
     setSelectedComponent("Add");
   };
 
+  console.log(sales);
+
   return (
     <SalesPageHeader
       headers={headers}

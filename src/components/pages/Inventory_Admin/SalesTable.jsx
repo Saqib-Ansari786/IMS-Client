@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   Thead,
@@ -21,6 +21,8 @@ import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import EditSaleModal from "./EditSaleModal"; // Make sure you have an EditSaleModal component
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import { useQueryClient } from "react-query";
+import { selectProducts } from "../../../store/redux-slices/products_slice";
+import { useSelector } from "react-redux";
 
 export default function SalesTable({ headers, sales, entries, search }) {
   const [editSale, setEditSale] = useState(null);
@@ -28,6 +30,7 @@ export default function SalesTable({ headers, sales, entries, search }) {
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
     useState(false);
   const queryClient = useQueryClient();
+  const products = useSelector(selectProducts);
 
   const openEditModal = (sale) => {
     setEditSale({ ...sale, date: sale.date.split("T")[0] });
@@ -104,11 +107,17 @@ export default function SalesTable({ headers, sales, entries, search }) {
                 .map((sale, index) => (
                   <Tr key={index}>
                     <Td textAlign="center">{index + 1}</Td>
-                    <Td textAlign="center">{sale.date.split("T")[0]}</Td>
-                    <Td textAlign="center">{sale.quantity}</Td>
-                    <Td textAlign="center">{sale.productName}</Td>
-                    <Td textAlign="center">{sale.customerName}</Td>
-                    <Td textAlign="center">{sale.customerType}</Td>
+                    <Td textAlign="center">{sale?.date.split("T")[0]}</Td>
+                    <Td textAlign="center">{sale?.quantity}</Td>
+                    <Td textAlign="center">
+                      {
+                        products.find(
+                          (product) => product._id === sale?.productId
+                        )?.name
+                      }
+                    </Td>
+                    <Td textAlign="center">{sale?.customerName}</Td>
+                    <Td textAlign="center">{sale?.customerType}</Td>
                     <Td textAlign="center">
                       <IconButton
                         size="sm"

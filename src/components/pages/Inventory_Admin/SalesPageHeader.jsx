@@ -37,7 +37,7 @@ export default function SalesPageHeader({
     <Box py={4} bg="white" rounded="lg" boxShadow="md">
       <Flex justify="space-between" align="center" mx={4}>
         <Heading as="h3" size="lg" color={"#120E87"}>
-          Sales
+          Issued Products
         </Heading>
         <Flex align="center">
           <Button
@@ -88,7 +88,7 @@ export default function SalesPageHeader({
               handleViewChange("Add");
             }}
           >
-            Add Sales
+            Add Request
           </Button>
         </Flex>
       </Flex>

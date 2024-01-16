@@ -167,9 +167,9 @@ const router = createBrowserRouter(
         <Route path="profile" element={<Profile />} />
         <Route path="products" element={<ProductPage />} />
         <Route path="create-product" element={<CreateProductPage />} />
-        <Route path="sales" element={<SalesPage />} />
-        <Route path="create-sale" element={<CreateSalePage />} />
-        <Route path="sales-report" element={<SalesReportPage />} />
+        <Route path="issued-products" element={<SalesPage />} />
+        <Route path="issue-product" element={<CreateSalePage />} />
+        <Route path="products-report" element={<SalesReportPage />} />
       </Route>
     </Route>
   )
