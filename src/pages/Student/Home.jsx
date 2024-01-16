@@ -11,6 +11,13 @@ import {
   setStudent,
 } from "../../store/redux-slices/student_slice";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
+import {
+  fetchCourses,
+  selectCourses,
+  selectIsError,
+  selectIsLoading,
+} from "../../store/redux-slices/courses_slice";
+import { fetchTeachers } from "../../store/redux-slices/teachers_slice";
 
 const courseData = {
   courseCode: "CSC 102",
@@ -30,6 +37,9 @@ export default function Home() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const student = useSelector(selectStudent);
+  const courses = useSelector(selectCourses);
+  const isLoading = useSelector(selectIsLoading);
+  const isError = useSelector(selectIsError);
 
   useEffect(() => {
     const getStudent = async () => {
@@ -39,7 +49,10 @@ export default function Home() {
     };
 
     getStudent();
-  }, []);
+
+    dispatch(fetchCourses());
+    dispatch(fetchTeachers());
+  }, [dispatch]);
 
   return (
     <Stack minW="100%">
