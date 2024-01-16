@@ -62,6 +62,9 @@ const CreateSalePage = () => {
           title: "Sale Created.",
           description: "Sale has been created successfully.",
           status: "success",
+          position: "top-right",
+          colorScheme: "green",
+          containerStyle: { color: "white" },
           duration: 9000,
           isClosable: true,
         });
@@ -72,6 +75,8 @@ const CreateSalePage = () => {
         title: "Sale Creation Failed.",
         description: "Sale could not be created.",
         status: "error",
+        position: "top-right",
+        containerStyle: { color: "white" },
         duration: 9000,
         isClosable: true,
       });
