@@ -17,6 +17,9 @@ import {
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaCheck, FaTimes } from "react-icons/fa"; // Import icons
+import apiMiddleware from "../../components/common/Server/apiMiddleware";
+import { useSelector } from "react-redux";
+import { selectTeacher } from "../../store/redux-slices/teacher_slice";
 
 const studentData = [
   {
@@ -111,17 +114,36 @@ const AddStudentAttendancePage = () => {
   const [students, setStudents] = useState(studentData);
   const { courseId } = useParams();
   const [currentPage, setCurrentPage] = useState(0);
+  const teacher = useSelector(selectTeacher);
+  const [postData, setPostData] = useState(null);
 
   useEffect(() => {
-    // Set the initial page to 0 when the component mounts
-    setCurrentPage(0);
+    const fetchAttendance = async () => {
+      const res = await apiMiddleware(
+        `attendances/attendances/${courseId}/${teacher._id}`
+      );
+      if (res) {
+        console.log(res, "res ---------------------");
+        setPostData(res);
+        console.log(res[0].students);
+        setStudents(res[0].students);
+      }
+    };
+    fetchAttendance();
   }, []);
 
   const handleMarkAttendance = (studentId) => {
     // Find the student by ID and toggle their attendance
-    const updatedStudents = students.map((student) =>
-      student.id === studentId
-        ? { ...student, isPresent: !student.isPresent }
+    console.log(studentId, "handle mark student id ---------------------");
+    const updatedStudents = students?.map((student) =>
+      student?.studentId?._id === studentId
+        ? {
+            ...student,
+            attendance: {
+              date: new Date(Date.now()).toISOString().split("T")[0],
+              present: !student.attendance.present,
+            },
+          }
         : student
     );
 
@@ -130,9 +152,12 @@ const AddStudentAttendancePage = () => {
 
   const markAllPresent = () => {
     // Mark all students as present
-    const updatedStudents = students.map((student) => ({
+    const updatedStudents = students?.map((student) => ({
       ...student,
-      isPresent: true,
+      attendance: {
+        date: new Date(Date.now()).toISOString().split("T")[0],
+        present: true,
+      },
     }));
 
     setStudents(updatedStudents);
@@ -140,12 +165,38 @@ const AddStudentAttendancePage = () => {
 
   const markAllAbsent = () => {
     // Mark all students as absent
-    const updatedStudents = students.map((student) => ({
+    const updatedStudents = students?.map((student) => ({
       ...student,
-      isPresent: false,
+      attendance: {
+        date: new Date(Date.now()).toISOString().split("T")[0],
+        present: false,
+      },
     }));
 
     setStudents(updatedStudents);
+  };
+
+  console.log(students, "students ---------------------");
+
+  const handleSubmit = async () => {
+    const data = [
+      {
+        ...postData[0],
+        students: students,
+      },
+    ];
+    console.log(data, "data ---------------------");
+    const res = await apiMiddleware(
+      `attendances/mark-attendance/${courseId}/${teacher._id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(res, "res ---------------------");
   };
 
   // Calculate the start and end indices for the current page
@@ -153,7 +204,7 @@ const AddStudentAttendancePage = () => {
   const endIndex = startIndex + studentsPerPage;
 
   // Get the students for the current page
-  const studentsToShow = students.slice(startIndex, endIndex);
+  const studentsToShow = students?.slice(startIndex, endIndex);
   return (
     <Box p={[2, 4, 6, 8]} minW={"100%"}>
       <Heading size="lg" mb={[2, 4]}>
@@ -202,10 +253,14 @@ const AddStudentAttendancePage = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {studentsToShow.map((student) => (
-              <Tr key={student.id}>
-                <Td>{student.rollNo}</Td>
-                <Td>{student.name}</Td>
+            {studentsToShow?.map((student) => (
+              <Tr key={student?.studentId?._id}>
+                <Td>{student?.studentId?.beltNo}</Td>
+                <Td>
+                  {student?.studentId?.firstname +
+                    " " +
+                    student?.studentId?.lastname}
+                </Td>
                 <Td>
                   {student.totalAttendance}
                   <Progress
@@ -218,9 +273,9 @@ const AddStudentAttendancePage = () => {
                 </Td>
                 <Td>
                   <IconButton
-                    colorScheme={student.isPresent ? "green" : "red"}
+                    colorScheme={student?.attendance?.present ? "green" : "red"}
                     size="sm"
-                    onClick={() => handleMarkAttendance(student.id)}
+                    onClick={() => handleMarkAttendance(student?.studentId._id)}
                     aria-label={student.isPresent ? "Present" : "Absent"}
                     icon={student.isPresent ? <FaCheck /> : <FaTimes />}
                   />
@@ -238,12 +293,15 @@ const AddStudentAttendancePage = () => {
           icon={<FaArrowLeft />}
         />
         <IconButton
-          isDisabled={endIndex >= students.length}
+          isDisabled={endIndex >= students?.length}
           onClick={() => setCurrentPage(currentPage + 1)}
           aria-label="Next Page"
           icon={<FaArrowRight />}
         />
       </Flex>
+      <Button mt={4} colorScheme="blue" onClick={handleSubmit}>
+        Submit
+      </Button>
     </Box>
   );
 };

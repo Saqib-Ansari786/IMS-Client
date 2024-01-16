@@ -216,7 +216,7 @@ const AddAttendancePage = () => {
                 <Td>{data?.strength}</Td>
                 <Td>{data?.duration} hrs</Td>
                 <Td>
-                  <Link to={`/teacher/add-attendance/${data.courseCode}`}>
+                  <Link to={`/teacher/add-attendance/${data._id}`}>
                     <Button colorScheme="blue" size="sm" mr={2}>
                       <FaPlus />
                     </Button>
