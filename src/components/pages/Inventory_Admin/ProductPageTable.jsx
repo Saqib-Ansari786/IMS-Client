@@ -95,7 +95,7 @@ import EditProductModal from "./EditProductModal"; // Import the EditProductModa
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import { useQueryClient } from "react-query";
 
-export default function ProductPageTable({ products, entries }) {
+export default function ProductPageTable({ products, entries, search }) {
   const [editProduct, setEditProduct] = useState(null);
   const [deleteProduct, setDeleteProduct] = useState(null);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
@@ -172,31 +172,40 @@ export default function ProductPageTable({ products, entries }) {
           </Thead>
           <Tbody>
             {products &&
-              products.slice(0, entries).map((product, index) => (
-                <Tr key={product.id}>
-                  <Td textAlign="center">{index + 1}</Td>
-                  <Td textAlign="center">{product.name}</Td>
-                  <Td textAlign="center">{product.category}</Td>
-                  <Td textAlign="center">{product.quantity}</Td>
-                  <Td textAlign="center">
-                    <IconButton
-                      size="sm"
-                      colorScheme="blue"
-                      title="Edit"
-                      icon={<Icon as={EditIcon} />}
-                      mr={2}
-                      onClick={() => openEditModal(product)}
-                    />
-                    <IconButton
-                      size="sm"
-                      colorScheme="red"
-                      title="Delete"
-                      icon={<Icon as={DeleteIcon} />}
-                      onClick={() => openDeleteConfirmation(product)}
-                    />
-                  </Td>
-                </Tr>
-              ))}
+              products
+                .filter((row) => {
+                  return search?.toLowerCase() === ""
+                    ? row
+                    : row.id?.includes(search) ||
+                        row.name?.toLowerCase().includes(search) ||
+                        row.category?.toLowerCase().includes(search);
+                })
+                .slice(0, entries)
+                .map((product, index) => (
+                  <Tr key={product.id}>
+                    <Td textAlign="center">{index + 1}</Td>
+                    <Td textAlign="center">{product.name}</Td>
+                    <Td textAlign="center">{product.category}</Td>
+                    <Td textAlign="center">{product.quantity}</Td>
+                    <Td textAlign="center">
+                      <IconButton
+                        size="sm"
+                        colorScheme="blue"
+                        title="Edit"
+                        icon={<Icon as={EditIcon} />}
+                        mr={2}
+                        onClick={() => openEditModal(product)}
+                      />
+                      <IconButton
+                        size="sm"
+                        colorScheme="red"
+                        title="Delete"
+                        icon={<Icon as={DeleteIcon} />}
+                        onClick={() => openDeleteConfirmation(product)}
+                      />
+                    </Td>
+                  </Tr>
+                ))}
           </Tbody>
         </Table>
       </TableContainer>

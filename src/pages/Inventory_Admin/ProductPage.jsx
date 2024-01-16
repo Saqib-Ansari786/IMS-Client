@@ -8,10 +8,12 @@ import CreateProductPage from "./CreateProductPage";
 import ProductSearch from "../../components/pages/Inventory_Admin/ProductSearch";
 import { Spinner } from "@chakra-ui/react";
 import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
+import Search from "../../components/pages/Admin/Search";
 
 export default function ProductPage() {
   const [entries, setEntries] = useState(5);
   const [selectedComponent, setSelectedComponent] = useState("ListView");
+  const [search, setSearch] = useState("");
   const {
     data: products,
     isLoading,
@@ -21,6 +23,10 @@ export default function ProductPage() {
   const handleEdit = (productId) => {
     // Implement edit logic here
     console.log(`Edit product with ID ${productId}`);
+  };
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    console.log(e);
   };
 
   const handleDelete = (productId) => {
@@ -60,17 +66,23 @@ export default function ProductPage() {
             <p>Error</p>
           ) : products.length > 0 ? (
             <>
-              <ProductSearch />
+              <Search
+                handleSearch={handleSearch}
+                input1={"id"}
+                input2={"Name"}
+                input3={"Category Name"}
+              />
               <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
               <ProductPageTable
                 products={products}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
                 entries={entries}
+                search={search}
               />
             </>
           ) : (
-            <NotDataFoundMessage/>
+            <NotDataFoundMessage />
           )}
         </>
       )}

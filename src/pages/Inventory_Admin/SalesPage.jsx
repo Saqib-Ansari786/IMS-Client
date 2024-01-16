@@ -8,6 +8,7 @@ import SalesPageHeader from "../../components/pages/Inventory_Admin/SalesPageHea
 import { Spinner } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import NotDataFoundMessage from "../../components/pages/Admin/NoDataFoundMessage";
+import Search from "../../components/pages/Admin/Search";
 
 export default function SalesPage() {
   const {
@@ -17,9 +18,13 @@ export default function SalesPage() {
   } = useQuery("sales", () => apiMiddleware("admin/sales/sales"));
   const [entries, setEntries] = useState(5);
   const [selectedComponent, setSelectedComponent] = useState("ListView");
-
+  const [search, setSearch] = useState("");
   const handleListViewClick = () => {
     setSelectedComponent("ListView");
+  };
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    console.log(e);
   };
 
   const handleAddClick = () => {
@@ -50,12 +55,17 @@ export default function SalesPage() {
             <p>Error</p>
           ) : sales.length > 0 ? (
             <>
-              <ProductSearch />
+              <Search
+                handleSearch={handleSearch}
+                input1={"id"}
+                input2={"Product Name"}
+                input3={"Customer Name"}
+              />
               <ShowEntriesDropdown entries={entries} setEntries={setEntries} />
-              <SalesTable sales={sales} entries={entries} />
+              <SalesTable sales={sales} entries={entries} search={search} />
             </>
           ) : (
-            <NotDataFoundMessage/>
+            <NotDataFoundMessage />
           )}
         </>
       )}
