@@ -12,9 +12,12 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
+import { selectProducts } from "../../../store/redux-slices/products_slice";
+import { useSelector } from "react-redux";
 
 export default function EditSaleModal({ isOpen, onClose, sale, onEdit }) {
   const [editedSale, setEditedSale] = useState({ ...sale });
+  const products = useSelector(selectProducts);
 
   useEffect(() => {
     setEditedSale({ ...sale });
@@ -45,7 +48,7 @@ export default function EditSaleModal({ isOpen, onClose, sale, onEdit }) {
             <Input
               type="date"
               name="date"
-              value={editedSale.date}
+              value={editedSale?.date}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -54,25 +57,33 @@ export default function EditSaleModal({ isOpen, onClose, sale, onEdit }) {
             <Input
               type="number"
               name="quantity"
-              value={editedSale.quantity}
+              value={editedSale?.quantity}
               onChange={handleInputChange}
             />
           </FormControl>
           <FormControl>
             <FormLabel>Product Name</FormLabel>
-            <Input
-              type="text"
-              name="productName"
-              value={editedSale.productName}
+            <Select
+              name="productId"
+              value={editedSale?.productId}
               onChange={handleInputChange}
-            />
+            >
+              <option value="" disabled selected hidden>
+                Select Product
+              </option>
+              {products?.map((product, index) => (
+                <option key={index} value={product._id}>
+                  {product.name}
+                </option>
+              ))}
+            </Select>
           </FormControl>
           <FormControl>
             <FormLabel>Customer Name</FormLabel>
             <Input
               type="text"
               name="customerName"
-              value={editedSale.customerName}
+              value={editedSale?.customerName}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -80,12 +91,15 @@ export default function EditSaleModal({ isOpen, onClose, sale, onEdit }) {
             <FormLabel>Customer Type</FormLabel>
             <Select
               name="customerType"
-              value={editedSale.customerType}
+              value={editedSale?.customerType}
               onChange={handleInputChange}
             >
-              <option value="Customer Type 1">Customer Type 1</option>
-              <option value="Customer Type 2">Customer Type 2</option>
-              <option value="Customer Type 3">Customer Type 3</option>
+              <option value="" disabled selected hidden>
+                Select Customer Type
+              </option>
+              <option value={"Student"}>Student</option>
+              <option value={"Teacher"}>Teacher</option>
+              <option value={"Staff"}>Staff</option>
             </Select>
           </FormControl>
           <Button mt={4} colorScheme="blue" onClick={handleSave}>
