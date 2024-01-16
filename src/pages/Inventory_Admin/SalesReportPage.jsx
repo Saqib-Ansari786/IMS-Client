@@ -46,7 +46,7 @@ const SalesReportPage = () => {
   return (
     <Box backgroundColor={"white"} borderRadius={10} p={4}>
       <Heading as="h1" mb={4} color={"#120E87"}>
-        Sales Report
+        Issued Products Report
       </Heading>
       <Text fontSize="lg" fontWeight="bold">
         Total Sales: {issuedProducts?.length || 0}

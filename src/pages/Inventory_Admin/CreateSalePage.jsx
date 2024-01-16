@@ -102,7 +102,7 @@ const CreateSalePage = () => {
   return (
     <Box backgroundColor={"white"} p={4} borderRadius={8}>
       <Heading as="h1" mb={4} color={"#120E87"}>
-        Create Sale
+        Issue Request
       </Heading>
 
       <form onSubmit={formik.handleSubmit}>
@@ -192,8 +192,6 @@ const CreateSalePage = () => {
             <option value="" disabled selected hidden>
               Select Customer Type
             </option>
-            <option value="Regular">Regular</option>
-            <option value="Walk-in">Walk-in</option>
             <option value={"Student"}>Student</option>
             <option value={"Teacher"}>Teacher</option>
             <option value={"Staff"}>Staff</option>
@@ -208,6 +206,7 @@ const CreateSalePage = () => {
           color={"white"}
           _hover={{ bg: "primary.hover", color: "white" }}
           type="submit"
+          disabled={loading}
         >
           {loading ? (
             <Spinner
