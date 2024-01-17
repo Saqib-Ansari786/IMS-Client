@@ -20,11 +20,13 @@ import {
   uploadToCloudinary,
 } from "../../../utils/cloudinarySetup";
 import apiMiddleware from "../../common/Server/apiMiddleware";
+import { useQueryClient } from "react-query";
 
 export default function StudentAssignmentTable({ header, data, studentId }) {
   const [assignmentState, setAssignmentState] = useState({});
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+  const queryClient = useQueryClient();
 
   const handleFileUpload = (event, assignmentId) => {
     const file = event.target.files[0];
@@ -85,6 +87,7 @@ export default function StudentAssignmentTable({ header, data, studentId }) {
           options
         );
         console.log("Response:", response);
+        queryClient.invalidateQueries("studentAssignments");
         toast({
           title: "Assignment Submitted Successfully",
           status: "success",
@@ -158,28 +161,34 @@ export default function StudentAssignmentTable({ header, data, studentId }) {
                     }))
                   }
                 >
-                  {assignmentState[row._id]?.uploadedFile ? (
+                  {row?.submissions[0]?.studentId === studentId ? (
+                    <label htmlFor={`upload-input-${row._id}`} cursor="pointer">
+                      File already uploaded
+                    </label>
+                  ) : assignmentState[row._id]?.uploadedFile ? (
                     <div>
                       <CheckIcon />
                       {assignmentState[row._id].uploadedFile}
                     </div>
                   ) : (
-                    <label htmlFor={`upload-input-${row._id}`}>
-                      <AttachmentIcon cursor="pointer" />
-                      Upload
-                    </label>
+                    <>
+                      <label htmlFor={`upload-input-${row._id}`}>
+                        <AttachmentIcon cursor="pointer" />
+                        Upload
+                      </label>
+                      <Input
+                        id={`upload-input-${row._id}`}
+                        type="file"
+                        display="none"
+                        onChange={(event) => handleFileUpload(event, row._id)}
+                      />
+                    </>
                   )}
-                  <Input
-                    id={`upload-input-${row._id}`}
-                    type="file"
-                    display="none"
-                    onChange={(event) => handleFileUpload(event, row._id)}
-                  />
                 </Box>
               </Td>
               <Td key={row._id} textAlign="center">
                 <Box>
-                  {row?.submissions?.includes(studentId) ? (
+                  {row?.submissions[0]?.studentId === studentId ? (
                     <Box color="#17AD37">Submitted</Box>
                   ) : (
                     <Button
