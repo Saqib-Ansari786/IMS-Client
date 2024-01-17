@@ -81,8 +81,12 @@ export default function EditTeacherModal({ isOpen, onClose, teacher }) {
     setLoading(true);
     try {
       const response = await apiMiddleware(
-        "admin/teachers/editTeacher",
-        editedTeacher
+        `admin/teachers/edit/${teacher?._id}`,
+        {
+          method: "POST",
+          body: JSON.stringify(editedTeacher),
+          headers: { "Content-Type": "application/json" },
+        }
       );
       console.log("response", response);
       if (response.success) {
@@ -183,7 +187,7 @@ export default function EditTeacherModal({ isOpen, onClose, teacher }) {
               name="courseId"
               placeholder="Select Class"
               value={editedTeacher.courseId}
-              onChange={handleInputChange}
+              disabled
             >
               {courses?.map((course) => (
                 <option key={course._id} value={course._id}>
@@ -199,15 +203,22 @@ export default function EditTeacherModal({ isOpen, onClose, teacher }) {
             alignItems="center"
             justifyContent={"space-evenly"}
           >
-            {editedTeacher?.courseId?.map((course, index) => (
-              <Text
-                key={index}
-                mt={2}
-                onClick={() => handleRemoveCourse(index)}
-              >
-                {course}
-              </Text>
-            ))}
+            {editedTeacher.courseId?.map((courseId, index) => {
+              const course = courses?.find((c) => c._id === courseId);
+              return (
+                <Box
+                  key={courseId}
+                  backgroundColor={"gray.100"}
+                  borderRadius={4}
+                  p={2}
+                  display="flex"
+                  alignItems="center"
+                  justifyContent={"space-evenly"}
+                >
+                  <Text>{course?.name}</Text>
+                </Box>
+              );
+            })}
           </Box>
           <Button
             mt={4}

@@ -21,7 +21,7 @@ export default function EditStudentModal({ isOpen, onClose, student }) {
   const [editedStudent, setEditedStudent] = useState({ ...student });
   const [loading, setLoading] = useState(false);
   const toast = useToast();
-  const clientquery = useQueryClient;
+  const clientquery = useQueryClient();
   useEffect(() => {
     setEditedStudent({ ...student });
   }, [student]);
@@ -154,8 +154,8 @@ export default function EditStudentModal({ isOpen, onClose, student }) {
             <Select
               placeholder="Select Course"
               name="courseId"
-              value={editedStudent.courseId}
-              onChange={handleInputChange}
+              value={editedStudent?.courseId?._id}
+              disabled
             >
               {courses?.map((course) => (
                 <option key={course._id} value={course._id}>
@@ -171,7 +171,7 @@ export default function EditStudentModal({ isOpen, onClose, student }) {
               placeholder="Select Teacher"
               name="teacherId"
               value={editedStudent.teacherId}
-              onChange={handleInputChange}
+              disabled
             >
               {teachers?.map((teacher) => (
                 <option key={teacher._id} value={teacher._id}>
