@@ -13,7 +13,9 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import { useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { selectStudents } from "../../store/redux-slices/students_slice";
 
 const assignments = [
   {
@@ -123,11 +125,23 @@ const AssignmentDetailsPage = () => {
   const TeacherUploadedAssignemnts = queryClient.getQueryData(
     "TeacherUploadedAssignemnts"
   );
+  const students = useSelector(selectStudents);
   console.log(TeacherUploadedAssignemnts);
   console.log(assignmentId);
   const selectedAssignment = TeacherUploadedAssignemnts?.find(
     (assignment) => assignment._id === assignmentId
   );
+
+  console.log(students, "-------------students");
+
+  const studentDetails = students?.find(
+    (student) => student._id === selectedAssignment?.submissions[0]?.studentId
+  );
+
+  console.log(studentDetails, "-------------studentDetails");
+
+  console.log(selectedAssignment);
+  console.log(TeacherUploadedAssignemnts);
 
   if (!selectedAssignment) {
     return <div>Assignment not found</div>;
@@ -178,23 +192,20 @@ const AssignmentDetailsPage = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {selectedAssignment.submissions.map((submission, index) => (
-                  <Tr key={index}>
-                    <Td textAlign={"center"}>
-                      {submission?.studentId?.firstname +
-                        " " +
-                        submission?.studentId?.lastname}
-                    </Td>
-                    <Td textAlign={"center"}>
-                      {submission?.submissionDate?.toLocaleString()}
-                    </Td>
-                    <Td textAlign={"center"}>
-                      <Link href={submission?.doc} download>
-                        Download
-                      </Link>
-                    </Td>
-                  </Tr>
-                ))}
+                <Tr>
+                  <Td textAlign={"center"}>{"Ghulam Murtaza"}</Td>
+                  <Td textAlign={"center"}>
+                    {selectedAssignment?.submissions[0]?.submissionDate?.toLocaleString()}
+                  </Td>
+                  <Td textAlign={"center"}>
+                    <Link
+                      href={selectedAssignment?.submissions[0]?.doc}
+                      download
+                    >
+                      Download
+                    </Link>
+                  </Td>
+                </Tr>
               </Tbody>
             </Table>
           </TableContainer>

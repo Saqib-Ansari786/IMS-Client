@@ -12,6 +12,7 @@ import {
   Input,
   Button,
   Spinner,
+  useToast,
 } from "@chakra-ui/react";
 import { DownloadIcon, AttachmentIcon, CheckIcon } from "@chakra-ui/icons";
 import {
@@ -23,6 +24,7 @@ import apiMiddleware from "../../common/Server/apiMiddleware";
 export default function StudentAssignmentTable({ header, data, studentId }) {
   const [assignmentState, setAssignmentState] = useState({});
   const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
   const handleFileUpload = (event, assignmentId) => {
     const file = event.target.files[0];
@@ -60,28 +62,45 @@ export default function StudentAssignmentTable({ header, data, studentId }) {
       );
 
       setLoading(true);
-      const cloudinaryResponse = await uploadToCloudinary(cloudinaryFormData);
-      console.log("Cloudinary Response:", cloudinaryResponse);
+      try {
+        const cloudinaryResponse = await uploadToCloudinary(cloudinaryFormData);
+        console.log("Cloudinary Response:", cloudinaryResponse);
 
-      const payload = {
-        studentId,
-        assignmentId: currentAssignment._id,
-        doc: cloudinaryResponse.secure_url,
-      };
+        const payload = {
+          studentId,
+          assignmentId: currentAssignment._id,
+          doc: cloudinaryResponse?.secure_url,
+        };
 
-      const options = {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+        const options = {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
 
-      const response = await apiMiddleware(
-        "assignments/add-submission",
-        options
-      );
-      console.log("Response:", response);
+        const response = await apiMiddleware(
+          "assignments/add-submission",
+          options
+        );
+        console.log("Response:", response);
+        toast({
+          title: "Assignment Submitted Successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      } catch (error) {
+        console.log(error);
+        toast({
+          title: "Error",
+          description: "Something went wrong",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
       setLoading(false);
     }
   };

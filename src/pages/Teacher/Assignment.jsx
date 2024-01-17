@@ -78,20 +78,20 @@ const AssignmentComponent = ({ assignment }) => {
         <Icon as={FaFileAlt} boxSize={"20"} color="gray.500" />
         <VStack align="start">
           <Text fontSize={"xx-large"} fontWeight="bold">
-            {assignment.title}
+            {assignment?.title}
           </Text>
-          <Text>{assignment.description}</Text>
+          <Text>{assignment?.description}</Text>
           <HStack spacing={4}>
             <Icon as={FaUserAlt} boxSize={4} />
-            <Text>{`${assignment.studentsSubmitted} students submitted`}</Text>
+            <Text>{`${assignment?.studentsSubmitted} students submitted`}</Text>
           </HStack>
           <HStack spacing={4}>
             <TimeIcon boxSize={4} />
-            <Text>{`Start: ${assignment.startTimestamp.toDateString()}`}</Text>
+            <Text>{`Start: ${assignment?.startTimestamp.toDateString()}`}</Text>
           </HStack>
           <HStack spacing={4}>
             <TimeIcon boxSize={4} />
-            <Text>{`Due: ${assignment.deadlineTimestamp.toDateString()}`}</Text>
+            <Text>{`Due: ${assignment?.deadlineTimestamp.toDateString()}`}</Text>
           </HStack>
         </VStack>
       </HStack>
