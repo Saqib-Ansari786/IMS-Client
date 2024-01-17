@@ -212,7 +212,7 @@ export default function AddStudent() {
           >
             {courses?.map((course) => (
               <option key={course._id} value={course._id}>
-                {course.name}
+                {course.courseCode} - {course.name}
               </option>
             ))}
             {/* Add other course options as needed */}

@@ -23,6 +23,7 @@ import {
   selectIsError,
   selectIsLoading,
 } from "../../store/redux-slices/courses_slice";
+import { selectTeacher } from "../../store/redux-slices/teacher_slice";
 
 const sampleData = [
   {
@@ -56,8 +57,10 @@ const AddAttendancePage = () => {
   const courses = useSelector(selectCourses);
   const isLoading = useSelector(selectIsLoading);
   const isError = useSelector(selectIsError);
+  const teacher = useSelector(selectTeacher);
 
-  console.log(courses);
+  console.log(courses, "llllllllllllllllllllllllllllllllllllllllll");
+  console.log(teacher.courseId, "aksssssssskasdkasmdk");
 
   const handleSort = (field) => {
     if (field === sortBy) {
@@ -208,25 +211,29 @@ const AddAttendancePage = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {courses?.map((data, index) => (
-              <Tr key={data.id}>
-                <Td>{index + 1}</Td>
-                <Td>{data?.courseCode}</Td>
-                <Td>{data?.category}</Td>
-                <Td>{data?.strength}</Td>
-                <Td>{data?.duration} hrs</Td>
-                <Td>
-                  <Link to={`/teacher/add-attendance/${data._id}`}>
-                    <Button colorScheme="blue" size="sm" mr={2}>
-                      <FaPlus />
-                    </Button>
-                  </Link>
-                  <Button colorScheme="teal" size="sm">
-                    <FaEdit />
-                  </Button>
-                </Td>
-              </Tr>
-            ))}
+            {courses?.map((data, index) => {
+              if (teacher?.courseId?.includes(data._id)) {
+                return (
+                  <Tr key={data.id}>
+                    <Td>{index + 1}</Td>
+                    <Td>{data?.courseCode}</Td>
+                    <Td>{data?.category}</Td>
+                    <Td>{data?.strength}</Td>
+                    <Td>{data?.duration} hrs</Td>
+                    <Td>
+                      <Link to={`/teacher/add-attendance/${data._id}`}>
+                        <Button colorScheme="blue" size="sm" mr={2}>
+                          <FaPlus />
+                        </Button>
+                      </Link>
+                      <Button colorScheme="teal" size="sm">
+                        <FaEdit />
+                      </Button>
+                    </Td>
+                  </Tr>
+                );
+              }
+            })}
           </Tbody>
         </Table>
       </Box>
