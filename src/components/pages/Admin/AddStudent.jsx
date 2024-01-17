@@ -14,7 +14,7 @@ import {
 } from "../../../utils/cloudinarySetup";
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import SuccessModal from "../Inventory_Admin/SucessModal";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 export default function AddStudent() {
   const [formData, setFormData] = useState({
@@ -34,6 +34,7 @@ export default function AddStudent() {
   });
 
   const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   const {
     data: courses,
@@ -104,6 +105,7 @@ export default function AddStudent() {
     setLoading(false);
 
     if (response.success) {
+      queryClient.invalidateQueries("students");
       setSuccessMessage("Student added successfully!");
       setIsModalOpen(true);
     } else {

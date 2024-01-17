@@ -23,6 +23,7 @@ export default function EditTeacherModal({ isOpen, onClose, teacher }) {
   const [editedTeacher, setEditedTeacher] = useState({ ...teacher });
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+  const queryClient = useQueryClient();
 
   console.log("teacher", teacher);
 
@@ -90,6 +91,7 @@ export default function EditTeacherModal({ isOpen, onClose, teacher }) {
       );
       console.log("response", response);
       if (response.success) {
+        queryClient.invalidateQueries("teachers");
         toast({
           title: "Teacher updated successfully",
           status: "success",

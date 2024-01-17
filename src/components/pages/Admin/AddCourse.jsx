@@ -14,6 +14,7 @@ import apiMiddleware from "../../common/Server/apiMiddleware";
 import SuccessModal from "../Inventory_Admin/SucessModal";
 import { useDispatch } from "react-redux";
 import { fetchCourses } from "../../../store/redux-slices/courses_slice";
+import { useQueryClient } from "react-query";
 
 export default function AddCourse() {
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,7 @@ export default function AddCourse() {
   });
   const toast = useToast();
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,6 +55,7 @@ export default function AddCourse() {
       });
       console.log(response);
       if (response.success) {
+        queryClient.invalidateQueries("courses");
         toast({
           title: "Course Added",
           description: "Course has been added successfully",

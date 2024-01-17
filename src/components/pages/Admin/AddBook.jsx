@@ -7,11 +7,13 @@ import {
   Input,
   Select,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import SuccessModal from "../Inventory_Admin/SucessModal";
 import { useSelector } from "react-redux";
 import { selectCourses } from "../../../store/redux-slices/courses_slice";
+import { useQueryClient } from "react-query";
 
 const AddBook = () => {
   const [formData, setFormData] = useState({
@@ -26,6 +28,7 @@ const AddBook = () => {
     department: "",
     courseId: "",
   });
+  const toast = useToast();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,6 +37,7 @@ const AddBook = () => {
       [name]: value,
     });
   };
+  const queryClient = useQueryClient();
 
   const courses = useSelector(selectCourses);
   const handleSubmit = async (e) => {
@@ -55,20 +59,30 @@ const AddBook = () => {
       },
     });
     console.log(response);
+    if (response.success) {
+      queryClient.invalidateQueries("books");
+      toast({
+        title: "Book Added",
+        description: "Book has been added successfully",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
 
-    // Reset the form
-    setFormData({
-      title: "",
-      authorName: "",
-      publisherName: "",
-      isbn: "",
-      category: "",
-      availability: "",
-      language: "",
-      quantity: "",
-      department: "",
-      courseId: "",
-    });
+      // Reset the form
+      setFormData({
+        title: "",
+        authorName: "",
+        publisherName: "",
+        isbn: "",
+        category: "",
+        availability: "",
+        language: "",
+        quantity: "",
+        department: "",
+        courseId: "",
+      });
+    }
   };
 
   const closeModal = () => {

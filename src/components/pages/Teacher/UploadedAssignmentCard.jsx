@@ -98,16 +98,6 @@ export default function UploadedAssignmentCard({
           >
             View Detail
           </Button>
-          <Button
-            to={""}
-            colorScheme="blue"
-            _hover={{ backgroundColor: "blue.300", color: "white" }}
-            color={"white"}
-            leftIcon={<EditIcon />}
-            onClick={() => alert("HEllo")}
-          >
-            Edit Assignment
-          </Button>
         </Stack>
       </Box>
     </Box>

@@ -15,12 +15,14 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import apiMiddleware from "../../common/Server/apiMiddleware";
+import { useQueryClient } from "react-query";
 
 export default function EditCourseModal({ isOpen, onClose, course }) {
   console.log(course);
   const [editedCourse, setEditedCourse] = useState({ ...course });
   const toast = useToast();
   const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     setEditedCourse({ ...course });
@@ -53,6 +55,7 @@ export default function EditCourseModal({ isOpen, onClose, course }) {
         }
       );
       if (response.success) {
+        queryClient.invalidateQueries("courses");
         toast({
           title: "Course Edited",
           description: "Course has been edited successfully",

@@ -15,11 +15,13 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import apiMiddleware from "../../common/Server/apiMiddleware";
+import { useQueryClient } from "react-query";
 
 export default function EditBookModal({ isOpen, onClose, book }) {
   const [editedBook, setEditedBook] = useState({ ...book });
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+  const queryClient = useQueryClient();
   useEffect(() => {
     setEditedBook({ ...book });
   }, [book]);
@@ -54,6 +56,7 @@ export default function EditBookModal({ isOpen, onClose, book }) {
       console.log("response from server", response);
 
       if (response.success) {
+        queryClient.invalidateQueries("books");
         toast({
           title: "Book Edited",
           description: "Book has been edited successfully",
