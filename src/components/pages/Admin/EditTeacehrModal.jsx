@@ -16,7 +16,7 @@ import {
   useToast,
   Spinner,
 } from "@chakra-ui/react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import apiMiddleware from "../../common/Server/apiMiddleware";
 
 export default function EditTeacherModal({ isOpen, onClose, teacher }) {
