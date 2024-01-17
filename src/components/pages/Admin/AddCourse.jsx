@@ -190,7 +190,14 @@ export default function AddCourse() {
             required
           />
         </FormControl>
-        <Button type="submit" mt={6} colorScheme="blue" py={4} fontSize="1rem">
+        <Button
+          type="submit"
+          mt={6}
+          colorScheme="blue"
+          py={4}
+          fontSize="1rem"
+          disabled={loading}
+        >
           {loading ? (
             <Spinner
               thickness="4px"

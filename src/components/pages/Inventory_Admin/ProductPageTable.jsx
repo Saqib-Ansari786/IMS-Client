@@ -108,6 +108,7 @@ export default function ProductPageTable({
     useState(false);
   const queryClient = useQueryClient();
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
 
   const openEditModal = (product) => {
     setEditProduct(product);
@@ -129,25 +130,49 @@ export default function ProductPageTable({
 
   const onEdit = async (editedProduct) => {
     console.log(editedProduct);
-    const response = await apiMiddleware(
-      `admin/products/edit/${editedProduct._id}`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          name: editedProduct.name,
-          category: editedProduct.category,
-          quantity: editedProduct.quantity,
-        }),
+    try {
+      setLoading(true);
+      const response = await apiMiddleware(
+        `admin/products/edit/${editedProduct._id}`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            name: editedProduct.name,
+            category: editedProduct.category,
+            quantity: editedProduct.quantity,
+          }),
+        }
+      );
+      console.log(response);
+      if (response.success) {
+        queryClient.invalidateQueries("products");
+        toast({
+          title: "Product Edited",
+          description: "Product has been edited successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
       }
-    );
-    console.log(response);
-    if (response.success) {
-      queryClient.invalidateQueries("products");
+    } catch (error) {
+      console.error("Error editing product:", error);
+
+      toast({
+        title: "Error",
+        description: "An error occurred while editing the product",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        containerStyle: { color: "white" },
+        position: "top-right",
+      });
     }
+    setLoading(false);
   };
 
   const onDelete = async (id) => {
     try {
+      setLoading(true);
       const response = await apiMiddleware(`admin/products/products/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
@@ -194,6 +219,7 @@ export default function ProductPageTable({
         position: "top-right",
       });
     }
+    setLoading(false);
   };
 
   return (
@@ -244,6 +270,7 @@ export default function ProductPageTable({
                         icon={<Icon as={EditIcon} />}
                         mr={2}
                         onClick={() => openEditModal(product)}
+                        disabled={loading}
                       />
                       <IconButton
                         size="sm"
@@ -252,6 +279,7 @@ export default function ProductPageTable({
                         _hover={{ bg: "red.600", color: "white" }}
                         icon={<Icon as={DeleteIcon} />}
                         onClick={() => openDeleteConfirmation(product)}
+                        disabled={loading}
                       />
                     </Td>
                   </Tr>
