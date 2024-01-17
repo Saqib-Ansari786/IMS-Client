@@ -24,6 +24,8 @@ export default function CoursePage() {
   useEffect(() => {
     dispatch(fetchCourses());
   }, [dispatch]);
+
+  console.log(courses);
   return (
     <Box mt="4">
       <CoursePageHeader>
@@ -55,7 +57,7 @@ export default function CoursePage() {
           ) : courses?.length > 0 ? (
             courses?.slice(0, entries)?.map((course, index) => (
               <GridItem key={index}>
-                <CourseCard {...course} />
+                <CourseCard {...course} course={course} />
               </GridItem>
             ))
           ) : (

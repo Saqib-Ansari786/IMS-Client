@@ -42,13 +42,16 @@ export default function EditCourseModal({ isOpen, onClose, course }) {
   const onEdit = async (course) => {
     setLoading(true);
     try {
-      const response = await apiMiddleware(`/courses/${course._id}`, {
-        method: "POST",
-        body: JSON.stringify(course),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await apiMiddleware(
+        `admin/courses/course/${course._id}`,
+        {
+          method: "POST",
+          body: JSON.stringify(course),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.success) {
         toast({
           title: "Course Edited",
@@ -85,6 +88,7 @@ export default function EditCourseModal({ isOpen, onClose, course }) {
               name="courseCode"
               value={editedCourse.courseCode}
               onChange={handleInputChange}
+              required
             />
           </FormControl>
           <FormControl>
@@ -94,6 +98,7 @@ export default function EditCourseModal({ isOpen, onClose, course }) {
               name="name"
               value={editedCourse.name}
               onChange={handleInputChange}
+              required
             />
           </FormControl>
           <FormControl>
@@ -103,6 +108,7 @@ export default function EditCourseModal({ isOpen, onClose, course }) {
               name="department"
               value={editedCourse.department}
               onChange={handleInputChange}
+              required
             />
           </FormControl>
           <FormControl>
@@ -112,6 +118,7 @@ export default function EditCourseModal({ isOpen, onClose, course }) {
               name="strength"
               value={editedCourse.strength}
               onChange={handleInputChange}
+              required
             />
           </FormControl>
           <FormControl>
@@ -121,6 +128,7 @@ export default function EditCourseModal({ isOpen, onClose, course }) {
               placeholder="Select Duration"
               value={editedCourse.duration}
               onChange={handleInputChange}
+              required
             >
               <option value="7">7</option>
               <option value="14">14</option>
@@ -134,6 +142,7 @@ export default function EditCourseModal({ isOpen, onClose, course }) {
               name="author"
               value={editedCourse.author}
               onChange={handleInputChange}
+              required
             />
           </FormControl>
           <FormControl>
@@ -143,6 +152,7 @@ export default function EditCourseModal({ isOpen, onClose, course }) {
               name="category"
               value={editedCourse.category}
               onChange={handleInputChange}
+              required
             />
           </FormControl>
           <FormControl>
@@ -152,6 +162,7 @@ export default function EditCourseModal({ isOpen, onClose, course }) {
               name="description"
               value={editedCourse.description}
               onChange={handleInputChange}
+              required
             />
           </FormControl>
           <Button

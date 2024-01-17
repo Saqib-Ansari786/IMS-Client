@@ -30,6 +30,7 @@ export default function CourseCard({
   category,
   courseCode,
   _id,
+  course,
 }) {
   const [deleteCourse, setDeleteCourse] = useState(null);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
@@ -174,6 +175,7 @@ export default function CourseCard({
                 duration,
                 author,
                 category,
+                _id,
               })
             }
           >
@@ -195,7 +197,7 @@ export default function CourseCard({
           <EditCourseModal
             isOpen={isEditModalOpen}
             onClose={closeEditModal}
-            course={selectedCourse}
+            course={course}
             onEdit={handleEditCourse}
           />
         </Stack>

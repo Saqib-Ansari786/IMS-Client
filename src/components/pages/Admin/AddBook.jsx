@@ -10,6 +10,8 @@ import {
 } from "@chakra-ui/react";
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import SuccessModal from "../Inventory_Admin/SucessModal";
+import { useSelector } from "react-redux";
+import { selectCourses } from "../../../store/redux-slices/courses_slice";
 
 const AddBook = () => {
   const [formData, setFormData] = useState({
@@ -22,7 +24,7 @@ const AddBook = () => {
     language: "",
     quantity: "",
     department: "",
-    courseCode: "",
+    courseId: "",
   });
 
   const handleChange = (e) => {
@@ -33,26 +35,16 @@ const AddBook = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const courses = useSelector(selectCourses);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // You can access the form data as an object with the specified properties.
     console.log("Form Data:", formData);
-    setFormData({
-      title: "",
-      authorName: "",
-      publisherName: "",
-      isbn: "",
-      category: "",
-      availability: "",
-      language: "",
-      quantity: "",
-      department: "",
-      courseCode: "",
-    });
+
     setIsModalOpen(true);
     setSuccessMessage("Book successfully added!");
 
-    const response = apiMiddleware("admin/libraries/library-items", {
+    const response = await apiMiddleware("admin/libraries/library-items", {
       method: "POST",
       body: JSON.stringify({
         ...formData,
@@ -75,7 +67,7 @@ const AddBook = () => {
       language: "",
       quantity: "",
       department: "",
-      courseCode: "",
+      courseId: "",
     });
   };
 
@@ -132,6 +124,7 @@ const AddBook = () => {
                       placeholder="Enter Title"
                       value={formData.title}
                       onChange={handleChange}
+                      required
                     />
                   </FormControl>
                 </Box>
@@ -150,6 +143,7 @@ const AddBook = () => {
                       placeholder="Enter Author Name"
                       value={formData.authorName}
                       onChange={handleChange}
+                      required
                     />
                   </FormControl>
                 </Box>
@@ -167,6 +161,7 @@ const AddBook = () => {
                       name="language"
                       value={formData.language}
                       onChange={handleChange}
+                      required
                     >
                       <option>English</option>
                       <option>Urdu</option>
@@ -189,6 +184,7 @@ const AddBook = () => {
                       placeholder="Enter book Quantity"
                       value={formData.quantity}
                       onChange={handleChange}
+                      required
                     />
                   </FormControl>
                 </Box>
@@ -207,6 +203,7 @@ const AddBook = () => {
                       placeholder="Enter Department"
                       value={formData.department}
                       onChange={handleChange}
+                      required
                     />
                   </FormControl>
                 </Box>
@@ -225,6 +222,7 @@ const AddBook = () => {
                       placeholder="Enter Publisher Name"
                       value={formData.publisherName}
                       onChange={handleChange}
+                      required
                     />
                   </FormControl>
                 </Box>
@@ -242,6 +240,7 @@ const AddBook = () => {
                       name="category"
                       value={formData.category}
                       onChange={handleChange}
+                      required
                     >
                       <option>Computer Science</option>
                       <option>English Literature</option>
@@ -253,19 +252,25 @@ const AddBook = () => {
                 </Box>
                 <Box mt={3} className="col-12 col-sm-4">
                   <FormControl className="form-group local-forms">
-                    <FormLabel>Course</FormLabel>
+                    <FormLabel>
+                      Course
+                      <Text as="span" className="login-danger">
+                        *
+                      </Text>
+                    </FormLabel>
                     <Select
                       className="form-control select select2-hidden-accessible"
-                      placeholder="Select Course *"
-                      name="courseCode"
-                      value={formData.courseCode}
+                      placeholder="Select Course"
+                      name="courseId"
+                      value={formData.courseId}
                       onChange={handleChange}
+                      required
                     >
-                      <option>Computer Science</option>
-                      <option>English Literature</option>
-                      <option>Urdu Literature</option>
-                      <option>Mathematics</option>
-                      <option>Physiology</option>
+                      {courses?.map((course) => (
+                        <option key={course._id} value={course._id}>
+                          {course.name}
+                        </option>
+                      ))}
                     </Select>
                   </FormControl>
                 </Box>
@@ -283,6 +288,7 @@ const AddBook = () => {
                       name="availability"
                       value={formData.availability}
                       onChange={handleChange}
+                      required
                     >
                       <option>In Stock</option>
                       <option>Out of Stock</option>
@@ -299,16 +305,15 @@ const AddBook = () => {
                       Submit
                     </Button>
                   </Box>
-                  
                 </Box>
               </Box>
             </form>
           </Box>
           <SuccessModal
-        successMessage={successMessage}
-        isModalOpen={isModalOpen}
-        closeModal={closeModal}
-      />
+            successMessage={successMessage}
+            isModalOpen={isModalOpen}
+            closeModal={closeModal}
+          />
         </Box>
       </Box>
     </Box>

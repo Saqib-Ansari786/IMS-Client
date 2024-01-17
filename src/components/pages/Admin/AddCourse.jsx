@@ -7,11 +7,16 @@ import {
   Text,
   Button,
   Select,
+  Spinner,
+  useToast,
 } from "@chakra-ui/react";
 import apiMiddleware from "../../common/Server/apiMiddleware";
 import SuccessModal from "../Inventory_Admin/SucessModal";
+import { useDispatch } from "react-redux";
+import { fetchCourses } from "../../../store/redux-slices/courses_slice";
 
 export default function AddCourse() {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     courseCode: "",
     name: "",
@@ -22,6 +27,8 @@ export default function AddCourse() {
     category: "",
     description: "",
   });
+  const toast = useToast();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,40 +41,49 @@ export default function AddCourse() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // You can access the form data as an object with the specified properties.
-    console.log("Form Data:", formData);
-    setSuccessMessage("Course successfully added!");
-    setFormData({
-      courseCode: "",
-      name: "",
-      department: "",
-      strength: "",
-      duration: "", 
-      author: "",
-      category: "",
-      description: "",
-    });
-    setIsModalOpen(true);
 
-    const response = await apiMiddleware("admin/courses/course", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    console.log(response);
-    setFormData({
-      courseCode: "",
-      name: "",
-      department: "",
-      strength: "",
-      duration: "", // Duration is now a dropdown value
-      author: "",
-      category: "",
-      description: "",
-    });
+    try {
+      setLoading(true);
+      const response = await apiMiddleware("admin/courses/course", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      console.log(response);
+      if (response.success) {
+        toast({
+          title: "Course Added",
+          description: "Course has been added successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        dispatch(fetchCourses());
+      }
+      setFormData({
+        courseCode: "",
+        name: "",
+        department: "",
+        strength: "",
+        duration: "", // Duration is now a dropdown value
+        author: "",
+        category: "",
+        description: "",
+      });
+    } catch (error) {
+      console.log(error);
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+    setLoading(false);
   };
-  
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -91,6 +107,7 @@ export default function AddCourse() {
             placeholder="Enter Course Code"
             value={formData.courseCode}
             onChange={handleChange}
+            required
           />
         </FormControl>
         <FormControl isRequired mt={4}>
@@ -101,6 +118,7 @@ export default function AddCourse() {
             placeholder="Enter Course Name"
             value={formData.name}
             onChange={handleChange}
+            required
           />
         </FormControl>
         <FormControl isRequired mt={4}>
@@ -111,6 +129,7 @@ export default function AddCourse() {
             placeholder="Enter Department"
             value={formData.department}
             onChange={handleChange}
+            required
           />
         </FormControl>
         <FormControl isRequired mt={4}>
@@ -121,6 +140,7 @@ export default function AddCourse() {
             placeholder="Enter Strength"
             value={formData.strength}
             onChange={handleChange}
+            required
           />
         </FormControl>
         <FormControl isRequired mt={4}>
@@ -130,6 +150,7 @@ export default function AddCourse() {
             placeholder="Select Duration"
             value={formData.duration}
             onChange={handleChange}
+            required
           >
             <option value="7">7</option>
             <option value="14">14</option>
@@ -144,6 +165,7 @@ export default function AddCourse() {
             placeholder="Enter Author"
             value={formData.author}
             onChange={handleChange}
+            required
           />
         </FormControl>
         <FormControl isRequired mt={4}>
@@ -154,6 +176,7 @@ export default function AddCourse() {
             placeholder="Enter Category"
             value={formData.category}
             onChange={handleChange}
+            required
           />
         </FormControl>
         <FormControl isRequired mt={4}>
@@ -164,10 +187,21 @@ export default function AddCourse() {
             placeholder="Enter Description"
             value={formData.description}
             onChange={handleChange}
+            required
           />
         </FormControl>
         <Button type="submit" mt={6} colorScheme="blue" py={4} fontSize="1rem">
-          Add Course
+          {loading ? (
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.300"
+              size="md"
+            />
+          ) : (
+            "Add Course"
+          )}
         </Button>
       </form>
       <SuccessModal
