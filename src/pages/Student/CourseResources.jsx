@@ -7,14 +7,7 @@ import { useQuery } from "react-query";
 import apiMiddleware from "../../components/common/Server/apiMiddleware";
 
 const jsonData = {
-  headers: [
-    "TITLE",
-    "FILE TITLE",
-    "UPLOAD TIME",
-    "FILE SIZE",
-    "FILE TYPE",
-    "DOWNLOAD",
-  ],
+  headers: ["TITLE", "DESCRIPTION", "DOWNLOAD"],
   data: [
     {
       title: "Course Hand Book",
@@ -47,6 +40,7 @@ export default function CourseResources() {
     )
   );
   console.log(student);
+  console.log(studentCourseMaterials);
   const headers = jsonData.headers;
   return (
     <Stack minW="100%">

@@ -60,7 +60,7 @@ export const AttendanceDetail = () => {
       {isLoading ? (
         <Spinner />
       ) : isError ? (
-        <Text>There was an error fetching the data</Text>
+        <Text>No Data Found</Text>
       ) : (
         <StudentAttendaceTable header={headers} data={studentAttendance} />
       )}
