@@ -129,7 +129,7 @@ export default function StudentView({ headers, data, entries, search }) {
                     {row?.firstname + " " + row.lastname}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
-                    {row?.courseCode}
+                    {row?.courseId.name}
                   </Td>
                   <Td key={rowIndex} textAlign="center">
                     {row?.email}
